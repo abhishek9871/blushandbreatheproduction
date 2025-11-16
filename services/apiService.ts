@@ -375,9 +375,21 @@ const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, d
     }
 };
 
-const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1) => {
+const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1): Promise<{ data: T[], hasMore: boolean }> => {
     const cacheKey = `${key}_page_${page}`;
     const config = API_CONFIG[key];
+    try {
+        const v = localStorage.getItem('api_cache_version');
+        if (v !== '4') {
+            const toDelete: string[] = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const k = localStorage.key(i);
+                if (k && k.startsWith('api_cache_')) toDelete.push(k);
+            }
+            toDelete.forEach(k => localStorage.removeItem(k));
+            localStorage.setItem('api_cache_version', '4');
+        }
+    } catch (e) {}
     const cachedData = getCache<{ data: T[], hasMore: boolean }>(cacheKey, config.ttl);
     if (cachedData) {
         if (key === 'articles') {

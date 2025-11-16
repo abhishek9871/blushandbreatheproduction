@@ -1,0 +1,10 @@
+name = "hb-reader"
+main = "src/index.ts"
+compatibility_date = "2025-11-16"
+
+[vars]
+# Optional allowlist of hostnames (comma-separated). Empty = allow all.
+ALLOWED_HOSTS = ""
+
+[observability]
+enabled = true

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { allMockData, getArticleById } from '../services/apiService';
+import { fetchFullArticle } from '../services/fullArticle';
 import type { Article, Video } from '../types';
 import ErrorMessage from '../components/ErrorMessage';
 import ReadingProgressBar from '../components/ReadingProgressBar';
@@ -19,6 +20,8 @@ const ArticlePage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [relatedArticles, setRelatedArticles] = useState<Article[]>([]);
     const [relatedVideos, setRelatedVideos] = useState<Video[]>([]);
+    const [fullHtml, setFullHtml] = useState<string | null>(null);
+    const [fullTitle, setFullTitle] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         const fetchArticle = async () => {
@@ -46,6 +49,20 @@ const ArticlePage: React.FC = () => {
 
     useEffect(() => {
         if (!article) return;
+        let cancelled = false;
+        setFullHtml(null);
+        (async () => {
+            try {
+                const res = await fetchFullArticle(article.id);
+                if (!cancelled) {
+                    setFullTitle(res.title);
+                    if (res.html) setFullHtml(res.html);
+                }
+            } catch (e) {
+                if (!cancelled) setFullHtml(null);
+            }
+        })();
+        return () => { cancelled = true; };
 
         try {
             const relatedArticleItems = allMockData
@@ -107,11 +124,22 @@ const ArticlePage: React.FC = () => {
 
                     <img src={article.imageUrl} alt={article.title} className="w-full rounded-xl mb-8" />
                     
-                    <p className="lead">{article.description}</p>
-                    
-                    {article.content.split('\n').map((paragraph, index) => (
-                        <p key={index}>{paragraph}</p>
-                    ))}
+                    {fullHtml ? (
+                        <div>
+                            <div className="mb-6" dangerouslySetInnerHTML={{ __html: fullHtml }} />
+                            <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                                Source: <a href={article.id} target="_blank" rel="noopener noreferrer">{new URL(article.id).hostname}</a>
+                            </p>
+                        </div>
+                    ) : (
+                        <>
+                            <p className="lead">{article.description}</p>
+                            {article.content.split('\n').map((paragraph, index) => (
+                                <p key={index}>{paragraph}</p>
+                            ))}
+                            <p className="text-sm mt-4">Read full article on <a href={article.id} target="_blank" rel="noopener noreferrer">{new URL(article.id).hostname}</a></p>
+                        </>
+                    )}
                 </div>
                 {(relatedArticles.length > 0 || relatedVideos.length > 0) && (
                     <div className="mt-12 not-prose border-t border-border-light dark:border-border-dark pt-8">

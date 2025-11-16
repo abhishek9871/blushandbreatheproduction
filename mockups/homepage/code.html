@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HealthBeauty Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#2DD4BF",
+            "background-light": "#FFFFFF",
+            "background-dark": "#111827",
+            "secondary": "#F472B6",
+            "accent": "#FBBF24",
+            "text-light": "#1F2937",
+            "text-dark": "#F9FAFB",
+            "border-light": "#E5E7EB",
+            "border-dark": "#374151"
+          },
+          fontFamily: {
+            "display": ["Lexend", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "0.75rem",
+            "xl": "1rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<a class="flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-primary text-3xl">spa</span>
+<span class="text-xl font-bold tracking-tight">HealthBeauty Hub</span>
+</a>
+<nav class="hidden md:flex flex-1 justify-center items-center gap-2 lg:gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors px-3 py-2 rounded-md" href="#">Home</a>
+<a class="text-sm font-medium hover:text-primary transition-colors px-3 py-2 rounded-md" href="#">Health</a>
+<a class="text-sm font-medium hover:text-primary transition-colors px-3 py-2 rounded-md" href="#">Beauty</a>
+<a class="text-sm font-medium hover:text-primary transition-colors px-3 py-2 rounded-md" href="#">Nutrition</a>
+<a class="text-sm font-medium hover:text-primary transition-colors px-3 py-2 rounded-md" href="#">Videos</a>
+</nav>
+<div class="flex items-center gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-11 w-11 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-xl">search</span>
+</button>
+<button class="md:hidden flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-11 w-11 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-xl">menu</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+<section class="w-full">
+<div class="flex min-h-[500px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center text-center px-6 py-10" style="background-image: linear-gradient(to top, rgba(15, 118, 110, 0.8) 0%, rgba(45, 212, 191, 0.6) 100%);">
+<div class="flex flex-col gap-4 max-w-3xl">
+<h1 class="text-white text-4xl font-black leading-tight tracking-tight md:text-6xl">The Ultimate Guide to Mindful Skincare</h1>
+<p class="text-white/90 text-base font-normal leading-relaxed md:text-lg">Discover the secrets to a radiant complexion and a calm mind with our comprehensive guide to skincare rituals.</p>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 mt-4 bg-white text-primary text-base font-bold leading-normal tracking-wide shadow-lg hover:bg-gray-200 transition-all transform hover:scale-105">
+<span class="truncate">Read Full Article</span>
+</button>
+</div>
+</section>
+<section class="py-12 md:py-16">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<a class="flex flex-1 gap-4 rounded-xl border-t-4 border-primary bg-background-light dark:bg-background-dark p-6 flex-col shadow-sm hover:shadow-lg transition-shadow" href="#">
+<div class="text-primary"><span class="material-symbols-outlined text-3xl">local_hospital</span></div>
+<div class="flex flex-col gap-1">
+<h2 class="text-lg font-bold">Health</h2>
+<p class="text-text-light/80 dark:text-text-dark/80 text-sm font-normal leading-normal">Explore articles and tips for a healthier lifestyle.</p>
+</div>
+</a>
+<a class="flex flex-1 gap-4 rounded-xl border-t-4 border-secondary bg-background-light dark:bg-background-dark p-6 flex-col shadow-sm hover:shadow-lg transition-shadow" href="#">
+<div class="text-secondary"><span class="material-symbols-outlined text-3xl">face_4</span></div>
+<div class="flex flex-col gap-1">
+<h2 class="text-lg font-bold">Beauty</h2>
+<p class="text-text-light/80 dark:text-text-dark/80 text-sm font-normal leading-normal">Discover the latest beauty trends and skincare advice.</p>
+</div>
+</a>
+<a class="flex flex-1 gap-4 rounded-xl border-t-4 border-accent bg-background-light dark:bg-background-dark p-6 flex-col shadow-sm hover:shadow-lg transition-shadow" href="#">
+<div class="text-accent"><span class="material-symbols-outlined text-3xl">restaurant</span></div>
+<div class="flex flex-col gap-1">
+<h2 class="text-lg font-bold">Nutrition</h2>
+<p class="text-text-light/80 dark:text-text-dark/80 text-sm font-normal leading-normal">Find delicious recipes and expert nutrition guides.</p>
+</div>
+</a>
+</div>
+</section>
+<section class="py-8">
+<h2 class="text-2xl font-bold tracking-tight pb-6">Featured Articles</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<a class="flex flex-col gap-4 group" href="#">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg overflow-hidden transform group-hover:scale-105 transition-transform duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJp-28LBYFJ1Cj4zJHLleUXRS_g1I9R0NeS-Vko8xGDOF1tqT-7OlroH0FCqRvyApi1rqdoh3oef6NcKPsj3l7yCznI8xVFce03tFfJns67sNUaUGcF4Ae-kRQ_G2J7bg93PeJc2P2QKKzyHm1fkJP26Xt2Z3v9GZ3xUsX5RUhm9gG6WAYmg6-NSLmumr5wa6JNP1FlVGmEi0gHGeB4_DvrPc5rrJFsNHeMdA6Ur8BqAyHIcNDJMaRvuBktINraKsDKAXkwDHY23A');"></div>
+<div>
+<p class="text-accent text-xs font-bold uppercase tracking-wider">Nutrition</p>
+<p class="text-lg font-semibold leading-normal mt-1">10 Foods That Boost Your Immune System</p>
+</div>
+</a>
+<a class="flex flex-col gap-4 group" href="#">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg overflow-hidden transform group-hover:scale-105 transition-transform duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBagE8cZ56M9DDneDGk8aHit6XDiw9OZf3zEMV50ib2GJ4nDIS6XId22zOFX1T5M7WIEJGZUf65QI6UUNzMDEuqE558xrGtTn9UN_-thDJzpO90uPN7fQFgQyyriiomYW2jQ_uKBYld2ZMrY4FUb4oCfgg3PNPj69ImxSQEYLHvE7AmRoCj6XSApi-gZmwKEenXBkQg9dZlioBC4XQSO9HJMw7JwEpAJt8o0pHqqlRcohi5sGouqyHEzUJX3zYp0Gffot9aRvdJ8es');"></div>
+<div>
+<p class="text-secondary text-xs font-bold uppercase tracking-wider">Beauty</p>
+<p class="text-lg font-semibold leading-normal mt-1">Summer Beauty: How to Protect Your Skin</p>
+</div>
+</a>
+<a class="flex flex-col gap-4 group" href="#">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg overflow-hidden transform group-hover:scale-105 transition-transform duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDipBxvQo8foXek2s-VB8y9jX0IDhMhUJdB-yOFRyMa2-EkrwzgG9rhcar0g6i_tPxVgIf85bL11Yr6Hb74l-PZdoZ8ohunSWPzwA95vpMrlCjoRViJzCnU-QnfUGPHVwAgeb-X7RE31Cq4BmF4UyIRzNRwY5ENTT6KKEtT223YlJbQNhgIkPSMQAYICMEEXMsY8IfRGNwc1bhe9eheI92uOy2uDlH4L3FjmrpOMcOImbZ3PKKk6ZyHaJ60y1N3FkSh14SoDtPt8cc');"></div>
+<div>
+<p class="text-primary text-xs font-bold uppercase tracking-wider">Health</p>
+<p class="text-lg font-semibold leading-normal mt-1">The Beginner's Guide to Yoga</p>
+</div>
+</a>
+</div>
+</section>
+</div>
+</main>
+<footer class="mt-16 py-8 border-t border-border-light dark:border-border-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-text-light/70 dark:text-text-dark/70">
+<p>© 2026 HealthBeauty Hub. All rights reserved.</p>
+<div class="flex justify-center gap-2 sm:gap-6 mt-4">
+<a class="hover:text-primary transition-colors px-3 py-2 rounded-md" href="#">About Us</a>
+<a class="hover:text-primary transition-colors px-3 py-2 rounded-md" href="#">Contact</a>
+<a class="hover:text-primary transition-colors px-3 py-2 rounded-md" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+
+</body></html>

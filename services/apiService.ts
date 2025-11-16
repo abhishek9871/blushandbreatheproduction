@@ -13,16 +13,18 @@ const mockArticles: (Article & { contentType: 'Article' })[] = [
     { id: 'article-8', title: 'Summer Beauty: How to Protect Your Skin', description: 'Keep your skin healthy and glowing all summer long with these essential tips.', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBagE8cZ56M9DDneDGk8aHit6XDiw9OZf3zEMV50ib2GJ4nDIS6XId22zOFX1T5M7WIEJGZUf65QI6UUNzMDEuqE558xrGtTn9UN_-thDJzpO90uPN7fQFgQyyriiomYW2jQ_uKBYld2ZMrY4FUb4oCfgg3PNPj69ImxSQEYLHvE7AmRoCj6XSApi-gZmwKEenXBkQg9dZlioBC4XQSO9HJMw7JwEpAJt8o0pHqqlRcohi5sGouqyHEzUJX3zYp0Gffot9aRvdJ8es', category: 'Skincare', date: 'Oct 12, 2026', contentType: 'Article', content: 'Summer fun can be harsh on your skin. The most important step is to wear a broad-spectrum sunscreen with at least SPF 30 every day, and reapply every two hours. Opt for lightweight, oil-free moisturizers to avoid clogged pores. A vitamin C serum in the morning can help protect against environmental damage. After a day in the sun, soothe your skin with an aloe vera-based product to reduce inflammation.' },
 ];
 const mockProducts: (Product & { contentType: 'Product' })[] = [
-    { id: 'product-1', brand: 'GlowBrand', name: 'Radiant Glow Serum', rating: 4.5, reviews: 1289, price: 42.00, imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBBRBDPPSzNwx6znlaOY4mOANZ5-wbVAjT3fLlPobz56k1nIopQiL6iWB8QjeM5FtlH5YapZEDslWX0EEVGwmzLPfg33P0Q6lEB0ChslnROLrgCTOf2NIDiEc4PWKMoJCPEzK-4UBvpa3_maIrS4yfA73bQSLVMcplYPyF45lOY985jXe1EIfZSuRvSEPJ_jNpfUsEG6dhkeSvfrotlsjJrUFrzxh1VNWoHKHPj1sRq5IccfeudVwwfKTVpf7tRX7q6tNuyQfgKZfM', contentType: 'Product' },
-    { id: 'product-2', brand: 'Chic Cosmetics', name: 'Velvet Matte Lipstick', rating: 5, reviews: 975, price: 28.50, imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBFtZIJPl626hbLgOkbkeiV4CCTifxDXQ3UHPcrlcxvQM8xDzHxxLRABWFvBFw5LNKVKKvH5HE2WrF57JZXkzumpcYQfEoFXAhCh96QUGouSc4-oP10IJpMYnGzFsXZhyC9ID9mI7n-w8_wyXAXnwJR5nKPkuXBLGl9uqrzMAdVaIWONCa3iJXpOWYO3ok0huIh9KVIX1RR4YfgViYJy_WFWRL-8dW2l8f-aCZ5fVfZpaO5gcp_c5aHkabhvPxEMBbDSykWSn5orLc', contentType: 'Product' },
-    { id: 'product-3', brand: 'Aura Beauty', name: 'Flawless Finish Foundation', rating: 5, reviews: 2041, price: 55.00, imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDW34SWvbtSRPOpYkwlq-Miocyd8qaKb10cANBKvkfIP5V93NnWgBWe2k5NsP2MN0hauSM28djIvlTi-Jaehn4wEZp1_nGOJdvD4d838PtvI1YFFQlu8ViJet-tlgomBc06nSvKq5R9mSoJzBroanhA4Zn8IzyJ65gTtjU6XRorxCxSQbjb2r0O52H7Kq_gfLNkIQKUj_7MQCmft-mi4H_qHcIQj8a1g0Q0_v2YtXaOYTHwAENhU3ElNsJTmDiO1RIsd2P0Rdhyn3Y', contentType: 'Product' },
-    { id: 'product-4', brand: 'Vivid', name: 'Sunset Eyeshadow Palette', rating: 4.5, reviews: 892, price: 39.99, imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDmxR7S5hn77FugnScpZ2cDe6evm6afeVPQ6tmEZaUJ18HNPN0NopYyNgLGCW-NmDGNYKBUSgps9stcL43WNH6qrdgCNd-8mMc0MDLHv8KMrTIKsWarl79Gh-aqs3AwWcDGZn0fvK6FfYCtWxX116UdJOimChOHEbRoMjjrDBaFTjI3fRe9SEUhNKDK492rCHFiFMxwkIuQ4GeK1xZKZOSN2IY3ngbw-_5wxKv6nO8m6IzK5MnBkby2DkDWW4Gj4K9fB-aYWmnTZ74', contentType: 'Product' },
+    { id: 'product-1', brand: 'GlowBrand', category: 'Serum', name: 'Radiant Glow Serum', rating: 4.5, reviews: 1289, price: 42.00, imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBBRBDPPSzNwx6znlaOY4mOANZ5-wbVAjT3fLlPobz56k1nIopQiL6iWB8QjeM5FtlH5YapZEDslWX0EEVGwmzLPfg33P0Q6lEB0ChslnROLrgCTOf2NIDiEc4PWKMoJCPEzK-4UBvpa3_maIrS4yfA73bQSLVMcplYPyF45lOY985jXe1EIfZSuRvSEPJ_jNpfUsEG6dhkeSvfrotlsjJrUFrzxh1VNWoHKHPj1sRq5IccfeudVwwfKTVpf7tRX7q6tNuyQfgKZfM', contentType: 'Product' },
+    { id: 'product-2', brand: 'Chic Cosmetics', category: 'Lipstick', name: 'Velvet Matte Lipstick', rating: 5, reviews: 975, price: 28.50, imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBFtZIJPl626hbLgOkbkeiV4CCTifxDXQ3UHPcrlcxvQM8xDzHxxLRABWFvBFw5LNKVKKvH5HE2WrF57JZXkzumpcYQfEoFXAhCh96QUGouSc4-oP10IJpMYnGzFsXZhyC9ID9mI7n-w8_wyXAXnwJR5nKPkuXBLGl9uqrzMAdVaIWONCa3iJXpOWYO3ok0huIh9KVIX1RR4YfgViYJy_WFWRL-8dW2l8f-aCZ5fVfZpaO5gcp_c5aHkabhvPxEMBbDSykWSn5orLc', contentType: 'Product' },
+    { id: 'product-3', brand: 'Aura Beauty', category: 'Foundation', name: 'Flawless Finish Foundation', rating: 5, reviews: 2041, price: 55.00, imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDW34SWvbtSRPOpYkwlq-Miocyd8qaKb10cANBKvkfIP5V93NnWgBWe2k5NsP2MN0hauSM28djIvlTi-Jaehn4wEZp1_nGOJdvD4d838PtvI1YFFQlu8ViJet-tlgomBc06nSvKq5R9mSoJzBroanhA4Zn8IzyJ65gTtjU6XRorxCxSQbjb2r0O52H7Kq_gfLNkIQKUj_7MQCmft-mi4H_qHcIQj8a1g0Q0_v2YtXaOYTHwAENhU3ElNsJTmDiO1RIsd2P0Rdhyn3Y', contentType: 'Product' },
+    { id: 'product-4', brand: 'Vivid', category: 'Eyeshadow', name: 'Sunset Eyeshadow Palette', rating: 4.5, reviews: 892, price: 39.99, imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDmxR7S5hn77FugnScpZ2cDe6evm6afeVPQ6tmEZaUJ18HNPN0NopYyNgLGCW-NmDGNYKBUSgps9stcL43WNH6qrdgCNd-8mMc0MDLHv8KMrTIKsWarl79Gh-aqs3AwWcDGZn0fvK6FfYCtWxX116UdJOimChOHEbRoMjjrDBaFTjI3fRe9SEUhNKDK492rCHFiFMxwkIuQ4GeK1xZKZOSN2IY3ngbw-_5wxKv6nO8m6IzK5MnBkby2DkDWW4Gj4K9fB-aYWmnTZ74', contentType: 'Product' },
 ];
+
 const mockTutorials: (Tutorial & { contentType: 'Tutorial' })[] = [
     { id: 'tutorial-1', category: 'Tutorial', title: 'The Ultimate Guide to a Flawless Foundation Application', description: 'Learn the secrets to achieving a smooth, long-lasting base with our step-by-step tutorial.', date: 'Oct 26, 2026', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA6-xEPzecn7NiNliI4HLn3dNxdZNRpvZsSVuozDRiRtrJnByQp41c5ZEHoyk7IgDUl8LWaax84Ij-7VVLl1xAWM3OtASJCh5sryTm3A49ZUQGXIVmkv27P5iA4hahGca66n-RWCwMr9SKwKsc5jlgJ4qnpTwjY_RL3ZHTm9yDBEMpGEFz8ZUHJrOhkwPf58Mky66r-cczBPm6LR0l4cuPrC9wMM_Jdlfz0TgBJlc48fEfrdzJpH9kVolTa-VJvJIeDSV1oHqpJPhI', contentType: 'Tutorial' },
     { id: 'tutorial-2', category: 'Tips', title: '5 Skincare Habits to Adopt for a Healthy Glow', description: 'Incorporate these simple yet effective habits into your daily routine for radiant skin.', date: 'Oct 22, 2026', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQWFHH7Uj3YuzhEn-6ae0Om0pEteTKpsLm_XTYpm7uRutmYK40Ww_OpL7I09nLmZZkBNsNjmPycFhyYR4xuT2ka9uxyfEgYmgKfdIZ-zfq7kYhP6yzUJPdlOKV8ClLv-_FLD5-vHc5UwVBQH8TX29Vc5igjCACUx9gG613TlcecmbvAxX3yyRc01B7ViuYeT5Z-fIOZeKW7UMNCZ7iQZg7dE0jkATs3del1-kP6l4d_FJyLfHW6wbEwe71tKEnAtHOqXjG4QaecJk', contentType: 'Tutorial' },
     { id: 'tutorial-3', category: 'Advice', title: 'How to Find Your Perfect Foundation Shade Online', description: "Shopping for foundation online can be tricky. Here's how to get it right every time.", date: 'Oct 19, 2026', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDCHrVXOfaPQY7Ha-bFDntBOWKAua5QrnOmgLikFb8ZlRNTb2aJCIdb9OAu_uZEHjUjWRyfFaIb1VAA6nRIJSdkWQ_KO_F_WcVdK1HojU52lznzfsgW8D3bstP7ko_ZdPJz6InXve_eTuTr2wR0nPglvBnaceUYHKBjzOu1okw3WcI_HrfwLiPmvt-jfZkUsiG4eYQqR5cS6fnTBPcqMkyFCWkgghMzrjIrrBjaqWkg7cM6mV1mcIcbxKVKr4Nyw9li3sTaQTaFwg4', contentType: 'Tutorial' },
 ];
+
 const mockNutritionData: ((NutritionInfo | TipCard) & { contentType: 'Nutrition' })[] = [
     { id: 'nutrition-1', name: 'Avocado', description: 'A nutrient-dense fruit, rich in healthy fats, fiber, and essential vitamins.', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB4eg0y_vwFIDzyQL7_Ip6-ndmNAGgAZGojP3QS_oncs6V-icTGsWPj-hJZyGEhQfByfP07uN0J-hy5orqUysBxyHiSmpEhJqlhQQimZDyROx8_Cec8EyV73cYsIqDcrXznH1psDFBFWCJds9zOhk1ZrjfgA7u4z5Punx4X9jItU-bMiBZZe0XK1nGSXe7FB5GDt-iXZvQbLVTX9XU_jX8nj19hIX3NM7OrXt9v-hh_P7e4ZKbo1apMIPBXMzdpHJQuokXVeLXT6Xw', nutrients: { protein: 2, carbs: 9, fats: 15 }, contentType: 'Nutrition' },
     { id: 'nutrition-2', type: 'tip', title: 'Stay Hydrated!', description: 'Drinking enough water daily is crucial.', icon: 'water_drop', contentType: 'Nutrition' },
@@ -42,7 +44,221 @@ const mockVideos: (Video & { contentType: 'Video' })[] = Array.from({ length: 20
 // Fix: Export allMockData so it can be used in other modules like useBookmarks.
 export const allMockData = [...mockArticles, ...mockProducts, ...mockTutorials, ...mockNutritionData, ...mockVideos];
 
-// --- CONFIG ---
+// --- EXTERNAL API CONFIG ---
+const NEWS_API_KEY = import.meta.env.VITE_NEWSAPI_KEY as string | undefined;
+const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY as string | undefined;
+const API_NINJAS_KEY = import.meta.env.VITE_API_NINJAS_KEY as string | undefined;
+const IS_DEV = import.meta.env.DEV;
+
+const NEWS_API_BASE_URL = IS_DEV ? '/newsapi/v2' : 'https://newsapi.org/v2';
+const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
+const API_NINJAS_BASE_URL = IS_DEV ? '/ninjas' : 'https://api.api-ninjas.com/v1';
+const OPEN_BEAUTY_FACTS_BASE_URL = 'https://world.openbeautyfacts.org/cgi';
+
+interface NewsApiArticle {
+    url: string;
+    title: string;
+    description: string | null;
+    urlToImage: string | null;
+    publishedAt: string;
+    content: string | null;
+}
+
+interface NewsApiResponse {
+    status?: string;
+    code?: string;
+    message?: string;
+    totalResults?: number;
+    articles?: NewsApiArticle[];
+}
+
+interface YouTubeSearchItem {
+    id: { videoId: string };
+    snippet: {
+        title: string;
+        description: string;
+        thumbnails: {
+            default?: { url: string };
+            medium?: { url: string };
+            high?: { url: string };
+        };
+    };
+}
+
+interface YouTubeSearchResponse {
+    items: YouTubeSearchItem[];
+}
+
+interface OpenBeautyFactsResponse {
+    count?: number;
+    page?: number;
+    page_size?: number;
+    products?: Array<{
+        code?: string;
+        brands?: string;
+        product_name?: string;
+        generic_name?: string;
+        image_front_url?: string;
+        image_url?: string;
+        categories_tags?: string[];
+    }>;
+}
+
+const cleanNewsApiText = (text: string | null | undefined): string => {
+    if (!text) return '';
+    return text.replace(/\s*\[\+\d+\s*chars\]$/i, '').trim();
+};
+
+const fetchArticlesFromNewsAPI = async (page: number, pageSize: number): Promise<{ data: Article[]; hasMore: boolean }> => {
+    if (!NEWS_API_KEY) {
+        throw new Error('Missing NEWS API key');
+    }
+
+    const url = new URL(`${NEWS_API_BASE_URL}/top-headlines`, window.location.origin);
+
+    url.searchParams.set('category', 'health');
+    url.searchParams.set('language', 'en');
+    url.searchParams.set('country', 'us');
+    url.searchParams.set('page', String(page));
+    url.searchParams.set('pageSize', String(pageSize));
+    // In production (no dev proxy), include the API key as a query param
+    if (!IS_DEV) {
+        url.searchParams.set('apiKey', NEWS_API_KEY);
+    }
+
+    const response = await fetch(url.toString());
+    if (!response.ok) {
+        throw new Error(`NewsAPI error: ${response.status}`);
+    }
+
+    const json = await response.json() as NewsApiResponse;
+    if (json.status === 'error') {
+        console.error('NewsAPI responded with an error', { code: json.code, message: json.message });
+        throw new Error(json.message || 'NewsAPI responded with an error');
+    }
+    const fallbackImage = mockArticles[0]?.imageUrl || '';
+
+    const articles: Article[] = (json.articles || []).map((item) => ({
+        id: item.url,
+        title: item.title || 'Untitled article',
+        description: cleanNewsApiText(item.description || item.content || ''),
+        imageUrl: item.urlToImage || fallbackImage,
+        category: 'Health',
+        date: item.publishedAt || new Date().toISOString(),
+        content: cleanNewsApiText(item.content || item.description || ''),
+    }));
+
+    const totalResults = json.totalResults ?? articles.length;
+    const hasMore = page * pageSize < totalResults;
+    return { data: articles, hasMore };
+};
+
+const fetchVideosFromYouTube = async (page: number, pageSize: number): Promise<{ data: Video[]; hasMore: boolean }> => {
+    if (!YOUTUBE_API_KEY) {
+        throw new Error('Missing YouTube API key');
+    }
+
+    const params = new URLSearchParams({
+        part: 'snippet',
+        type: 'video',
+        q: 'health beauty skincare wellness nutrition',
+        maxResults: String(pageSize),
+        key: YOUTUBE_API_KEY,
+    });
+
+    const response = await fetch(`${YOUTUBE_API_BASE_URL}/search?${params.toString()}`);
+    if (!response.ok) {
+        throw new Error(`YouTube API error: ${response.status}`);
+    }
+
+    const json = await response.json() as { items: Array<{ id: { videoId: string }, snippet: { title: string, description: string, thumbnails: { medium?: { url: string }, high?: { url: string }, default?: { url: string } } } }> };
+    const fallbackImage = mockVideos[0]?.imageUrl || '';
+
+    const videos: Video[] = (json.items || []).map((item) => ({
+        id: item.id.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        imageUrl:
+            item.snippet.thumbnails.medium?.url ||
+            item.snippet.thumbnails.high?.url ||
+            item.snippet.thumbnails.default?.url ||
+            fallbackImage,
+        duration: '10:00',
+    }));
+
+    const hasMore = videos.length === pageSize;
+    return { data: videos, hasMore };
+};
+
+const fetchProductsFromOpenBeautyFacts = async (page: number, pageSize: number): Promise<{ data: Product[]; hasMore: boolean }> => {
+    const params = new URLSearchParams({
+        search_terms: 'makeup skincare beauty',
+        search_simple: '1',
+        action: 'process',
+        page_size: String(pageSize),
+        page: String(page),
+        json: '1',
+    });
+    const url = `${OPEN_BEAUTY_FACTS_BASE_URL}/search.pl?${params.toString()}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`OpenBeautyFacts error: ${response.status}`);
+    }
+    const json = await response.json() as OpenBeautyFactsResponse;
+    const list = json.products || [];
+    const products: Product[] = list.map((p, i) => {
+        const brand = (p.brands || '').split(',')[0]?.trim() || 'Brand';
+        const name = p.product_name || p.generic_name || 'Product';
+        const img = p.image_front_url || p.image_url || mockProducts[0]?.imageUrl || '';
+        const catTag = (p.categories_tags || []).find(t => t.startsWith('en:')) || '';
+        const category = catTag ? catTag.replace('en:', '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Beauty';
+        const rating = 4 + ((i % 3) * 0.5);
+        const reviews = 500 + (i * 7);
+        const price = 12 + (i % 5) * 3;
+        return { id: p.code || `${name}-${i}`, brand, category, name, rating, reviews, price, imageUrl: img } as Product;
+    });
+    const total = json.count ?? (page * pageSize + products.length);
+    const hasMore = page * pageSize < total;
+    return { data: products, hasMore };
+};
+
+const NUTRITION_FOODS = ['Avocado', 'Blueberries', 'Salmon', 'Kale', 'Almonds', 'Oats', 'Quinoa', 'Spinach'];
+
+const fetchNutritionFromApiNinjas = async (page: number, pageSize: number): Promise<{ data: (NutritionInfo | TipCard)[]; hasMore: boolean }> => {
+    if (!API_NINJAS_KEY) {
+        throw new Error('Missing API Ninjas key');
+    }
+
+    const start = (page - 1) * pageSize;
+    const foodsSlice = NUTRITION_FOODS.slice(start, start + pageSize);
+    if (foodsSlice.length === 0) {
+        return { data: [], hasMore: false };
+    }
+
+    const query = foodsSlice.join(',');
+    const response = await fetch(`${API_NINJAS_BASE_URL}/nutrition?query=${encodeURIComponent(query)}`, {
+        headers: IS_DEV ? {} : { 'X-Api-Key': API_NINJAS_KEY },
+    });
+    if (!response.ok) {
+        throw new Error(`API Ninjas error: ${response.status}`);
+    }
+    const json = await response.json() as any[];
+    const toNum = (v: any) => typeof v === 'number' ? v : (typeof v === 'string' ? Number.parseFloat(v) : 0);
+    const data: NutritionInfo[] = json.map((item, index) => ({
+        id: `${item.name || 'food'}-${start + index}`,
+        name: item.name || 'Food',
+        description: `Approximate nutrition facts per ${item.serving_size_g || 100}g of ${item.name || 'this food'}.`,
+        imageUrl: '',
+        nutrients: {
+            protein: Number.isFinite(toNum(item.protein_g)) ? toNum(item.protein_g) : 0,
+            carbs: Number.isFinite(toNum(item.carbohydrates_total_g)) ? toNum(item.carbohydrates_total_g) : 0,
+            fats: Number.isFinite(toNum(item.fat_total_g)) ? toNum(item.fat_total_g) : 0,
+        },
+    }));
+    const hasMore = start + pageSize < NUTRITION_FOODS.length;
+    return { data, hasMore };
+};
+
 const API_CONFIG = {
     'articles': { ttl: 1000 * 60 * 60 * 24, fallbackData: mockArticles, pageSize: 8, total: mockArticles.length, limit: 100 },
     'products': { ttl: 1000 * 60 * 60 * 24 * 30, fallbackData: mockProducts, pageSize: 4, total: mockProducts.length, limit: Infinity },
@@ -53,16 +269,14 @@ const API_CONFIG = {
 
 type ApiResourceKey = keyof typeof API_CONFIG;
 
-// --- EVENT DISPATCHER for rate limit updates ---
 export const apiStatusEvent = new EventTarget();
 
-// --- CACHING LOGIC ---
 const setCache = (key: string, data: unknown) => {
     try {
-        const cacheEntry = { timestamp: new Date().getTime(), data };
+        const cacheEntry = { timestamp: Date.now(), data };
         localStorage.setItem(`api_cache_${key}`, JSON.stringify(cacheEntry));
     } catch (e) {
-        console.error("Failed to write to localStorage", e);
+        console.error('Failed to write to localStorage', e);
     }
 };
 
@@ -71,24 +285,23 @@ const getCache = <T>(key: string, ttl: number): T | null => {
         const cached = localStorage.getItem(`api_cache_${key}`);
         if (!cached) return null;
         const { timestamp, data } = JSON.parse(cached);
-        if (new Date().getTime() - timestamp > ttl) {
+        if (Date.now() - timestamp > ttl) {
             localStorage.removeItem(`api_cache_${key}`);
             return null;
         }
         return data as T;
     } catch (e) {
-        console.error("Failed to read from localStorage", e);
+        console.error('Failed to read from localStorage', e);
         return null;
     }
 };
 
-// --- RATE LIMITING LOGIC ---
 const getRateLimitUsage = () => {
     try {
         const usage = localStorage.getItem('api_rate_limit_usage');
         return usage ? JSON.parse(usage) : {};
     } catch (e) {
-        console.error("Failed to read rate limit usage from localStorage", e);
+        console.error('Failed to read rate limit usage from localStorage', e);
         return {};
     }
 };
@@ -103,72 +316,82 @@ const trackRateLimit = (key: ApiResourceKey) => {
             usage[key].count = 0;
             usage[key].reset = new Date().getTime() + 1000 * 60 * 60 * 24;
         }
+        const limit = API_CONFIG[key].limit;
+        if (limit !== Infinity && usage[key].count >= limit) {
+            localStorage.setItem('api_rate_limit_usage', JSON.stringify(usage));
+            apiStatusEvent.dispatchEvent(new CustomEvent('update', { detail: getRateLimitStatus() }));
+            return false;
+        }
         usage[key].count += 1;
         localStorage.setItem('api_rate_limit_usage', JSON.stringify(usage));
         apiStatusEvent.dispatchEvent(new CustomEvent('update', { detail: getRateLimitStatus() }));
+        return true;
     } catch (e) {
-        console.error("Failed to write rate limit usage to localStorage", e);
+        console.error('Failed to write rate limit usage to localStorage', e);
+        return true;
     }
 };
 
 export const getRateLimitStatus = () => {
     const usage = getRateLimitUsage();
-    // Fix: Explicitly type the initial accumulator for reduce. This ensures the function's
-    // return type is correctly inferred, preventing type errors in components that use this data.
     const initialValue = {} as Record<ApiResourceKey, { used: number, limit: number }>;
     return Object.keys(API_CONFIG).reduce((acc, key) => {
         const k = key as ApiResourceKey;
-        const currentUsage = usage[k] as {count: number} | undefined;
-        acc[k] = {
-            used: currentUsage?.count || 0,
-            limit: API_CONFIG[k].limit,
-        };
+        const currentUsage = (usage as any)[k] as { count: number } | undefined;
+        acc[k] = { used: currentUsage?.count || 0, limit: API_CONFIG[k].limit };
         return acc;
     }, initialValue);
 };
 
-
-// --- CORE API FETCHER with Retries and Fallback ---
 const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, delay = 500): Promise<{ data: T[], hasMore: boolean }> => {
-    trackRateLimit(key);
-    
-    if (Math.random() < 0.1) {
-      console.error(`Simulating API failure for ${key}`);
-      if (retries > 0) {
-        console.log(`Retrying... (${retries} attempts left)`);
-        await new Promise(res => setTimeout(res, delay));
-        return apiFetch(key, page, retries - 1, delay * 2);
-      } else {
-        throw new Error(`API for ${key} failed after multiple retries.`);
-      }
+    const withinLimit = trackRateLimit(key);
+    if (!withinLimit) {
+        throw new Error(`Rate limit exceeded for ${key}`);
     }
-
-    await new Promise(res => setTimeout(res, 300 + Math.random() * 500));
-    
-    const { fallbackData, pageSize } = API_CONFIG[key];
-    const start = (page - 1) * pageSize;
-    const end = start + pageSize;
-    const data = fallbackData.slice(start, end);
-    const hasMore = end < fallbackData.length;
-    
-    return { data: data as T[], hasMore };
+    const config = API_CONFIG[key];
+    try {
+        await new Promise(res => setTimeout(res, 300 + Math.random() * 500));
+        switch (key) {
+            case 'articles': return await fetchArticlesFromNewsAPI(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
+            case 'products': return await fetchProductsFromOpenBeautyFacts(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
+            case 'videos': return await fetchVideosFromYouTube(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
+            case 'nutrition': return await fetchNutritionFromApiNinjas(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
+            default: {
+                const start = (page - 1) * config.pageSize;
+                const end = start + config.pageSize;
+                const data = config.fallbackData.slice(start, end) as T[];
+                const hasMore = end < config.fallbackData.length;
+                return { data, hasMore };
+            }
+        }
+    } catch (error) {
+        console.error(`apiFetch error for ${key} (page ${page}, retries left ${retries}):`, error);
+        if (retries > 0) {
+            await new Promise(res => setTimeout(res, delay));
+            return apiFetch(key, page, retries - 1, delay * 2);
+        }
+        console.error(`apiFetch giving up for ${key} after retries`, { key, page });
+        throw error;
+    }
 };
 
 const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1) => {
     const cacheKey = `${key}_page_${page}`;
     const config = API_CONFIG[key];
-
     const cachedData = getCache<{ data: T[], hasMore: boolean }>(cacheKey, config.ttl);
     if (cachedData) {
+        if (key === 'articles') {
+            const sanitized = { ...cachedData, data: (cachedData.data as unknown as Article[]).map(sanitizeArticle) as unknown as T[] };
+            return sanitized;
+        }
         return cachedData;
     }
-    
     try {
         const result = await apiFetch<T>(key, page);
         setCache(cacheKey, result);
         return result;
     } catch (error) {
-        console.error(error);
+        console.error(`fetchDataWithCache falling back to mock data for ${key} (page ${page}):`, error);
         const { fallbackData, pageSize } = config;
         const start = (page - 1) * pageSize;
         const end = start + pageSize;
@@ -178,18 +401,75 @@ const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1) => {
     }
 };
 
-// --- EXPORTED API FUNCTIONS ---
 export const getArticles = (page: number) => fetchDataWithCache<Article>('articles', page);
 export const getProducts = (page: number) => fetchDataWithCache<Product>('products', page);
 export const getTutorials = (page: number) => fetchDataWithCache<Tutorial>('tutorials', page);
-export const getNutritionData = () => fetchDataWithCache<(NutritionInfo | TipCard)>('nutrition');
+export const getNutritionData = (page: number) => fetchDataWithCache<(NutritionInfo | TipCard)>('nutrition', page);
 export const getVideos = (page: number) => fetchDataWithCache<Video>('videos', page);
 
 export const getFeaturedArticles = () => fetchDataWithCache<Article>('articles', 1).then(res => ({ ...res, data: res.data.slice(0, 3) }));
 
+const sanitizeArticle = (a: Article): Article => ({
+    ...a,
+    content: cleanNewsApiText(a.content),
+    description: cleanNewsApiText(a.description),
+});
+
+const findArticleInCacheById = (id: string): Article | undefined => {
+    try {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (!key || !key.startsWith('api_cache_articles_page_')) continue;
+            const raw = localStorage.getItem(key);
+            if (!raw) continue;
+            const parsed = JSON.parse(raw);
+            const data = parsed?.data?.data as Article[] | undefined;
+            if (Array.isArray(data)) {
+                const match = data.find(a => a.id === id);
+                if (match) return sanitizeArticle(match);
+            }
+        }
+    } catch (e) {
+        console.error('Failed to search cached articles by id', e);
+    }
+    return undefined;
+};
+
 export const getArticleById = async (id: string): Promise<Article | undefined> => {
-    await new Promise(res => setTimeout(res, 200)); // Simulate network delay
+    await new Promise(res => setTimeout(res, 150));
+    const cached = findArticleInCacheById(id);
+    if (cached) return cached;
+    const fromMocks = allMockData.find(item => (item as any).id === id && (item as any).contentType === 'Article') as Article | undefined;
+    if (fromMocks) return fromMocks;
     return mockArticles.find(article => article.id === id);
+}
+
+const findProductInCacheById = (id: string): Product | undefined => {
+    try {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (!key || !key.startsWith('api_cache_products_page_')) continue;
+            const raw = localStorage.getItem(key);
+            if (!raw) continue;
+            const parsed = JSON.parse(raw);
+            const data = parsed?.data?.data as Product[] | undefined;
+            if (Array.isArray(data)) {
+                const match = data.find(p => p.id === id);
+                if (match) return match;
+            }
+        }
+    } catch (e) {
+        console.error('Failed to search cached products by id', e);
+    }
+    return undefined;
+};
+
+export const getProductById = async (id: string): Promise<Product | undefined> => {
+    await new Promise(res => setTimeout(res, 100));
+    const cached = findProductInCacheById(id);
+    if (cached) return cached;
+    const fromMocks = (API_CONFIG.products.fallbackData as Product[]).find(p => p.id === id);
+    return fromMocks;
 }
 
 export const searchAll = async (query: string, filters: { type: string, sort: string }) => {

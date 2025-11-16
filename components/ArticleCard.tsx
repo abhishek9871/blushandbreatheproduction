@@ -19,7 +19,7 @@ const categoryColorMap: { [key: string]: string } = {
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   const categoryClass = categoryColorMap[article.category] || 'text-primary';
   return (
-    <Link to={`/article/${article.id}`} className="flex flex-col gap-4 group">
+    <Link to={`/article/${encodeURIComponent(article.id)}`} className="flex flex-col gap-4 group">
       <div 
         className="w-full overflow-hidden bg-center bg-no-repeat bg-cover rounded-xl aspect-video transition-transform group-hover:scale-105" 
         style={{ backgroundImage: `url("${article.imageUrl}")` }}>

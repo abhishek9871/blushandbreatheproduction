@@ -8,6 +8,35 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        proxy: {
+          '/newsapi': {
+            target: 'https://newsapi.org',
+            changeOrigin: true,
+            secure: true,
+            rewrite: (path) => path.replace(/^\/newsapi/, ''),
+            configure: (proxy) => {
+              proxy.on('proxyReq', (proxyReq) => {
+                // Attach API key in dev via header to avoid query param in browser
+                if (env.VITE_NEWSAPI_KEY) {
+                  proxyReq.setHeader('X-Api-Key', env.VITE_NEWSAPI_KEY);
+                }
+              });
+            },
+          },
+          '/ninjas': {
+            target: 'https://api.api-ninjas.com/v1',
+            changeOrigin: true,
+            secure: true,
+            rewrite: (path) => path.replace(/^\/ninjas/, ''),
+            configure: (proxy) => {
+              proxy.on('proxyReq', (proxyReq) => {
+                if (env.VITE_API_NINJAS_KEY) {
+                  proxyReq.setHeader('X-Api-Key', env.VITE_API_NINJAS_KEY);
+                }
+              });
+            },
+          },
+        },
       },
       plugins: [react()],
       define: {

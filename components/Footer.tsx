@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import RateLimitTracker from './RateLimitTracker';
 
 interface FooterProps {
@@ -14,27 +15,27 @@ const Footer: React.FC<FooterProps> = ({ onSubscribeClick }) => {
           <div>
             <h3 className="font-bold mb-4">Shop</h3>
             <ul className="space-y-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">
-              <li><a className="hover:text-secondary dark:hover:text-secondary transition-colors" href="#/beauty">Beauty</a></li>
-              <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#/health">Health</a></li>
-              <li><a className="hover:text-accent dark:hover:text-accent transition-colors" href="#/nutrition">Nutrition</a></li>
-               <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#/videos">Videos</a></li>
+              <li><Link className="hover:text-secondary dark:hover:text-secondary transition-colors" to="/beauty">Beauty</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/health">Health</Link></li>
+              <li><Link className="hover:text-accent dark:hover:text-accent transition-colors" to="/nutrition">Nutrition</Link></li>
+               <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/videos">Videos</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-bold mb-4">About Us</h3>
             <ul className="space-y-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">
-              <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">Our Story</a></li>
-              <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">Careers</a></li>
-              <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">Press</a></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/about">Our Story</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/careers">Careers</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/press">Press</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-bold mb-4">Support</h3>
             <ul className="space-y-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">
-              <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">Contact Us</a></li>
-              <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">FAQ</a></li>
-              <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">Shipping</a></li>
-              <li><a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">Returns</a></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/contact">Contact Us</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/faq">FAQ</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/shipping">Shipping</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/returns">Returns</Link></li>
             </ul>
           </div>
           <div>
@@ -50,8 +51,8 @@ const Footer: React.FC<FooterProps> = ({ onSubscribeClick }) => {
         <div className="mt-8 border-t border-border-light dark:border-border-dark pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-text-subtle-light dark:text-text-subtle-dark">
           <p>© 2026 HealthBeauty Hub. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
-            <a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">Terms of Service</a>
-            <a className="hover:text-primary dark:hover:text-primary transition-colors" href="#">Privacy Policy</a>
+            <Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/terms">Terms of Service</Link>
+            <Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/privacy">Privacy Policy</Link>
           </div>
         </div>
       </div>

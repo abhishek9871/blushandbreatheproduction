@@ -11,6 +11,8 @@ import VideosPage from './pages/VideosPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import SearchModal from './components/SearchModal';
 import ArticlePage from './pages/ArticlePage';
+import ProductPage from './pages/ProductPage';
+import InfoPage from './pages/InfoPage';
 import BookmarksPage from './pages/BookmarksPage';
 import NewsletterModal from './components/NewsletterModal';
 import PageWrapper from './components/PageWrapper';
@@ -35,7 +37,9 @@ const App: React.FC = () => {
               <Route path="/nutrition" element={<PageWrapper><NutritionPage /></PageWrapper>} />
               <Route path="/videos" element={<PageWrapper><VideosPage /></PageWrapper>} />
               <Route path="/article/:id" element={<PageWrapper><ArticlePage /></PageWrapper>} />
+              <Route path="/product/:id" element={<PageWrapper><ProductPage /></PageWrapper>} />
               <Route path="/bookmarks" element={<PageWrapper><BookmarksPage /></PageWrapper>} />
+              <Route path="/info/:slug" element={<PageWrapper><InfoPage /></PageWrapper>} />
             </Routes>
           </main>
         </ErrorBoundary>

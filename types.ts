@@ -12,6 +12,7 @@ export interface Article {
 export interface Product {
   id: string;
   brand: string;
+  category: string;
   name: string;
   rating: number;
   reviews: number;

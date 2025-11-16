@@ -25,7 +25,9 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ itemId, className }) =>
         <button
             onClick={handleToggle}
             aria-label={bookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
-            className={`p-2 rounded-full transition-colors ${className}`}
+            aria-pressed={bookmarked}
+            title={bookmarked ? 'Bookmarked' : 'Add to bookmarks'}
+            className={`p-2 rounded-full transition-colors ${bookmarked ? 'text-primary bg-primary/10' : 'text-text-subtle-light dark:text-text-subtle-dark hover:text-primary dark:hover:text-primary'} ${className || ''}`}
         >
             <span
                 className="material-symbols-outlined"

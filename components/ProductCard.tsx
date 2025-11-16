@@ -1,6 +1,7 @@
 
 import React from 'react';
 import type { Product } from '../types';
+import { Link } from 'react-router-dom';
 import BookmarkButton from './BookmarkButton';
 
 const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
@@ -19,7 +20,7 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     return (
-        <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark shadow-sm hover:shadow-lg transition-shadow duration-300">
+        <Link to={`/product/${encodeURIComponent(product.id)}`} className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark shadow-sm hover:shadow-lg transition-shadow duration-300">
              <div className="absolute top-2 right-2 z-10">
                 <BookmarkButton itemId={product.id} className="bg-white/70 dark:bg-black/70 hover:bg-white dark:hover:bg-black text-text-subtle-light dark:text-text-subtle-dark hover:text-secondary" />
             </div>
@@ -35,7 +36,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
                 </div>
                 <p className="text-lg font-bold mt-auto pt-2">${product.price.toFixed(2)}</p>
             </div>
-        </div>
+        </Link>
     );
 };
 

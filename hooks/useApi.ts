@@ -19,7 +19,17 @@ export function useApi<T>(fetcher: Fetcher<T>) {
     setError(null);
     try {
       const result = await fetcher(currentPage);
-      setItems(prev => currentPage === 1 ? result.data : [...prev, ...result.data]);
+      setItems(prev => {
+        const combined = currentPage === 1 ? result.data : [...prev, ...result.data];
+        const seen = new Set<string>();
+        const deduped = combined.filter((item: any) => {
+          const key = item && typeof item === 'object' && 'id' in item ? String(item.id) : JSON.stringify(item);
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+        return deduped as any;
+      });
       setHasMore(result.hasMore);
     } catch (err) {
       setError('Failed to fetch data.');

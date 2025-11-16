@@ -1,30 +1,35 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getArticleById } from '../services/apiService';
-import type { Article } from '../types';
+import { allMockData, getArticleById } from '../services/apiService';
+import type { Article, Video } from '../types';
 import ErrorMessage from '../components/ErrorMessage';
 import ReadingProgressBar from '../components/ReadingProgressBar';
 import SocialShare from '../components/SocialShare';
 import BookmarkButton from '../components/BookmarkButton';
 import ArticleCardSkeleton from '../components/skeletons/ArticleCardSkeleton';
+import ArticleCard from '../components/ArticleCard';
+import VideoCard from '../components/VideoCard';
 
 const ArticlePage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const decodedId = id ? decodeURIComponent(id) : '';
     const [article, setArticle] = useState<Article | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [relatedArticles, setRelatedArticles] = useState<Article[]>([]);
+    const [relatedVideos, setRelatedVideos] = useState<Video[]>([]);
 
     useEffect(() => {
         const fetchArticle = async () => {
-            if (!id) {
+            if (!decodedId) {
                 setError("Article ID is missing.");
                 setLoading(false);
                 return;
             };
             try {
                 setLoading(true);
-                const fetchedArticle = await getArticleById(id);
+                const fetchedArticle = await getArticleById(decodedId);
                 if (fetchedArticle) {
                     setArticle(fetchedArticle);
                 } else {
@@ -38,6 +43,26 @@ const ArticlePage: React.FC = () => {
         };
         fetchArticle();
     }, [id]);
+
+    useEffect(() => {
+        if (!article) return;
+
+        try {
+            const relatedArticleItems = allMockData
+                .filter(item => item.contentType === 'Article' && item.id !== article.id)
+                .filter(item => (item as Article).category === article.category)
+                .slice(0, 3) as Article[];
+
+            const relatedVideoItems = allMockData
+                .filter(item => item.contentType === 'Video')
+                .slice(0, 3) as Video[];
+
+            setRelatedArticles(relatedArticleItems);
+            setRelatedVideos(relatedVideoItems);
+        } catch (e) {
+            console.error('Failed to compute related content', e);
+        }
+    }, [article]);
 
     if (loading) {
         return (
@@ -88,6 +113,28 @@ const ArticlePage: React.FC = () => {
                         <p key={index}>{paragraph}</p>
                     ))}
                 </div>
+                {(relatedArticles.length > 0 || relatedVideos.length > 0) && (
+                    <div className="mt-12 not-prose border-t border-border-light dark:border-border-dark pt-8">
+                        <h2 className="text-xl font-bold tracking-tight mb-4">Related for you</h2>
+                        {relatedArticles.length > 0 && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                {relatedArticles.map(related => (
+                                    <ArticleCard key={related.id} article={related} />
+                                ))}
+                            </div>
+                        )}
+                        {relatedVideos.length > 0 && (
+                            <div>
+                                <h3 className="text-lg font-semibold mb-3">Watch next</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {relatedVideos.map(video => (
+                                        <VideoCard key={video.id} video={video} />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
             </article>
         </>
     );

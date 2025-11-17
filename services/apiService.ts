@@ -478,6 +478,21 @@ export const getArticleById = async (id: string): Promise<Article | undefined> =
         if (featured) return sanitizeArticle(featured);
     }
     
+    // Check if it's a PubMed article and fetch it dynamically
+    if (id.includes('pmc.ncbi.nlm.nih.gov') || id.includes('PMC')) {
+        try {
+            const pubmedArticles = await fetchPubMedArticles('health wellness beauty nutrition fitness mental', 50);
+            const pubmedArticle = pubmedArticles.find(a => a.id === id);
+            if (pubmedArticle) {
+                // Cache the article for future use
+                setCache(`article_${id}`, pubmedArticle);
+                return pubmedArticle;
+            }
+        } catch (error) {
+            console.error('Failed to fetch PubMed article:', error);
+        }
+    }
+    
     const fromMocks = allMockData.find(item => (item as any).id === id && (item as any).contentType === 'Article') as Article | undefined;
     if (fromMocks) return fromMocks;
     return mockArticles.find(article => article.id === id);

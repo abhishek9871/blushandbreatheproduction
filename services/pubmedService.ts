@@ -22,11 +22,14 @@ export const fetchPubMedArticles = async (query: string = 'health wellness beaut
       const article = summaryData.result?.[id];
       if (!article) continue;
 
+      // Generate a proper placeholder image for PubMed articles
+      const fallbackImage = 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop&crop=center';
+
       articles.push({
         id: `https://pmc.ncbi.nlm.nih.gov/articles/PMC${id}/`,
         title: article.title || 'Untitled',
         description: article.title || '',
-        imageUrl: '',
+        imageUrl: fallbackImage,
         category: 'Health',
         date: article.pubdate || new Date().toISOString(),
         content: '', // Will be fetched on article page

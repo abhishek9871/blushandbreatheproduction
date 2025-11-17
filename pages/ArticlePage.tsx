@@ -157,7 +157,17 @@ const ArticlePage: React.FC = () => {
                         </div>
                     </div>
 
-                    <img src={article.imageUrl} alt={article.title} className="w-full rounded-xl mb-8" />
+                    {article.imageUrl && (
+                        <img 
+                            src={article.imageUrl} 
+                            alt={article.title} 
+                            className="w-full rounded-xl mb-8"
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                            }}
+                        />
+                    )}
                     
                     <div>
                         <div className="mb-6 article-content" dangerouslySetInnerHTML={{ __html: fullHtml || '<p>Loading content...</p>' }} />

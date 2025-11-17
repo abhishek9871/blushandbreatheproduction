@@ -6,11 +6,12 @@ const READER_ENDPOINT = import.meta.env.VITE_READER_ENDPOINT as string | undefin
 const cleanMarkdown = (md: string) => {
   let cleaned = md;
   
-  // Remove image URL patterns that appear as text like ![Image 19: description](url)
+  // Only remove problematic image patterns, not all images
+  // Remove broken image references like ![Image 19: description](url) but preserve valid ![alt](url)
   cleaned = cleaned.replace(/!\[Image \d+:[^\]]*\]\([^)]+\)/g, '');
   
-  // Remove standalone image URLs in parentheses
-  cleaned = cleaned.replace(/\(https?:\/\/[^\s)]+\.(jpg|jpeg|png|gif|webp|svg)[^)]*\)/gi, '');
+  // Remove standalone image URLs in parentheses (not part of markdown image syntax)
+  cleaned = cleaned.replace(/(?<!\]\s*)\(https?:\/\/[^\s)]+\.(jpg|jpeg|png|gif|webp|svg)[^)]*\)/gi, '');
   
   // Remove common unwanted patterns
   cleaned = cleaned.replace(/^(Sign in|Sign up|Log in|Log out|Subscribe|Newsletter|Trending|Related|Share this|Tweet|Follow us|Read more|Continue reading|Click here).*$/gim, '');
@@ -41,8 +42,8 @@ const toHtml = (md: string) => {
              .replace(/\*(.*?)\*/g, '<em>$1</em>')
              .replace(/\[(.*?)\]\((https?:[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>');
   
-  // Images
-  html = html.replace(/!\[(.*?)\]\((https?:[^\s)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;height:auto;" />');
+  // Images - enhanced with better styling and error handling
+  html = html.replace(/!\[(.*?)\]\((https?:[^\s)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;height:auto;border-radius:0.5rem;margin:1rem auto;display:block;" loading="lazy" onerror="this.style.display=\'none\'" />');
   
   // Blockquotes
   html = html.replace(/^>\s+(.*)$/gm, '<blockquote>$1</blockquote>');

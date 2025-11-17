@@ -1,9 +1,38 @@
 name = "jyotilalchandani"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-09-01"
+compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
 
-[env.production]
-vars = { VITE_NEWSAPI_KEY = "15e89be5f2da4687bc1c0f990e10885b" }
+[[kv_namespaces]]
+binding = "MERGED_CACHE"
+id = "8c4c045cf255490a8b9146ab393bd0e0"
 
-[env.preview]
-vars = { VITE_NEWSAPI_KEY = "15e89be5f2da4687bc1c0f990e10885b" }
+[[kv_namespaces]]
+binding = "EBAY_TOKEN"
+id = "1ea1e1dccdd04b2898f3700fd91a18c9"
+
+[[kv_namespaces]]
+binding = "SUGGESTIONS"
+id = "60392e62d508494b8f509e3ad8f3ddec"
+
+[[kv_namespaces]]
+binding = "OVERRIDES"
+id = "4de8728f89104b92911d47ce70f70744"
+
+[[kv_namespaces]]
+binding = "AFFILIATE_KV"
+id = "63dd4c653efb42eb8b46714e9def97f4"
+
+[env.production.vars]
+VITE_NEWSAPI_KEY = "[REDACTED:api-key]"
+OBF_BASE_URL = "https://world.openbeautyfacts.org"
+MERGED_TTL_SECONDS = "14400"
+EBAY_CLIENT_ID = "PLACEHOLDER"
+EBAY_CLIENT_SECRET = "PLACEHOLDER"
+EBAY_CAMPAIGN_ID = "PLACEHOLDER"
+ADMIN_PASSWORD = "[REDACTED:password]"
+
+[env.preview.vars]
+VITE_NEWSAPI_KEY = "[REDACTED:api-key]"
+OBF_BASE_URL = "https://world.openbeautyfacts.org"
+MERGED_TTL_SECONDS = "14400"

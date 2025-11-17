@@ -194,35 +194,53 @@ const fetchVideosFromYouTube = async (page: number, pageSize: number): Promise<{
 };
 
 const fetchProductsFromOpenBeautyFacts = async (page: number, pageSize: number): Promise<{ data: Product[]; hasMore: boolean }> => {
-    const params = new URLSearchParams({
-        search_terms: 'makeup skincare beauty',
-        search_simple: '1',
-        action: 'process',
-        page_size: String(pageSize),
-        page: String(page),
-        json: '1',
-    });
-    const url = `${OPEN_BEAUTY_FACTS_BASE_URL}/search.pl?${params.toString()}`;
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`OpenBeautyFacts error: ${response.status}`);
+    const searchTerms = ['foundation', 'lipstick', 'makeup', 'skincare', 'cream'];
+    
+    for (const term of searchTerms) {
+        const params = new URLSearchParams({
+            search_terms: term,
+            search_simple: '1',
+            action: 'process',
+            page_size: String(pageSize),
+            page: String(page),
+            json: '1',
+        });
+        const url = `${OPEN_BEAUTY_FACTS_BASE_URL}/search.pl?${params.toString()}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            continue; // Try next term
+        }
+        const json = await response.json() as OpenBeautyFactsResponse;
+        const list = json.products || [];
+        
+        if (list.length > 0) {
+            const products: Product[] = list
+                .filter(p => p.code) // Skip items without stable ID
+                .map((p, i) => {
+                    const brand = (p.brands || '').split(',')[0]?.trim() || 'Brand';
+                    const name = p.product_name || p.generic_name || 'Product';
+                    const img = p.image_front_url || p.image_url || mockProducts[0]?.imageUrl || '';
+                    const catTag = (p.categories_tags || []).find(t => t.startsWith('en:')) || '';
+                    const category = catTag ? catTag.replace('en:', '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Beauty';
+                    return { 
+                        id: p.code!, 
+                        brand, 
+                        category, 
+                        name, 
+                        rating: null, 
+                        reviews: 0, 
+                        price: null, 
+                        imageUrl: img 
+                    } as Product;
+                });
+            const total = json.count ?? products.length;
+            const hasMore = page * pageSize < total;
+            return { data: products, hasMore };
+        }
     }
-    const json = await response.json() as OpenBeautyFactsResponse;
-    const list = json.products || [];
-    const products: Product[] = list.map((p, i) => {
-        const brand = (p.brands || '').split(',')[0]?.trim() || 'Brand';
-        const name = p.product_name || p.generic_name || 'Product';
-        const img = p.image_front_url || p.image_url || mockProducts[0]?.imageUrl || '';
-        const catTag = (p.categories_tags || []).find(t => t.startsWith('en:')) || '';
-        const category = catTag ? catTag.replace('en:', '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Beauty';
-        const rating = 4 + ((i % 3) * 0.5);
-        const reviews = 500 + (i * 7);
-        const price = 12 + (i % 5) * 3;
-        return { id: p.code || `${name}-${i}`, brand, category, name, rating, reviews, price, imageUrl: img } as Product;
-    });
-    const total = json.count ?? (page * pageSize + products.length);
-    const hasMore = page * pageSize < total;
-    return { data: products, hasMore };
+    
+    // All terms returned empty, return empty to trigger fallback
+    return { data: [], hasMore: false };
 };
 
 const NUTRITION_FOODS = ['Avocado', 'Blueberries', 'Salmon', 'Kale', 'Almonds', 'Oats', 'Quinoa', 'Spinach'];
@@ -524,6 +542,13 @@ export const getProductById = async (id: string): Promise<Product | undefined> =
     if (cached) return cached;
     const fromMocks = (API_CONFIG.products.fallbackData as Product[]).find(p => p.id === id);
     return fromMocks;
+}
+
+export const fetchProductDetail = async (barcode: string): Promise<any> => {
+    const url = `https://world.openbeautyfacts.org/api/v2/product/${barcode}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to fetch product detail: ${response.status}`);
+    return response.json();
 }
 
 export const searchAll = async (query: string, filters: { type: string, sort: string }) => {

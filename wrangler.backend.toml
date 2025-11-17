@@ -1,0 +1,50 @@
+name = "jyotilalchandani-backend"
+compatibility_date = "2024-09-01"
+compatibility_flags = ["nodejs_compat"]
+main = "_worker.js"
+
+[[kv_namespaces]]
+binding = "MERGED_CACHE"
+id = "8c4c045cf255490a8b9146ab393bd0e0"
+
+[[kv_namespaces]]
+binding = "EBAY_TOKEN"
+id = "1ea1e1dccdd04b2898f3700fd91a18c9"
+
+[[kv_namespaces]]
+binding = "SUGGESTIONS"
+id = "60392e62d508494b8f509e3ad8f3ddec"
+
+[[kv_namespaces]]
+binding = "OVERRIDES"
+id = "4de8728f89104b92911d47ce70f70744"
+
+[[kv_namespaces]]
+binding = "AFFILIATE_KV"
+id = "63dd4c653efb42eb8b46714e9def97f4"
+
+[[durable_objects.bindings]]
+name = "AFFILIATE_DO"
+class_name = "AffiliateCounter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["AffiliateCounter"]
+
+[vars]
+OBF_BASE_URL = "https://world.openbeautyfacts.org"
+MERGED_TTL_SECONDS = "14400"
+EBAY_CLIENT_ID = "PLACEHOLDER"
+EBAY_CLIENT_SECRET = "PLACEHOLDER"
+EBAY_CAMPAIGN_ID = "PLACEHOLDER"
+
+[env.production.vars]
+OBF_BASE_URL = "https://world.openbeautyfacts.org"
+MERGED_TTL_SECONDS = "14400"
+EBAY_CLIENT_ID = "PLACEHOLDER"
+EBAY_CLIENT_SECRET = "PLACEHOLDER"
+EBAY_CAMPAIGN_ID = "PLACEHOLDER"
+
+[env.preview.vars]
+OBF_BASE_URL = "https://world.openbeautyfacts.org"
+MERGED_TTL_SECONDS = "14400"

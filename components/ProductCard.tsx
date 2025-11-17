@@ -31,10 +31,20 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
                 <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark">{product.brand}</p>
                 <h3 className="font-semibold mt-1">{product.name}</h3>
                 <div className="flex items-center mt-2 gap-0.5">
-                    <StarRating rating={product.rating} />
-                    <span className="text-xs text-text-subtle-light dark:text-text-subtle-dark ml-1">({product.reviews.toLocaleString()})</span>
+                    {product.rating !== null ? (
+                        <>
+                            <StarRating rating={product.rating} />
+                            <span className="text-xs text-text-subtle-light dark:text-text-subtle-dark ml-1">({product.reviews.toLocaleString()})</span>
+                        </>
+                    ) : (
+                        <span className="text-xs text-text-subtle-light dark:text-text-subtle-dark">No ratings yet</span>
+                    )}
                 </div>
-                <p className="text-lg font-bold mt-auto pt-2">${product.price.toFixed(2)}</p>
+                {product.price !== null ? (
+                    <p className="text-lg font-bold mt-auto pt-2">${product.price.toFixed(2)}</p>
+                ) : (
+                    <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mt-auto pt-2 italic">Price on request</p>
+                )}
             </div>
         </Link>
     );

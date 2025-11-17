@@ -11,27 +11,71 @@ const BeautyPage: React.FC = () => {
     const { data: products, loading: productsLoading, error: productsError, loadMore: loadMoreProducts, hasMore: hasMoreProducts, loadingMore: loadingMoreProducts } = useApi(getProducts as any);
     const { data: tutorials, loading: tutorialsLoading, error: tutorialsError } = useApi(getTutorials as any);
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
+    const [selectedBrand, setSelectedBrand] = useState<string>('All');
+    const [selectedPriceRange, setSelectedPriceRange] = useState<string>('All');
     const [sortBy, setSortBy] = useState<'Popularity' | 'Price: Low to High' | 'Price: High to Low' | 'Rating'>('Popularity');
+    const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+    const [showBrandDropdown, setShowBrandDropdown] = useState(false);
+    const [showPriceDropdown, setShowPriceDropdown] = useState(false);
 
     const productCategories = useMemo(
         () => ['All', ...Array.from(new Set(products.map(product => product.category)))],
         [products]
     );
 
-    const filteredProducts = useMemo(
-        () => (selectedCategory === 'All' ? products : products.filter(product => product.category === selectedCategory)),
-        [products, selectedCategory]
+    const productBrands = useMemo(
+        () => ['All', ...Array.from(new Set(products.map(product => product.brand)))],
+        [products]
     );
+
+    const priceRanges = ['All', 'Price on request', 'Under $25', '$25-$50', 'Over $50'];
+
+    const filteredProducts = useMemo(() => {
+        let filtered = products;
+        if (selectedCategory !== 'All') {
+            filtered = filtered.filter(product => product.category === selectedCategory);
+        }
+        if (selectedBrand !== 'All') {
+            filtered = filtered.filter(product => product.brand === selectedBrand);
+        }
+        if (selectedPriceRange !== 'All') {
+            if (selectedPriceRange === 'Price on request') {
+                filtered = filtered.filter(product => product.price === null);
+            } else if (selectedPriceRange === 'Under $25') {
+                filtered = filtered.filter(product => product.price !== null && product.price < 25);
+            } else if (selectedPriceRange === '$25-$50') {
+                filtered = filtered.filter(product => product.price !== null && product.price >= 25 && product.price <= 50);
+            } else if (selectedPriceRange === 'Over $50') {
+                filtered = filtered.filter(product => product.price !== null && product.price > 50);
+            }
+        }
+        return filtered;
+    }, [products, selectedCategory, selectedBrand, selectedPriceRange]);
 
     const sortedProducts = useMemo(() => {
         const copy = [...filteredProducts];
         switch (sortBy) {
             case 'Price: Low to High':
-                return copy.sort((a: any, b: any) => (a.price ?? 0) - (b.price ?? 0));
+                return copy.sort((a: any, b: any) => {
+                    if (a.price === null && b.price === null) return 0;
+                    if (a.price === null) return 1;
+                    if (b.price === null) return -1;
+                    return a.price - b.price;
+                });
             case 'Price: High to Low':
-                return copy.sort((a: any, b: any) => (b.price ?? 0) - (a.price ?? 0));
+                return copy.sort((a: any, b: any) => {
+                    if (a.price === null && b.price === null) return 0;
+                    if (a.price === null) return 1;
+                    if (b.price === null) return -1;
+                    return b.price - a.price;
+                });
             case 'Rating':
-                return copy.sort((a: any, b: any) => (b.rating ?? 0) - (a.rating ?? 0));
+                return copy.sort((a: any, b: any) => {
+                    if (a.rating === null && b.rating === null) return 0;
+                    if (a.rating === null) return 1;
+                    if (b.rating === null) return -1;
+                    return b.rating - a.rating;
+                });
             case 'Popularity':
             default:
                 return copy.sort((a: any, b: any) => (b.reviews ?? 0) - (a.reviews ?? 0));
@@ -64,18 +108,45 @@ const BeautyPage: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex gap-3 px-4 py-6 overflow-x-auto">
-                    <button className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-                        <p className="text-sm font-medium leading-normal">Category</p>
-                        <span className="material-symbols-outlined text-xl">expand_more</span>
-                    </button>
-                    <button className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-                        <p className="text-sm font-medium leading-normal">Brand</p>
-                        <span className="material-symbols-outlined text-xl">expand_more</span>
-                    </button>
-                    <button className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-                        <p className="text-sm font-medium leading-normal">Price</p>
-                        <span className="material-symbols-outlined text-xl">expand_more</span>
-                    </button>
+                    <div className="relative">
+                        <button onClick={() => setShowCategoryDropdown(!showCategoryDropdown)} className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                            <p className="text-sm font-medium leading-normal">Category: {selectedCategory}</p>
+                            <span className="material-symbols-outlined text-xl">{showCategoryDropdown ? 'expand_less' : 'expand_more'}</span>
+                        </button>
+                        {showCategoryDropdown && (
+                            <div className="absolute top-12 left-0 bg-white dark:bg-gray-800 border border-border-light dark:border-border-dark rounded-lg shadow-lg z-10 min-w-40">
+                                {productCategories.map(category => (
+                                    <button key={category} onClick={() => { setSelectedCategory(category); setShowCategoryDropdown(false); }} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">{category}</button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <div className="relative">
+                        <button onClick={() => setShowBrandDropdown(!showBrandDropdown)} className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                            <p className="text-sm font-medium leading-normal">Brand: {selectedBrand}</p>
+                            <span className="material-symbols-outlined text-xl">{showBrandDropdown ? 'expand_less' : 'expand_more'}</span>
+                        </button>
+                        {showBrandDropdown && (
+                            <div className="absolute top-12 left-0 bg-white dark:bg-gray-800 border border-border-light dark:border-border-dark rounded-lg shadow-lg z-10 min-w-40 max-h-60 overflow-y-auto">
+                                {productBrands.map(brand => (
+                                    <button key={brand} onClick={() => { setSelectedBrand(brand); setShowBrandDropdown(false); }} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">{brand}</button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <div className="relative">
+                        <button onClick={() => setShowPriceDropdown(!showPriceDropdown)} className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                            <p className="text-sm font-medium leading-normal">Price: {selectedPriceRange}</p>
+                            <span className="material-symbols-outlined text-xl">{showPriceDropdown ? 'expand_less' : 'expand_more'}</span>
+                        </button>
+                        {showPriceDropdown && (
+                            <div className="absolute top-12 left-0 bg-white dark:bg-gray-800 border border-border-light dark:border-border-dark rounded-lg shadow-lg z-10 min-w-40">
+                                {priceRanges.map(range => (
+                                    <button key={range} onClick={() => { setSelectedPriceRange(range); setShowPriceDropdown(false); }} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">{range}</button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                     <button onClick={cycleSort} className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full bg-secondary/20 text-text-light dark:text-text-dark border border-secondary/30 px-4 hover:bg-secondary/40 transition-colors" aria-label={`Change sort (current: ${sortBy})`}>
                         <p className="text-sm font-medium leading-normal">Sort By: {sortBy}</p>
                         <span className="material-symbols-outlined text-xl">swap_vert</span>

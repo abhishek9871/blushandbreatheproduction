@@ -6,9 +6,13 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
       server: {
-        port: 3000,
+        port: 3001,
         host: '0.0.0.0',
         proxy: {
+          '/api': {
+            target: 'http://localhost:3003',
+            changeOrigin: true,
+          },
           '/newsapi': {
             target: 'https://newsapi.org',
             changeOrigin: true,
@@ -16,7 +20,6 @@ export default defineConfig(({ mode }) => {
             rewrite: (path) => path.replace(/^\/newsapi/, ''),
             configure: (proxy) => {
               proxy.on('proxyReq', (proxyReq) => {
-                // Attach API key in dev via header to avoid query param in browser
                 if (env.VITE_NEWSAPI_KEY) {
                   proxyReq.setHeader('X-Api-Key', env.VITE_NEWSAPI_KEY);
                 }

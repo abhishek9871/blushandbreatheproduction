@@ -1,1 +1,4 @@
 npx wrangler pages deploy dist --project-name=jyotilalchandani --branch=main --commit-dirty=true
+
+
+npx wrangler pages dev dist --local

@@ -14,9 +14,9 @@ export interface Product {
   brand: string;
   category: string;
   name: string;
-  rating: number;
+  rating: number | null;
   reviews: number;
-  price: number;
+  price: number | null;
   imageUrl: string;
 }
 
@@ -55,4 +55,33 @@ export interface Video {
   description: string;
   imageUrl: string;
   duration: string;
+}
+
+export interface ProductDetail {
+  id: string;
+  name: string;
+  brand: string;
+  category: string;
+  images: {
+    heroImage: string;
+    altImages: string[];
+  };
+  ingredientsText: string | null;
+  ingredientsList: string[] | null;
+  labels: string[];
+  allergens: string[];
+  countries: string[];
+  genericName: string | null;
+  averageRating: number | null;
+  reviewCount: number;
+  reviews: Review[];
+}
+
+export interface Review {
+  id: string;
+  rating: number;
+  title: string;
+  body: string;
+  author: string;
+  createdAt: string;
 }

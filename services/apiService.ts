@@ -330,35 +330,186 @@ const fetchProductsFromOpenBeautyFacts = async (page: number, pageSize: number):
     return { data: [], hasMore: false };
 };
 
-const NUTRITION_FOODS = ['Avocado', 'Blueberries', 'Salmon', 'Kale', 'Almonds', 'Oats', 'Quinoa', 'Spinach'];
+const NUTRITION_FOODS = ['Avocado', 'Blueberries', 'Salmon', 'Kale', 'Almonds', 'Oats', 'Quinoa', 'Spinach', 'Broccoli', 'Eggs', 'Greek Yogurt', 'Walnuts'];
+
+// Map food names to helpful tips and image URLs
+const FOOD_METADATA: Record<string, { imageUrl: string; benefits: string }> = {
+    'Avocado': {
+        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB4eg0y_vwFIDzyQL7_Ip6-ndmNAGgAZGojP3QS_oncs6V-icTGsWPj-hJZyGEhQfByfP07uN0J-hy5orqUysBxyHiSmpEhJqlhQQimZDyROx8_Cec8EyV73cYsIqDcrXznH1psDFBFWCJds9zOhk1ZrjfgA7u4z5Punx4X9jItU-bMiBZZe0XK1nGSXe7FB5GDt-iXZvQbLVTX9XU_jX8nj19hIX3NM7OrXt9v-hh_P7e4ZKbo1apMIPBXMzdpHJQuokXVeLXT6Xw',
+        benefits: 'Rich in heart-healthy monounsaturated fats and fiber. Perfect for maintaining healthy skin from within.'
+    },
+    'Blueberries': {
+        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDaEdxTFfHMIWxbrOAHPINHcP6Zd78W15leTcEobS59GiO38qerAGBBMKA041PzmF_V_NA3r0ytpAFh8rgmmgSxfGbRcrCICvQGEs7slymFfSAFYlQtR_vbUBZ93i7MZ3xVLmDOGZad23Tyi4_WkSlwlLioNoeUQfQ1lamVcd0IWHFXAQZAtDa9h1vi8kh5GQPWcjs4c4ozSRsc7TY9kjpykOe_8e0UxsLu4KgAFd6kMdcDUSTAkGbC-nOHiUNUhOebWmqU6MnRj9w',
+        benefits: 'Antioxidant powerhouse. Helps protect skin cells from oxidative stress and supports collagen production.'
+    },
+    'Salmon': {
+        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCOFIt_z5kHzoGxewjL53LzWlN47-b2JlUbJnU4-uIW5yGT7MvzVuTCQGN0mD8SipOM9_YGAl81ODsRc_I2td7F_L7gXB738StFpNR8hVii-OG46AUBvW0SfaMMUEWmtme7_AmGFO8mZxCuWh-11ZCZ4bNqhOWTjKLOaYkn7t2eugZXhKACuQDTmTVobm2oom9weR1WyHrFjugu_95C5pWNjzS4Ls2mc0TkNiWjiIRiwiNry3k7YUCaBUi59gXqhS-nQCCEUUP7P88',
+        benefits: 'Excellent source of omega-3 fatty acids. Reduces inflammation and promotes a clear, radiant complexion.'
+    },
+    'Kale': {
+        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAfGdNd2rhKvfGP-jhAhTuUaKvb2BshjON0zxMfqYUfdqW7ir0cagtgVRgs_yGEbjTQ2Sft1SpzPOBA7yqaqK5lNSG5hVJdP4-0MuEKE7fT9p45YO7MT4RJb5bFFVZwvAnYw2PrDp1Z2cqdBDez9MovynbvUegDrSwM5QIIvAJdQ5yAlNIJDaMey3b5harA1EALLRokUlHL9l_mN2W6t8wACJFTsDwY7UOt28d1hriU3emmOymChvpYJcmrjuNsABgxChENJwGc8Bg',
+        benefits: 'Nutrient-dense leafy green packed with vitamins A, C, and K. Supports skin health and healing.'
+    },
+    'Almonds': {
+        imageUrl: 'https://images.unsplash.com/photo-1599599810694-b5ac4dd93a56?w=500&h=500&fit=crop',
+        benefits: 'Great source of vitamin E and selenium. Protects skin from free radical damage and supports elasticity.'
+    },
+    'Oats': {
+        imageUrl: 'https://images.unsplash.com/photo-1599599810398-2ea3e9e0d4d8?w=500&h=500&fit=crop',
+        benefits: 'Gentle on skin when consumed. Provides complex carbs for sustained energy and supports digestive health.'
+    },
+    'Quinoa': {
+        imageUrl: 'https://images.unsplash.com/photo-1586190251993-30f2519ce2af?w=500&h=500&fit=crop',
+        benefits: 'Complete protein with all amino acids. Supports collagen synthesis and muscle recovery.'
+    },
+    'Spinach': {
+        imageUrl: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&h=500&fit=crop',
+        benefits: 'Iron and folate rich. Promotes healthy blood circulation and gives skin a natural glow.'
+    },
+    'Broccoli': {
+        imageUrl: 'https://images.unsplash.com/photo-1584622674529-9b3ae7dc9749?w=500&h=500&fit=crop',
+        benefits: 'Vitamin C and sulforaphane content boosts collagen production and detoxifies the skin.'
+    },
+    'Eggs': {
+        imageUrl: 'https://images.unsplash.com/photo-1568843297627-ed4f75ef59d2?w=500&h=500&fit=crop',
+        benefits: 'High in choline for skin repair. Contains lutein for under-eye health and radiance.'
+    },
+    'Greek Yogurt': {
+        imageUrl: 'https://images.unsplash.com/photo-1488477181946-85a2a7719b1d?w=500&h=500&fit=crop',
+        benefits: 'Probiotics support gut health, which reflects in clear skin. Protein aids tissue repair.'
+    },
+    'Walnuts': {
+        imageUrl: 'https://images.unsplash.com/photo-1573519667385-c2e2b3f1fcc7?w=500&h=500&fit=crop',
+        benefits: 'Rich in omega-3s and antioxidants. Reduces inflammation and supports skin barrier function.'
+    }
+};
+
+const NUTRITION_TIPS: (TipCard)[] = [
+    {
+        id: 'tip-1',
+        type: 'tip',
+        title: 'Stay Hydrated',
+        description: 'Drink at least 8 glasses of water daily. Hydration is key to maintaining skin elasticity and flushing out toxins.',
+        icon: 'water_drop'
+    },
+    {
+        id: 'tip-2',
+        type: 'tip',
+        title: 'Eat the Rainbow',
+        description: 'Include foods of different colors. Each color provides different antioxidants and nutrients for optimal skin health.',
+        icon: 'palette'
+    },
+    {
+        id: 'tip-3',
+        type: 'tip',
+        title: 'Timing Matters',
+        description: 'Eat nutrient-rich foods for breakfast to kickstart your metabolism and provide sustained energy throughout the day.',
+        icon: 'schedule'
+    },
+    {
+        id: 'tip-4',
+        type: 'tip',
+        title: 'Limit Sugar & Processed Foods',
+        description: 'Excess sugar can trigger inflammation and breakouts. Choose whole foods for clearer, healthier skin.',
+        icon: 'do_not_disturb_on'
+    },
+    {
+        id: 'tip-5',
+        type: 'tip',
+        title: 'Pair Proteins with Veggies',
+        description: 'Combine lean proteins with colorful vegetables for complete nutrients that support skin regeneration and health.',
+        icon: 'restaurant'
+    },
+    {
+        id: 'tip-6',
+        type: 'tip',
+        title: 'Include Healthy Fats',
+        description: 'Omega-3 and monounsaturated fats reduce inflammation and support your skin\'s natural oil balance.',
+        icon: 'favorite'
+    }
+];
 
 const fetchNutritionFromApiNinjas = async (page: number, pageSize: number): Promise<{ data: (NutritionInfo | TipCard)[]; hasMore: boolean }> => {
+    if (!API_NINJAS_KEY) {
+        throw new Error('Missing API Ninjas key - Set VITE_API_NINJAS_KEY in environment');
+    }
+
+    const totalItems = NUTRITION_FOODS.length + NUTRITION_TIPS.length;
     const start = (page - 1) * pageSize;
-    const foodsSlice = NUTRITION_FOODS.slice(start, start + pageSize);
-    if (foodsSlice.length === 0) {
+    const end = start + pageSize;
+    
+    if (start >= totalItems) {
         return { data: [], hasMore: false };
     }
 
-    const query = foodsSlice.join(',');
-    const response = await fetch(`${API_NINJAS_BASE_URL}?query=${encodeURIComponent(query)}`);
-    if (!response.ok) {
-        throw new Error(`API Ninjas error: ${response.status}`);
+    try {
+        const result: (NutritionInfo | TipCard)[] = [];
+        let currentIndex = 0;
+
+        // Interleave tips with nutrition items for better engagement
+        for (let i = 0; i < NUTRITION_FOODS.length && result.length < pageSize; i++) {
+            // Add tip every 2 foods
+            if (i > 0 && i % 2 === 0 && NUTRITION_TIPS.length > 0) {
+                const tipIndex = Math.floor(i / 2) % NUTRITION_TIPS.length;
+                if (currentIndex >= start && currentIndex < end) {
+                    result.push(NUTRITION_TIPS[tipIndex]);
+                }
+                currentIndex++;
+                if (result.length >= pageSize) break;
+            }
+
+            if (currentIndex >= start && currentIndex < end) {
+                const foodName = NUTRITION_FOODS[i];
+                const metadata = FOOD_METADATA[foodName] || { imageUrl: '', benefits: '' };
+                
+                try {
+                    const response = await fetch(`${API_NINJAS_BASE_URL}?query=${encodeURIComponent(foodName)}`, {
+                        headers: {
+                            'X-Api-Key': API_NINJAS_KEY
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const json = await response.json() as any[];
+                        if (Array.isArray(json) && json.length > 0) {
+                            const item = json[0];
+                            const toNum = (v: any) => typeof v === 'number' ? v : (typeof v === 'string' ? Number.parseFloat(v) : 0);
+                            const nutritionInfo: NutritionInfo = {
+                                id: `nutrition-${i}-${page}`,
+                                name: item.name || foodName,
+                                description: metadata.benefits || `Approximate nutrition facts per ${item.serving_size_g || 100}g of ${item.name || foodName}.`,
+                                imageUrl: metadata.imageUrl,
+                                nutrients: {
+                                    protein: Number.isFinite(toNum(item.protein_g)) ? Math.round(toNum(item.protein_g) * 10) / 10 : 0,
+                                    carbs: Number.isFinite(toNum(item.carbohydrates_total_g)) ? Math.round(toNum(item.carbohydrates_total_g) * 10) / 10 : 0,
+                                    fats: Number.isFinite(toNum(item.fat_total_g)) ? Math.round(toNum(item.fat_total_g) * 10) / 10 : 0,
+                                },
+                            };
+                            result.push(nutritionInfo);
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Failed to fetch nutrition for ${foodName}:`, error);
+                    // Use metadata fallback
+                    const metadata = FOOD_METADATA[foodName] || { imageUrl: '', benefits: '' };
+                    result.push({
+                        id: `nutrition-${i}-${page}`,
+                        name: foodName,
+                        description: metadata.benefits,
+                        imageUrl: metadata.imageUrl,
+                        nutrients: { protein: 0, carbs: 0, fats: 0 }
+                    });
+                }
+            }
+            currentIndex++;
+        }
+
+        const hasMore = end < totalItems;
+        return { data: result, hasMore };
+    } catch (error) {
+        console.error('Nutrition API fetch error:', error);
+        throw error;
     }
-    const json = await response.json() as any[];
-    const toNum = (v: any) => typeof v === 'number' ? v : (typeof v === 'string' ? Number.parseFloat(v) : 0);
-    const data: NutritionInfo[] = json.map((item, index) => ({
-        id: `${item.name || 'food'}-${start + index}`,
-        name: item.name || 'Food',
-        description: `Approximate nutrition facts per ${item.serving_size_g || 100}g of ${item.name || 'this food'}.`,
-        imageUrl: '',
-        nutrients: {
-            protein: Number.isFinite(toNum(item.protein_g)) ? toNum(item.protein_g) : 0,
-            carbs: Number.isFinite(toNum(item.carbohydrates_total_g)) ? toNum(item.carbohydrates_total_g) : 0,
-            fats: Number.isFinite(toNum(item.fat_total_g)) ? toNum(item.fat_total_g) : 0,
-        },
-    }));
-    const hasMore = start + pageSize < NUTRITION_FOODS.length;
-    return { data, hasMore };
 };
 
 const API_CONFIG = {

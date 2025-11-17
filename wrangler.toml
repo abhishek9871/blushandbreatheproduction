@@ -24,6 +24,7 @@ binding = "AFFILIATE_KV"
 id = "63dd4c653efb42eb8b46714e9def97f4"
 
 [env.production.vars]
+VITE_YOUTUBE_API_KEY = "AIzaSyAhO7HnkzSlfCcNq92ztaRFn492RA6YdSA"
 VITE_NEWSAPI_KEY = "[REDACTED:api-key]"
 OBF_BASE_URL = "https://world.openbeautyfacts.org"
 MERGED_TTL_SECONDS = "14400"
@@ -33,6 +34,7 @@ EBAY_CAMPAIGN_ID = "PLACEHOLDER"
 ADMIN_PASSWORD = "[REDACTED:password]"
 
 [env.preview.vars]
+VITE_YOUTUBE_API_KEY = "AIzaSyAhO7HnkzSlfCcNq92ztaRFn492RA6YdSA"
 VITE_NEWSAPI_KEY = "[REDACTED:api-key]"
 OBF_BASE_URL = "https://world.openbeautyfacts.org"
 MERGED_TTL_SECONDS = "14400"

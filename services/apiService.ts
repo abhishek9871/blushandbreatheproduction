@@ -156,41 +156,128 @@ const fetchArticlesFromNewsAPI = async (page: number, pageSize: number): Promise
     return { data: articles, hasMore };
 };
 
-const fetchVideosFromYouTube = async (page: number, pageSize: number): Promise<{ data: Video[]; hasMore: boolean }> => {
+const fetchVideosFromYouTube = async (page: number, pageSize: number, category: string = 'All'): Promise<{ data: Video[]; hasMore: boolean }> => {
     if (!YOUTUBE_API_KEY) {
-        throw new Error('Missing YouTube API key');
+        throw new Error('Missing YouTube API key - Set VITE_YOUTUBE_API_KEY in environment');
     }
 
-    const params = new URLSearchParams({
-        part: 'snippet',
-        type: 'video',
-        q: 'health beauty skincare wellness nutrition',
-        maxResults: String(pageSize),
-        key: YOUTUBE_API_KEY,
-    });
+    try {
+        // Build search query based on category
+        let searchQuery = 'health beauty skincare wellness nutrition tutorial';
+        
+        if (category === 'Skincare') {
+            searchQuery = 'skincare routine healthy skin tips facial care';
+        } else if (category === 'Makeup') {
+            searchQuery = 'makeup tutorial beauty tips makeup looks makeup techniques';
+        } else if (category === 'Wellness') {
+            searchQuery = 'wellness health tips fitness yoga meditation stress relief';
+        } else if (category === 'Nutrition') {
+            searchQuery = 'nutrition healthy diet recipes healthy eating nutrition tips';
+        }
+        
+        // Step 1: Search for videos
+        const searchParams = new URLSearchParams({
+            part: 'snippet',
+            type: 'video',
+            q: searchQuery,
+            maxResults: String(pageSize),
+            key: YOUTUBE_API_KEY,
+            order: 'relevance',
+            videoCaption: 'any',
+        });
 
-    const response = await fetch(`${YOUTUBE_API_BASE_URL}/search?${params.toString()}`);
-    if (!response.ok) {
-        throw new Error(`YouTube API error: ${response.status}`);
+        const searchResponse = await fetch(`${YOUTUBE_API_BASE_URL}/search?${searchParams.toString()}`);
+        if (!searchResponse.ok) {
+            throw new Error(`YouTube Search API error: ${searchResponse.status} ${searchResponse.statusText}`);
+        }
+
+        const searchData = await searchResponse.json() as {
+            items?: Array<{
+                id: { videoId: string };
+                snippet: {
+                    title: string;
+                    description: string;
+                    thumbnails: {
+                        medium?: { url: string };
+                        high?: { url: string };
+                        default?: { url: string };
+                    };
+                };
+            }>;
+        };
+
+        const videoIds = (searchData.items || []).map(item => item.id.videoId);
+        
+        if (videoIds.length === 0) {
+            return { data: [], hasMore: false };
+        }
+
+        // Step 2: Get video details including duration
+        const videosParams = new URLSearchParams({
+            part: 'snippet,contentDetails',
+            id: videoIds.join(','),
+            key: YOUTUBE_API_KEY,
+        });
+
+        const videosResponse = await fetch(`${YOUTUBE_API_BASE_URL}/videos?${videosParams.toString()}`);
+        if (!videosResponse.ok) {
+            throw new Error(`YouTube Videos API error: ${videosResponse.status} ${videosResponse.statusText}`);
+        }
+
+        const videosData = await videosResponse.json() as {
+            items?: Array<{
+                id: string;
+                snippet: {
+                    title: string;
+                    description: string;
+                    thumbnails: {
+                        medium?: { url: string };
+                        high?: { url: string };
+                        default?: { url: string };
+                    };
+                };
+                contentDetails: {
+                    duration: string;
+                };
+            }>;
+        };
+
+        const fallbackImage = mockVideos[0]?.imageUrl || '';
+
+        // Helper function to convert ISO 8601 duration to readable format
+        const formatDuration = (isoDuration: string): string => {
+            const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
+            const match = isoDuration.match(regex);
+            if (!match) return '0:00';
+
+            const hours = match[1] ? parseInt(match[1]) : 0;
+            const minutes = match[2] ? parseInt(match[2]) : 0;
+            const seconds = match[3] ? parseInt(match[3]) : 0;
+
+            if (hours > 0) {
+                return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+            return `${minutes}:${String(seconds).padStart(2, '0')}`;
+        };
+
+        const videos: Video[] = (videosData.items || []).map((item) => ({
+            id: item.id,
+            title: item.snippet.title,
+            description: item.snippet.description,
+            imageUrl:
+                item.snippet.thumbnails.high?.url ||
+                item.snippet.thumbnails.medium?.url ||
+                item.snippet.thumbnails.default?.url ||
+                fallbackImage,
+            duration: formatDuration(item.contentDetails.duration),
+        }));
+
+        const hasMore = videos.length === pageSize;
+        return { data: videos, hasMore };
+    } catch (error) {
+        console.error('YouTube API fetch error:', error);
+        throw error;
     }
-
-    const json = await response.json() as { items: Array<{ id: { videoId: string }, snippet: { title: string, description: string, thumbnails: { medium?: { url: string }, high?: { url: string }, default?: { url: string } } } }> };
-    const fallbackImage = mockVideos[0]?.imageUrl || '';
-
-    const videos: Video[] = (json.items || []).map((item) => ({
-        id: item.id.videoId,
-        title: item.snippet.title,
-        description: item.snippet.description,
-        imageUrl:
-            item.snippet.thumbnails.medium?.url ||
-            item.snippet.thumbnails.high?.url ||
-            item.snippet.thumbnails.default?.url ||
-            fallbackImage,
-        duration: '10:00',
-    }));
-
-    const hasMore = videos.length === pageSize;
-    return { data: videos, hasMore };
 };
 
 const fetchProductsFromOpenBeautyFacts = async (page: number, pageSize: number): Promise<{ data: Product[]; hasMore: boolean }> => {
@@ -358,7 +445,7 @@ export const getRateLimitStatus = () => {
     }, initialValue);
 };
 
-const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, delay = 500): Promise<{ data: T[], hasMore: boolean }> => {
+const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, delay = 500, category?: string): Promise<{ data: T[], hasMore: boolean }> => {
     const withinLimit = trackRateLimit(key);
     if (!withinLimit) {
         throw new Error(`Rate limit exceeded for ${key}`);
@@ -379,7 +466,7 @@ const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, d
                 return { data, hasMore };
             }
             case 'products': return await fetchProductsFromOpenBeautyFacts(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
-            case 'videos': return await fetchVideosFromYouTube(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
+            case 'videos': return await fetchVideosFromYouTube(page, config.pageSize, category || 'All') as unknown as { data: T[]; hasMore: boolean };
             case 'nutrition': return await fetchNutritionFromApiNinjas(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
             default: {
                 const start = (page - 1) * config.pageSize;
@@ -393,15 +480,15 @@ const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, d
         console.error(`apiFetch error for ${key} (page ${page}, retries left ${retries}):`, error);
         if (retries > 0) {
             await new Promise(res => setTimeout(res, delay));
-            return apiFetch(key, page, retries - 1, delay * 2);
+            return apiFetch(key, page, retries - 1, delay * 2, category);
         }
         console.error(`apiFetch giving up for ${key} after retries`, { key, page });
         throw error;
     }
 };
 
-const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1): Promise<{ data: T[], hasMore: boolean }> => {
-    const cacheKey = `${key}_page_${page}`;
+const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1, category?: string): Promise<{ data: T[], hasMore: boolean }> => {
+    const cacheKey = `${key}_page_${page}${category ? `_${category}` : ''}`;
     const config = API_CONFIG[key];
     try {
         const v = localStorage.getItem('api_cache_version');
@@ -424,7 +511,7 @@ const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1): Pro
         return cachedData;
     }
     try {
-        const result = await apiFetch<T>(key, page);
+        const result = await apiFetch<T>(key, page, 3, 500, category);
         setCache(cacheKey, result);
         return result;
     } catch (error) {
@@ -442,7 +529,7 @@ export const getArticles = (page: number) => fetchDataWithCache<Article>('articl
 export const getProducts = (page: number) => fetchDataWithCache<Product>('products', page);
 export const getTutorials = (page: number) => fetchDataWithCache<Tutorial>('tutorials', page);
 export const getNutritionData = (page: number) => fetchDataWithCache<(NutritionInfo | TipCard)>('nutrition', page);
-export const getVideos = (page: number) => fetchDataWithCache<Video>('videos', page);
+export const getVideos = (page: number, category?: string) => fetchDataWithCache<Video>('videos', page, category);
 
 export const getFeaturedArticles = async () => {
     try {

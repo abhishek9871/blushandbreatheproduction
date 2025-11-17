@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 type Fetcher<T> = (page: number) => Promise<{ data: T[]; hasMore: boolean }>;
 
-export function useApi<T>(fetcher: Fetcher<T>) {
+export function useApi<T>(fetcher: Fetcher<T>, deps?: any[]) {
   const [items, setItems] = useState<T[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
@@ -42,7 +42,7 @@ export function useApi<T>(fetcher: Fetcher<T>) {
 
   useEffect(() => {
     loadData(1);
-  }, [loadData]);
+  }, deps ? deps : [loadData]);
   
   const loadMore = () => {
     if (hasMore && !loadingMore) {

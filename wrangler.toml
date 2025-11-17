@@ -1,0 +1,9 @@
+name = "jyotilalchandani"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"
+
+[env.production]
+vars = { VITE_NEWSAPI_KEY = "15e89be5f2da4687bc1c0f990e10885b" }
+
+[env.preview]
+vars = { VITE_NEWSAPI_KEY = "15e89be5f2da4687bc1c0f990e10885b" }

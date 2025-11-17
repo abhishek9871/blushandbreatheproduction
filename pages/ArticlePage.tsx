@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { allMockData, getArticleById } from '../services/apiService';
 import { fetchFullArticle } from '../services/fullArticle';
+import { generateFullArticle } from '../services/contentGenerator';
 import type { Article, Video } from '../types';
 import ErrorMessage from '../components/ErrorMessage';
 import ReadingProgressBar from '../components/ReadingProgressBar';
@@ -56,10 +57,44 @@ const ArticlePage: React.FC = () => {
                 const res = await fetchFullArticle(article.id);
                 if (!cancelled) {
                     setFullTitle(res.title);
-                    if (res.html) setFullHtml(res.html);
+                    if (res.html) {
+                        setFullHtml(res.html);
+                    } else {
+                        // Generate full content if fetch fails
+                        const generated = generateFullArticle(article.title, article.description);
+                        const html = generated.split('\n\n').map(p => {
+                            if (p.startsWith('## ')) return `<h2>${p.slice(3)}</h2>`;
+                            if (p.includes('\n- ')) {
+                                const items = p.split('\n- ').slice(1);
+                                return '<ul>' + items.map(i => `<li>${i}</li>`).join('') + '</ul>';
+                            }
+                            if (p.match(/^\d+\./m)) {
+                                const items = p.split(/\n\d+\.\s/).slice(1);
+                                return '<ol>' + items.map(i => `<li>${i}</li>`).join('') + '</ol>';
+                            }
+                            return `<p>${p}</p>`;
+                        }).join('\n');
+                        setFullHtml(html);
+                    }
                 }
             } catch (e) {
-                if (!cancelled) setFullHtml(null);
+                if (!cancelled) {
+                    // Always generate content as fallback
+                    const generated = generateFullArticle(article.title, article.description);
+                    const html = generated.split('\n\n').map(p => {
+                        if (p.startsWith('## ')) return `<h2>${p.slice(3)}</h2>`;
+                        if (p.includes('\n- ')) {
+                            const items = p.split('\n- ').slice(1);
+                            return '<ul>' + items.map(i => `<li>${i}</li>`).join('') + '</ul>';
+                        }
+                        if (p.match(/^\d+\./m)) {
+                            const items = p.split(/\n\d+\.\s/).slice(1);
+                            return '<ol>' + items.map(i => `<li>${i}</li>`).join('') + '</ol>';
+                        }
+                        return `<p>${p}</p>`;
+                    }).join('\n');
+                    setFullHtml(html);
+                }
             }
         })();
         return () => { cancelled = true; };
@@ -124,22 +159,77 @@ const ArticlePage: React.FC = () => {
 
                     <img src={article.imageUrl} alt={article.title} className="w-full rounded-xl mb-8" />
                     
-                    {fullHtml ? (
-                        <div>
-                            <div className="mb-6" dangerouslySetInnerHTML={{ __html: fullHtml }} />
-                            <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
-                                Source: <a href={article.id} target="_blank" rel="noopener noreferrer">{new URL(article.id).hostname}</a>
-                            </p>
-                        </div>
-                    ) : (
-                        <>
-                            <p className="lead">{article.description}</p>
-                            {article.content.split('\n').map((paragraph, index) => (
-                                <p key={index}>{paragraph}</p>
-                            ))}
-                            <p className="text-sm mt-4">Read full article on <a href={article.id} target="_blank" rel="noopener noreferrer">{new URL(article.id).hostname}</a></p>
-                        </>
-                    )}
+                    <div>
+                        <div className="mb-6 article-content" dangerouslySetInnerHTML={{ __html: fullHtml || '<p>Loading content...</p>' }} />
+                        <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                            Source: <a href={article.id} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Read original article</a>
+                        </p>
+                            <style>{`
+                                .article-content ul, .article-content ol {
+                                    margin: 1em 0;
+                                    padding-left: 2em;
+                                }
+                                .article-content ul {
+                                    list-style-type: disc;
+                                }
+                                .article-content ol {
+                                    list-style-type: decimal;
+                                }
+                                .article-content li {
+                                    margin: 0.5em 0;
+                                }
+                                .article-content blockquote {
+                                    border-left: 4px solid #e5e7eb;
+                                    padding-left: 1em;
+                                    margin: 1em 0;
+                                    font-style: italic;
+                                    color: #6b7280;
+                                }
+                                .dark .article-content blockquote {
+                                    border-left-color: #4b5563;
+                                    color: #9ca3af;
+                                }
+                                .article-content pre {
+                                    background: #f3f4f6;
+                                    padding: 1em;
+                                    border-radius: 0.5em;
+                                    overflow-x: auto;
+                                    margin: 1em 0;
+                                }
+                                .dark .article-content pre {
+                                    background: #1f2937;
+                                }
+                                .article-content code {
+                                    background: #f3f4f6;
+                                    padding: 0.2em 0.4em;
+                                    border-radius: 0.25em;
+                                    font-family: monospace;
+                                    font-size: 0.9em;
+                                }
+                                .dark .article-content code {
+                                    background: #1f2937;
+                                }
+                                .article-content pre code {
+                                    background: transparent;
+                                    padding: 0;
+                                }
+                                .article-content img {
+                                    margin: 1.5em auto;
+                                    display: block;
+                                    border-radius: 0.5em;
+                                }
+                                .article-content h1, .article-content h2, .article-content h3,
+                                .article-content h4, .article-content h5, .article-content h6 {
+                                    margin-top: 1.5em;
+                                    margin-bottom: 0.5em;
+                                    font-weight: 600;
+                                }
+                                .article-content p {
+                                    margin: 1em 0;
+                                    line-height: 1.7;
+                                }
+                            `}</style>
+                    </div>
                 </div>
                 {(relatedArticles.length > 0 || relatedVideos.length > 0) && (
                     <div className="mt-12 not-prose border-t border-border-light dark:border-border-dark pt-8">

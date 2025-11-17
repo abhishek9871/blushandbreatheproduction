@@ -1,5 +1,6 @@
 
 import type { Article, Product, Tutorial, NutritionInfo, TipCard, Video } from '../types';
+import { fetchPubMedArticles } from './pubmedService';
 
 // Add contentType for better filtering
 const mockArticles: (Article & { contentType: 'Article' })[] = [
@@ -50,9 +51,9 @@ const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY as string | undefin
 const API_NINJAS_KEY = import.meta.env.VITE_API_NINJAS_KEY as string | undefined;
 const IS_DEV = import.meta.env.DEV;
 
-const NEWS_API_BASE_URL = IS_DEV ? '/newsapi/v2' : 'https://newsapi.org/v2';
+const NEWS_API_BASE_URL = IS_DEV ? '/newsapi/v2' : '/api/newsapi';
 const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
-const API_NINJAS_BASE_URL = IS_DEV ? '/ninjas' : 'https://api.api-ninjas.com/v1';
+const API_NINJAS_BASE_URL = IS_DEV ? '/ninjas' : '/api/ninjas';
 const OPEN_BEAUTY_FACTS_BASE_URL = 'https://world.openbeautyfacts.org/cgi';
 
 interface NewsApiArticle {
@@ -109,22 +110,24 @@ const cleanNewsApiText = (text: string | null | undefined): string => {
     return text.replace(/\s*\[\+\d+\s*chars\]$/i, '').trim();
 };
 
-const fetchArticlesFromNewsAPI = async (page: number, pageSize: number): Promise<{ data: Article[]; hasMore: boolean }> => {
-    if (!NEWS_API_KEY) {
-        throw new Error('Missing NEWS API key');
-    }
+const fetchArticlesFromPubMed = async (page: number, pageSize: number): Promise<{ data: Article[]; hasMore: boolean }> => {
+  try {
+    const articles = await fetchPubMedArticles('health wellness beauty nutrition fitness mental', pageSize);
+    return { data: articles, hasMore: false };
+  } catch (error) {
+    console.error('PubMed fetch failed:', error);
+    return { data: [], hasMore: false };
+  }
+};
 
-    const url = new URL(`${NEWS_API_BASE_URL}/top-headlines`, window.location.origin);
+const fetchArticlesFromNewsAPI = async (page: number, pageSize: number): Promise<{ data: Article[]; hasMore: boolean }> => {
+    const url = new URL(`${NEWS_API_BASE_URL}`, window.location.origin);
 
     url.searchParams.set('category', 'health');
     url.searchParams.set('language', 'en');
     url.searchParams.set('country', 'us');
     url.searchParams.set('page', String(page));
     url.searchParams.set('pageSize', String(pageSize));
-    // In production (no dev proxy), include the API key as a query param
-    if (!IS_DEV) {
-        url.searchParams.set('apiKey', NEWS_API_KEY);
-    }
 
     const response = await fetch(url.toString());
     if (!response.ok) {
@@ -225,10 +228,6 @@ const fetchProductsFromOpenBeautyFacts = async (page: number, pageSize: number):
 const NUTRITION_FOODS = ['Avocado', 'Blueberries', 'Salmon', 'Kale', 'Almonds', 'Oats', 'Quinoa', 'Spinach'];
 
 const fetchNutritionFromApiNinjas = async (page: number, pageSize: number): Promise<{ data: (NutritionInfo | TipCard)[]; hasMore: boolean }> => {
-    if (!API_NINJAS_KEY) {
-        throw new Error('Missing API Ninjas key');
-    }
-
     const start = (page - 1) * pageSize;
     const foodsSlice = NUTRITION_FOODS.slice(start, start + pageSize);
     if (foodsSlice.length === 0) {
@@ -236,9 +235,7 @@ const fetchNutritionFromApiNinjas = async (page: number, pageSize: number): Prom
     }
 
     const query = foodsSlice.join(',');
-    const response = await fetch(`${API_NINJAS_BASE_URL}/nutrition?query=${encodeURIComponent(query)}`, {
-        headers: IS_DEV ? {} : { 'X-Api-Key': API_NINJAS_KEY },
-    });
+    const response = await fetch(`${API_NINJAS_BASE_URL}?query=${encodeURIComponent(query)}`);
     if (!response.ok) {
         throw new Error(`API Ninjas error: ${response.status}`);
     }
@@ -260,7 +257,7 @@ const fetchNutritionFromApiNinjas = async (page: number, pageSize: number): Prom
 };
 
 const API_CONFIG = {
-    'articles': { ttl: 1000 * 60 * 60 * 24, fallbackData: mockArticles, pageSize: 8, total: mockArticles.length, limit: 100 },
+    'articles': { ttl: 1000 * 60 * 60 * 24, fallbackData: mockArticles, pageSize: 20, total: mockArticles.length, limit: 100 },
     'products': { ttl: 1000 * 60 * 60 * 24 * 30, fallbackData: mockProducts, pageSize: 4, total: mockProducts.length, limit: Infinity },
     'tutorials': { ttl: 1000 * 60 * 60 * 24 * 30, fallbackData: mockTutorials, pageSize: 3, total: mockTutorials.length, limit: Infinity },
     'nutrition': { ttl: 1000 * 60 * 60 * 24 * 7, fallbackData: mockNutritionData, pageSize: 6, total: mockNutritionData.length, limit: 1000 },
@@ -352,7 +349,17 @@ const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, d
     try {
         await new Promise(res => setTimeout(res, 300 + Math.random() * 500));
         switch (key) {
-            case 'articles': return await fetchArticlesFromNewsAPI(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
+            case 'articles': {
+                const newsResult = await fetchArticlesFromNewsAPI(page, Math.floor(config.pageSize * 0.7));
+                const pubmedResult = await fetchArticlesFromPubMed(page, Math.floor(config.pageSize * 0.3));
+                const combined = [...newsResult.data, ...pubmedResult.data];
+                if (combined.length > 0) return { data: combined, hasMore: true } as unknown as { data: T[]; hasMore: boolean };
+                const start = (page - 1) * config.pageSize;
+                const end = start + config.pageSize;
+                const data = config.fallbackData.slice(start, end) as T[];
+                const hasMore = end < config.fallbackData.length;
+                return { data, hasMore };
+            }
             case 'products': return await fetchProductsFromOpenBeautyFacts(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
             case 'videos': return await fetchVideosFromYouTube(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
             case 'nutrition': return await fetchNutritionFromApiNinjas(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
@@ -419,7 +426,19 @@ export const getTutorials = (page: number) => fetchDataWithCache<Tutorial>('tuto
 export const getNutritionData = (page: number) => fetchDataWithCache<(NutritionInfo | TipCard)>('nutrition', page);
 export const getVideos = (page: number) => fetchDataWithCache<Video>('videos', page);
 
-export const getFeaturedArticles = () => fetchDataWithCache<Article>('articles', 1).then(res => ({ ...res, data: res.data.slice(0, 3) }));
+export const getFeaturedArticles = async () => {
+    try {
+        const newsResult = await fetchArticlesFromNewsAPI(1, 3);
+        // Cache featured articles so they can be found by getArticleById
+        if (newsResult.data.length > 0) {
+            setCache('featured_articles', newsResult.data);
+        }
+        return newsResult;
+    } catch (error) {
+        const fallback = mockArticles.slice(0, 3);
+        return { data: fallback, hasMore: false };
+    }
+};
 
 const sanitizeArticle = (a: Article): Article => ({
     ...a,
@@ -451,6 +470,14 @@ export const getArticleById = async (id: string): Promise<Article | undefined> =
     await new Promise(res => setTimeout(res, 150));
     const cached = findArticleInCacheById(id);
     if (cached) return cached;
+    
+    // Check featured articles cache
+    const featuredCache = getCache<Article[]>('featured_articles', API_CONFIG.articles.ttl);
+    if (featuredCache) {
+        const featured = featuredCache.find(a => a.id === id);
+        if (featured) return sanitizeArticle(featured);
+    }
+    
     const fromMocks = allMockData.find(item => (item as any).id === id && (item as any).contentType === 'Article') as Article | undefined;
     if (fromMocks) return fromMocks;
     return mockArticles.find(article => article.id === id);

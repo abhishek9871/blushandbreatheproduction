@@ -152,7 +152,7 @@ function transformUSDAData(food, index, page) {
       : `Approximate nutrition facts per ${servingSize}${servingUnit} of ${food.description || 'food'}.`;
 
     return {
-      id: `nutrition-${index}-${page}`,
+      id: food.fdcId ? `usda-food-${food.fdcId}` : `usda-search-${food.description?.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase() || 'unknown'}-${index}`,
       name: food.description || `Food Item ${index + 1}`,
       description,
       imageUrl,

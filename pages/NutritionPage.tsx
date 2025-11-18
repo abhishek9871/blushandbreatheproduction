@@ -178,7 +178,37 @@ const NutritionPageContent: React.FC = () => {
   ];
 
   // Get food items only (filter out tips) for comparison and recommendations
-  const foodItems = nutritionData ? nutritionData.filter(item => !('type' in item)) : [];
+  const foodItems = React.useMemo(() => {
+    const allFoodItems = [];
+    
+    // Add static nutrition data foods
+    if (nutritionData) {
+      const staticFoods = nutritionData.filter(item => !('type' in item));
+      allFoodItems.push(...staticFoods);
+    }
+    
+    // Add search results (only food items, not tips)
+    if (searchResults.length > 0) {
+      const searchFoods = searchResults.filter(item => !('type' in item));
+      allFoodItems.push(...searchFoods);
+    }
+    
+    // Remove duplicates based on ID or name
+    const uniqueFoods = allFoodItems.reduce((acc, food) => {
+      const existingIndex = acc.findIndex(existing => 
+        (existing.id && existing.id === food.id) || 
+        existing.name === food.name
+      );
+      
+      if (existingIndex === -1) {
+        acc.push(food);
+      }
+      
+      return acc;
+    }, [] as any[]);
+    
+    return uniqueFoods;
+  }, [nutritionData, searchResults]);
 
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8 py-6 md:py-10">
@@ -201,6 +231,7 @@ const NutritionPageContent: React.FC = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
+              data-tab={tab.id}
               className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
                 activeTab === tab.id
                   ? 'border-accent text-accent'
@@ -254,6 +285,7 @@ const NutritionPageContent: React.FC = () => {
                     <NutritionCard 
                       key={`${item.id || item.fdcId || 'item'}-${index}-${searchQuery}`} 
                       item={item} 
+                      showCompareButton={activeTab === 'foods' && !('type' in item && item.type === 'tip')}
                     />
                   ))}
                 </div>

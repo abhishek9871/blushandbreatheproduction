@@ -7,6 +7,7 @@ interface ComparisonContextType {
   removeFromComparison: (foodId: string) => void;
   clearComparison: () => void;
   isInComparison: (foodId: string) => boolean;
+  isInComparisonStrict: (food: NutritionInfo) => boolean;
   canAddMore: boolean;
 }
 
@@ -29,7 +30,7 @@ export const ComparisonProvider: React.FC<ComparisonProviderProps> = ({ children
 
   const addToComparison = (food: NutritionInfo) => {
     if (comparedFoods.length >= 3) return; // Max 3 foods
-    if (comparedFoods.find(f => f.id === food.id)) return; // Avoid duplicates
+    if (comparedFoods.find(f => f.id === food.id)) return; // Avoid duplicates by ID
     
     setComparedFoods([...comparedFoods, food]);
   };
@@ -46,6 +47,13 @@ export const ComparisonProvider: React.FC<ComparisonProviderProps> = ({ children
     return comparedFoods.some(f => f.id === foodId);
   };
 
+  // Enhanced comparison check that includes food name to avoid false positives
+  const isInComparisonStrict = (food: NutritionInfo) => {
+    return comparedFoods.some(f => 
+      f.id === food.id && f.name === food.name
+    );
+  };
+
   const canAddMore = comparedFoods.length < 3;
 
   const value: ComparisonContextType = {
@@ -54,6 +62,7 @@ export const ComparisonProvider: React.FC<ComparisonProviderProps> = ({ children
     removeFromComparison,
     clearComparison,
     isInComparison,
+    isInComparisonStrict,
     canAddMore
   };
 

@@ -87,16 +87,16 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
           {showCompareButton && comparisonContext && (
             <button
               onClick={() => comparisonContext.addToComparison(item)}
-              disabled={!comparisonContext.canAddMore || comparisonContext.isInComparison(item.id)}
+              disabled={!comparisonContext.canAddMore || comparisonContext.isInComparisonStrict(item)}
               className={`p-2 rounded-full transition-colors shadow-lg ${
-                comparisonContext.isInComparison(item.id)
+                comparisonContext.isInComparisonStrict(item)
                   ? 'bg-accent text-white'
                   : comparisonContext.canAddMore
                   ? 'bg-blue-600 text-white hover:bg-blue-700'
                   : 'bg-gray-400 text-gray-600 cursor-not-allowed'
               }`}
               title={
-                comparisonContext.isInComparison(item.id)
+                comparisonContext.isInComparisonStrict(item)
                   ? 'Already in comparison'
                   : comparisonContext.canAddMore
                   ? 'Add to comparison'
@@ -205,9 +205,9 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
           {showCompareButton && comparisonContext && (
             <button
               onClick={() => comparisonContext.addToComparison(item)}
-              disabled={!comparisonContext.canAddMore || comparisonContext.isInComparison(item.id)}
+              disabled={!comparisonContext.canAddMore || comparisonContext.isInComparisonStrict(item)}
               className={`px-4 py-2 rounded-lg transition-colors text-sm font-medium flex items-center gap-2 ${
-                comparisonContext.isInComparison(item.id)
+                comparisonContext.isInComparisonStrict(item)
                   ? 'bg-accent/20 text-accent cursor-default'
                   : comparisonContext.canAddMore
                   ? 'bg-blue-600 text-white hover:bg-blue-700'
@@ -215,7 +215,7 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
               }`}
             >
               <span className="material-symbols-outlined text-sm">compare_arrows</span>
-              {comparisonContext.isInComparison(item.id) ? 'Added' : 'Compare'}
+              {comparisonContext.isInComparisonStrict(item) ? 'Added' : 'Compare'}
             </button>
           )}
 

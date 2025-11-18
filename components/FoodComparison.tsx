@@ -22,15 +22,17 @@ const FoodComparison: React.FC<FoodComparisonProps> = ({ availableFoods }) => {
   // Filter available foods based on search
   useEffect(() => {
     if (!searchQuery.trim()) {
-      setFilteredFoods(availableFoods.slice(0, 10)); // Show first 10 by default
+      // Show first 20 foods, prioritizing recently searched items
+      const recentFoods = availableFoods.slice(0, 20);
+      setFilteredFoods(recentFoods);
       return;
     }
 
     const filtered = availableFoods.filter(food =>
       food.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      food.description.toLowerCase().includes(searchQuery.toLowerCase())
+      (food.description && food.description.toLowerCase().includes(searchQuery.toLowerCase()))
     );
-    setFilteredFoods(filtered.slice(0, 10));
+    setFilteredFoods(filtered.slice(0, 20));
   }, [searchQuery, availableFoods]);
 
   const getBestValue = (nutrient: 'protein' | 'carbs' | 'fats') => {
@@ -305,11 +307,26 @@ const FoodComparison: React.FC<FoodComparisonProps> = ({ availableFoods }) => {
             <span className="material-symbols-outlined text-3xl text-accent">compare_arrows</span>
           </div>
           <h3 className="text-xl font-semibold text-text-light dark:text-text-dark mb-2">
-            Start Comparing Foods
+            {availableFoods.length === 0 ? 'Search for Foods First' : 'Start Comparing Foods'}
           </h3>
           <p className="text-text-subtle-light dark:text-text-subtle-dark mb-4">
-            Add foods from the search above to compare their nutritional values
+            {availableFoods.length === 0 
+              ? 'Go to the Foods & Tips tab and search for foods to compare their nutritional values'
+              : 'Add foods from the search above to compare their nutritional values'
+            }
           </p>
+          {availableFoods.length === 0 && (
+            <button
+              onClick={() => {
+                // This would ideally switch to the foods tab
+                const foodsTab = document.querySelector('[data-tab="foods"]') as HTMLButtonElement;
+                if (foodsTab) foodsTab.click();
+              }}
+              className="px-4 py-2 bg-accent text-text-light rounded-lg hover:bg-accent/90 transition-colors text-sm font-medium"
+            >
+              Search Foods Now
+            </button>
+          )}
         </div>
       )}
     </div>

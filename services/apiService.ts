@@ -618,7 +618,16 @@ const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, d
             }
             case 'products': return await fetchProductsFromOpenBeautyFacts(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
             case 'videos': return await fetchVideosFromYouTube(page, config.pageSize, category || 'All') as unknown as { data: T[]; hasMore: boolean };
-            case 'nutrition': return await fetchNutritionFromApiNinjas(page, config.pageSize) as unknown as { data: T[]; hasMore: boolean };
+            case 'nutrition': {
+              // Use backend endpoint instead of direct API Ninjas call
+              const backendUrl = IS_DEV ? `/api/nutrition?page=${page}&pageSize=${config.pageSize}` : `/api/nutrition?page=${page}&pageSize=${config.pageSize}`;
+              const response = await fetch(backendUrl);
+              if (!response.ok) {
+                throw new Error(`Nutrition API error: ${response.status}`);
+              }
+              const result = await response.json();
+              return { data: result.data, hasMore: result.hasMore };
+            }
             default: {
                 const start = (page - 1) * config.pageSize;
                 const end = start + config.pageSize;

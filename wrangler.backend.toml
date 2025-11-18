@@ -23,6 +23,10 @@ id = "4de8728f89104b92911d47ce70f70744"
 binding = "AFFILIATE_KV"
 id = "63dd4c653efb42eb8b46714e9def97f4"
 
+[[kv_namespaces]]
+binding = "NUTRITION_CACHE"
+id = "REPLACE_WITH_ACTUAL_KV_NAMESPACE_ID"  # Create new KV namespace in Cloudflare dashboard
+
 [[durable_objects.bindings]]
 name = "AFFILIATE_DO"
 class_name = "AffiliateCounter"

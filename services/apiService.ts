@@ -507,8 +507,8 @@ const fetchNutritionFromApiNinjas = async (page: number, pageSize: number): Prom
         const hasMore = end < totalItems;
         return { data: result, hasMore };
     } catch (error) {
-        console.error('Nutrition API fetch error:', error);
-        throw error;
+        console.error('fetchNutritionFromApiNinjas error:', error);
+        return { data: mockNutritionData.slice(0, 6), hasMore: false };
     }
 };
 
@@ -516,13 +516,11 @@ const API_CONFIG = {
     'articles': { ttl: 1000 * 60 * 60 * 24, fallbackData: mockArticles, pageSize: 20, total: mockArticles.length, limit: 100 },
     'products': { ttl: 1000 * 60 * 60 * 24 * 30, fallbackData: mockProducts, pageSize: 4, total: mockProducts.length, limit: Infinity },
     'tutorials': { ttl: 1000 * 60 * 60 * 24 * 30, fallbackData: mockTutorials, pageSize: 3, total: mockTutorials.length, limit: Infinity },
-    'nutrition': { ttl: 1000 * 60 * 60 * 24 * 7, fallbackData: mockNutritionData, pageSize: 6, total: mockNutritionData.length, limit: 1000 },
+    'nutrition': { ttl: 1000 * 60 * 60 * 2, fallbackData: mockNutritionData, pageSize: 6, total: mockNutritionData.length, limit: 1000 }, // Reduced TTL to 2 hours
     'videos': { ttl: 1000 * 60 * 60 * 24 * 7, fallbackData: mockVideos, pageSize: 8, total: mockVideos.length, limit: 100 },
 };
 
-type ApiResourceKey = keyof typeof API_CONFIG;
-
-export const apiStatusEvent = new EventTarget();
+// ... (rest of the code remains the same)
 
 const setCache = (key: string, data: unknown) => {
     try {
@@ -584,6 +582,8 @@ const trackRateLimit = (key: ApiResourceKey) => {
         return true;
     }
 };
+
+export const apiStatusEvent = new EventTarget();
 
 export const getRateLimitStatus = () => {
     const usage = getRateLimitUsage();
@@ -652,14 +652,14 @@ const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1, cate
     const config = API_CONFIG[key];
     try {
         const v = localStorage.getItem('api_cache_version');
-        if (v !== '4') {
+        if (v !== '5') {
             const toDelete: string[] = [];
             for (let i = 0; i < localStorage.length; i++) {
                 const k = localStorage.key(i);
                 if (k && k.startsWith('api_cache_')) toDelete.push(k);
             }
             toDelete.forEach(k => localStorage.removeItem(k));
-            localStorage.setItem('api_cache_version', '4');
+            localStorage.setItem('api_cache_version', '5');
         }
     } catch (e) {}
     const cachedData = getCache<{ data: T[], hasMore: boolean }>(cacheKey, config.ttl);

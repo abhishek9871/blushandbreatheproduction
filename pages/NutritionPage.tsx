@@ -23,6 +23,38 @@ const NutritionPageContent: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState(nutritionData || []);
 
+  // Enhanced nutrient and food search mapping
+  const getNutrientKeywords = (item: any) => {
+    if ('type' in item && item.type === 'tip') return '';
+    
+    const name = item.name.toLowerCase();
+    const keywords: string[] = [];
+    
+    // Add common nutrient associations
+    const nutrientMap: Record<string, string[]> = {
+      'vitamin c': ['orange', 'strawberry', 'kiwi', 'bell pepper', 'broccoli', 'citrus'],
+      'protein': ['chicken', 'beef', 'fish', 'salmon', 'egg', 'bean', 'lentil', 'quinoa', 'tofu', 'milk', 'yogurt'],
+      'healthy fats': ['avocado', 'salmon', 'nuts', 'olive', 'seed'],
+      'fiber': ['apple', 'oats', 'beans', 'broccoli', 'artichoke'],
+      'iron': ['spinach', 'beef', 'lentil', 'quinoa'],
+      'calcium': ['milk', 'cheese', 'yogurt', 'broccoli', 'kale'],
+      'potassium': ['banana', 'potato', 'spinach', 'avocado'],
+      'omega 3': ['salmon', 'walnuts', 'chia', 'flax'],
+      'antioxidants': ['blueberry', 'strawberry', 'dark chocolate', 'green tea'],
+      'magnesium': ['nuts', 'seeds', 'spinach', 'quinoa'],
+      'folate': ['spinach', 'asparagus', 'lentil', 'avocado']
+    };
+    
+    // Check if food matches any nutrient keywords
+    Object.entries(nutrientMap).forEach(([nutrient, foods]) => {
+      if (foods.some(food => name.includes(food))) {
+        keywords.push(nutrient);
+      }
+    });
+    
+    return keywords.join(' ');
+  };
+
   // Filter data based on search query
   useEffect(() => {
     if (!nutritionData) return;
@@ -34,12 +66,18 @@ const NutritionPageContent: React.FC = () => {
 
     const filtered = nutritionData.filter(item => {
       const searchTerm = searchQuery.toLowerCase();
+      
       if ('type' in item && item.type === 'tip') {
         return item.title.toLowerCase().includes(searchTerm) ||
                item.description.toLowerCase().includes(searchTerm);
       } else {
-        return item.name.toLowerCase().includes(searchTerm) ||
-               item.description.toLowerCase().includes(searchTerm);
+        const name = item.name.toLowerCase();
+        const description = item.description.toLowerCase();
+        const nutrientKeywords = getNutrientKeywords(item);
+        
+        return name.includes(searchTerm) ||
+               description.includes(searchTerm) ||
+               nutrientKeywords.includes(searchTerm);
       }
     });
     setFilteredData(filtered);

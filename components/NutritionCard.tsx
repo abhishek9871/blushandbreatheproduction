@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { NutritionInfo, TipCard } from '../types';
+import { useComparison } from '../hooks/useComparison';
 
 const NutrientBar: React.FC<{ label: string; value: number; max: number; color: string }> = ({ label, value, max, color }) => {
   const percentage = max > 0 ? (value / max) * 100 : 0;
@@ -23,15 +24,26 @@ interface NutritionCardProps {
   item: NutritionInfo | TipCard;
   onAddToMeal?: (food: NutritionInfo) => void;
   showAddToMeal?: boolean;
+  showCompareButton?: boolean;
 }
 
 const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardProps, 'item'>> = ({
   item,
   onAddToMeal,
-  showAddToMeal
+  showAddToMeal,
+  showCompareButton
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedPortion, setSelectedPortion] = useState(100);
+  
+  // Use comparison context if available
+  let comparisonContext;
+  try {
+    comparisonContext = useComparison();
+  } catch {
+    // Not within ComparisonProvider, that's okay
+    comparisonContext = null;
+  }
 
   // Calculate nutrition for selected portion
   const calculateNutrition = (grams: number) => ({
@@ -72,6 +84,28 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
 
         {/* Quick Actions */}
         <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {showCompareButton && comparisonContext && (
+            <button
+              onClick={() => comparisonContext.addToComparison(item)}
+              disabled={!comparisonContext.canAddMore || comparisonContext.isInComparison(item.id)}
+              className={`p-2 rounded-full transition-colors shadow-lg ${
+                comparisonContext.isInComparison(item.id)
+                  ? 'bg-accent text-white'
+                  : comparisonContext.canAddMore
+                  ? 'bg-blue-600 text-white hover:bg-blue-700'
+                  : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+              }`}
+              title={
+                comparisonContext.isInComparison(item.id)
+                  ? 'Already in comparison'
+                  : comparisonContext.canAddMore
+                  ? 'Add to comparison'
+                  : 'Comparison full (max 3)'
+              }
+            >
+              <span className="material-symbols-outlined text-sm">compare_arrows</span>
+            </button>
+          )}
           {showAddToMeal && onAddToMeal && (
             <button
               onClick={() => onAddToMeal(item)}
@@ -167,6 +201,23 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
             </span>
             {isExpanded ? 'Show Less' : 'Learn More'}
           </button>
+
+          {showCompareButton && comparisonContext && (
+            <button
+              onClick={() => comparisonContext.addToComparison(item)}
+              disabled={!comparisonContext.canAddMore || comparisonContext.isInComparison(item.id)}
+              className={`px-4 py-2 rounded-lg transition-colors text-sm font-medium flex items-center gap-2 ${
+                comparisonContext.isInComparison(item.id)
+                  ? 'bg-accent/20 text-accent cursor-default'
+                  : comparisonContext.canAddMore
+                  ? 'bg-blue-600 text-white hover:bg-blue-700'
+                  : 'bg-gray-300 dark:bg-gray-600 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              <span className="material-symbols-outlined text-sm">compare_arrows</span>
+              {comparisonContext.isInComparison(item.id) ? 'Added' : 'Compare'}
+            </button>
+          )}
 
           {showAddToMeal && onAddToMeal && (
             <button

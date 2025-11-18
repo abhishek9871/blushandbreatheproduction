@@ -10,10 +10,12 @@ import DailyGoals from '../components/DailyGoals';
 import MealPlanner from '../components/MealPlanner';
 import ProgressDashboard from '../components/ProgressDashboard';
 import NutritionHero from '../components/NutritionHero';
+import FoodComparison from '../components/FoodComparison';
+import { ComparisonProvider } from '../hooks/useComparison';
 
-type TabType = 'foods' | 'goals' | 'meals' | 'progress';
+type TabType = 'foods' | 'goals' | 'meals' | 'progress' | 'compare';
 
-const NutritionPage: React.FC = () => {
+const NutritionPageContent: React.FC = () => {
   const { data: nutritionData, loading, error, refetch } = useApi(getNutritionData as any);
   const [activeTab, setActiveTab] = useState<TabType>('foods');
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,10 +45,14 @@ const NutritionPage: React.FC = () => {
 
   const tabs = [
     { id: 'foods' as TabType, label: 'Foods & Tips', icon: 'restaurant' },
+    { id: 'compare' as TabType, label: 'Compare', icon: 'compare_arrows' },
     { id: 'goals' as TabType, label: 'Daily Goals', icon: 'flag' },
     { id: 'meals' as TabType, label: 'Meal Planner', icon: 'lunch_dining' },
     { id: 'progress' as TabType, label: 'Progress', icon: 'trending_up' }
   ];
+
+  // Get food items only (filter out tips) for comparison
+  const foodItems = nutritionData ? nutritionData.filter(item => !('type' in item)) : [];
 
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8 py-6 md:py-10">
@@ -91,7 +97,7 @@ const NutritionPage: React.FC = () => {
             {filteredData && filteredData.length > 0 && (
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 @container">
                 {filteredData.map(item => (
-                  <NutritionCard key={item.id} item={item} />
+                  <NutritionCard key={item.id} item={item} showCompareButton={true} />
                 ))}
               </div>
             )}
@@ -117,6 +123,8 @@ const NutritionPage: React.FC = () => {
           </div>
         )}
 
+        {activeTab === 'compare' && <FoodComparison availableFoods={foodItems} />}
+
         {activeTab === 'goals' && <DailyGoals />}
 
         {activeTab === 'meals' && <MealPlanner />}
@@ -124,6 +132,14 @@ const NutritionPage: React.FC = () => {
         {activeTab === 'progress' && <ProgressDashboard />}
       </div>
     </main>
+  );
+};
+
+const NutritionPage: React.FC = () => {
+  return (
+    <ComparisonProvider>
+      <NutritionPageContent />
+    </ComparisonProvider>
   );
 };
 

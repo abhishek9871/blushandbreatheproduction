@@ -1,11 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useApi } from '../hooks/useApi';
-import { getNutritionData } from '../services/apiService';
+import { getNutritionData, searchUSDAFoods, getNutrientInfo } from '../services/apiService';
 import NutritionCard from '../components/NutritionCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import NutritionSearch from '../components/NutritionSearch';
+import NutrientEducation from '../components/NutrientEducation';
 import DailyGoals from '../components/DailyGoals';
 import MealPlanner from '../components/MealPlanner';
 import ProgressDashboard from '../components/ProgressDashboard';
@@ -21,67 +22,151 @@ const NutritionPageContent: React.FC = () => {
   const { data: nutritionData, loading, error, refetch } = useApi(getNutritionData as any);
   const [activeTab, setActiveTab] = useState<TabType>('foods');
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState(nutritionData || []);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(false);
+  const [totalHits, setTotalHits] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [nutrientInfo, setNutrientInfo] = useState<any | null>(null);
+  const [isNutrientSearch, setIsNutrientSearch] = useState(false);
+  const [previousQuery, setPreviousQuery] = useState(''); // Track previous query to prevent flicker
 
-  // Enhanced nutrient and food search mapping
-  const getNutrientKeywords = (item: any) => {
-    if ('type' in item && item.type === 'tip') return '';
-    
-    const name = item.name.toLowerCase();
-    const keywords: string[] = [];
-    
-    // Add common nutrient associations
-    const nutrientMap: Record<string, string[]> = {
-      'vitamin c': ['orange', 'strawberry', 'kiwi', 'bell pepper', 'broccoli', 'citrus'],
-      'protein': ['chicken', 'beef', 'fish', 'salmon', 'egg', 'bean', 'lentil', 'quinoa', 'tofu', 'milk', 'yogurt'],
-      'healthy fats': ['avocado', 'salmon', 'nuts', 'olive', 'seed'],
-      'fiber': ['apple', 'oats', 'beans', 'broccoli', 'artichoke'],
-      'iron': ['spinach', 'beef', 'lentil', 'quinoa'],
-      'calcium': ['milk', 'cheese', 'yogurt', 'broccoli', 'kale'],
-      'potassium': ['banana', 'potato', 'spinach', 'avocado'],
-      'omega 3': ['salmon', 'walnuts', 'chia', 'flax'],
-      'antioxidants': ['blueberry', 'strawberry', 'dark chocolate', 'green tea'],
-      'magnesium': ['nuts', 'seeds', 'spinach', 'quinoa'],
-      'folate': ['spinach', 'asparagus', 'lentil', 'avocado']
-    };
-    
-    // Check if food matches any nutrient keywords
-    Object.entries(nutrientMap).forEach(([nutrient, foods]) => {
-      if (foods.some(food => name.includes(food))) {
-        keywords.push(nutrient);
-      }
-    });
-    
-    return keywords.join(' ');
-  };
+  // Check if query is a nutrient search
+  const isNutrientQuery = useCallback((query: string): boolean => {
+    const nutrients = [
+      'vitamin c', 'vitamin d', 'vitamin a', 'vitamin e', 'vitamin k',
+      'protein', 'carbohydrates', 'fat', 'fiber', 'sugar',
+      'iron', 'calcium', 'potassium', 'magnesium', 'zinc',
+      'omega 3', 'antioxidants', 'folate', 'sodium'
+    ];
+    return nutrients.some(nutrient => query.toLowerCase().includes(nutrient));
+  }, []);
 
-  // Filter data based on search query
-  useEffect(() => {
-    if (!nutritionData) return;
-
-    if (!searchQuery.trim()) {
-      setFilteredData(nutritionData);
+  // Search USDA foods with debouncing
+  const performSearch = useCallback(async (query: string, page: number = 1) => {
+    if (!query.trim()) {
+      // Batch state updates to prevent flickering
+      setSearchResults([]);
+      setTotalHits(0);
+      setHasMore(false);
+      setSearchError(null);
+      setNutrientInfo(null);
+      setIsNutrientSearch(false);
+      setPreviousQuery('');
       return;
     }
 
-    const filtered = nutritionData.filter(item => {
-      const searchTerm = searchQuery.toLowerCase();
-      
-      if ('type' in item && item.type === 'tip') {
-        return item.title.toLowerCase().includes(searchTerm) ||
-               item.description.toLowerCase().includes(searchTerm);
-      } else {
-        const name = item.name.toLowerCase();
-        const description = item.description.toLowerCase();
-        const nutrientKeywords = getNutrientKeywords(item);
-        
-        return name.includes(searchTerm) ||
-               description.includes(searchTerm) ||
-               nutrientKeywords.includes(searchTerm);
+    // Track previous query to prevent flicker
+    if (page === 1 && query !== previousQuery) {
+      setPreviousQuery(searchQuery);
+    }
+
+    setIsSearching(true);
+    setSearchError(null);
+
+    try {
+      // Check if this is a nutrient search
+      if (isNutrientQuery(query) && page === 1) {
+        const nutrientData = await getNutrientInfo(query.toLowerCase());
+        if (nutrientData) {
+          // Batch state updates for nutrient search
+          setNutrientInfo(nutrientData);
+          setIsNutrientSearch(true);
+          
+          // Also search for foods rich in this nutrient
+          const foodResult = await searchUSDAFoods(nutrientData.searchQuery, page, 20);
+          setSearchResults(foodResult.data);
+          setTotalHits(foodResult.totalHits);
+          setHasMore(foodResult.hasMore);
+          setCurrentPage(foodResult.currentPage);
+          setPreviousQuery(query);
+          return;
+        }
       }
-    });
-    setFilteredData(filtered);
-  }, [nutritionData, searchQuery]);
+      
+      // Regular food search
+      const result = await searchUSDAFoods(query, page, 20);
+      
+      // Batch state updates to prevent flickering
+      if (page === 1) {
+        setNutrientInfo(null);
+        setIsNutrientSearch(false);
+        setSearchResults(result.data);
+        setPreviousQuery(query);
+      } else {
+        setSearchResults(prev => [...prev, ...result.data]);
+      }
+      setTotalHits(result.totalHits);
+      setHasMore(result.hasMore);
+      setCurrentPage(result.currentPage);
+    } catch (error) {
+      console.error('Search failed:', error);
+      // Batch state updates for error case
+      setSearchError('Failed to search foods. Please try again.');
+      setSearchResults([]);
+      setNutrientInfo(null);
+      setIsNutrientSearch(false);
+      setPreviousQuery(query);
+    } finally {
+      setIsSearching(false);
+    }
+  }, [isNutrientQuery, previousQuery, searchQuery]);
+
+  // Debounced search with optimized state management
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchQuery.trim()) {
+        performSearch(searchQuery, 1);
+      } else {
+        // Clear all search-related states at once
+        setSearchResults([]);
+        setTotalHits(0);
+        setHasMore(false);
+        setSearchError(null);
+        setNutrientInfo(null);
+        setIsNutrientSearch(false);
+      }
+    }, 300); // 300ms debounce
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery, performSearch]);
+
+  // Load more results
+  const loadMore = useCallback(() => {
+    if (hasMore && !isSearching) {
+      performSearch(searchQuery, currentPage + 1);
+    }
+  }, [hasMore, isSearching, searchQuery, currentPage, performSearch]);
+
+  // Clear search
+  const clearSearch = useCallback(() => {
+    setSearchQuery('');
+    setSearchResults([]);
+    setTotalHits(0);
+    setHasMore(false);
+    setSearchError(null);
+    setNutrientInfo(null);
+    setIsNutrientSearch(false);
+    setPreviousQuery('');
+  }, []);
+
+  // Determine what data to show with optimized logic to prevent flickering
+  const displayData = React.useMemo(() => {
+    // If we're searching for a new query, show the previous results to prevent flicker
+    if (isSearching && searchQuery !== previousQuery && searchResults.length > 0) {
+      return searchResults;
+    }
+    return searchQuery.trim() ? searchResults : (nutritionData || []);
+  }, [searchQuery, searchResults, nutritionData, isSearching, previousQuery]);
+  
+  const isLoading = React.useMemo(() => {
+    return searchQuery.trim() ? isSearching : loading;
+  }, [searchQuery, isSearching, loading]);
+  
+  const displayError = React.useMemo(() => {
+    return searchQuery.trim() ? searchError : error;
+  }, [searchQuery, searchError, error]);
 
   const tabs = [
     { id: 'foods' as TabType, label: 'Foods & Tips', icon: 'restaurant' },
@@ -133,32 +218,72 @@ const NutritionPageContent: React.FC = () => {
       <div className="min-h-[600px]">
         {activeTab === 'foods' && (
           <div>
-            {loading && <LoadingSpinner />}
-            {error && <ErrorMessage message={error} />}
-            {filteredData && filteredData.length > 0 && (
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 @container">
-                {filteredData.map(item => (
-                  <NutritionCard key={item.id} item={item} showCompareButton={true} />
-                ))}
+            {/* Nutrient Education Panel */}
+            {nutrientInfo && (
+              <NutrientEducation 
+                nutrientInfo={nutrientInfo} 
+                onSearchFoods={(query) => setSearchQuery(query)}
+              />
+            )}
+
+            {/* Search results info */}
+            {searchQuery.trim() && totalHits > 0 && (
+              <div className="mb-4 text-sm text-gray-600 flex items-center justify-between">
+                <span>
+                  Found {totalHits.toLocaleString()} foods matching "{searchQuery}"
+                  {totalHits > 20 && ` (showing first ${displayData.length})`}
+                  {isNutrientSearch && ' rich in this nutrient'}
+                </span>
+                {isLoading && (
+                  <span className="text-blue-600 flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></span>
+                    Searching...
+                  </span>
+                )}
               </div>
             )}
-            {filteredData && filteredData.length === 0 && searchQuery && (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-3xl text-accent">search_off</span>
+
+            {/* Show loading spinner only when there are no previous results to prevent flicker */}
+            {isLoading && displayData.length === 0 && <LoadingSpinner />}
+            {displayError && <ErrorMessage message={displayError} onRetry={() => performSearch(searchQuery, 1)} />}
+            
+            {!displayError && displayData.length > 0 && (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {displayData.map((item, index) => (
+                    <NutritionCard 
+                      key={`${item.id || item.fdcId || 'item'}-${index}-${searchQuery}`} 
+                      item={item} 
+                    />
+                  ))}
                 </div>
-                <h3 className="text-xl font-semibold text-text-light dark:text-text-dark mb-2">
-                  No results found
-                </h3>
-                <p className="text-text-subtle-light dark:text-text-subtle-dark mb-4">
-                  Try searching for different foods or browse all items
+                
+                {hasMore && searchQuery.trim() && (
+                  <div className="mt-8 text-center">
+                    <button
+                      onClick={loadMore}
+                      disabled={isSearching}
+                      className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {isSearching ? 'Loading...' : `Load More (${totalHits - displayData.length} remaining)`}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+
+            {!isLoading && !displayError && displayData.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-gray-500 text-lg">
+                  {searchQuery.trim() 
+                    ? `No foods found matching "${searchQuery}" in the USDA database.`
+                    : 'No nutrition items available.'}
                 </p>
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="px-4 py-2 bg-accent text-text-light rounded-lg hover:opacity-90 transition-opacity"
-                >
-                  Clear search
-                </button>
+                <p className="text-gray-400 mt-2">
+                  {searchQuery.trim()
+                    ? 'Try different keywords like "apple", "chicken", "protein", or specific food names.'
+                    : 'Check your connection or try refreshing the page.'}
+                </p>
               </div>
             )}
           </div>

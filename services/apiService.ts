@@ -798,6 +798,60 @@ export const fetchProductDetail = async (barcode: string): Promise<any> => {
     return response.json();
 }
 
+// Get educational information about nutrients/vitamins
+export const getNutrientInfo = async (nutrient: string): Promise<any | null> => {
+    try {
+        const baseUrl = import.meta.env.DEV ? '/api/nutrition/nutrient-info' : '/api/nutrition/nutrient-info';
+        const url = `${baseUrl}?nutrient=${encodeURIComponent(nutrient)}`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            if (response.status === 404) {
+                return null; // Nutrient not found
+            }
+            throw new Error(`Failed to fetch nutrient info: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('Nutrient info error:', error);
+        return null;
+    }
+};
+
+// Search USDA FoodData Central database for real food data
+export const searchUSDAFoods = async (query: string, page = 1, pageSize = 20): Promise<{ 
+    data: NutritionInfo[]; 
+    totalHits: number; 
+    currentPage: number; 
+    hasMore: boolean 
+}> => {
+    try {
+        const baseUrl = import.meta.env.DEV ? '/api/nutrition/search' : '/api/nutrition/search';
+        const url = `${baseUrl}?query=${encodeURIComponent(query)}&page=${page}&pageSize=${pageSize}`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`Search failed: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('USDA search error:', error);
+        // Fallback to empty results
+        return {
+            data: [],
+            totalHits: 0,
+            currentPage: page,
+            hasMore: false
+        };
+    }
+};
+
 export const searchAll = async (query: string, filters: { type: string, sort: string }) => {
     if (!query) return [];
 

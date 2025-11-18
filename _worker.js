@@ -433,7 +433,275 @@ export default {
       }
     }
 
-    // USDA Nutrition API endpoint
+    // Nutrient education endpoint - provides educational content about vitamins/nutrients
+    if (path === '/api/nutrition/nutrient-info' && request.method === 'GET') {
+      const url = new URL(request.url);
+      const nutrient = url.searchParams.get('nutrient') || '';
+
+      if (!nutrient.trim()) {
+        return new Response(JSON.stringify({ error: 'Nutrient parameter is required' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+
+      const nutrientDatabase = {
+        'vitamin c': {
+          title: 'Vitamin C (Ascorbic Acid)',
+          description: 'Essential vitamin that acts as a powerful antioxidant, supporting immune function and skin health.',
+          benefits: [
+            'Boosts immune system and helps fight infections',
+            'Promotes collagen production for healthy skin and wound healing',
+            'Powerful antioxidant that protects cells from damage',
+            'Helps absorb iron from plant-based foods',
+            'Supports brain health and neurotransmitter production'
+          ],
+          dailyValue: '90mg',
+          deficiencySymptoms: ['Fatigue and weakness', 'Poor wound healing', 'Dry and splitting hair', 'Bleeding gums', 'Dry skin'],
+          richFoodSources: ['Citrus fruits (oranges, lemons)', 'Bell peppers', 'Strawberries', 'Broccoli', 'Kiwi', 'Tomatoes'],
+          searchQuery: 'vitamin c rich foods'
+        },
+        'vitamin d': {
+          title: 'Vitamin D',
+          description: 'Fat-soluble vitamin crucial for calcium absorption, bone health, and immune function.',
+          benefits: [
+            'Promotes calcium absorption for strong bones and teeth',
+            'Supports immune system function',
+            'Helps regulate mood and may help with depression',
+            'Supports muscle function and strength',
+            'May help reduce inflammation'
+          ],
+          dailyValue: '20mcg (800 IU)',
+          deficiencySymptoms: ['Fatigue and tiredness', 'Bone pain', 'Muscle weakness', 'Depression', 'Hair loss'],
+          richFoodSources: ['Fatty fish (salmon, mackerel)', 'Egg yolks', 'Fortified milk', 'Fortified cereals', 'Sunlight exposure'],
+          searchQuery: 'vitamin d rich foods'
+        },
+        'protein': {
+          title: 'Protein',
+          description: 'Macronutrient essential for building and repairing tissues, making enzymes and hormones, and supporting overall body function.',
+          benefits: [
+            'Builds and repairs muscle tissue after exercise',
+            'Supports immune function and antibody production',
+            'Helps maintain healthy bones, skin, and hair',
+            'Provides sustained energy and satiety',
+            'Essential for hormone and enzyme production'
+          ],
+          dailyValue: '50g',
+          deficiencySymptoms: ['Muscle loss and weakness', 'Edema (swelling)', 'Fatigue and low energy', 'Slow wound healing', 'Weakened immune system'],
+          richFoodSources: ['Lean meats (chicken, turkey)', 'Fish and seafood', 'Eggs', 'Dairy products', 'Legumes and beans', 'Tofu and tempeh'],
+          searchQuery: 'high protein foods'
+        },
+        'iron': {
+          title: 'Iron',
+          description: 'Essential mineral that plays a vital role in producing hemoglobin, which carries oxygen throughout your body.',
+          benefits: [
+            'Prevents anemia and fatigue',
+            'Supports energy production and metabolism',
+            'Essential for cognitive function and brain development',
+            'Supports immune system function',
+            'Helps maintain healthy pregnancy'
+          ],
+          dailyValue: '18mg',
+          deficiencySymptoms: ['Fatigue and weakness', 'Pale skin', 'Shortness of breath', 'Headaches and dizziness', 'Cold hands and feet'],
+          richFoodSources: ['Red meat', 'Spinach and leafy greens', 'Lentils and beans', 'Fortified cereals', 'Dark chocolate', 'Tofu'],
+          searchQuery: 'iron rich foods'
+        },
+        'calcium': {
+          title: 'Calcium',
+          description: 'Essential mineral for building and maintaining strong bones and teeth, muscle function, and nerve signaling.',
+          benefits: [
+            'Builds and maintains strong bones and teeth',
+            'Supports muscle contraction and function',
+            'Essential for nerve transmission and signaling',
+            'Helps with blood clotting',
+            'May help regulate blood pressure'
+          ],
+          dailyValue: '1300mg',
+          deficiencySymptoms: ['Weak and brittle bones', 'Muscle cramps and spasms', 'Numbness or tingling', 'Fatigue', 'Irregular heartbeat'],
+          richFoodSources: ['Dairy products (milk, cheese, yogurt)', 'Leafy greens (kale, spinach)', 'Fortified plant milks', 'Tofu', 'Almonds', 'Sardines'],
+          searchQuery: 'calcium rich foods'
+        },
+        'omega 3': {
+          title: 'Omega-3 Fatty Acids',
+          description: 'Essential fats that play crucial roles in brain health, reducing inflammation, and heart health.',
+          benefits: [
+            'Reduces inflammation throughout the body',
+            'Supports brain health and cognitive function',
+            'Promotes heart health and may lower heart disease risk',
+            'Supports mental health and may reduce depression',
+            'Essential for eye health and vision'
+          ],
+          dailyValue: '1.1g (EPA+DHA)',
+          deficiencySymptoms: ['Dry skin and hair', 'Fatigue', 'Poor concentration', 'Joint pain', 'Mood swings'],
+          richFoodSources: ['Fatty fish (salmon, mackerel, sardines)', 'Walnuts', 'Flaxseeds and chia seeds', 'Fish oil supplements', 'Algal oil'],
+          searchQuery: 'omega 3 rich foods'
+        },
+        'fiber': {
+          title: 'Dietary Fiber',
+          description: 'Essential carbohydrate that aids digestion, helps maintain bowel health, and supports overall health.',
+          benefits: [
+            'Promotes regular bowel movements and prevents constipation',
+            'Helps maintain healthy gut microbiome',
+            'Lowers cholesterol levels',
+            'Helps control blood sugar levels',
+            'Promotes feeling of fullness and weight management'
+          ],
+          dailyValue: '25g',
+          deficiencySymptoms: ['Constipation', 'High cholesterol', 'Blood sugar spikes', 'Weight gain', 'Poor gut health'],
+          richFoodSources: ['Whole grains (oats, quinoa, brown rice)', 'Beans and legumes', 'Fruits and vegetables', 'Nuts and seeds', 'Popcorn'],
+          searchQuery: 'high fiber foods'
+        }
+      };
+
+      const lowerNutrient = nutrient.toLowerCase();
+      const nutrientInfo = nutrientDatabase[lowerNutrient];
+
+      if (!nutrientInfo) {
+        return new Response(JSON.stringify({ error: 'Nutrient information not found' }), {
+          status: 404,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+
+      return new Response(JSON.stringify(nutrientInfo), {
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+      });
+    }
+
+    // USDA Food Search API endpoint - for real-time food search
+    if (path === '/api/nutrition/search' && request.method === 'GET') {
+      const url = new URL(request.url);
+      const query = url.searchParams.get('query') || '';
+      const page = parseInt(url.searchParams.get('page') || '1');
+      const pageSize = Math.min(parseInt(url.searchParams.get('pageSize') || '20'), 50); // Cap at 50
+
+      if (!query.trim()) {
+        return new Response(JSON.stringify({ error: 'Query parameter is required' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+
+      try {
+        // Check rate limiting (USDA allows 1000 requests/hour per IP)
+        const clientIP = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'unknown';
+        const rateLimitKey = `rate_limit:usda_search:${clientIP}`;
+        const now = Date.now();
+        const hourAgo = now - (60 * 60 * 1000);
+
+        // Get current rate limit data
+        let rateData = await env.NUTRITION_CACHE?.get(rateLimitKey);
+        if (rateData) {
+          rateData = JSON.parse(rateData);
+          // Clean old entries
+          rateData.requests = rateData.requests.filter(timestamp => timestamp > hourAgo);
+
+          if (rateData.requests.length >= 900) { // Leave some buffer
+            return new Response(JSON.stringify({
+              error: 'Rate limit exceeded',
+              message: 'Too many requests. Please try again later.',
+              retryAfter: Math.ceil((rateData.requests[0] + (60 * 60 * 1000) - now) / 1000)
+            }), {
+              status: 429,
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Retry-After': Math.ceil((rateData.requests[0] + (60 * 60 * 1000) - now) / 1000).toString()
+              }
+            });
+          }
+        } else {
+          rateData = { requests: [] };
+        }
+
+        // Check cache first
+        const cacheKey = `usda_search:${encodeURIComponent(query)}:page_${page}:size_${pageSize}`;
+        const cachedResult = await env.NUTRITION_CACHE?.get(cacheKey);
+        if (cachedResult) {
+          const parsed = JSON.parse(cachedResult);
+          if (parsed.timestamp > (now - (60 * 60 * 1000))) { // 1 hour TTL for search results
+            return new Response(JSON.stringify(parsed.data), {
+              headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            });
+          }
+        }
+
+        // Fetch from USDA API
+        const apiKey = env.USDA_API_KEY;
+        if (!apiKey) {
+          return new Response(JSON.stringify({ error: 'USDA API key not configured' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+
+        // Call USDA FoodData Central search API
+        const searchUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(query)}&pageSize=${pageSize}&pageNumber=${page}&api_key=${apiKey}`;
+        
+        const searchResponse = await fetch(searchUrl, {
+          headers: {
+            'User-Agent': 'BlushAndBreathe/1.0 (+https://jyotilalchandani.pages.dev)'
+          }
+        });
+
+        if (!searchResponse.ok) {
+          if (searchResponse.status === 429) {
+            return new Response(JSON.stringify({
+              error: 'USDA API rate limit exceeded',
+              message: 'Please try again in a few minutes'
+            }), {
+              status: 429,
+              headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            });
+          }
+          throw new Error(`USDA API error: ${searchResponse.status}`);
+        }
+
+        const searchData = await searchResponse.json();
+        
+        // Transform USDA data to our format
+        const transformedFoods = searchData.foods?.map((food, index) => transformUSDAData(food, index + (page - 1) * pageSize, page)).filter(Boolean) || [];
+
+        const result = {
+          data: transformedFoods,
+          totalHits: searchData.totalHits || 0,
+          currentPage: page,
+          pageSize: pageSize,
+          hasMore: (searchData.totalHits || 0) > page * pageSize
+        };
+
+        // Update rate limiting
+        rateData.requests.push(now);
+        await env.NUTRITION_CACHE?.put(rateLimitKey, JSON.stringify(rateData), {
+          expirationTtl: 60 * 60 * 2 // 2 hours
+        });
+
+        // Cache the result
+        const cacheData = {
+          data: result,
+          timestamp: now
+        };
+        await env.NUTRITION_CACHE?.put(cacheKey, JSON.stringify(cacheData), {
+          expirationTtl: 60 * 60 * 1 // 1 hour for search cache
+        });
+
+        return new Response(JSON.stringify(result), {
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+
+      } catch (error) {
+        console.error('USDA Search API error:', error);
+        return new Response(JSON.stringify({
+          error: 'Failed to search USDA database',
+          message: 'Please try again later'
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
+    // USDA Nutrition API endpoint (for default nutrition data)
     if (path === '/api/nutrition' && request.method === 'GET') {
       const url = new URL(request.url);
       const page = parseInt(url.searchParams.get('page') || '1');

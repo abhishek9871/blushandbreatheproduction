@@ -11,9 +11,11 @@ import MealPlanner from '../components/MealPlanner';
 import ProgressDashboard from '../components/ProgressDashboard';
 import NutritionHero from '../components/NutritionHero';
 import FoodComparison from '../components/FoodComparison';
+import PersonalizedRecommendations from '../components/PersonalizedRecommendations';
 import { ComparisonProvider } from '../hooks/useComparison';
+import { UserProfileProvider } from '../hooks/useUserProfile';
 
-type TabType = 'foods' | 'goals' | 'meals' | 'progress' | 'compare';
+type TabType = 'foods' | 'goals' | 'meals' | 'progress' | 'compare' | 'recommendations';
 
 const NutritionPageContent: React.FC = () => {
   const { data: nutritionData, loading, error, refetch } = useApi(getNutritionData as any);
@@ -45,13 +47,14 @@ const NutritionPageContent: React.FC = () => {
 
   const tabs = [
     { id: 'foods' as TabType, label: 'Foods & Tips', icon: 'restaurant' },
+    { id: 'recommendations' as TabType, label: 'For You', icon: 'auto_awesome' },
     { id: 'compare' as TabType, label: 'Compare', icon: 'compare_arrows' },
     { id: 'goals' as TabType, label: 'Daily Goals', icon: 'flag' },
     { id: 'meals' as TabType, label: 'Meal Planner', icon: 'lunch_dining' },
     { id: 'progress' as TabType, label: 'Progress', icon: 'trending_up' }
   ];
 
-  // Get food items only (filter out tips) for comparison
+  // Get food items only (filter out tips) for comparison and recommendations
   const foodItems = nutritionData ? nutritionData.filter(item => !('type' in item)) : [];
 
   return (
@@ -123,6 +126,8 @@ const NutritionPageContent: React.FC = () => {
           </div>
         )}
 
+        {activeTab === 'recommendations' && <PersonalizedRecommendations availableFoods={foodItems} />}
+
         {activeTab === 'compare' && <FoodComparison availableFoods={foodItems} />}
 
         {activeTab === 'goals' && <DailyGoals />}
@@ -137,9 +142,11 @@ const NutritionPageContent: React.FC = () => {
 
 const NutritionPage: React.FC = () => {
   return (
-    <ComparisonProvider>
-      <NutritionPageContent />
-    </ComparisonProvider>
+    <UserProfileProvider>
+      <ComparisonProvider>
+        <NutritionPageContent />
+      </ComparisonProvider>
+    </UserProfileProvider>
   );
 };
 

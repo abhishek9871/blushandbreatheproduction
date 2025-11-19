@@ -1,4 +1,3 @@
-
 import type { Article, Product, Tutorial, NutritionInfo, TipCard, Video } from '../types';
 import { fetchPubMedArticles } from './pubmedService';
 

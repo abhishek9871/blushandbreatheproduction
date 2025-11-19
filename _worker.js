@@ -18,19 +18,19 @@ export class AffiliateCounter {
       if (request.method === 'GET' && path.endsWith('/stats')) {
         return await this._handleStats();
       }
-      return new Response(JSON.stringify({ error: 'not_found' }), { status: 404, headers: { 'Content-Type':'application/json' }});
+      return new Response(JSON.stringify({ error: 'not_found' }), { status: 404, headers: { 'Content-Type': 'application/json' } });
     } catch (err) {
-      return new Response(JSON.stringify({ error: 'do_error', detail: String(err) }), { status: 500, headers: { 'Content-Type':'application/json' }});
+      return new Response(JSON.stringify({ error: 'do_error', detail: String(err) }), { status: 500, headers: { 'Content-Type': 'application/json' } });
     }
   }
 
   async _handleClick(request) {
-    const body = await request.json().catch(()=>({}));
+    const body = await request.json().catch(() => ({}));
     const barcode = body.barcode || 'unknown';
     const offerItemId = body.offerItemId || null;
-    const affiliateUrl = (body.affiliateUrl || '').toString().slice(0,256);
+    const affiliateUrl = (body.affiliateUrl || '').toString().slice(0, 256);
     const ip = body.ip || 'unknown';
-    const ua = (body.userAgent || '').toString().slice(0,200);
+    const ua = (body.userAgent || '').toString().slice(0, 200);
     const ts = body.timestamp || new Date().toISOString();
 
     const countKey = 'count';
@@ -40,24 +40,24 @@ export class AffiliateCounter {
     const clicks = (await this.state.storage.get(clicksKey)) || [];
 
     const newClick = { ts, barcode, offerItemId, affiliateUrl, ip, ua };
-    const updatedClicks = [newClick, ...clicks].slice(0,200);
+    const updatedClicks = [newClick, ...clicks].slice(0, 200);
 
     await this.state.storage.put(countKey, currentCount + 1);
     await this.state.storage.put(clicksKey, updatedClicks);
 
-    return new Response(JSON.stringify({ ok: true, newCount: currentCount + 1 }), { headers: { 'Content-Type':'application/json' }});
+    return new Response(JSON.stringify({ ok: true, newCount: currentCount + 1 }), { headers: { 'Content-Type': 'application/json' } });
   }
 
   async _handleStats() {
     const count = (await this.state.storage.get('count')) || 0;
     const clicks = (await this.state.storage.get('clicks')) || [];
-    return new Response(JSON.stringify({ count, lastClicks: clicks.slice(0,10) }), { headers: { 'Content-Type':'application/json' }});
+    return new Response(JSON.stringify({ count, lastClicks: clicks.slice(0, 10) }), { headers: { 'Content-Type': 'application/json' } });
   }
 
   async _handleClear() {
     await this.state.storage.delete('count');
     await this.state.storage.delete('clicks');
-    return new Response(JSON.stringify({ ok: true, cleared: true }), { headers: { 'Content-Type':'application/json' }});
+    return new Response(JSON.stringify({ ok: true, cleared: true }), { headers: { 'Content-Type': 'application/json' } });
   }
 }
 
@@ -104,8 +104,32 @@ async function fetchUSDAFood(apiKey, query, retries = 3) {
   }
 }
 
+// Helper function to fetch image from Unsplash API
+async function fetchUnsplashImage(query, accessKey) {
+  if (!accessKey) return null;
+  
+  try {
+    const response = await fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`, {
+      headers: {
+        'Authorization': `Client-ID ${accessKey}`
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.results && data.results.length > 0) {
+        return data.results[0].urls.regular;
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error('Unsplash API error:', error);
+    return null;
+  }
+}
+
 // Helper function to transform USDA food data to our NutritionInfo format
-function transformUSDAData(food, index, page) {
+async function transformUSDAData(food, index, page, env) {
   try {
     if (!food || !food.foodNutrients) {
       return null;
@@ -131,14 +155,24 @@ function transformUSDAData(food, index, page) {
     const servingSize = food.servingSize || 100;
     const servingUnit = food.servingSizeUnit || 'g';
 
-    // Get image URL (USDA doesn't provide images, so we'll use a placeholder or try to find branded food images)
-    let imageUrl = 'https://picsum.photos/400/300?random=' + index; // Default placeholder
-
-    if (food.brandName && food.gtinUpc) {
-      // For branded foods, we could potentially use the GTIN to find images
-      // For now, use a food category based image
-      imageUrl = `https://source.unsplash.com/400x300/?${encodeURIComponent(food.description?.split(',')[0] || 'food')}`;
-    }
+    // Get image URL using Unsplash API
+    let imageUrl = 'https://picsum.photos/400/300?random=' + index; // Default placeholder fallback
+    
+    // Try to get a specific image from Unsplash
+    // Clean up search terms: remove commas, extra spaces, and ensure it's a simple query
+    const rawTerm = food.description?.split(',')[0] || food.description || 'food';
+    const searchTerms = rawTerm.trim();
+    
+    // Use provided Unsplash key or fallback to env
+    // The user provided key: 45KTR6-Zue9Pkb6Obw4swYQE7r0iUqfa-ghgJc73UpI
+    const unsplashKey = env.UNSPLASH_ACCESS_KEY || '45KTR6-Zue9Pkb6Obw4swYQE7r0iUqfa-ghgJc73UpI';
+    
+    const unsplashUrl = await fetchUnsplashImage(searchTerms, unsplashKey);
+    if (unsplashUrl) {
+      imageUrl = unsplashUrl;
+    } 
+    // If Unsplash fails, we stick with the Picsum placeholder.
+    // We DO NOT use source.unsplash.com as it is deprecated and broken.
 
     // Generate description based on nutrients
     const benefits = [];
@@ -205,13 +239,13 @@ export default {
         try {
           const id = env.AFFILIATE_DO.idFromName(barcode);
           const stub = env.AFFILIATE_DO.get(id);
-          
+
           const doResponse = await stub.fetch('https://do/click', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ barcode, offerItemId, affiliateUrl, timestamp, ip, userAgent })
           });
-          
+
           if (doResponse.ok) {
             const result = await doResponse.json();
             return new Response(JSON.stringify({ ok: true, newCount: result.newCount }), {
@@ -276,11 +310,11 @@ export default {
       try {
         const id = env.AFFILIATE_DO.idFromName(barcode);
         const stub = env.AFFILIATE_DO.get(id);
-        
+
         const doResponse = await stub.fetch('https://do/stats', {
           method: 'GET'
         });
-        
+
         if (doResponse.ok) {
           const stats = await doResponse.json();
           return new Response(JSON.stringify(stats), {
@@ -294,10 +328,10 @@ export default {
       // KV Fallback
       const countKey = `AFFILIATE:COUNT:${barcode}`;
       const count = parseInt(await env.AFFILIATE_KV.get(countKey) || '0');
-      
+
       const clicksList = await env.AFFILIATE_KV.list({ prefix: `AFFILIATE:CLICKS:${barcode}:` });
       const recentClicks = [];
-      
+
       for (const key of clicksList.keys.slice(0, 5)) {
         const clickData = await env.AFFILIATE_KV.get(key.name);
         if (clickData) {
@@ -338,11 +372,11 @@ export default {
       try {
         const id = env.AFFILIATE_DO.idFromName(barcode);
         const stub = env.AFFILIATE_DO.get(id);
-        
+
         const doResponse = await stub.fetch('https://do/clear', {
           method: 'POST'
         });
-        
+
         if (doResponse.ok) {
           return new Response(JSON.stringify({ ok: true, cleared: true }), {
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -415,12 +449,12 @@ export default {
           }
         });
         const newsData = await newsResponse.json();
-        
+
         if (!newsResponse.ok) {
           console.error('NewsAPI response:', newsData);
           throw new Error(`NewsAPI error: ${newsResponse.status} - ${newsData.message || 'Unknown error'}`);
         }
-        
+
         return new Response(JSON.stringify(newsData), {
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
@@ -615,7 +649,7 @@ export default {
         }
 
         // Check cache first
-        const cacheKey = `usda_search:${encodeURIComponent(query)}:page_${page}:size_${pageSize}`;
+        const cacheKey = `v3_usda_search:${encodeURIComponent(query)}:page_${page}:size_${pageSize}`;
         const cachedResult = await env.NUTRITION_CACHE?.get(cacheKey);
         if (cachedResult) {
           const parsed = JSON.parse(cachedResult);
@@ -637,7 +671,7 @@ export default {
 
         // Call USDA FoodData Central search API
         const searchUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(query)}&pageSize=${pageSize}&pageNumber=${page}&api_key=${apiKey}`;
-        
+
         const searchResponse = await fetch(searchUrl, {
           headers: {
             'User-Agent': 'BlushAndBreathe/1.0 (+https://jyotilalchandani.pages.dev)'
@@ -658,9 +692,11 @@ export default {
         }
 
         const searchData = await searchResponse.json();
-        
+
         // Transform USDA data to our format
-        const transformedFoods = searchData.foods?.map((food, index) => transformUSDAData(food, index + (page - 1) * pageSize, page)).filter(Boolean) || [];
+        const transformPromises = searchData.foods?.map((food, index) => transformUSDAData(food, index + (page - 1) * pageSize, page, env)) || [];
+        const transformedFoodsRaw = await Promise.all(transformPromises);
+        const transformedFoods = transformedFoodsRaw.filter(Boolean);
 
         const result = {
           data: transformedFoods,
@@ -686,7 +722,11 @@ export default {
         });
 
         return new Response(JSON.stringify(result), {
-          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Access-Control-Allow-Origin': '*',
+            'X-Worker-Version': 'v2-unsplash-fix'
+          }
         });
 
       } catch (error) {
@@ -740,7 +780,7 @@ export default {
         }
 
         // Check cache first
-        const cacheKey = `nutrition:page_${page}:size_${pageSize}`;
+        const cacheKey = `v3_nutrition:page_${page}:size_${pageSize}`;
         const cachedResult = await env.NUTRITION_CACHE?.get(cacheKey);
         if (cachedResult) {
           const parsed = JSON.parse(cachedResult);
@@ -802,7 +842,7 @@ export default {
 
               if (searchResponse && searchResponse.foods && searchResponse.foods.length > 0) {
                 const food = searchResponse.foods[0];
-                const nutritionInfo = transformUSDAData(food, i, page);
+                const nutritionInfo = await transformUSDAData(food, i, page, env);
 
                 if (nutritionInfo) {
                   result.push(nutritionInfo);

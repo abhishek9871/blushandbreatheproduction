@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { NutritionInfo, TipCard } from '../types';
 import { useComparison } from '../hooks/useComparison';
+import { useNutritionCart } from '../hooks/useNutritionCart';
 
 const NutrientBar: React.FC<{ label: string; value: number; max: number; color: string }> = ({ label, value, max, color }) => {
   const percentage = max > 0 ? (value / max) * 100 : 0;
@@ -25,13 +26,15 @@ interface NutritionCardProps {
   onAddToMeal?: (food: NutritionInfo) => void;
   showAddToMeal?: boolean;
   showCompareButton?: boolean;
+  showCartActions?: boolean;
 }
 
 const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardProps, 'item'>> = ({
   item,
   onAddToMeal,
   showAddToMeal,
-  showCompareButton
+  showCompareButton,
+  showCartActions
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedPortion, setSelectedPortion] = useState(100);
@@ -43,6 +46,15 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
   } catch {
     // Not within ComparisonProvider, that's okay
     comparisonContext = null;
+  }
+
+  // Use cart context if available
+  let cartContext;
+  try {
+    cartContext = useNutritionCart();
+  } catch {
+    // Not within NutritionCartProvider, that's okay
+    cartContext = null;
   }
 
   // Calculate nutrition for selected portion
@@ -84,6 +96,28 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
 
         {/* Quick Actions */}
         <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {showCartActions && cartContext && (
+            <button
+              onClick={() => cartContext.isInCart(item.id || item.name) 
+                ? cartContext.removeItem(item.id || item.name)
+                : cartContext.addItem(item, selectedPortion)
+              }
+              className={`p-2 rounded-full transition-colors shadow-lg ${
+                cartContext.isInCart(item.id || item.name)
+                  ? 'bg-green-600 text-white hover:bg-green-700'
+                  : 'bg-accent text-white hover:bg-accent/90'
+              }`}
+              title={
+                cartContext.isInCart(item.id || item.name)
+                  ? 'Remove from cart'
+                  : 'Add to cart'
+              }
+            >
+              <span className="material-symbols-outlined text-sm">
+                {cartContext.isInCart(item.id || item.name) ? 'shopping_cart' : 'add_shopping_cart'}
+              </span>
+            </button>
+          )}
           {showCompareButton && comparisonContext && (
             <button
               onClick={() => comparisonContext.addToComparison(item)}
@@ -201,6 +235,25 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
             </span>
             {isExpanded ? 'Show Less' : 'Learn More'}
           </button>
+
+          {showCartActions && cartContext && (
+            <button
+              onClick={() => cartContext.isInCart(item.id || item.name) 
+                ? cartContext.removeItem(item.id || item.name)
+                : cartContext.addItem(item, selectedPortion)
+              }
+              className={`px-4 py-2 rounded-lg transition-colors text-sm font-medium flex items-center gap-2 ${
+                cartContext.isInCart(item.id || item.name)
+                  ? 'bg-green-600 text-white hover:bg-green-700'
+                  : 'bg-accent text-text-light hover:opacity-90'
+              }`}
+            >
+              <span className="material-symbols-outlined text-sm">
+                {cartContext.isInCart(item.id || item.name) ? 'shopping_cart' : 'add_shopping_cart'}
+              </span>
+              {cartContext.isInCart(item.id || item.name) ? 'In Cart' : 'Add to Cart'}
+            </button>
+          )}
 
           {showCompareButton && comparisonContext && (
             <button

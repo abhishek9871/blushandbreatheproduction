@@ -14,7 +14,16 @@ export async function onRequest(context) {
   });
   
   try {
-    return await fetch(backendRequest);
+    const response = await fetch(backendRequest);
+    // Add a header to verify proxy update
+    const newHeaders = new Headers(response.headers);
+    newHeaders.set('X-Proxy-Version', 'v2-force-update');
+    
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: newHeaders
+    });
   } catch (err) {
     console.error('Backend proxy error:', err);
     return new Response(JSON.stringify({ error: 'Backend unavailable', detail: String(err) }), {

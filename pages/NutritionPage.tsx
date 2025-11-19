@@ -13,8 +13,12 @@ import ProgressDashboard from '../components/ProgressDashboard';
 import NutritionHero from '../components/NutritionHero';
 import FoodComparison from '../components/FoodComparison';
 import PersonalizedRecommendations from '../components/PersonalizedRecommendations';
+import CartStatusBadge from '../components/CartStatusBadge';
+import MiniCart from '../components/MiniCart';
+import { ToastProvider } from '../components/Toast';
 import { ComparisonProvider } from '../hooks/useComparison';
 import { UserProfileProvider } from '../hooks/useUserProfile';
+import { NutritionCartProvider } from '../hooks/useNutritionCart';
 
 type TabType = 'foods' | 'goals' | 'meals' | 'progress' | 'compare' | 'recommendations';
 
@@ -31,6 +35,7 @@ const NutritionPageContent: React.FC = () => {
   const [nutrientInfo, setNutrientInfo] = useState<any | null>(null);
   const [isNutrientSearch, setIsNutrientSearch] = useState(false);
   const [previousQuery, setPreviousQuery] = useState(''); // Track previous query to prevent flicker
+  const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
 
   // Check if query is a nutrient search
   const isNutrientQuery = useCallback((query: string): boolean => {
@@ -168,6 +173,20 @@ const NutritionPageContent: React.FC = () => {
     return searchQuery.trim() ? searchError : error;
   }, [searchQuery, searchError, error]);
 
+  // Configure contextual cart actions based on active tab
+  const showCartActions = React.useMemo(() => {
+    return activeTab === 'foods' || activeTab === 'recommendations' || activeTab === 'meals';
+  }, [activeTab]);
+
+  // Navigation handlers for MiniCart
+  const handleNavigateToGoals = () => {
+    setActiveTab('goals');
+  };
+
+  const handleNavigateToMeals = () => {
+    setActiveTab('meals');
+  };
+
   const tabs = [
     { id: 'foods' as TabType, label: 'Foods & Tips', icon: 'restaurant' },
     { id: 'recommendations' as TabType, label: 'For You', icon: 'auto_awesome' },
@@ -215,13 +234,16 @@ const NutritionPageContent: React.FC = () => {
       {/* Hero Section */}
       <NutritionHero />
 
-      {/* Search Bar - Always visible */}
-      <div className="mb-8">
-        <NutritionSearch
-          value={searchQuery}
-          onChange={setSearchQuery}
-          onClear={() => setSearchQuery('')}
-        />
+      {/* Search Bar and Cart Status - Always visible */}
+      <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div className="flex-1 w-full sm:w-auto">
+          <NutritionSearch
+            value={searchQuery}
+            onChange={setSearchQuery}
+            onClear={() => setSearchQuery('')}
+          />
+        </div>
+        <CartStatusBadge onOpenCart={() => setIsMiniCartOpen(true)} />
       </div>
 
       {/* Tab Navigation */}
@@ -286,6 +308,7 @@ const NutritionPageContent: React.FC = () => {
                       key={`${item.id || item.fdcId || 'item'}-${index}-${searchQuery}`} 
                       item={item} 
                       showCompareButton={activeTab === 'foods' && !('type' in item && item.type === 'tip')}
+                      showCartActions={showCartActions && !('type' in item && item.type === 'tip')}
                     />
                   ))}
                 </div>
@@ -331,6 +354,14 @@ const NutritionPageContent: React.FC = () => {
 
         {activeTab === 'progress' && <ProgressDashboard />}
       </div>
+
+      {/* Mini Cart */}
+      <MiniCart 
+        isOpen={isMiniCartOpen} 
+        onClose={() => setIsMiniCartOpen(false)}
+        onNavigateToGoals={handleNavigateToGoals}
+        onNavigateToMeals={handleNavigateToMeals}
+      />
     </main>
   );
 };
@@ -339,7 +370,11 @@ const NutritionPage: React.FC = () => {
   return (
     <UserProfileProvider>
       <ComparisonProvider>
-        <NutritionPageContent />
+        <NutritionCartProvider>
+          <ToastProvider>
+            <NutritionPageContent />
+          </ToastProvider>
+        </NutritionCartProvider>
       </ComparisonProvider>
     </UserProfileProvider>
   );

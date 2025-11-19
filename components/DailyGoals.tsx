@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { NutritionInfo } from '../types';
+import { useNutritionCart } from '../hooks/useNutritionCart';
+import { useToast } from './Toast';
 
 interface DailyGoals {
   calories: number;
@@ -37,6 +39,18 @@ const DailyGoals: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempGoals, setTempGoals] = useState<DailyGoals>(goals);
 
+  // Use cart context if available
+  let cartContext;
+  try {
+    cartContext = useNutritionCart();
+  } catch {
+    // Not within NutritionCartProvider, that's okay
+    cartContext = null;
+  }
+
+  // Use toast context for notifications
+  const { showToast } = useToast();
+
   // Load data from localStorage on mount
   useEffect(() => {
     const savedGoals = localStorage.getItem(STORAGE_KEY);
@@ -69,6 +83,47 @@ const DailyGoals: React.FC = () => {
     };
     setProgress(newProgress);
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(newProgress));
+  };
+
+  // Quick Add from Cart functionality
+  const quickAddFromCart = (cartItem: any) => {
+    const multiplier = cartItem.portionSize / 100;
+    const nutritionToAdd = {
+      calories: Math.round((cartItem.calories || 0) * multiplier),
+      protein: cartItem.nutrients.protein * multiplier,
+      carbs: cartItem.nutrients.carbs * multiplier,
+      fats: cartItem.nutrients.fats * multiplier,
+    };
+
+    const newProgress = {
+      consumed: {
+        calories: progress.consumed.calories + nutritionToAdd.calories,
+        protein: progress.consumed.protein + nutritionToAdd.protein,
+        carbs: progress.consumed.carbs + nutritionToAdd.carbs,
+        fats: progress.consumed.fats + nutritionToAdd.fats,
+      },
+      loggedFoods: [
+        ...progress.loggedFoods,
+        {
+          ...cartItem,
+          loggedAt: new Date(),
+          portionSize: cartItem.portionSize,
+        }
+      ]
+    };
+
+    setProgress(newProgress);
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(newProgress));
+
+    // Show success toast notification
+    showToast(`Added ${cartItem.name} (${cartItem.portionSize}g) to today's progress`, 'success');
+  };
+
+  // Check if a cart item is already logged today
+  const isAlreadyLoggedToday = (cartItem: any) => {
+    return progress.loggedFoods.some(loggedItem => 
+      (loggedItem.id === cartItem.id) || (loggedItem.name === cartItem.name)
+    );
   };
 
   // Calculate progress percentages
@@ -269,6 +324,111 @@ const DailyGoals: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Quick Add from Cart */}
+      {cartContext && cartContext.state.items.length > 0 && (
+        <div className="bg-white dark:bg-[#1C2C1F] rounded-xl p-6 shadow-sm border border-border-light dark:border-border-dark">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-text-light dark:text-text-dark">
+              Quick Add from Cart
+            </h3>
+            <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+              {cartContext.state.items.length} items available
+            </span>
+          </div>
+
+          <div className="space-y-3 max-h-64 overflow-y-auto">
+            {cartContext.state.items.map((cartItem) => {
+              const isAlreadyLogged = isAlreadyLoggedToday(cartItem);
+              const multiplier = cartItem.portionSize / 100;
+              const calories = Math.round((cartItem.calories || 0) * multiplier);
+              
+              return (
+                <div
+                  key={cartItem.id || cartItem.name}
+                  className={`flex items-center gap-3 p-3 rounded-lg border ${
+                    isAlreadyLogged 
+                      ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 opacity-60'
+                      : 'bg-accent/5 border-accent/20 hover:bg-accent/10 transition-colors'
+                  }`}
+                >
+                  <img
+                    src={cartItem.imageUrl}
+                    alt={cartItem.name}
+                    className="w-12 h-12 rounded-lg object-cover flex-shrink-0"
+                  />
+                  
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-medium text-text-light dark:text-text-dark truncate">
+                      {cartItem.name}
+                    </h4>
+                    <div className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                      {cartItem.portionSize}g • {calories} cal
+                      {cartItem.mealType && (
+                        <span className="ml-2 px-2 py-0.5 bg-accent/20 text-accent rounded-full text-xs">
+                          {cartItem.mealType}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {isAlreadyLogged ? (
+                      <span className="px-3 py-1 bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-full text-sm font-medium">
+                        ✓ Logged
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => quickAddFromCart(cartItem)}
+                        className="px-3 py-1 bg-accent text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium flex items-center gap-1"
+                      >
+                        <span className="material-symbols-outlined text-sm">add</span>
+                        Add
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {cartContext.state.items.length > 0 && (
+            <div className="mt-4 pt-4 border-t border-border-light dark:border-border-dark">
+              <div className="flex items-center justify-between text-sm text-text-subtle-light dark:text-text-subtle-dark mb-3">
+                <span>Cart Totals:</span>
+                <span>
+                  {Math.round(cartContext.state.totalCalories)} cal • 
+                  {Math.round(cartContext.state.totalProtein)}g protein
+                </span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    // Add all unlogged cart items to today's progress
+                    cartContext.state.items.forEach(item => {
+                      if (!isAlreadyLoggedToday(item)) {
+                        quickAddFromCart(item);
+                      }
+                    });
+                  }}
+                  className="flex-1 px-3 py-2 bg-accent text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
+                >
+                  Add All Unlogged
+                </button>
+                <button
+                  onClick={() => {
+                    // Navigate to cart (this would be handled by parent component)
+                    console.log('Navigate to cart');
+                  }}
+                  className="px-3 py-2 bg-gray-100 dark:bg-gray-800 text-text-light dark:text-text-dark rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-sm font-medium"
+                >
+                  Edit Cart
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Quick Actions */}
       <div className="bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10 rounded-xl p-6 border border-border-light dark:border-border-dark">

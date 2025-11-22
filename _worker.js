@@ -940,9 +940,9 @@ export default {
           'all': '26395',           // Health & Beauty root
           'makeup': '31786',        // Makeup
           'skincare': '31763',      // Skin Care
-          'hair': '31764',          // Hair Care & Styling
-          'fragrance': '180333',    // Fragrances
-          'nails': '31798'          // Nail Care, Manicure & Pedicure
+          'hair': '11854',          // Hair Care & Styling
+          'fragrance': '180345',    // Fragrances
+          'nails': '47945'          // Nail Care, Manicure & Pedicure
         };
         const categoryId = categoryMap[category] || '26395';
 

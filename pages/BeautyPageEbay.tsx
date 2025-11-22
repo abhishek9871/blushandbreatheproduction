@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { searchBeautyProducts } from '../services/apiService';
 import type { EbaySearchParams, EbayProductSummary, EbaySearchResponse } from '../types';
@@ -44,6 +44,37 @@ const BeautyPageEbay: React.FC = () => {
         priceDesc: 'Price: High to Low',
         newest: 'Newly Listed'
     };
+
+    // Ref for detecting clicks outside the filter bar
+    const filtersRef = useRef<HTMLDivElement | null>(null);
+
+    // Close dropdowns when clicking outside the filter bar
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (!filtersRef.current) return;
+            if (!(event.target instanceof Node)) return;
+            if (!filtersRef.current.contains(event.target)) {
+                setShowCategoryDropdown(false);
+                setShowPriceDropdown(false);
+                setShowConditionDropdown(false);
+            }
+        };
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setShowCategoryDropdown(false);
+                setShowPriceDropdown(false);
+                setShowConditionDropdown(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     // Fetch products when filters change
     useEffect(() => {
@@ -154,11 +185,15 @@ const BeautyPageEbay: React.FC = () => {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-wrap gap-3 px-4 py-6">
+            <div ref={filtersRef} className="flex flex-wrap gap-3 px-4 py-6">
                 {/* Category Dropdown */}
                 <div className="relative">
                     <button 
-                        onClick={() => setShowCategoryDropdown(!showCategoryDropdown)} 
+                        onClick={() => {
+                            setShowCategoryDropdown(!showCategoryDropdown);
+                            setShowPriceDropdown(false);
+                            setShowConditionDropdown(false);
+                        }} 
                         className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors capitalize"
                     >
                         <p className="text-sm font-medium leading-normal">Category: {category}</p>
@@ -182,7 +217,11 @@ const BeautyPageEbay: React.FC = () => {
                 {/* Price Range Dropdown */}
                 <div className="relative">
                     <button 
-                        onClick={() => setShowPriceDropdown(!showPriceDropdown)} 
+                        onClick={() => {
+                            setShowPriceDropdown(!showPriceDropdown);
+                            setShowCategoryDropdown(false);
+                            setShowConditionDropdown(false);
+                        }} 
                         className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
                     >
                         <p className="text-sm font-medium leading-normal">Price: {currentPriceLabel}</p>
@@ -206,7 +245,11 @@ const BeautyPageEbay: React.FC = () => {
                 {/* Condition Dropdown */}
                 <div className="relative">
                     <button 
-                        onClick={() => setShowConditionDropdown(!showConditionDropdown)} 
+                        onClick={() => {
+                            setShowConditionDropdown(!showConditionDropdown);
+                            setShowCategoryDropdown(false);
+                            setShowPriceDropdown(false);
+                        }} 
                         className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors capitalize"
                     >
                         <p className="text-sm font-medium leading-normal">Condition: {condition || 'All'}</p>

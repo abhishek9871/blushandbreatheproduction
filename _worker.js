@@ -887,6 +887,380 @@ export default {
       }
     }
 
+    // ═══════════════════════════════════════════════════════════════════
+    // EBAY BEAUTY STOREFRONT INTEGRATION
+    // ═══════════════════════════════════════════════════════════════════
+    // Implemented: November 22, 2025
+    // App ID: Abhishek-Blushand-PRD-e6e427756-f9d13125
+    // Environment: PROD (Production)
+    // OAuth Endpoint: https://api.ebay.com/identity/v1/oauth2/token
+    // Browse API: https://api.ebay.com/buy/browse/v1/
+    // Documentation: See EBAY_INTEGRATION_README.md and DEPLOYMENT_SUMMARY.md
+    // ═══════════════════════════════════════════════════════════════════
+
+    // eBay Beauty Search API
+    if (path === '/api/beauty/search' && request.method === 'GET') {
+      try {
+        const searchParams = new URL(request.url).searchParams;
+        const q = searchParams.get('q') || '';
+        const category = searchParams.get('category') || 'all';
+        const sort = searchParams.get('sort') || 'best';
+        const minPrice = searchParams.get('minPrice');
+        const maxPrice = searchParams.get('maxPrice');
+        const condition = searchParams.get('condition');
+        const page = parseInt(searchParams.get('page') || '1');
+        const pageSize = Math.min(parseInt(searchParams.get('pageSize') || '24'), 50);
+
+        // Create cache key
+        const cacheKey = `ebay_search:${q}:${category}:${sort}:${minPrice || ''}:${maxPrice || ''}:${condition || ''}:${page}:${pageSize}`;
+        
+        // Check cache first (5 minute TTL)
+        const cachedResult = await env.MERGED_CACHE?.get(cacheKey);
+        if (cachedResult) {
+          const parsed = JSON.parse(cachedResult);
+          if (parsed.timestamp > Date.now() - (5 * 60 * 1000)) {
+            return new Response(JSON.stringify(parsed.data), {
+              headers: { 
+                'Content-Type': 'application/json', 
+                'Access-Control-Allow-Origin': '*',
+                'X-Cache': 'HIT'
+              }
+            });
+          }
+        }
+
+        // Get eBay access token
+        const token = await getEbayAccessToken(env);
+        if (!token) {
+          throw new Error('Failed to obtain eBay access token');
+        }
+
+        // Map category to eBay category ID
+        const categoryMap = {
+          'all': '26395',           // Health & Beauty root
+          'makeup': '31786',        // Makeup
+          'skincare': '31763',      // Skin Care
+          'hair': '31764',          // Hair Care & Styling
+          'fragrance': '180333',    // Fragrances
+          'nails': '31798'          // Nail Care, Manicure & Pedicure
+        };
+        const categoryId = categoryMap[category] || '26395';
+
+        // Build eBay API params
+        const offset = (page - 1) * pageSize;
+        const ebayParams = new URLSearchParams({
+          limit: pageSize.toString(),
+          offset: offset.toString()
+        });
+
+        // Add search query or category browse
+        if (q && q.trim()) {
+          // When there's a search query, use it directly without category_ids
+          // eBay Browse API works better with just q parameter for search
+          ebayParams.append('q', q.trim());
+        } else {
+          // No search query - browse by category
+          ebayParams.append('category_ids', categoryId);
+        }
+
+        // Map sort parameter
+        if (sort === 'priceAsc') {
+          ebayParams.append('sort', 'price');
+        } else if (sort === 'priceDesc') {
+          ebayParams.append('sort', '-price');
+        } else if (sort === 'newest') {
+          ebayParams.append('sort', 'newlyListed');
+        }
+        // 'best' uses eBay's default Best Match
+
+        // Build price filter
+        if (minPrice || maxPrice) {
+          const min = minPrice || '*';
+          const max = maxPrice || '*';
+          ebayParams.append('filter', `price:[${min}..${max}],priceCurrency:USD`);
+        }
+
+        // Build condition filter
+        if (condition) {
+          const conditionMap = {
+            'new': 'NEW',
+            'used': 'USED',
+            'refurbished': 'REFURBISHED'
+          };
+          const ebayCondition = conditionMap[condition];
+          if (ebayCondition) {
+            const filterValue = `conditions:{${ebayCondition}}`;
+            const existingFilter = ebayParams.get('filter');
+            if (existingFilter) {
+              ebayParams.set('filter', `${existingFilter},${filterValue}`);
+            } else {
+              ebayParams.append('filter', filterValue);
+            }
+          }
+        }
+
+        // Call eBay Browse API
+        const ebayUrl = `https://api.ebay.com/buy/browse/v1/item_summary/search?${ebayParams.toString()}`;
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+        };
+        
+        // Add affiliate context if campaign ID is configured (for itemAffiliateWebUrl)
+        const campaignId = env.EBAY_CAMPAIGN_ID;
+        if (campaignId && campaignId !== 'PLACEHOLDER') {
+          headers['X-EBAY-C-ENDUSERCTX'] = `affiliateCampaignId=${campaignId}`;
+        }
+        
+        const ebayResponse = await fetch(ebayUrl, { headers });
+
+        if (!ebayResponse.ok) {
+          const errorText = await ebayResponse.text();
+          console.error('eBay API error:', ebayResponse.status, errorText);
+          
+          // Try to serve cached data on error
+          if (cachedResult) {
+            return new Response(cachedResult, {
+              headers: { 
+                'Content-Type': 'application/json', 
+                'Access-Control-Allow-Origin': '*',
+                'X-Cache': 'STALE'
+              }
+            });
+          }
+          
+          throw new Error(`eBay API returned ${ebayResponse.status}`);
+        }
+
+        const ebayData = await ebayResponse.json();
+
+        // Normalize response
+        const items = (ebayData.itemSummaries || []).map(item => ({
+          id: item.itemId,
+          title: item.title,
+          price: {
+            value: parseFloat(item.price?.value || 0),
+            currency: item.price?.currency || 'USD'
+          },
+          imageUrl: item.image?.imageUrl || item.thumbnailImages?.[0]?.imageUrl || '',
+          condition: item.condition || 'Not Specified',
+          webUrl: item.itemWebUrl
+        }));
+
+        const total = ebayData.total || 0;
+        const hasNextPage = (offset + pageSize) < total;
+
+        // Extract refinements
+        const refinements = {
+          conditions: (ebayData.refinement?.conditionDistributions || []).map(c => ({
+            value: c.condition,
+            count: c.matchCount
+          })),
+          aspects: (ebayData.refinement?.aspectDistributions || []).slice(0, 5).map(a => ({
+            name: a.localizedAspectName,
+            values: (a.aspectValueDistributions || []).slice(0, 10).map(v => ({
+              value: v.localizedAspectValue,
+              count: v.matchCount
+            }))
+          }))
+        };
+
+        const result = {
+          items,
+          pagination: {
+            page,
+            pageSize,
+            total,
+            hasNextPage
+          },
+          refinements
+        };
+
+        // Cache the result
+        const cacheData = {
+          data: result,
+          timestamp: Date.now()
+        };
+        await env.MERGED_CACHE?.put(cacheKey, JSON.stringify(cacheData), {
+          expirationTtl: 300 // 5 minutes
+        });
+
+        return new Response(JSON.stringify(result), {
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Access-Control-Allow-Origin': '*',
+            'X-Cache': 'MISS'
+          }
+        });
+
+      } catch (error) {
+        console.error('Beauty search error:', error);
+        return new Response(JSON.stringify({
+          error: 'search_failed',
+          message: 'Unable to search products at this time. Please try again later.'
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
+    // eBay Beauty Item Detail API
+    if (path.startsWith('/api/beauty/item/') && request.method === 'GET') {
+      try {
+        // Extract and decode the item ID (it comes URL-encoded from the frontend)
+        const encodedItemId = path.replace('/api/beauty/item/', '');
+        const itemId = decodeURIComponent(encodedItemId);
+        
+        console.log('Item detail request for:', itemId);
+        
+        if (!itemId) {
+          return new Response(JSON.stringify({ error: 'Item ID required' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+
+        // Check cache first (2 hour TTL)
+        const cacheKey = `ebay_item:${itemId}`;
+        const cachedResult = await env.MERGED_CACHE?.get(cacheKey);
+        if (cachedResult) {
+          const parsed = JSON.parse(cachedResult);
+          if (parsed.timestamp > Date.now() - (2 * 60 * 60 * 1000)) {
+            return new Response(JSON.stringify(parsed.data), {
+              headers: { 
+                'Content-Type': 'application/json', 
+                'Access-Control-Allow-Origin': '*',
+                'X-Cache': 'HIT'
+              }
+            });
+          }
+        }
+
+        // Get eBay access token
+        const token = await getEbayAccessToken(env);
+        if (!token) {
+          throw new Error('Failed to obtain eBay access token');
+        }
+
+        // Call eBay Browse API for item details
+        // The itemId is already in the correct format (e.g., v1|123456789|0)
+        // Valid fieldgroups for getItem: COMPACT, PRODUCT, ADDITIONAL_SELLER_DETAILS, CHARITY_DETAILS
+        const ebayUrl = `https://api.ebay.com/buy/browse/v1/item/${itemId}?fieldgroups=PRODUCT`;
+        console.log('Fetching from eBay:', ebayUrl);
+        
+        const ebayResponse = await fetch(ebayUrl, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+          }
+        });
+
+        if (!ebayResponse.ok) {
+          const errorText = await ebayResponse.text();
+          console.error('eBay item API error:', ebayResponse.status);
+          console.error('Error details:', errorText);
+          console.error('Item ID:', itemId);
+          
+          // Try to serve cached data on error
+          if (cachedResult) {
+            const parsed = JSON.parse(cachedResult);
+            return new Response(JSON.stringify(parsed.data), {
+              headers: { 
+                'Content-Type': 'application/json', 
+                'Access-Control-Allow-Origin': '*',
+                'X-Cache': 'STALE'
+              }
+            });
+          }
+          
+          if (ebayResponse.status === 404) {
+            return new Response(JSON.stringify({ error: 'Item not found' }), {
+              status: 404,
+              headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            });
+          }
+          
+          throw new Error(`eBay API returned ${ebayResponse.status}: ${errorText}`);
+        }
+
+        const item = await ebayResponse.json();
+
+        // Extract images
+        const images = [];
+        if (item.image?.imageUrl) {
+          images.push(item.image.imageUrl);
+        }
+        if (item.additionalImages) {
+          images.push(...item.additionalImages.map(img => img.imageUrl));
+        }
+
+        // Extract description (first 500 chars)
+        let shortDescription = '';
+        if (item.shortDescription) {
+          shortDescription = item.shortDescription.substring(0, 500);
+        } else if (item.description) {
+          shortDescription = item.description.substring(0, 500);
+        }
+
+        // Extract item specifics
+        const itemSpecifics = {};
+        if (item.localizedAspects) {
+          item.localizedAspects.forEach(aspect => {
+            itemSpecifics[aspect.name] = aspect.value;
+          });
+        }
+
+        // Normalize response
+        const result = {
+          id: item.itemId,
+          title: item.title,
+          price: {
+            value: parseFloat(item.price?.value || 0),
+            currency: item.price?.currency || 'USD'
+          },
+          condition: item.condition || 'Not Specified',
+          images,
+          shortDescription,
+          itemSpecifics,
+          webUrl: item.itemWebUrl,
+          seller: {
+            username: item.seller?.username || 'Unknown',
+            feedbackPercentage: item.seller?.feedbackPercentage || 0,
+            feedbackScore: item.seller?.feedbackScore || 0
+          }
+        };
+
+        // Cache the result
+        const cacheData = {
+          data: result,
+          timestamp: Date.now()
+        };
+        await env.MERGED_CACHE?.put(cacheKey, JSON.stringify(cacheData), {
+          expirationTtl: 7200 // 2 hours
+        });
+
+        return new Response(JSON.stringify(result), {
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Access-Control-Allow-Origin': '*',
+            'X-Cache': 'MISS'
+          }
+        });
+
+      } catch (error) {
+        console.error('Beauty item detail error:', error);
+        return new Response(JSON.stringify({
+          error: 'item_fetch_failed',
+          message: 'Unable to fetch product details at this time. Please try again later.'
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
     // Return 404 for undefined routes
     return new Response(JSON.stringify({ error: 'not_found' }), {
       status: 404,
@@ -894,3 +1268,87 @@ export default {
     });
   }
 };
+
+// ═══════════════════════════════════════════════════════════════════
+// EBAY OAUTH TOKEN SERVICE
+// ═══════════════════════════════════════════════════════════════════
+// Implements OAuth 2.0 client-credentials grant for eBay Browse API access
+// - Uses production endpoint (not sandbox)
+// - Scope: https://api.ebay.com/oauth/api_scope
+// - Tokens cached in EBAY_TOKEN KV namespace
+// - 5-minute expiry buffer for token refresh
+// - Reads credentials from env.EBAY_CLIENT_ID and env.EBAY_CLIENT_SECRET
+// - No Dev ID required (client-credentials flow only needs App ID + Cert ID)
+// ═══════════════════════════════════════════════════════════════════
+async function getEbayAccessToken(env) {
+  const now = Date.now();
+  
+  // Check KV for cached token
+  const cachedToken = await env.EBAY_TOKEN?.get('access_token_data');
+  if (cachedToken) {
+    const tokenData = JSON.parse(cachedToken);
+    // Check if token is still valid (with 5 minute buffer)
+    if (tokenData.expiresAt && tokenData.expiresAt > (now + 300000)) {
+      return tokenData.accessToken;
+    }
+  }
+
+  // Get credentials from environment
+  const clientId = env.EBAY_CLIENT_ID;
+  const clientSecret = env.EBAY_CLIENT_SECRET;
+  const ebayEnv = env.EBAY_ENV || 'PROD';
+
+  if (!clientId || !clientSecret || clientId === 'PLACEHOLDER' || clientSecret === 'PLACEHOLDER') {
+    console.error('eBay credentials not configured');
+    return null;
+  }
+
+  // Determine eBay endpoint
+  const tokenEndpoint = ebayEnv === 'SANDBOX' 
+    ? 'https://api.sandbox.ebay.com/identity/v1/oauth2/token'
+    : 'https://api.ebay.com/identity/v1/oauth2/token';
+
+  try {
+    // Create Basic Auth header
+    const authString = btoa(`${clientId}:${clientSecret}`);
+    
+    // Request token
+    const response = await fetch(tokenEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Basic ${authString}`
+      },
+      body: new URLSearchParams({
+        grant_type: 'client_credentials',
+        scope: 'https://api.ebay.com/oauth/api_scope'
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('eBay OAuth error:', response.status, errorText);
+      return null;
+    }
+
+    const data = await response.json();
+    const accessToken = data.access_token;
+    const expiresIn = data.expires_in || 7200; // Default 2 hours
+
+    // Cache token in KV
+    const tokenData = {
+      accessToken,
+      expiresAt: now + (expiresIn * 1000)
+    };
+    
+    await env.EBAY_TOKEN?.put('access_token_data', JSON.stringify(tokenData), {
+      expirationTtl: expiresIn
+    });
+
+    return accessToken;
+
+  } catch (error) {
+    console.error('eBay OAuth fetch error:', error);
+    return null;
+  }
+}

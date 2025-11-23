@@ -4,6 +4,7 @@ import { searchHealthProducts } from '../services/apiService';
 import type { EbaySearchParams, EbayProductSummary, EbaySearchResponse } from '../types';
 import ErrorMessage from '../components/ErrorMessage';
 import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton';
+import { getHighQualityEbayImage } from '../utils/productUtils';
 
 const HealthStorePageEbay: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -369,7 +370,7 @@ const HealthStorePageEbay: React.FC = () => {
                                         <img
                                             alt={product.title}
                                             className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                                            src={product.imageUrl || 'https://via.placeholder.com/400'}
+                                            src={getHighQualityEbayImage(product.imageUrl)}
                                         />
                                     </div>
                                     {/* Benefit Tag */}

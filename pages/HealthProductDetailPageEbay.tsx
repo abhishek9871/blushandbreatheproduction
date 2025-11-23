@@ -4,6 +4,7 @@ import { getHealthProductDetail } from '../services/apiService';
 import type { EbayProductDetail } from '../types';
 import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { getHighQualityEbayImage } from '../utils/productUtils';
 
 const HealthProductDetailPageEbay: React.FC = () => {
     const { itemId } = useParams<{ itemId: string }>();
@@ -74,7 +75,7 @@ const HealthProductDetailPageEbay: React.FC = () => {
                     {/* Main Image */}
                     <div className="aspect-square w-full overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-gray-100">
                         <img
-                            src={product.images[selectedImage] || product.images[0] || 'https://via.placeholder.com/600'}
+                            src={getHighQualityEbayImage(product.images[selectedImage] || product.images[0])}
                             alt={product.title}
                             className="w-full h-full object-contain"
                         />
@@ -94,7 +95,7 @@ const HealthProductDetailPageEbay: React.FC = () => {
                                     }`}
                                 >
                                     <img
-                                        src={img}
+                                        src={getHighQualityEbayImage(img)}
                                         alt={`${product.title} - ${idx + 1}`}
                                         className="w-full h-full object-cover"
                                     />

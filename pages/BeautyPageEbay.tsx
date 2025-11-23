@@ -5,6 +5,7 @@ import type { EbaySearchParams, EbayProductSummary, EbaySearchResponse } from '.
 import ErrorMessage from '../components/ErrorMessage';
 import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import { getHighQualityEbayImage } from '../utils/productUtils';
 
 const BeautyPageEbay: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -347,10 +348,10 @@ const BeautyPageEbay: React.FC = () => {
                                         className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
                                     >
                                         <div className="aspect-square w-full overflow-hidden bg-gray-100">
-                                            <img 
-                                                alt={product.title} 
-                                                className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300" 
-                                                src={product.imageUrl || 'https://via.placeholder.com/400'} 
+                                            <img
+                                                alt={product.title}
+                                                className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                                                src={getHighQualityEbayImage(product.imageUrl)}
                                             />
                                         </div>
                                         <div className="flex flex-1 flex-col p-4">

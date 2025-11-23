@@ -378,7 +378,7 @@ const HealthStorePageEbay: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-1 flex-col p-4">
-                                    <h3 className="text-base font-semibold text-brand-text dark:text-white line-clamp-2">{product.title}</h3>
+                                    <h3 className="text-base font-semibold text-brand-text dark:text-white">{product.title}</h3>
                                     <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                                         {product.condition}
                                     </p>

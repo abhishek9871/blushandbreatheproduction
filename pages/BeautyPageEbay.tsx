@@ -320,7 +320,7 @@ const BeautyPageEbay: React.FC = () => {
                                     />
                                 </div>
                                 <div className="flex flex-1 flex-col p-4">
-                                    <h3 className="font-semibold mt-1 line-clamp-2">{product.title}</h3>
+                                    <h3 className="font-semibold mt-1">{product.title}</h3>
                                     <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mt-2">
                                         {product.condition}
                                     </p>

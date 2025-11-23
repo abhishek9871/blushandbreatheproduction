@@ -467,6 +467,183 @@ export default {
       }
     }
 
+    // Newsletter subscription endpoint
+    if (path === '/api/newsletter/subscribe' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const { email } = body;
+
+        // Validate email
+        if (!email || !email.includes('@')) {
+          return new Response(JSON.stringify({ error: 'Invalid email address' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+
+        // Store subscription in KV (optional - for tracking)
+        const timestamp = new Date().toISOString();
+        const subscriptionKey = `NEWSLETTER:${email}`;
+        await env.AFFILIATE_KV?.put(subscriptionKey, JSON.stringify({
+          email,
+          subscribedAt: timestamp
+        }));
+
+        // Send email notification using Cloudflare MailChannels
+        const notificationEmail = 'sparshrajput088@gmail.com';
+
+        try {
+          const emailResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              personalizations: [{
+                to: [{ email: notificationEmail }]
+              }],
+              from: {
+                email: 'newsletter@jyotilalchandani.pages.dev',
+                name: 'HealthBeauty Hub Newsletter'
+              },
+              subject: 'New Newsletter Subscription',
+              content: [{
+                type: 'text/html',
+                value: `
+                  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <h2 style="color: #2563eb;">New Newsletter Subscription</h2>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Subscribed at:</strong> ${new Date(timestamp).toLocaleString()}</p>
+                    <hr style="margin: 20px 0; border: none; border-top: 1px solid #e5e7eb;">
+                    <p style="color: #6b7280; font-size: 14px;">This notification was sent from your HealthBeauty Hub website.</p>
+                  </div>
+                `
+              }]
+            })
+          });
+
+          if (!emailResponse.ok) {
+            const errorText = await emailResponse.text();
+            console.error('MailChannels error:', errorText);
+          }
+        } catch (emailError) {
+          console.error('Email sending error:', emailError);
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          message: 'Successfully subscribed to newsletter'
+        }), {
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+
+      } catch (error) {
+        console.error('Newsletter subscription error:', error);
+        return new Response(JSON.stringify({ error: 'Failed to subscribe' }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
+    // Contact form submission endpoint
+    if (path === '/api/contact/submit' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const { name, email, subject, message } = body;
+
+        // Validate inputs
+        if (!name || !email || !subject || !message) {
+          return new Response(JSON.stringify({ error: 'All fields are required' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+
+        if (!email.includes('@')) {
+          return new Response(JSON.stringify({ error: 'Invalid email address' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+
+        // Store contact submission in KV (optional - for tracking)
+        const timestamp = new Date().toISOString();
+        const contactKey = `CONTACT:${timestamp}:${email}`;
+        await env.AFFILIATE_KV?.put(contactKey, JSON.stringify({
+          name,
+          email,
+          subject,
+          message,
+          submittedAt: timestamp
+        }));
+
+        // Send email notification using Cloudflare MailChannels
+        const notificationEmail = 'sparshrajput088@gmail.com';
+
+        try {
+          const emailResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              personalizations: [{
+                to: [{ email: notificationEmail }]
+              }],
+              from: {
+                email: 'contact@jyotilalchandani.pages.dev',
+                name: 'HealthBeauty Hub Contact Form'
+              },
+              subject: `New Contact Form: ${subject}`,
+              content: [{
+                type: 'text/html',
+                value: `
+                  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <h2 style="color: #2563eb;">New Contact Form Submission</h2>
+                    <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                      <p><strong>From:</strong> ${name}</p>
+                      <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+                      <p><strong>Subject:</strong> ${subject}</p>
+                      <p><strong>Submitted at:</strong> ${new Date(timestamp).toLocaleString()}</p>
+                    </div>
+                    <div style="margin: 20px 0;">
+                      <strong>Message:</strong>
+                      <p style="white-space: pre-wrap; background: #f9fafb; padding: 15px; border-radius: 8px; margin-top: 10px;">${message}</p>
+                    </div>
+                    <hr style="margin: 20px 0; border: none; border-top: 1px solid #e5e7eb;">
+                    <p style="color: #6b7280; font-size: 14px;">This message was sent from your HealthBeauty Hub contact form.</p>
+                    <p style="color: #6b7280; font-size: 14px;">Reply to: <a href="mailto:${email}">${email}</a></p>
+                  </div>
+                `
+              }]
+            })
+          });
+
+          if (!emailResponse.ok) {
+            const errorText = await emailResponse.text();
+            console.error('MailChannels error:', errorText);
+          }
+        } catch (emailError) {
+          console.error('Email sending error:', emailError);
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          message: 'Message sent successfully'
+        }), {
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+
+      } catch (error) {
+        console.error('Contact form error:', error);
+        return new Response(JSON.stringify({ error: 'Failed to send message' }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
     // Nutrient education endpoint - provides educational content about vitamins/nutrients
     if (path === '/api/nutrition/nutrient-info' && request.method === 'GET') {
       const url = new URL(request.url);

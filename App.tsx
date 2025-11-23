@@ -17,19 +17,17 @@ import ArticlePage from './pages/ArticlePage';
 import ProductPage from './pages/ProductPage';
 import InfoPage from './pages/InfoPage';
 import BookmarksPage from './pages/BookmarksPage';
-import NewsletterModal from './components/NewsletterModal';
 import PageWrapper from './components/PageWrapper';
 
 
 const App: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
 
   return (
     <HashRouter>
       <div className="relative flex min-h-screen w-full flex-col">
-        <Header 
-          onSearchClick={() => setIsSearchOpen(true)} 
+        <Header
+          onSearchClick={() => setIsSearchOpen(true)}
         />
         <ErrorBoundary>
           <main className="flex-1" id="main-content">
@@ -50,8 +48,7 @@ const App: React.FC = () => {
           </main>
         </ErrorBoundary>
         <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-        <NewsletterModal isOpen={isNewsletterOpen} onClose={() => setIsNewsletterOpen(false)} />
-        <Footer onSubscribeClick={() => setIsNewsletterOpen(true)} />
+        <Footer />
       </div>
     </HashRouter>
   );

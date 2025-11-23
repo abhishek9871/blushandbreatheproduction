@@ -174,13 +174,13 @@ const HealthStorePageEbay: React.FC = () => {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Hero Section */}
-            <section className="h-[300px] bg-gradient-to-b from-blue-50 to-background-light dark:from-gray-900 dark:to-background-dark mt-6 rounded-xl">
-                <div className="flex h-full flex-col items-center justify-center gap-6 px-8 text-center">
+            <section className="min-h-[300px] py-10 bg-gradient-to-b from-blue-50 to-background-light dark:from-gray-900 dark:to-background-dark mt-6 rounded-xl">
+                <div className="flex h-full flex-col items-center justify-center gap-6 px-4 md:px-8 text-center">
                     <div className="flex flex-col gap-3">
-                        <p className="text-brand-text dark:text-white text-5xl font-semibold leading-tight tracking-[-0.01em]">
+                        <p className="text-brand-text dark:text-white text-3xl md:text-5xl font-semibold leading-tight tracking-[-0.01em]">
                             Science-Backed Wellness Products
                         </p>
-                        <p className="text-gray-600 dark:text-gray-400 text-lg font-normal leading-normal">
+                        <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg font-normal leading-normal">
                             Certified supplements, fitness gear, and health essentials.
                         </p>
                     </div>
@@ -209,8 +209,8 @@ const HealthStorePageEbay: React.FC = () => {
             </section>
 
             {/* Trust Badge Strip */}
-            <div className="sticky top-16 z-40 border-b border-gray-200/80 bg-background-light/80 dark:bg-background-dark/80 dark:border-gray-700 py-2.5 backdrop-blur-sm my-6 rounded-lg">
-                <div className="mx-auto max-w-7xl px-8">
+            <div className="relative md:sticky md:top-16 z-40 border-b border-gray-200/80 bg-background-light/80 dark:bg-background-dark/80 dark:border-gray-700 py-2.5 backdrop-blur-sm my-6 rounded-lg">
+                <div className="mx-auto max-w-7xl px-4 md:px-8">
                     <div className="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 text-center">
                         <div className="flex flex-col items-center gap-1.5 py-1 text-center sm:flex-row sm:justify-center sm:gap-2">
                             <span className="material-symbols-outlined text-gray-500" style={{ fontSize: '18px' }}>verified</span>

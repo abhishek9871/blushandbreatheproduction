@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wellness - Product Listing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2d7a7c",
+              "background-light": "#f6f8f8",
+              "background-dark": "#141e1e",
+              "brand-primary": "#2C7A7B",
+              "brand-secondary": "#38A169",
+              "brand-accent": "#4299E1",
+              "brand-background": "#F7FAFC",
+              "brand-text": "#1A365D",
+              "brand-card-bg": "#FFFFFF",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style type="text/css">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="font-display bg-brand-background text-brand-text dark:bg-background-dark dark:text-gray-200">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200/80 bg-brand-background/80 px-8 py-3 backdrop-blur-sm dark:bg-background-dark/80 dark:border-gray-700">
+<div class="flex items-center gap-4 text-brand-primary">
+<div class="size-6 text-brand-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-brand-text text-xl font-bold leading-tight tracking-[-0.015em] dark:text-white">Wellness</h2>
+</div>
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-brand-text text-sm font-medium leading-normal hover:text-brand-primary dark:text-gray-300 dark:hover:text-brand-primary" href="#">Vitamins</a>
+<a class="text-brand-text text-sm font-medium leading-normal hover:text-brand-primary dark:text-gray-300 dark:hover:text-brand-primary" href="#">Fitness</a>
+<a class="text-brand-text text-sm font-medium leading-normal hover:text-brand-primary dark:text-gray-300 dark:hover:text-brand-primary" href="#">Supplements</a>
+<a class="text-brand-text text-sm font-medium leading-normal hover:text-brand-primary dark:text-gray-300 dark:hover:text-brand-primary" href="#">Wellness</a>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-transparent text-brand-text hover:bg-gray-200/60 dark:text-gray-300 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-transparent text-brand-text hover:bg-gray-200/60 dark:text-gray-300 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-transparent text-brand-text hover:bg-gray-200/60 dark:text-gray-300 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- ActionsBar (Trust Badges) -->
+<div class="sticky top-[61px] z-40 border-b border-solid border-gray-200/80 bg-brand-background/80 py-2.5 backdrop-blur-sm dark:bg-background-dark/80 dark:border-gray-700">
+<div class="mx-auto max-w-7xl px-8">
+<div class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 text-center">
+<div class="flex flex-col items-center gap-1.5 py-1 text-center sm:flex-row sm:justify-center sm:gap-2">
+<span class="material-symbols-outlined text-gray-500" style="font-size: 18px;">verified</span>
+<p class="text-gray-600 text-xs font-medium leading-normal dark:text-gray-400">FDA Registered</p>
+</div>
+<div class="flex flex-col items-center gap-1.5 py-1 text-center sm:flex-row sm:justify-center sm:gap-2">
+<span class="material-symbols-outlined text-gray-500" style="font-size: 18px;">workspace_premium</span>
+<p class="text-gray-600 text-xs font-medium leading-normal dark:text-gray-400">GMP Certified</p>
+</div>
+<div class="flex flex-col items-center gap-1.5 py-1 text-center sm:flex-row sm:justify-center sm:gap-2">
+<span class="material-symbols-outlined text-gray-500" style="font-size: 18px;">science</span>
+<p class="text-gray-600 text-xs font-medium leading-normal dark:text-gray-400">3rd Party Tested</p>
+</div>
+<div class="flex flex-col items-center gap-1.5 py-1 text-center sm:flex-row sm:justify-center sm:gap-2">
+<span class="material-symbols-outlined text-gray-500" style="font-size: 18px;">eco</span>
+<p class="text-gray-600 text-xs font-medium leading-normal dark:text-gray-400">Organic</p>
+</div>
+<div class="flex flex-col items-center gap-1.5 py-1 text-center sm:flex-row sm:justify-center sm:gap-2">
+<span class="material-symbols-outlined text-gray-500" style="font-size: 18px;">grass</span>
+<p class="text-gray-600 text-xs font-medium leading-normal dark:text-gray-400">Vegan</p>
+</div>
+</div>
+</div>
+</div>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="h-[300px] bg-gradient-to-b from-blue-50 to-brand-background dark:from-gray-900 dark:to-background-dark">
+<div class="mx-auto flex h-full max-w-7xl flex-col items-center justify-center gap-6 px-8 text-center">
+<div class="flex flex-col gap-3">
+<p class="text-brand-text text-5xl font-semibold leading-tight tracking-[-0.01em] dark:text-white">Science-Backed Wellness Products</p>
+<p class="text-gray-600 text-lg font-normal leading-normal dark:text-gray-400">Certified supplements, fitness gear, and health essentials.</p>
+</div>
+<div class="w-full max-w-xl">
+<label class="flex flex-col min-w-40 h-14 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg shadow-sm h-full dark:shadow-none">
+<div class="text-gray-500 flex border border-gray-200 bg-white items-center justify-center pl-4 rounded-l-lg border-r-0 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-brand-text focus:outline-0 focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary border border-gray-200 bg-white h-full placeholder:text-gray-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal dark:bg-gray-800 dark:border-gray-700 dark:placeholder:text-gray-400 dark:text-gray-200" placeholder="Search for vitamins, supplements, gear..." value=""/>
+</div>
+</label>
+</div>
+</div>
+</section>
+<div class="mx-auto max-w-7xl px-8 py-8">
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-4">
+<!-- Filters Sidebar -->
+<aside class="w-full lg:w-[280px]">
+<div class="sticky top-32 flex flex-col gap-6">
+<!-- Category Filter -->
+<div class="flex flex-col gap-3">
+<h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Category</h3>
+<div class="flex flex-wrap gap-2">
+<button class="h-8 shrink-0 items-center justify-center gap-x-2 rounded-md bg-brand-primary px-3 text-sm font-medium leading-normal text-white">All Health</button>
+<button class="h-8 shrink-0 items-center justify-center gap-x-2 rounded-md bg-brand-card-bg px-3 text-sm font-medium leading-normal text-brand-text hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">Vitamins</button>
+<button class="h-8 shrink-0 items-center justify-center gap-x-2 rounded-md bg-brand-card-bg px-3 text-sm font-medium leading-normal text-brand-text hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">Fitness</button>
+<button class="h-8 shrink-0 items-center justify-center gap-x-2 rounded-md bg-brand-card-bg px-3 text-sm font-medium leading-normal text-brand-text hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">Supplements</button>
+<button class="h-8 shrink-0 items-center justify-center gap-x-2 rounded-md bg-brand-card-bg px-3 text-sm font-medium leading-normal text-brand-text hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">Medical</button>
+<button class="h-8 shrink-0 items-center justify-center gap-x-2 rounded-md bg-brand-card-bg px-3 text-sm font-medium leading-normal text-brand-text hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">Wellness</button>
+</div>
+</div>
+<hr class="dark:border-gray-700"/>
+<!-- Price Filter -->
+<div class="flex flex-col gap-4">
+<h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Price Range</h3>
+<div class="relative h-1 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+<div class="absolute h-1 rounded-full bg-brand-primary" style="left: 10%; right: 30%;"></div>
+<div class="absolute -top-1.5 h-4 w-4 rounded-full border-2 border-brand-primary bg-white dark:bg-gray-800" style="left: 10%;"></div>
+<div class="absolute -top-1.5 h-4 w-4 rounded-full border-2 border-brand-primary bg-white dark:bg-gray-800" style="right: 30%;"></div>
+</div>
+<div class="flex items-center justify-between gap-4">
+<input class="form-input w-full rounded-md border-gray-300 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" type="number" value="20"/>
+<span class="text-gray-400">-</span>
+<input class="form-input w-full rounded-md border-gray-300 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" type="number" value="80"/>
+</div>
+</div>
+<hr class="dark:border-gray-700"/>
+<!-- Condition Filter -->
+<div class="flex flex-col gap-3">
+<h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Condition</h3>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-2"><input checked="" class="form-checkbox h-5 w-5 rounded text-brand-primary focus:ring-brand-primary/50" type="checkbox"/><span>Immunity</span></label>
+<label class="flex items-center gap-2"><input class="form-checkbox h-5 w-5 rounded text-brand-primary focus:ring-brand-primary/50" type="checkbox"/><span>Energy</span></label>
+<label class="flex items-center gap-2"><input class="form-checkbox h-5 w-5 rounded text-brand-primary focus:ring-brand-primary/50" type="checkbox"/><span>Sleep</span></label>
+<label class="flex items-center gap-2"><input class="form-checkbox h-5 w-5 rounded text-brand-primary focus:ring-brand-primary/50" type="checkbox"/><span>Digestion</span></label>
+<label class="flex items-center gap-2"><input class="form-checkbox h-5 w-5 rounded text-brand-primary focus:ring-brand-primary/50" type="checkbox"/><span>Focus</span></label>
+<label class="flex items-center gap-2"><input class="form-checkbox h-5 w-5 rounded text-brand-primary focus:ring-brand-primary/50" type="checkbox"/><span>Stress Relief</span></label>
+</div>
+</div>
+</div>
+</aside>
+<!-- Product Grid -->
+<div class="col-span-1 lg:col-span-3">
+<div class="mb-6 flex items-center justify-between">
+<p class="text-sm text-gray-600 dark:text-gray-400">Showing 6 of 48 products</p>
+<select class="form-select rounded-md border-gray-300 text-sm focus:border-brand-primary focus:ring-brand-primary/50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+<option>Sort by Popularity</option>
+<option>Sort by Price: Low to High</option>
+<option>Sort by Price: High to Low</option>
+<option>Sort by Rating</option>
+</select>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+<!-- Product Card 1 -->
+<div class="group flex flex-col overflow-hidden rounded-lg bg-brand-card-bg shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:bg-gray-800 dark:border dark:border-gray-700">
+<div class="relative">
+<div class="aspect-square w-full bg-gray-100 bg-cover bg-center dark:bg-gray-700" data-alt="bottle of vitamin C supplements" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCuz98dUh8ppSBBYZpy95Fk3Kd05tTBnHaTy6FJqcSI14MvuJjf0bS7nuxxalFOYRbV-NbHSzfpns7QiwDeoFjR3ny-IUaSx5XBBClIZG64Al9UqGRSwSrBPDeyfBgo1qsEIabw3KblYut-x_YqYgtpRGPPx6NpzBbJs7TLCNUBY_WhT-gl1OJLp2C_oZG9Kr4kL7IHrmWpKKdDyVB8BU5tLveVCq_d1jSOvvsKtap3CQ6_e93-AaLvv4GYJ-MCpMwoc4-Z6lKCTQ8");'></div>
+<div class="absolute top-3 right-3 rounded bg-blue-100 px-2 py-1 text-xs font-semibold uppercase text-brand-accent dark:bg-blue-900/50 dark:text-blue-300">For Immunity</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h3 class="text-base font-semibold text-brand-text dark:text-white">Organic Vitamin C 1000mg</h3>
+<div class="mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-gray-300" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-xs text-gray-500 dark:text-gray-400">(128)</span>
+</div>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">with Rose Hips &amp; Bioflavonoids</p>
+<div class="mt-auto flex items-baseline gap-2 pt-4">
+<span class="text-xl font-bold text-brand-text dark:text-white">$24.99</span>
+<span class="text-sm text-gray-400 line-through">$29.99</span>
+</div>
+</div>
+<button class="mt-auto m-4 flex h-10 w-[calc(100%-2rem)] items-center justify-center rounded-md bg-brand-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-primary/90">Shop Now</button>
+</div>
+<!-- Product Card 2 -->
+<div class="group flex flex-col overflow-hidden rounded-lg bg-brand-card-bg shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:bg-gray-800 dark:border dark:border-gray-700">
+<div class="relative">
+<div class="aspect-square w-full bg-gray-100 bg-cover bg-center dark:bg-gray-700" data-alt="set of colorful resistance bands" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnHpW5wTPmvm7r4byi-OpUJ2O0YNRkXVWTT4Txh9Pzg_7fThjnL2-cwoOACOcVSIB0Wr8IEI6NEFGhtwPtx2AMjf8reUMoFfaBFtW1YmDBBAwKh4D7qixudbmovni7cl8dXxfVmIfNkLRPFn_L04oyotZXDGOFSnjz7a4o4tpo1Ce5CbS28N72qykDm06YfnuTH9B36ZtEeYqmjra6hEW5sJ9lEjUm1dpK6nRy9s6re3R0zAVI3xkdw_ysRlpD8W0OKTD4qLq9Z6-X");'></div>
+<div class="absolute top-3 right-3 rounded bg-green-100 px-2 py-1 text-xs font-semibold uppercase text-brand-secondary dark:bg-green-900/50 dark:text-green-300">For Recovery</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h3 class="text-base font-semibold text-brand-text dark:text-white">Premium Resistance Bands Set</h3>
+<div class="mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-xs text-gray-500 dark:text-gray-400">(210)</span>
+</div>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">5-Piece Exercise Band Set</p>
+<div class="mt-auto flex items-baseline gap-2 pt-4">
+<span class="text-xl font-bold text-brand-text dark:text-white">$32.50</span>
+</div>
+</div>
+<button class="mt-auto m-4 flex h-10 w-[calc(100%-2rem)] items-center justify-center rounded-md bg-brand-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-primary/90">Shop Now</button>
+</div>
+<!-- Product Card 3 -->
+<div class="group flex flex-col overflow-hidden rounded-lg bg-brand-card-bg shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:bg-gray-800 dark:border dark:border-gray-700">
+<div class="relative">
+<div class="aspect-square w-full bg-gray-100 bg-cover bg-center dark:bg-gray-700" data-alt="jar of collagen peptides powder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBuMiuYOVS1FQUCUyn0xbSWz2WdRnVjPQcBwCEJxX2uE1ZISBKMnfinUAr7eljwlq4YLs0JY5iMFsJ_nz5D8AO73yltwqm1e0keWAc8zWuTcxfSbouEnrZ1D8f482IeCHtKJ6_IrdaD096RqUDteBldzbDQI69tpQnnMyd2Hx9kbVh7m5PPJge0BCSRXAqB6x5SUxYJqOYKYKgb1b5FPU9IBKPRlEMtUWXSUaptYR98Gc5EplhExYY5LUdRYGtyI_uUqBVxxnrofPmd");'></div>
+<div class="absolute top-3 right-3 rounded bg-orange-100 px-2 py-1 text-xs font-semibold uppercase text-orange-600 dark:bg-orange-900/50 dark:text-orange-300">For Energy</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h3 class="text-base font-semibold text-brand-text dark:text-white">Collagen Peptides Powder</h3>
+<div class="mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-xs text-gray-500 dark:text-gray-400">(451)</span>
+</div>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">20g Collagen per serving</p>
+<div class="mt-auto flex items-baseline gap-2 pt-4">
+<span class="text-xl font-bold text-brand-text dark:text-white">$45.00</span>
+</div>
+</div>
+<button class="mt-auto m-4 flex h-10 w-[calc(100%-2rem)] items-center justify-center rounded-md bg-brand-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-primary/90">Shop Now</button>
+</div>
+<!-- Product Card 4 -->
+<div class="group flex flex-col overflow-hidden rounded-lg bg-brand-card-bg shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:bg-gray-800 dark:border dark:border-gray-700">
+<div class="relative">
+<div class="aspect-square w-full bg-gray-100 bg-cover bg-center dark:bg-gray-700" data-alt="bottle of organic vitamin d3 supplements" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBzwVXmMW3D2QvmTahF5SVSuqA-JdryKzzkPuxPEmdjM0U1otLk2gvc-iar2gy90bv8jiX4zSiQxh72_OfmHmZW3MbRYUiT15oK9vR5lEKUBIazNeCENwawL6R40EAEpP5urUFKV5b2R1lY_SCR2vcKVeTYEsOkSHfWmuX7CDILE2bXpGiKSSH12rLfqE6D-DNyeg-PyF5LyeAmOteXvkZG6-ROccPhhZZSl2flDi7fQvSJpCwEva8HB4rRYT7ZDoMVsP0PtRW_DhDV");'></div>
+<div class="absolute top-3 right-3 rounded bg-blue-100 px-2 py-1 text-xs font-semibold uppercase text-brand-accent dark:bg-blue-900/50 dark:text-blue-300">For Immunity</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h3 class="text-base font-semibold text-brand-text dark:text-white">Organic Vitamin D3 5000 IU</h3>
+<div class="mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-gray-300" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-xs text-gray-500 dark:text-gray-400">(98)</span>
+</div>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Plant-Based, with Coconut Oil</p>
+<div class="mt-auto flex items-baseline gap-2 pt-4">
+<span class="text-xl font-bold text-brand-text dark:text-white">$19.99</span>
+</div>
+</div>
+<button class="mt-auto m-4 flex h-10 w-[calc(100%-2rem)] items-center justify-center rounded-md bg-brand-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-primary/90">Shop Now</button>
+</div>
+<!-- Product Card 5 -->
+<div class="group flex flex-col overflow-hidden rounded-lg bg-brand-card-bg shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:bg-gray-800 dark:border dark:border-gray-700">
+<div class="relative">
+<div class="aspect-square w-full bg-gray-100 bg-cover bg-center dark:bg-gray-700" data-alt="a pair of dumbbells on a gym floor" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAD0A8TCozx2MkLWBU_SKyVsEkmbTWFOSUp9Iy9rVjIMgwE0gR8Ms8WmBVf3HVsf-NPt7g5MgH_PEkZbJYKuXTY6uZbBPwCx3gZlzqwc8FAxOJG_XUVbaGksCnjJqjXzXHE1-JQ_Jh_Xw1u-tNQ4Vg2ulaOJTzDbJhh4105-QArp7J0u4uE04eiaHVNGOZtdYNag-MzwCWMOK0H5N5cqxmdqW8pHJg8_NsNITCvq9o6J7WlUE36STZDYKs66LTx4xpuaQtnmCTFw9Eu");'></div>
+<div class="absolute top-3 right-3 rounded bg-green-100 px-2 py-1 text-xs font-semibold uppercase text-brand-secondary dark:bg-green-900/50 dark:text-green-300">For Fitness</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h3 class="text-base font-semibold text-brand-text dark:text-white">Adjustable Dumbbell Set</h3>
+<div class="mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-xs text-gray-500 dark:text-gray-400">(155)</span>
+</div>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Up to 52.5 lbs</p>
+<div class="mt-auto flex items-baseline gap-2 pt-4">
+<span class="text-xl font-bold text-brand-text dark:text-white">$129.00</span>
+<span class="text-sm text-gray-400 line-through">$159.00</span>
+</div>
+</div>
+<button class="mt-auto m-4 flex h-10 w-[calc(100%-2rem)] items-center justify-center rounded-md bg-brand-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-primary/90">Shop Now</button>
+</div>
+<!-- Product Card 6 -->
+<div class="group flex flex-col overflow-hidden rounded-lg bg-brand-card-bg shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:bg-gray-800 dark:border dark:border-gray-700">
+<div class="relative">
+<div class="aspect-square w-full bg-gray-100 bg-cover bg-center dark:bg-gray-700" data-alt="bottle of lavender essential oil" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBZTqI6us59KnR-RwR8Uv1kN4f0HwVNFh3b_VktxGXWMYoFg0TWqXG85kRONnZqDARW1bdefg-oPYN8APNz1QbHHE7k8upIDCcwGdkS-2ocOU2Ck6ujZYczcAG7wTtaPgNXaf3IGC2w1at1Mp15756oYT7OVZx-tsAjaip1k9BNizycIzkBgKBleTcFR9fLtE9ghx4bGddEazqrU8fjlBZBVGdSNIiAF4iqnNl5TAOvtl9oD4XdeaQd74sknZ4Ak-9-0r1uAzz7oym8");'></div>
+<div class="absolute top-3 right-3 rounded bg-purple-100 px-2 py-1 text-xs font-semibold uppercase text-purple-600 dark:bg-purple-900/50 dark:text-purple-300">For Sleep</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h3 class="text-base font-semibold text-brand-text dark:text-white">Lavender Essential Oil</h3>
+<div class="mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-yellow-500" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-gray-300" style="font-size: 16px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-xs text-gray-500 dark:text-gray-400">(302)</span>
+</div>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">100% Pure &amp; Therapeutic Grade</p>
+<div class="mt-auto flex items-baseline gap-2 pt-4">
+<span class="text-xl font-bold text-brand-text dark:text-white">$14.99</span>
+</div>
+</div>
+<button class="mt-auto m-4 flex h-10 w-[calc(100%-2rem)] items-center justify-center rounded-md bg-brand-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-primary/90">Shop Now</button>
+</div>
+</div>
+<!-- Pagination -->
+<nav class="mt-8 flex items-center justify-center gap-2">
+<a class="flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">chevron_left</span>
+</a>
+<a class="flex h-9 w-9 items-center justify-center rounded-md border border-brand-primary bg-brand-primary text-sm font-medium text-white" href="#">1</a>
+<a class="flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700" href="#">2</a>
+<a class="flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700" href="#">3</a>
+<span class="text-gray-500">...</span>
+<a class="flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700" href="#">8</a>
+<a class="flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="mx-auto max-w-7xl px-8 py-12">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+<div class="col-span-2 lg:col-span-2">
+<div class="flex items-center gap-3 text-brand-primary">
+<div class="size-6 text-brand-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path></svg>
+</div>
+<h2 class="text-brand-text text-xl font-bold dark:text-white">Wellness</h2>
+</div>
+<p class="mt-4 text-sm text-gray-600 dark:text-gray-400">Science-backed supplements, fitness gear, and health essentials for a better you.</p>
+</div>
+<div>
+<h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Shop</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Vitamins</a></li>
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Supplements</a></li>
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Fitness</a></li>
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Wellness</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">About</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Our Story</a></li>
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Blog</a></li>
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Support</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Contact Us</a></li>
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">FAQ</a></li>
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Shipping</a></li>
+<li><a class="text-sm text-gray-600 hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary" href="#">Returns</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col md:flex-row items-center justify-between">
+<p class="text-sm text-gray-500 dark:text-gray-400">© 2024 Wellness, Inc. All rights reserved.</p>
+<div class="mt-4 md:mt-0 flex items-center gap-4">
+<div class="flex items-center gap-1.5 text-center">
+<span class="material-symbols-outlined text-gray-500" style="font-size: 16px;">verified</span>
+<p class="text-gray-600 text-xs font-medium leading-normal dark:text-gray-400">FDA Registered</p>
+</div>
+<div class="flex items-center gap-1.5 text-center">
+<span class="material-symbols-outlined text-gray-500" style="font-size: 16px;">workspace_premium</span>
+<p class="text-gray-600 text-xs font-medium leading-normal dark:text-gray-400">GMP Certified</p>
+</div>
+<div class="flex items-center gap-1.5 text-center">
+<span class="material-symbols-outlined text-gray-500" style="font-size: 16px;">eco</span>
+<p class="text-gray-600 text-xs font-medium leading-normal dark:text-gray-400">Organic</p>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

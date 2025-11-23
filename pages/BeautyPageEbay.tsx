@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { searchBeautyProducts } from '../services/apiService';
 import type { EbaySearchParams, EbayProductSummary, EbaySearchResponse } from '../types';
 import ErrorMessage from '../components/ErrorMessage';
 import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 const BeautyPageEbay: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [products, setProducts] = useState<EbayProductSummary[]>([]);
     const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [pagination, setPagination] = useState({ page: 1, pageSize: 24, total: 0, hasNextPage: false });
     
@@ -24,7 +26,6 @@ const BeautyPageEbay: React.FC = () => {
     const condition = searchParams.get('condition') as EbaySearchParams['condition'];
     const minPrice = searchParams.get('minPrice') ? Number(searchParams.get('minPrice')) : undefined;
     const maxPrice = searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : undefined;
-    const page = Number(searchParams.get('page')) || 1;
     const q = searchParams.get('q') || '';
 
     const categories = ['all', 'makeup', 'skincare', 'hair', 'fragrance', 'nails'] as const;
@@ -90,7 +91,7 @@ const BeautyPageEbay: React.FC = () => {
                     condition,
                     minPrice,
                     maxPrice,
-                    page,
+                    page: 1,
                     pageSize: 24
                 };
 
@@ -106,7 +107,41 @@ const BeautyPageEbay: React.FC = () => {
         };
 
         fetchProducts();
-    }, [q, category, sort, condition, minPrice, maxPrice, page]);
+    }, [q, category, sort, condition, minPrice, maxPrice]);
+
+    // Load more products for infinite scroll
+    const loadMoreProducts = useCallback(async () => {
+        if (!pagination.hasNextPage || loadingMore) return;
+
+        setLoadingMore(true);
+        try {
+            const params: EbaySearchParams = {
+                q,
+                category,
+                sort,
+                condition,
+                minPrice,
+                maxPrice,
+                page: pagination.page + 1,
+                pageSize: 24
+            };
+
+            const response: EbaySearchResponse = await searchBeautyProducts(params);
+            setProducts(prev => [...prev, ...response.items]);
+            setPagination(response.pagination);
+        } catch (err) {
+            console.error('Failed to load more products:', err);
+        } finally {
+            setLoadingMore(false);
+        }
+    }, [q, category, sort, condition, minPrice, maxPrice, pagination.hasNextPage, pagination.page, loadingMore]);
+
+    // Infinite scroll hook
+    const lastProductRef = useInfiniteScroll({
+        loading: loadingMore,
+        hasMore: pagination.hasNextPage,
+        onLoadMore: loadMoreProducts,
+    });
 
     const updateSearchParam = (key: string, value: string | number | undefined) => {
         const newParams = new URLSearchParams(searchParams);
@@ -114,10 +149,6 @@ const BeautyPageEbay: React.FC = () => {
             newParams.delete(key);
         } else {
             newParams.set(key, String(value));
-        }
-        // Reset to page 1 when changing filters
-        if (key !== 'page') {
-            newParams.delete('page');
         }
         setSearchParams(newParams);
     };
@@ -139,7 +170,6 @@ const BeautyPageEbay: React.FC = () => {
         } else {
             newParams.delete('maxPrice');
         }
-        newParams.delete('page');
         setSearchParams(newParams);
         setShowPriceDropdown(false);
     };
@@ -306,55 +336,39 @@ const BeautyPageEbay: React.FC = () => {
                             <p className="text-text-subtle-light dark:text-text-subtle-dark">No products found. Try adjusting your filters.</p>
                         </div>
                     ) : (
-                        products.map((product) => (
-                            <Link 
-                                key={product.id} 
-                                to={`/beauty/product/${encodeURIComponent(product.id)}`}
-                                className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
-                            >
-                                <div className="aspect-square w-full overflow-hidden bg-gray-100">
-                                    <img 
-                                        alt={product.title} 
-                                        className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300" 
-                                        src={product.imageUrl || 'https://via.placeholder.com/400'} 
-                                    />
-                                </div>
-                                <div className="flex flex-1 flex-col p-4">
-                                    <h3 className="font-semibold mt-1">{product.title}</h3>
-                                    <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mt-2">
-                                        {product.condition}
-                                    </p>
-                                    <p className="text-lg font-bold mt-auto pt-2">
-                                        ${product.price.value.toFixed(2)}
-                                    </p>
-                                </div>
-                            </Link>
-                        ))
+                        <>
+                            {products.map((product, index) => {
+                                const isLastProduct = index === products.length - 1;
+                                return (
+                                    <Link 
+                                        key={`${product.id}-${index}`}
+                                        ref={isLastProduct ? lastProductRef : null}
+                                        to={`/beauty/product/${encodeURIComponent(product.id)}`}
+                                        className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+                                    >
+                                        <div className="aspect-square w-full overflow-hidden bg-gray-100">
+                                            <img 
+                                                alt={product.title} 
+                                                className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300" 
+                                                src={product.imageUrl || 'https://via.placeholder.com/400'} 
+                                            />
+                                        </div>
+                                        <div className="flex flex-1 flex-col p-4">
+                                            <h3 className="font-semibold mt-1">{product.title}</h3>
+                                            <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mt-2">
+                                                {product.condition}
+                                            </p>
+                                            <p className="text-lg font-bold mt-auto pt-2">
+                                                ${product.price.value.toFixed(2)}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                );
+                            })}
+                            {loadingMore && Array.from({ length: 4 }).map((_, i) => <ProductCardSkeleton key={`loading-${i}`} />)}
+                        </>
                     )}
                 </div>
-
-                {/* Pagination */}
-                {!loading && products.length > 0 && (
-                    <div className="flex justify-center gap-4 mt-8">
-                        <button
-                            onClick={() => updateSearchParam('page', page - 1)}
-                            disabled={page <= 1}
-                            className="px-6 py-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                        >
-                            Previous
-                        </button>
-                        <span className="flex items-center px-4 text-sm">
-                            Page {page} of {Math.ceil(pagination.total / pagination.pageSize) || 1}
-                        </span>
-                        <button
-                            onClick={() => updateSearchParam('page', page + 1)}
-                            disabled={!pagination.hasNextPage}
-                            className="px-6 py-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                        >
-                            Next
-                        </button>
-                    </div>
-                )}
             </section>
         </div>
     );

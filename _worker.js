@@ -911,8 +911,8 @@ export default {
         const page = parseInt(searchParams.get('page') || '1');
         const pageSize = Math.min(parseInt(searchParams.get('pageSize') || '24'), 50);
 
-        // Create cache key
-        const cacheKey = `ebay_search:${q}:${category}:${sort}:${minPrice || ''}:${maxPrice || ''}:${condition || ''}:${page}:${pageSize}`;
+        // Create cache key with version to bust old cache after category restriction changes
+        const cacheKey = `ebay_search:v2_beauty_only:${q}:${category}:${sort}:${minPrice || ''}:${maxPrice || ''}:${condition || ''}:${page}:${pageSize}`;
         
         // Check cache first (5 minute TTL)
         const cachedResult = await env.MERGED_CACHE?.get(cacheKey);
@@ -937,7 +937,7 @@ export default {
 
         // Map category to eBay category ID
         const categoryMap = {
-          'all': '26395',           // Health & Beauty root
+          'all': '26395',           // Health & Beauty root with keyword filtering
           'makeup': '31786',        // Makeup
           'skincare': '31763',      // Skin Care
           'hair': '11854',          // Hair Care & Styling
@@ -953,13 +953,18 @@ export default {
           offset: offset.toString()
         });
 
-        // Add search query or category browse
-        if (q && q.trim()) {
-          // When there's a search query, use it directly without category_ids
-          // eBay Browse API works better with just q parameter for search
-          ebayParams.append('q', q.trim());
+        // For 'all' category, exclude health/supplement keywords to get beauty products
+        if (category === 'all') {
+          const beautyQuery = q && q.trim() 
+            ? `${q.trim()} -(vitamin supplement protein medicine health fitness workout)` 
+            : 'beauty -(vitamin supplement protein medicine health fitness workout)';
+          ebayParams.append('q', beautyQuery);
+          ebayParams.append('category_ids', categoryId);
         } else {
-          // No search query - browse by category
+          // Specific category selected
+          if (q && q.trim()) {
+            ebayParams.append('q', q.trim());
+          }
           ebayParams.append('category_ids', categoryId);
         }
 

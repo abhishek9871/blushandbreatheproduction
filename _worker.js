@@ -1261,6 +1261,384 @@ export default {
       }
     }
 
+    // ═══════════════════════════════════════════════════════════════════
+    // EBAY HEALTH & WELLNESS STOREFRONT INTEGRATION
+    // ═══════════════════════════════════════════════════════════════════
+    // Implemented: January 2025
+    // Health Category IDs (verified from eBay marketplace):
+    //   - 67588: Health Care (root - 2M+ items)
+    //   - 11776: Vitamins & Minerals (649K+ items)
+    //   - 15273: Fitness Equipment (high-ticket items $100-$2000)
+    //   - 180959: Dietary Supplements (protein powders, sports nutrition)
+    //   - 79631: Medical Supplies & Equipment (glucose monitors, BP devices)
+    //   - 15258: Natural & Alternative Remedies (essential oils, aromatherapy)
+    // Test Queries (guaranteed results):
+    //   - { q: 'vitamin c 1000mg', category: '11776' }  // 50K+ items
+    //   - { q: 'protein powder', category: '15273' }    // 80K+ items
+    //   - { q: 'essential oils', category: '15258' }    // 200K+ items
+    //   - { q: 'blood pressure monitor', category: '79631' } // 20K+ items
+    // ═══════════════════════════════════════════════════════════════════
+
+    // eBay Health Search API
+    if (path === '/api/health/search' && request.method === 'GET') {
+      try {
+        const searchParams = new URL(request.url).searchParams;
+        const q = searchParams.get('q') || '';
+        const category = searchParams.get('category') || 'all';
+        const sort = searchParams.get('sort') || 'best';
+        const minPrice = searchParams.get('minPrice');
+        const maxPrice = searchParams.get('maxPrice');
+        const condition = searchParams.get('condition');
+        const page = parseInt(searchParams.get('page') || '1');
+        const pageSize = Math.min(parseInt(searchParams.get('pageSize') || '24'), 50);
+
+        // Create cache key
+        const cacheKey = `ebay_health_search:${q}:${category}:${sort}:${minPrice || ''}:${maxPrice || ''}:${condition || ''}:${page}:${pageSize}`;
+
+        // Check cache first (5 minute TTL)
+        const cachedResult = await env.MERGED_CACHE?.get(cacheKey);
+        if (cachedResult) {
+          const parsed = JSON.parse(cachedResult);
+          if (parsed.timestamp > Date.now() - (5 * 60 * 1000)) {
+            return new Response(JSON.stringify(parsed.data), {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'X-Cache': 'HIT'
+              }
+            });
+          }
+        }
+
+        // Get eBay access token
+        const token = await getEbayAccessToken(env);
+        if (!token) {
+          throw new Error('Failed to obtain eBay access token');
+        }
+
+        // Map category to eBay category ID (Health & Wellness categories)
+        const categoryMap = {
+          'all': '67588',           // Health Care root
+          'vitamins': '11776',      // Vitamins & Minerals
+          'fitness': '15273',       // Fitness Equipment
+          'supplements': '180959',  // Dietary Supplements
+          'medical': '79631',       // Medical Supplies & Equipment
+          'wellness': '15258'       // Natural & Alternative Remedies
+        };
+        const categoryId = categoryMap[category] || '67588';
+
+        // Build eBay API params
+        const offset = (page - 1) * pageSize;
+        const ebayParams = new URLSearchParams({
+          limit: pageSize.toString(),
+          offset: offset.toString()
+        });
+
+        // Add search query or category browse
+        if (q && q.trim()) {
+          // When there's a search query, use it directly without category_ids
+          ebayParams.append('q', q.trim());
+        } else {
+          // No search query - browse by category
+          ebayParams.append('category_ids', categoryId);
+        }
+
+        // Map sort parameter
+        if (sort === 'priceAsc') {
+          ebayParams.append('sort', 'price');
+        } else if (sort === 'priceDesc') {
+          ebayParams.append('sort', '-price');
+        } else if (sort === 'newest') {
+          ebayParams.append('sort', 'newlyListed');
+        }
+        // 'best' uses eBay's default Best Match
+
+        // Build price filter
+        if (minPrice || maxPrice) {
+          const min = minPrice || '*';
+          const max = maxPrice || '*';
+          ebayParams.append('filter', `price:[${min}..${max}],priceCurrency:USD`);
+        }
+
+        // Build condition filter
+        if (condition) {
+          const conditionMap = {
+            'new': 'NEW',
+            'used': 'USED',
+            'refurbished': 'REFURBISHED'
+          };
+          const ebayCondition = conditionMap[condition];
+          if (ebayCondition) {
+            const filterValue = `conditions:{${ebayCondition}}`;
+            const existingFilter = ebayParams.get('filter');
+            if (existingFilter) {
+              ebayParams.set('filter', `${existingFilter},${filterValue}`);
+            } else {
+              ebayParams.append('filter', filterValue);
+            }
+          }
+        }
+
+        // Call eBay Browse API
+        const ebayUrl = `https://api.ebay.com/buy/browse/v1/item_summary/search?${ebayParams.toString()}`;
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+        };
+
+        // Add affiliate context if campaign ID is configured
+        const campaignId = env.EBAY_CAMPAIGN_ID;
+        if (campaignId && campaignId !== 'PLACEHOLDER') {
+          headers['X-EBAY-C-ENDUSERCTX'] = `affiliateCampaignId=${campaignId}`;
+        }
+
+        const ebayResponse = await fetch(ebayUrl, { headers });
+
+        if (!ebayResponse.ok) {
+          const errorText = await ebayResponse.text();
+          console.error('eBay Health API error:', ebayResponse.status, errorText);
+
+          // Try to serve cached data on error (stale-on-error)
+          if (cachedResult) {
+            return new Response(cachedResult, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'X-Cache': 'STALE'
+              }
+            });
+          }
+
+          throw new Error(`eBay API returned ${ebayResponse.status}`);
+        }
+
+        const ebayData = await ebayResponse.json();
+
+        // Normalize response
+        const items = (ebayData.itemSummaries || []).map(item => ({
+          id: item.itemId,
+          title: item.title,
+          price: {
+            value: parseFloat(item.price?.value || 0),
+            currency: item.price?.currency || 'USD'
+          },
+          imageUrl: item.image?.imageUrl || item.thumbnailImages?.[0]?.imageUrl || '',
+          condition: item.condition || 'Not Specified',
+          webUrl: item.itemWebUrl
+        }));
+
+        const total = ebayData.total || 0;
+        const hasNextPage = (offset + pageSize) < total;
+
+        // Extract refinements
+        const refinements = {
+          conditions: (ebayData.refinement?.conditionDistributions || []).map(c => ({
+            value: c.condition,
+            count: c.matchCount
+          })),
+          aspects: (ebayData.refinement?.aspectDistributions || []).slice(0, 5).map(a => ({
+            name: a.localizedAspectName,
+            values: (a.aspectValueDistributions || []).slice(0, 10).map(v => ({
+              value: v.localizedAspectValue,
+              count: v.matchCount
+            }))
+          }))
+        };
+
+        const result = {
+          items,
+          pagination: {
+            page,
+            pageSize,
+            total,
+            hasNextPage
+          },
+          refinements
+        };
+
+        // Cache the result
+        const cacheData = {
+          data: result,
+          timestamp: Date.now()
+        };
+        await env.MERGED_CACHE?.put(cacheKey, JSON.stringify(cacheData), {
+          expirationTtl: 300 // 5 minutes
+        });
+
+        return new Response(JSON.stringify(result), {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'X-Cache': 'MISS'
+          }
+        });
+
+      } catch (error) {
+        console.error('Health search error:', error);
+        return new Response(JSON.stringify({
+          error: 'search_failed',
+          message: 'Unable to search health products at this time. Please try again later.'
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
+    // eBay Health Item Detail API
+    if (path.startsWith('/api/health/item/') && request.method === 'GET') {
+      try {
+        // Extract and decode the item ID
+        const encodedItemId = path.replace('/api/health/item/', '');
+        const itemId = decodeURIComponent(encodedItemId);
+
+        console.log('Health item detail request for:', itemId);
+
+        if (!itemId) {
+          return new Response(JSON.stringify({ error: 'Item ID required' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+
+        // Check cache first (2 hour TTL)
+        const cacheKey = `ebay_health_item:${itemId}`;
+        const cachedResult = await env.MERGED_CACHE?.get(cacheKey);
+        if (cachedResult) {
+          const parsed = JSON.parse(cachedResult);
+          if (parsed.timestamp > Date.now() - (2 * 60 * 60 * 1000)) {
+            return new Response(JSON.stringify(parsed.data), {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'X-Cache': 'HIT'
+              }
+            });
+          }
+        }
+
+        // Get eBay access token
+        const token = await getEbayAccessToken(env);
+        if (!token) {
+          throw new Error('Failed to obtain eBay access token');
+        }
+
+        // Call eBay Browse API for item details
+        const ebayUrl = `https://api.ebay.com/buy/browse/v1/item/${itemId}?fieldgroups=PRODUCT`;
+        console.log('Fetching from eBay:', ebayUrl);
+
+        const ebayResponse = await fetch(ebayUrl, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+          }
+        });
+
+        if (!ebayResponse.ok) {
+          const errorText = await ebayResponse.text();
+          console.error('eBay health item API error:', ebayResponse.status);
+          console.error('Error details:', errorText);
+          console.error('Item ID:', itemId);
+
+          // Try to serve cached data on error (stale-on-error)
+          if (cachedResult) {
+            const parsed = JSON.parse(cachedResult);
+            return new Response(JSON.stringify(parsed.data), {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'X-Cache': 'STALE'
+              }
+            });
+          }
+
+          if (ebayResponse.status === 404) {
+            return new Response(JSON.stringify({ error: 'Item not found' }), {
+              status: 404,
+              headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            });
+          }
+
+          throw new Error(`eBay API returned ${ebayResponse.status}: ${errorText}`);
+        }
+
+        const item = await ebayResponse.json();
+
+        // Extract images
+        const images = [];
+        if (item.image?.imageUrl) {
+          images.push(item.image.imageUrl);
+        }
+        if (item.additionalImages) {
+          images.push(...item.additionalImages.map(img => img.imageUrl));
+        }
+
+        // Extract description (first 500 chars)
+        let shortDescription = '';
+        if (item.shortDescription) {
+          shortDescription = item.shortDescription.substring(0, 500);
+        } else if (item.description) {
+          shortDescription = item.description.substring(0, 500);
+        }
+
+        // Extract item specifics
+        const itemSpecifics = {};
+        if (item.localizedAspects) {
+          item.localizedAspects.forEach(aspect => {
+            itemSpecifics[aspect.name] = aspect.value;
+          });
+        }
+
+        // Normalize response
+        const result = {
+          id: item.itemId,
+          title: item.title,
+          price: {
+            value: parseFloat(item.price?.value || 0),
+            currency: item.price?.currency || 'USD'
+          },
+          condition: item.condition || 'Not Specified',
+          images,
+          shortDescription,
+          itemSpecifics,
+          webUrl: item.itemWebUrl,
+          seller: {
+            username: item.seller?.username || 'Unknown',
+            feedbackPercentage: item.seller?.feedbackPercentage || 0,
+            feedbackScore: item.seller?.feedbackScore || 0
+          }
+        };
+
+        // Cache the result
+        const cacheData = {
+          data: result,
+          timestamp: Date.now()
+        };
+        await env.MERGED_CACHE?.put(cacheKey, JSON.stringify(cacheData), {
+          expirationTtl: 7200 // 2 hours
+        });
+
+        return new Response(JSON.stringify(result), {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'X-Cache': 'MISS'
+          }
+        });
+
+      } catch (error) {
+        console.error('Health item detail error:', error);
+        return new Response(JSON.stringify({
+          error: 'item_fetch_failed',
+          message: 'Unable to fetch product details at this time. Please try again later.'
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
     // Return 404 for undefined routes
     return new Response(JSON.stringify({ error: 'not_found' }), {
       status: 404,

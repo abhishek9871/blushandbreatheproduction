@@ -900,7 +900,7 @@ export async function searchBeautyProducts(params: EbaySearchParams): Promise<Eb
 
 export async function getBeautyProductDetail(itemId: string): Promise<EbayProductDetail> {
   const response = await fetch(`${EBAY_API_BASE}/item/${encodeURIComponent(itemId)}`);
-  
+
   if (!response.ok) {
     if (response.status === 404) {
       throw new Error('Product not found');
@@ -908,6 +908,45 @@ export async function getBeautyProductDetail(itemId: string): Promise<EbayProduc
     const error = await response.json().catch(() => ({ message: 'Failed to fetch product details' }));
     throw new Error(error.message || 'Failed to fetch product details');
   }
-  
+
+  return response.json();
+};
+
+// eBay Health & Wellness API Functions
+const EBAY_HEALTH_API_BASE = '/api/health';
+
+export async function searchHealthProducts(params: EbaySearchParams): Promise<EbaySearchResponse> {
+  const searchParams = new URLSearchParams();
+
+  if (params.q) searchParams.append('q', params.q);
+  if (params.category) searchParams.append('category', params.category);
+  if (params.sort) searchParams.append('sort', params.sort);
+  if (params.minPrice !== undefined) searchParams.append('minPrice', params.minPrice.toString());
+  if (params.maxPrice !== undefined) searchParams.append('maxPrice', params.maxPrice.toString());
+  if (params.condition) searchParams.append('condition', params.condition);
+  if (params.page) searchParams.append('page', params.page.toString());
+  if (params.pageSize) searchParams.append('pageSize', params.pageSize.toString());
+
+  const response = await fetch(`${EBAY_HEALTH_API_BASE}/search?${searchParams.toString()}`);
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Failed to search health products' }));
+    throw new Error(error.message || 'Failed to search health products');
+  }
+
+  return response.json();
+}
+
+export async function getHealthProductDetail(itemId: string): Promise<EbayProductDetail> {
+  const response = await fetch(`${EBAY_HEALTH_API_BASE}/item/${encodeURIComponent(itemId)}`);
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error('Product not found');
+    }
+    const error = await response.json().catch(() => ({ message: 'Failed to fetch health product details' }));
+    throw new Error(error.message || 'Failed to fetch health product details');
+  }
+
   return response.json();
 };

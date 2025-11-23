@@ -7,6 +7,8 @@ import HomePage from './pages/HomePage';
 import HealthPage from './pages/HealthPage';
 import BeautyPage from './pages/BeautyPageEbay';
 import BeautyProductDetailPage from './pages/BeautyProductDetailPage';
+import HealthStorePageEbay from './pages/HealthStorePageEbay';
+import HealthProductDetailPageEbay from './pages/HealthProductDetailPageEbay';
 import NutritionPage from './pages/NutritionPage';
 import VideosPage from './pages/VideosPage';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -36,6 +38,8 @@ const App: React.FC = () => {
               <Route path="/health" element={<PageWrapper><HealthPage /></PageWrapper>} />
               <Route path="/beauty" element={<PageWrapper><BeautyPage /></PageWrapper>} />
               <Route path="/beauty/product/:itemId" element={<PageWrapper><BeautyProductDetailPage /></PageWrapper>} />
+              <Route path="/health-store" element={<PageWrapper><HealthStorePageEbay /></PageWrapper>} />
+              <Route path="/health-store/product/:itemId" element={<PageWrapper><HealthProductDetailPageEbay /></PageWrapper>} />
               <Route path="/nutrition" element={<PageWrapper><NutritionPage /></PageWrapper>} />
               <Route path="/videos" element={<PageWrapper><VideosPage /></PageWrapper>} />
               <Route path="/article/:id" element={<PageWrapper><ArticlePage /></PageWrapper>} />

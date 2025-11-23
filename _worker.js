@@ -489,27 +489,23 @@ export default {
           subscribedAt: timestamp
         }));
 
-        // Send email notification using Cloudflare MailChannels
+        // Send email notification using Resend
         const notificationEmail = 'sparshrajput088@gmail.com';
+        const resendApiKey = env.RESEND_API_KEY;
 
-        try {
-          const emailResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              personalizations: [{
-                to: [{ email: notificationEmail }]
-              }],
-              from: {
-                email: 'newsletter@jyotilalchandani.pages.dev',
-                name: 'HealthBeauty Hub Newsletter'
+        if (resendApiKey && resendApiKey !== 'PLACEHOLDER') {
+          try {
+            const emailResponse = await fetch('https://api.resend.com/emails', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${resendApiKey}`
               },
-              subject: 'New Newsletter Subscription',
-              content: [{
-                type: 'text/html',
-                value: `
+              body: JSON.stringify({
+                from: 'HealthBeauty Hub <onboarding@resend.dev>',
+                to: [notificationEmail],
+                subject: 'New Newsletter Subscription',
+                html: `
                   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                     <h2 style="color: #2563eb;">New Newsletter Subscription</h2>
                     <p><strong>Email:</strong> ${email}</p>
@@ -518,16 +514,20 @@ export default {
                     <p style="color: #6b7280; font-size: 14px;">This notification was sent from your HealthBeauty Hub website.</p>
                   </div>
                 `
-              }]
-            })
-          });
+              })
+            });
 
-          if (!emailResponse.ok) {
-            const errorText = await emailResponse.text();
-            console.error('MailChannels error:', errorText);
+            if (!emailResponse.ok) {
+              const errorText = await emailResponse.text();
+              console.error('Resend API error:', errorText);
+            } else {
+              console.log('Newsletter email sent successfully');
+            }
+          } catch (emailError) {
+            console.error('Email sending error:', emailError);
           }
-        } catch (emailError) {
-          console.error('Email sending error:', emailError);
+        } else {
+          console.warn('RESEND_API_KEY not configured - email not sent');
         }
 
         return new Response(JSON.stringify({
@@ -578,27 +578,24 @@ export default {
           submittedAt: timestamp
         }));
 
-        // Send email notification using Cloudflare MailChannels
+        // Send email notification using Resend
         const notificationEmail = 'sparshrajput088@gmail.com';
+        const resendApiKey = env.RESEND_API_KEY;
 
-        try {
-          const emailResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              personalizations: [{
-                to: [{ email: notificationEmail }]
-              }],
-              from: {
-                email: 'contact@jyotilalchandani.pages.dev',
-                name: 'HealthBeauty Hub Contact Form'
+        if (resendApiKey && resendApiKey !== 'PLACEHOLDER') {
+          try {
+            const emailResponse = await fetch('https://api.resend.com/emails', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${resendApiKey}`
               },
-              subject: `New Contact Form: ${subject}`,
-              content: [{
-                type: 'text/html',
-                value: `
+              body: JSON.stringify({
+                from: 'HealthBeauty Hub <onboarding@resend.dev>',
+                to: [notificationEmail],
+                reply_to: email,
+                subject: `New Contact Form: ${subject}`,
+                html: `
                   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                     <h2 style="color: #2563eb;">New Contact Form Submission</h2>
                     <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
@@ -616,16 +613,20 @@ export default {
                     <p style="color: #6b7280; font-size: 14px;">Reply to: <a href="mailto:${email}">${email}</a></p>
                   </div>
                 `
-              }]
-            })
-          });
+              })
+            });
 
-          if (!emailResponse.ok) {
-            const errorText = await emailResponse.text();
-            console.error('MailChannels error:', errorText);
+            if (!emailResponse.ok) {
+              const errorText = await emailResponse.text();
+              console.error('Resend API error:', errorText);
+            } else {
+              console.log('Contact form email sent successfully');
+            }
+          } catch (emailError) {
+            console.error('Email sending error:', emailError);
           }
-        } catch (emailError) {
-          console.error('Email sending error:', emailError);
+        } else {
+          console.warn('RESEND_API_KEY not configured - email not sent');
         }
 
         return new Response(JSON.stringify({

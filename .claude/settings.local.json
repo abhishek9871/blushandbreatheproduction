@@ -4,7 +4,14 @@
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
       "Bash(npx wrangler deploy:*)",
-      "Bash(npx wrangler pages deploy:*)"
+      "Bash(npx wrangler pages deploy:*)",
+      "mcp__perplexity-mcp__deep_research",
+      "mcp__tavily__tavily-search",
+      "mcp__firecrawl__firecrawl_deep_research",
+      "Bash(npx wrangler secret put RESEND_API_KEY --config wrangler.backend.toml)",
+      "Bash(npx wrangler secret list:*)",
+      "Bash(curl:*)",
+      "Bash(npx wrangler tail:*)"
     ],
     "deny": [],
     "ask": []

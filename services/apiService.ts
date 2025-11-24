@@ -153,8 +153,10 @@ const fetchArticlesFromNewsAPI = async (page: number, pageSize: number, category
                 content: cleanNewsApiText(item.content || item.description || ''),
             }));
             
-            const totalResults = json.totalResults ?? articles.length;
-            const hasMore = page * pageSize < totalResults;
+            // Use hasMore from backend if available, otherwise calculate it
+            const hasMore = (json as any).hasMore !== undefined 
+                ? (json as any).hasMore 
+                : page * pageSize < (json.totalResults ?? articles.length);
             return { data: articles, hasMore };
         }
     }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import ArticleCard from '../components/ArticleCard';
 import { useApi } from '../hooks/useApi';
 import { getArticles } from '../services/apiService';
@@ -13,7 +13,7 @@ const HealthPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Create a wrapper function that passes the category to getArticles
-  const fetchArticlesWithCategory = (page: number) => getArticles(page, activeCategory);
+  const fetchArticlesWithCategory = useCallback((page: number) => getArticles(page, activeCategory), [activeCategory]);
 
   // Use activeCategory as dependency to refetch when category changes
   const { data: articles, loading, loadingMore, error, loadMore, hasMore, refetch } = useApi(
@@ -124,6 +124,7 @@ const HealthPage: React.FC = () => {
                 {/* Infinite scroll sentinel - shows when there are more articles to load */}
                 {!loading && !loadingMore && hasMore && displayArticles.length > 0 && (
                     <div
+                        key={`sentinel-${activeCategory}`}
                         ref={lastElementRef}
                         style={{ height: '20px', width: '100%', gridColumn: '1 / -1' }}
                     />

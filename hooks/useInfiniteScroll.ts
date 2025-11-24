@@ -16,9 +16,17 @@ export const useInfiniteScroll = ({
     const observer = useRef<IntersectionObserver | null>(null);
     const loadingRef = useRef(false);
 
+    // Reset loadingRef when key dependencies change (e.g., category change)
+    useEffect(() => {
+        loadingRef.current = false;
+    }, [hasMore, onLoadMore]);
+
     const lastElementRef = useCallback(
         (node: HTMLElement | null) => {
-            if (loading || loadingRef.current) return;
+            if (loading) return;
+
+            // Always reset loadingRef when callback is recreated
+            loadingRef.current = false;
 
             if (observer.current) observer.current.disconnect();
 

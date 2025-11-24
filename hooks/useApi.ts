@@ -43,20 +43,22 @@ export function useApi<T>(fetcher: Fetcher<T>, deps?: any[]) {
   useEffect(() => {
     setPage(1);  // Reset page when dependencies change
     setItems([]); // Clear items when refetching
+    setHasMore(true); // Reset hasMore state
     loadData(1);
   }, deps ? deps : [loadData]);
   
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     if (hasMore && !loadingMore) {
       const nextPage = page + 1;
       setPage(nextPage);
       loadData(nextPage);
     }
-  };
+  }, [hasMore, loadingMore, page, loadData]);
 
   const refetch = () => {
     setPage(1);
     setItems([]);
+    setHasMore(true);
     loadData(1);
   }
 

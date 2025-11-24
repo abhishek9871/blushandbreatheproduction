@@ -14,17 +14,23 @@ export const useInfiniteScroll = ({
     rootMargin = '200px',
 }: UseInfiniteScrollOptions) => {
     const observer = useRef<IntersectionObserver | null>(null);
+    const loadingRef = useRef(false);
 
     const lastElementRef = useCallback(
         (node: HTMLElement | null) => {
-            if (loading) return;
+            if (loading || loadingRef.current) return;
 
             if (observer.current) observer.current.disconnect();
 
             observer.current = new IntersectionObserver(
                 (entries) => {
-                    if (entries[0].isIntersecting && hasMore) {
+                    if (entries[0].isIntersecting && hasMore && !loadingRef.current) {
+                        loadingRef.current = true;
                         onLoadMore();
+                        // Reset loading ref after a delay to prevent rapid consecutive calls
+                        setTimeout(() => {
+                            loadingRef.current = false;
+                        }, 1000);
                     }
                 },
                 { rootMargin }

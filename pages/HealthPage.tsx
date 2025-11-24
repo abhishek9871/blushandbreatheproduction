@@ -25,6 +25,9 @@ const HealthPage: React.FC = () => {
     return articles.filter(article => article.category === activeCategory);
   }, [articles, activeCategory]);
 
+  // Use total article count for infinite scroll, not filtered count
+  const displayArticles = filteredArticles;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 mt-8">
@@ -53,16 +56,17 @@ const HealthPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
                 {loading 
                     ? Array.from({ length: 8 }).map((_, i) => <ArticleCardSkeleton key={i} />)
-                    : filteredArticles.map((article, index) => {
-                        if (index === filteredArticles.length - 1) {
-                            return <div ref={lastElementRef} key={article.id}><ArticleCard article={article} /></div>;
-                        }
-                        return <ArticleCard key={article.id} article={article} />;
-                    })
+                    : displayArticles.map((article, index) => (
+                        <ArticleCard key={article.id} article={article} />
+                    ))
                 }
                 {loadingMore && Array.from({ length: 4 }).map((_, i) => <ArticleCardSkeleton key={`loading-${i}`} />)}
+                {/* Invisible sentinel element for infinite scroll - only show when hasMore is true */}
+                {!loading && !loadingMore && hasMore && displayArticles.length > 0 && (
+                    <div ref={lastElementRef} style={{ height: '20px', width: '100%', gridColumn: '1 / -1' }} />
+                )}
             </div>
-             {!loading && !hasMore && <p className="text-center text-text-subtle-light dark:text-text-subtle-dark pb-8">You've reached the end!</p>}
+             {!loading && !hasMore && displayArticles.length > 0 && <p className="text-center text-text-subtle-light dark:text-text-subtle-dark pb-8">You've reached the end!</p>}
         </div>
     </div>
   );

@@ -10,6 +10,8 @@
     "wrangler": "^3.0.0"
   },
   "dependencies": {
-    "fast-xml-parser": "^4.5.0"
+    "@mozilla/readability": "^0.6.0",
+    "fast-xml-parser": "^4.5.0",
+    "linkedom": "^0.18.12"
   }
 }

@@ -11,7 +11,10 @@
       "Bash(npx wrangler secret put RESEND_API_KEY --config wrangler.backend.toml)",
       "Bash(npx wrangler secret list:*)",
       "Bash(curl:*)",
-      "Bash(npx wrangler tail:*)"
+      "Bash(npx wrangler tail:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []

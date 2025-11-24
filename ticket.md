@@ -1,259 +1,513 @@
-## COMPLETE Claude Code IMPLEMENTATION PROMPT: Health \& Wellness Store (Design + Backend + Frontend + Dev Server Testing)
+### CLAUDE CODE IMPLEMENTATION TICKET: Replace Jina Reader with Free Mozilla Readability
 
 **Context:**
 
-- You previously built a working Beauty store using eBay Browse API with category 26395 (Health \& Beauty root).[^1]
-- That implementation is live on production at `https://jyotilalchandani.pages.dev/beauty` and fully functional.[^1]
-- We now have approved design mockups from Google Stitch for a **separate** Health \& Wellness store stored in the local `Wellness Designs/` folder.[^1]
-- This ticket implements a complete new Health store from scratch (backend + frontend) matching those designs exactly, testable on dev server before production deployment.
+- You have a Health page (`/health`) that displays articles from News API and PubMed API
+- PubMed articles render correctly (structured API) ✅
+- News API articles currently use Jina Reader, which scrapes entire pages and shows unprofessional content with navigation/ads/programmatic prefixes ❌
+- Your backend is a Cloudflare Worker configured via `wrangler.backend.toml`
+- Frontend is React + TypeScript SPA
+
+**Goal:** Replace Jina Reader with Mozilla Readability.js (the same algorithm powering Firefox Reader View) for professional article extraction—100% free, no API keys, unlimited use.
 
 ***
 
-### PHASE 1: Study the Design Mockups (Critical First Step)
+### PHASE 1: Understanding the Architecture
 
-**Before writing any code:**
+**Before writing code, locate and understand:**
 
-1. **Open and carefully examine these files:**
-    - `Wellness Designs/Desktop/screen.png` - Desktop layout mockup (1440px)
-    - `Wellness Designs/Desktop/code.html` - HTML structure from Google Stitch
-    - `Wellness Designs/Mobile/screen.png` - Mobile layout mockup (375px)
-    - `Wellness Designs/Mobile/code.html` - Mobile HTML structure from Google Stitch
-2. **Extract and document these design elements:**
-    - **Color palette:** Identify exact hex colors used (teal blues, greens, backgrounds)
-    - **Typography:** Font families, sizes, weights visible in mockups
-    - **Layout structure:** Hero section, filter sidebar vs chips, product grid columns
-    - **Component patterns:** Trust badges, benefit tags, button styles, card shadows
-    - **Spacing/sizing:** Margins, padding, gaps between elements
-    - **Interactive states:** Hover effects, active filters, button states visible in designs
-3. **Note any Health-specific UI elements** not present in Beauty:
-    - Trust badge strip (FDA, GMP, Lab Tested, Organic, Vegan icons)
-    - Hero section with educational messaging
-    - Product card "FOR [BENEFIT]" tags (FOR IMMUNITY, FOR ENERGY, etc.)
-    - Key ingredient callouts on cards
-    - Any unique filter patterns or CTA language
+1. **Backend Worker file** (e.g., `_worker.js`, `worker.ts`, or `src/worker.js`)
+    - This is where your News API and PubMed API fetching logic lives
+    - Find the function that currently calls Jina Reader API for article content
+    - Identify the route that serves article content to the frontend (e.g., `/api/articles/:id` or similar)
+2. **Frontend article display component**
+    - Find the React component that renders individual article content (likely `ArticleDetailPage.tsx` or similar)
+    - Identify how it currently receives and displays article HTML/content
+    - Note what props/data structure it expects
+3. **Current Jina Reader integration**
+    - Locate where `https://r.jina.ai/${url}` or similar is being called
+    - Note what preprocessing you're currently doing on Jina's response
+    - Identify any caching logic (KV or Durable Objects)
 
-**Output a design analysis document** (comment block or separate file) listing:
-
-- Colors mapped to CSS variable names
-- Component specifications (hero height, card dimensions, filter widths)
-- Differences from Beauty page that require new code vs reusable components
+**Document your findings** in a comment before proceeding.
 
 ***
 
-### PHASE 2: Backend Implementation (eBay Browse API for Health Categories)
+### PHASE 2: Install Dependencies
 
-**Goal:** Create Health-specific API routes that mirror Beauty's architecture but use Health \& Wellness category IDs.
+**Since your backend is a Cloudflare Worker, you need to bundle dependencies for the Worker environment.**
 
-#### Backend Routes to Implement
+**Step 1: Install packages in your project root:**
 
-Create two new Worker routes (in `_worker.js` or equivalent backend file):
-
-**1. `/api/health/search` - Health Product Search**
-
-```javascript
-// Health category mapping (production-verified from eBay)
-const healthCategoryMap = {
-  'all': '67588',           // Health Care root (2M+ items)
-  'vitamins': '11776',      // Vitamins & Minerals (649K+ items)
-  'fitness': '15273',       // Fitness Equipment
-  'supplements': '180959',  // Dietary Supplements
-  'medical': '79631',       // Medical Supplies & Equipment
-  'wellness': '15258'       // Natural & Alternative Remedies
-};
+```bash
+npm install @mozilla/readability jsdom open-graph-scraper
 ```
 
-**Category ID sources (already researched):**[^4][^5][^6]
+**Step 2: Ensure your Worker build process bundles Node.js packages**
 
-- **67588** (Health Care) - eBay's root health category
-- **11776** (Vitamins \& Minerals) - Largest subcategory, 649K+ products, verified via live marketplace[^5]
-- **15273** (Fitness Equipment) - High-ticket items (equipment \$100-\$2000)[^7]
-- **180959** (Dietary Supplements) - Protein powders, sports nutrition[^7]
-- **79631** (Medical Supplies) - Glucose monitors, blood pressure devices[^4]
-- **15258** (Natural \& Alternative Remedies) - Essential oils, aromatherapy[^8]
+Cloudflare Workers don't natively support Node.js libraries like `jsdom`. You need to:
 
-**Implementation:**
+- **If using Wrangler with esbuild bundling** (default for modern Workers):
+    - Verify `wrangler.backend.toml` has `compatibility_flags = ["nodejs_compat"]` or similar
+    - Check that your build command bundles dependencies (esbuild should handle this automatically)
+- **If you encounter "jsdom not found" errors in Worker:**
+    - You may need to use a Worker-compatible alternative like `linkedom` instead of `jsdom`
+    - Alternative installation: `npm install @mozilla/readability linkedom`
+    - `linkedom` is a lighter, Worker-friendly DOM implementation
 
-- Accept same parameters as Beauty: `q`, `category`, `sort`, `minPrice`, `maxPrice`, `condition`, `page`, `pageSize`
-- Map `category` param using `healthCategoryMap` instead of Beauty's category map
-- Call eBay Browse `GET /buy/browse/v1/item_summary/search` with:
-    - `category_ids` from map above
-    - `q`, `sort`, `limit`, `offset`, `filter` parameters passed through from frontend
-    - Same OAuth token logic as Beauty (reuse existing token service)
-- Normalize eBay response into same DTO structure Beauty uses:
+**Recommendation:** Try `jsdom` first. If it fails in Worker environment, switch to `linkedom`.
 
+***
+
+### PHASE 3: Create Article Extraction Service in Worker
+
+**File location:** Create this as a new module in your Worker backend (e.g., `src/articleExtractor.js` or inline in `_worker.js` if small project)
+
+**Implementation Instructions:**
+
+1. **Import dependencies at top of your Worker file:**
 ```javascript
-{
-  items: [
-    {
-      id: itemId,
-      title: string,
-      price: { value: number, currency: string },
-      imageUrl: string,
-      condition: string,
-      webUrl: itemWebUrl
+import { Readability } from '@mozilla/readability';
+import { JSDOM } from 'jsdom'; // or: import { parseHTML } from 'linkedom'; if jsdom doesn't work
+import ogs from 'open-graph-scraper';
+```
+
+2. **Create the extraction function:**
+```javascript
+/**
+ * Extract article content using Mozilla Readability (free, no API key)
+ * @param {string} url - Article URL to extract
+ * @returns {Promise<Object>} Article content with metadata
+ */
+async function extractArticleContent(url) {
+  try {
+    // Step 1: Fetch the article HTML
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; Blush&Breath/1.0)'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
     }
-  ],
-  pagination: { page, pageSize, total, hasNextPage },
-  refinements: { conditions, brands, aspects }
+    
+    const html = await response.text();
+    
+    // Step 2: Extract Open Graph metadata first (for social preview data)
+    let ogData = {};
+    try {
+      const { result } = await ogs({ html });
+      ogData = result || {};
+    } catch (ogError) {
+      console.warn('Open Graph extraction failed, continuing without metadata:', ogError.message);
+    }
+    
+    // Step 3: Parse with Readability to get clean article content
+    const dom = new JSDOM(html, { url }); // or: const { document } = parseHTML(html); for linkedom
+    const document = dom.window.document;
+    
+    const reader = new Readability(document, {
+      charThreshold: 500,  // Require at least 500 chars to be valid article
+      keepClasses: false   // Remove CSS classes for clean HTML
+    });
+    
+    const article = reader.parse();
+    
+    if (!article) {
+      // Readability couldn't parse - return basic fallback
+      return {
+        title: ogData.ogTitle || document.title || 'Article',
+        content: '<p>Unable to extract article content. Please visit the original source.</p>',
+        textContent: '',
+        author: ogData.ogArticleAuthor || '',
+        publishDate: ogData.ogArticlePublishedTime || '',
+        image: ogData.ogImage?.[^0]?.url || '',
+        excerpt: ogData.ogDescription || '',
+        siteName: ogData.ogSiteName || new URL(url).hostname,
+        readingTime: 0,
+        isParseable: false
+      };
+    }
+    
+    // Step 4: Calculate reading time (average 200 words per minute)
+    const wordCount = article.textContent.split(/\s+/).length;
+    const readingTime = Math.ceil(wordCount / 200);
+    
+    // Step 5: Extract first image from article if OG image not available
+    let featuredImage = ogData.ogImage?.[^0]?.url || '';
+    if (!featuredImage) {
+      const imgMatch = article.content.match(/<img[^>]+src="([^">]+)"/);
+      featuredImage = imgMatch ? imgMatch[^1] : '';
+    }
+    
+    // Step 6: Return normalized article object
+    return {
+      title: ogData.ogTitle || article.title || 'Untitled',
+      content: article.content,           // Clean HTML with <p>, <img>, <blockquote>, etc.
+      textContent: article.textContent,   // Plain text version
+      author: ogData.ogArticleAuthor || article.byline || '',
+      publishDate: ogData.ogArticlePublishedTime || article.publishedTime || '',
+      image: featuredImage,
+      excerpt: ogData.ogDescription || article.excerpt || '',
+      siteName: ogData.ogSiteName || article.siteName || new URL(url).hostname,
+      readingTime: readingTime,
+      length: article.length,
+      isParseable: true
+    };
+    
+  } catch (error) {
+    console.error('Article extraction failed:', error);
+    throw new Error(`Failed to extract article: ${error.message}`);
+  }
 }
 ```
 
-- Use identical 5-minute cache strategy with KV as Beauty[^9]
-- Same error handling and stale-on-error fallback[^10]
-
-**2. `/api/health/item/:id` - Health Product Detail**
-
-- Identical logic to `/api/beauty/item/:id`
-- Call eBay Browse `GET /buy/browse/v1/item/{item_id}?fieldgroups=PRODUCT`
-- Return same detail DTO:
-
+3. **Add caching wrapper to avoid re-fetching same articles:**
 ```javascript
-{
-  id, title, price, currency, condition,
-  images: [url1, url2, ...],
-  shortDescription: string,
-  itemSpecifics: { brand, form, size, ... },
-  webUrl: itemWebUrl,
-  seller: { username, feedbackPercentage }
+/**
+ * Cache article content in KV for 24 hours
+ * @param {string} url - Article URL
+ * @param {KVNamespace} kv - Your KV binding (e.g., env.ARTICLES_CACHE)
+ * @returns {Promise<Object>} Cached or freshly extracted article
+ */
+async function getCachedArticle(url, kv) {
+  const cacheKey = `article:${url}`;
+  
+  // Try to get from cache
+  const cached = await kv.get(cacheKey, 'json');
+  if (cached) {
+    console.log('Returning cached article for:', url);
+    return cached;
+  }
+  
+  // Extract fresh content
+  console.log('Extracting fresh article for:', url);
+  const article = await extractArticleContent(url);
+  
+  // Store in KV for 24 hours
+  await kv.put(cacheKey, JSON.stringify(article), {
+    expirationTtl: 86400 // 24 hours in seconds
+  });
+  
+  return article;
 }
-```
-
-- Same 2-hour cache, same error handling[^9]
-
-**Testing queries for validation** (guaranteed to return results):[^11][^5]
-
-```javascript
-// Use these to verify categories work
-const testQueries = [
-  { q: 'vitamin c 1000mg', category: '11776' },  // Should return 50K+ items
-  { q: 'protein powder', category: '15273' },     // Should return 80K+ items
-  { q: 'essential oils', category: '15258' },     // Should return 200K+ items
-  { q: 'blood pressure monitor', category: '79631' } // Should return 20K+ items
-];
 ```
 
 
 ***
 
-### PHASE 3: Frontend Implementation (Match Google Stitch Designs Exactly)
+### PHASE 4: Update Worker API Route
 
-#### Step 1: Create Health Page Components
+**Find your existing article content API route** (e.g., the one that currently calls Jina Reader).
 
-**File: `pages/HealthStorePageEbay.tsx`** (NOT `HealthPage.tsx` - that's your existing articles page)
+**Replace Jina Reader call with the new `getCachedArticle` function:**
 
-**Reference:** `Wellness Designs/Desktop/code.html` and `screen.png`
+```javascript
+// Example Worker route handler
+async function handleArticleRequest(request, env) {
+  const url = new URL(request.url);
+  const articleUrl = url.searchParams.get('url'); // or however you pass the article URL
+  
+  if (!articleUrl) {
+    return new Response('Missing article URL', { status: 400 });
+  }
+  
+  try {
+    // Use your KV binding name from wrangler.backend.toml
+    const article = await getCachedArticle(articleUrl, env.ARTICLES_CACHE); // Replace ARTICLES_CACHE with your actual KV binding name
+    
+    return new Response(JSON.stringify(article), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=86400' // Cache in CDN for 24 hours
+      }
+    });
+    
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ error: 'Failed to extract article', message: error.message }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+}
+```
 
-**Implementation checklist:**
+**If you don't have a KV namespace yet:**
 
-1. **Extract design-specified colors from mockups:**
+1. Add to `wrangler.backend.toml`:
+```toml
+[[kv_namespaces]]
+binding = "ARTICLES_CACHE"
+id = "your_kv_id_here"  # Create KV namespace first: npx wrangler kv:namespace create "ARTICLES_CACHE"
+```
+
+2. Or use an existing KV binding you already have (same one as Beauty/Health stores if applicable)
+
+***
+
+### PHASE 5: Update Frontend to Use New Article Format
+
+**Find your article detail React component** (e.g., `ArticleDetailPage.tsx`).
+
+**Update to render the new article structure:**
+
+```typescript
+// Example component update
+interface Article {
+  title: string;
+  content: string;        // Clean HTML from Readability
+  textContent: string;
+  author?: string;
+  publishDate?: string;
+  image?: string;
+  excerpt?: string;
+  siteName?: string;
+  readingTime: number;
+  isParseable: boolean;
+}
+
+export function ArticleDetailPage() {
+  const [article, setArticle] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const articleUrl = /* get from URL params or News API article URL */;
+    
+    // Call your Worker API route
+    fetch(`/api/article?url=${encodeURIComponent(articleUrl)}`)
+      .then(res => res.json())
+      .then(data => {
+        setArticle(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError('Failed to load article');
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Loading article...</div>;
+  if (error || !article) return <div>{error}</div>;
+
+  return (
+    <article className="article-container">
+      {/* Featured image */}
+      {article.image && (
+        <img src={article.image} alt={article.title} className="article-hero-image" />
+      )}
+      
+      {/* Article header */}
+      <header className="article-header">
+        <h1>{article.title}</h1>
+        <div className="article-meta">
+          {article.author && <span>By {article.author}</span>}
+          {article.publishDate && (
+            <time>{new Date(article.publishDate).toLocaleDateString()}</time>
+          )}
+          <span>{article.readingTime} min read</span>
+          {article.siteName && <span>Source: {article.siteName}</span>}
+        </div>
+        {article.excerpt && <p className="excerpt">{article.excerpt}</p>}
+      </header>
+
+      {/* Render clean HTML from Readability */}
+      <div 
+        className="article-content"
+        dangerouslySetInnerHTML={{ __html: article.content }}
+      />
+
+      {/* Quality notice if extraction was incomplete */}
+      {!article.isParseable && (
+        <div className="quality-notice">
+          Article formatting may be incomplete. <a href={originalUrl} target="_blank">View original</a>
+        </div>
+      )}
+    </article>
+  );
+}
+```
+
+
+***
+
+### PHASE 6: Add Professional Article Styling
+
+**Create or update your article CSS** (e.g., `styles/article.css` or component styles):
 
 ```css
-/* Add these to your CSS variables or inline styles */
---health-primary: #2C7A7B;      /* Teal - trust + wellness */
---health-secondary: #38A169;    /* Green - health + vitality */
---health-accent: #4299E1;       /* Blue - medical authority */
---health-bg: #F7FAFC;           /* Soft gray-white */
---health-text: #1A365D;         /* Dark blue-gray */
-```
+.article-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.8;
+  color: #1a1a1a;
+}
 
-2. **Hero Section** (match `Wellness Designs/Desktop/design.png` exactly):
-    - Height: ~300px desktop, ~200px mobile
-    - Gradient background: light cyan (\#EBF8FF) to white
-    - Heading: "Science-Backed Wellness Products" or text visible in mockup (48px desktop, 24px mobile)
-    - Subheading: Educational text about certified supplements/health essentials (18px desktop, 14px mobile)
-    - Search bar: Centered, 600px wide desktop, full-width mobile, magnifying glass icon
-3. **Trust Badge Strip** (implement as shown in mockup):
-    - Position: Below header, sticky on scroll
-    - Icons: FDA Registered, GMP Certified, Lab Tested, Organic, Vegan (grayscale, 40px each)
-    - Desktop: Horizontal row, all visible
-    - Mobile: Horizontal scrollable carousel
-    - Use placeholder SVGs or icon font if exact icons not provided
-4. **Filter Layout:**
-    - **Desktop** (sidebar as in Beauty): 280px width, left side, fixed position
-        - Categories: `['All Health', 'Vitamins & Minerals', 'Fitness Equipment', 'Supplements', 'Medical Supplies', 'Wellness & Remedies']`
-        - Map to backend: `['all', 'vitamins', 'fitness', 'supplements', 'medical', 'wellness']`
-    - **Mobile** (horizontal chips): Scrollable filter chips at top, price/sort in bottom sheet modals
-    - Reuse your existing dropdown mutual exclusivity logic from Beauty
-5. **Product Grid:**
-    - **Desktop**: 3 columns (360px cards with gaps)
-    - **Mobile**: Single column, full-width cards (343px accounting for margins)
-    - Card design enhancements for Health:
-        - **Benefit tag** (top-right corner): Small colored tag like "FOR IMMUNITY" or "FOR ENERGY"
-            - Logic: Map category → benefit text
-                - `vitamins` → "FOR WELLNESS"
-                - `fitness` → "FOR PERFORMANCE"
-                - `supplements` → "FOR NUTRITION"
-                - `medical` → "FOR HEALTH"
-                - `wellness` → "FOR BALANCE"
-        - **Key ingredient callout**: Extract from eBay `itemSpecifics` and show below title (e.g., "Vitamin C 1000mg", "Organic Turmeric")
-        - Star rating + review count (from eBay if available, else hide gracefully)
-        - "Shop Now" button (teal `#2C7A7B`, full width, rounded 8px)
-6. **Spacing and Typography** (match mockups):
-    - 32px padding around main content desktop, 16px mobile
-    - 24px gap between cards desktop, 12px mobile
-    - 16px internal card padding
-    - Font: Inter or system font stack (`-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`)
-    - Heading weight: 600, body: 400, prices: 700
+.article-hero-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 32px;
+}
 
-#### Step 2: Create Health Product Detail Page
+.article-header {
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e5e5e5;
+}
 
-**File: `pages/HealthProductDetailPageEbay.tsx`**
+.article-header h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  line-height: 1.2;
+  color: #1a365d;
+}
 
-**Reference:** `Wellness Designs/Mobile/design.png` for detail page layout (if shown)
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: #666;
+}
 
-**Implementation:**
+.excerpt {
+  font-size: 20px;
+  font-style: italic;
+  color: #555;
+  margin-top: 16px;
+}
 
-- Duplicate Beauty product detail structure
-- Call `/api/health/item/:id` instead of `/api/beauty/item/:id`
-- Use Health color palette (teal primary instead of Beauty's colors)
-- Same layout: Hero image + thumbnails, title, price, condition, specs, "Buy on eBay" button
-- Update breadcrumb: "Health Store > Product Name"
+/* Clean article content from Readability */
+.article-content {
+  font-size: 19px;
+  line-height: 1.8;
+}
 
+.article-content p {
+  margin-bottom: 24px;
+}
 
-#### Step 3: API Service Functions
+.article-content h2 {
+  font-size: 32px;
+  margin: 48px 0 20px 0;
+  color: #1a365d;
+}
 
-**File: `services/apiService.ts`**
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 32px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
-Add Health-specific functions mirroring Beauty's:
+.article-content blockquote {
+  border-left: 4px solid #2C7A7B;
+  padding-left: 24px;
+  margin: 32px 0;
+  font-style: italic;
+  color: #555;
+}
 
-```typescript
-export const searchHealthProducts = async (params: {
-  q?: string;
-  category?: string;
-  sort?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  condition?: string;
-  page?: number;
-  pageSize?: number;
-}): Promise<ProductSearchResponse> => {
-  const queryParams = new URLSearchParams();
-  if (params.q) queryParams.set('q', params.q);
-  if (params.category) queryParams.set('category', params.category);
-  // ... map all params
-  
-  const response = await fetch(`/api/health/search?${queryParams}`);
-  if (!response.ok) throw new Error('Health search failed');
-  return response.json();
-};
-
-export const getHealthProductDetail = async (itemId: string): Promise<ProductDetail> => {
-  const response = await fetch(`/api/health/item/${encodeURIComponent(itemId)}`);
-  if (!response.ok) throw new Error('Health item fetch failed');
-  return response.json();
-};
+.quality-notice {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-top: 40px;
+}
 ```
 
 
-#### Step 4: Routing
+***
 
-**File: `App.tsx`**
+### PHASE 7: Testing Checklist
 
-Add routes:
+**Test with various article sources using curl commands:**
 
-```typescript
-<Route path="/health-store" element={<HealthStorePageEbay />} />
-<Route path="/health-store/product/:itemId" element={<HealthProductDetailPageEbay />} />
-```
+1. **Major news sites:**
+    - BBC: https://www.bbc.com/news/health-...
+    - NY Times: https://www.nytimes.com/...
+    - The Guardian: https://www.theguardian.com/...
+2. **Health/medical sites:**
+    - Healthline articles
+    - WebMD articles
+    - Mayo Clinic health guides
+3. **Blogs:**
+    - Medium health articles
+    - WordPress health blogs
 
-**Navigation:** Add "Health Store" link to main nav pointing to `/health-store`
+**Verify:**
+
+- [ ] No navigation/footer/ads visible in article content
+- [ ] Images render correctly
+- [ ] Author and publish date extracted (when available)
+- [ ] Reading time calculated
+- [ ] Typography is clean and readable
+- [ ] No "programmatic prefixes" or Jina artifacts
+- [ ] Article content looks professional (like Firefox Reader View)
+- [ ] Caching works (second load of same article is faster)
+- [ ] Error handling graceful if extraction fails
+
+***
+
+### PHASE 8: Deploy \& Validate
+
+**Dev server testing:**
+
+1. Verify article extraction works on 5-10 test URLs
+2. Check browser console for errors
+3. Validate Worker logs for any issues
+
+**Production deployment:**
+
+1. Deploy Worker: `npx wrangler deploy --config wrangler.backend.toml`
+2. Deploy frontend: `npm run build && npx wrangler pages deploy dist`
+3. Test on live site with real News API articles using curl comamnds ir any way you like.
+4. Monitor Cloudflare Worker analytics for errors.
+
+***
+
+### DELIVERABLES
+
+When complete, provide:
+
+1. **List of modified files** with brief description of changes
+2. **Screenshot or demo** showing before/after article rendering
+3. **Test results** from at least 5 different article sources
+4. **Performance notes** (extraction time, cache hit rate)
+
+***
+
+### IMPORTANT NOTES
+
+**If `jsdom` doesn't work in Cloudflare Workers:**
+
+- Replace with `linkedom`: `npm install linkedom`
+- Change import: `import { parseHTML } from 'linkedom';`
+- Change usage: `const { document } = parseHTML(html);`
+- Everything else stays the same
+
+**Mozilla Readability is 100% free:**
+
+- No API keys needed
+- No rate limits
+- Apache 2.0 license (commercial use allowed)
+- Same algorithm as Firefox Reader View
+
+**This solution is battle-tested:**
+
+- 10.5k GitHub stars
+- Used by 9,300+ npm packages
+- Active maintenance since 2015
+- Handles thousands of site layouts
+
+***
+
+**Success criteria:** Articles render with clean, professional formatting identical to Firefox Reader View, with zero API costs and zero programmatic artifacts.

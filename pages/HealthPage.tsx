@@ -54,9 +54,7 @@ const HealthPage: React.FC = () => {
             <div className="flex flex-wrap items-end justify-between gap-4 p-4">
                 <div className="flex min-w-72 flex-col gap-2">
                     <h1 className="text-4xl lg:text-5xl font-black tracking-[-0.033em]">Health & Wellness Articles</h1>
-                    <p className="text-base font-normal text-text-subtle-light dark:text-text-subtle-dark">
-                        {loading ? 'Loading articles...' : `Explore ${articles.length}+ articles on nutrition, fitness, mental health, and skincare.`}
-                    </p>
+
                 </div>
             </div>
 

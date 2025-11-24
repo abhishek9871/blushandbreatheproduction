@@ -1,4 +1,4 @@
-# Self-Hosted News Aggregator Implementation Guide
+article page implementation# Self-Hosted News Aggregator Implementation Guide
 
 **Date:** November 24, 2025  
 **Project:** HealthBeauty Hub (jyotilalchandani.pages.dev)  

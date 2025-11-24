@@ -1,1 +1,0 @@
-When a terminal command which doesnt exits itself, you need to continue to read it's response and then continue the process and on the task you are working on.

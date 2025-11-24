@@ -241,7 +241,7 @@ function determineCategory(title, description) {
 }
 
 // Fetch articles from The Guardian API
-async function fetchGuardianNews(env) {
+async function fetchGuardianNews(env, query = null) {
   const apiKey = env.GUARDIAN_API_KEY;
   if (!apiKey || apiKey === 'PLACEHOLDER') {
     console.log('Guardian API key not configured, skipping Guardian fetch');
@@ -250,11 +250,19 @@ async function fetchGuardianNews(env) {
 
   try {
     const allArticles = [];
+    // If query is provided, just fetch 1 page of results
+    const maxPages = query ? 1 : 3;
     
-    // Fetch 3 pages to get 150 articles (50 per page - Guardian API limit)
-    for (let page = 1; page <= 3; page++) {
+    // Fetch pages
+    for (let page = 1; page <= maxPages; page++) {
       const url = new URL('https://content.guardianapis.com/search');
-      url.searchParams.set('q', 'health OR wellness OR nutrition OR fitness OR mental health OR skincare OR beauty');
+      
+      // Use provided query or default health topics
+      const searchQuery = query 
+        ? `${query} AND (health OR wellness OR nutrition OR fitness OR mental health OR skincare OR beauty)`
+        : 'health OR wellness OR nutrition OR fitness OR mental health OR skincare OR beauty';
+        
+      url.searchParams.set('q', searchQuery);
       url.searchParams.set('show-fields', 'body,thumbnail,trailText');
       url.searchParams.set('page-size', '50'); // Maximum allowed by Guardian API
       url.searchParams.set('page', String(page));
@@ -1015,6 +1023,63 @@ export default {
 
         // Support pagination and filtering via query params
         const url = new URL(request.url);
+        const searchQuery = url.searchParams.get('q');
+        
+        // If search query is present, fetch fresh results from Guardian
+        if (searchQuery) {
+            try {
+                // Check cache for this specific search query first
+                const searchCacheKey = `search_results:${searchQuery}`;
+                const cachedSearch = await env.MERGED_CACHE?.get(searchCacheKey);
+                
+                if (cachedSearch) {
+                    const parsedCache = JSON.parse(cachedSearch);
+                    // 1 hour TTL for search results
+                    if (Date.now() - parsedCache.timestamp < 3600000) {
+                        return new Response(JSON.stringify({
+                            status: 'ok',
+                            totalResults: parsedCache.articles.length,
+                            articles: parsedCache.articles,
+                            source: 'cache'
+                        }), {
+                            headers: { 
+                                'Content-Type': 'application/json', 
+                                'Access-Control-Allow-Origin': '*',
+                                'Cache-Control': 'public, max-age=3600',
+                                'X-Source': 'self-hosted-aggregator'
+                            }
+                        });
+                    }
+                }
+
+                // Fetch fresh results
+                const guardianResults = await fetchGuardianNews(env, searchQuery);
+                const normalizedResults = normalizeAndDeduplicate(guardianResults);
+                
+                // Cache the results
+                await env.MERGED_CACHE?.put(searchCacheKey, JSON.stringify({
+                    timestamp: Date.now(),
+                    articles: normalizedResults
+                }), { expirationTtl: 3600 }); // 1 hour
+
+                return new Response(JSON.stringify({
+                    status: 'ok',
+                    totalResults: normalizedResults.length,
+                    articles: normalizedResults,
+                    source: 'api'
+                }), {
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                        'Access-Control-Allow-Origin': '*',
+                        'Cache-Control': 'public, max-age=3600',
+                        'X-Source': 'self-hosted-aggregator'
+                    }
+                });
+            } catch (error) {
+                console.error('Search error:', error);
+                // Fallback to filtering cached articles if search fails
+            }
+        }
         
         // Check for single article fetch by ID
         const id = url.searchParams.get('id');

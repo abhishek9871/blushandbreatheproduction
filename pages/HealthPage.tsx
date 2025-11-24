@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import ArticleCard from '../components/ArticleCard';
 import { useApi } from '../hooks/useApi';
 import { getArticles } from '../services/apiService';
@@ -11,14 +11,23 @@ const CATEGORIES = ['All', 'Nutrition', 'Fitness', 'Mental Health', 'Skincare'];
 const HealthPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
 
-  // Create a wrapper function that passes the category to getArticles
-  const fetchArticlesWithCategory = useCallback((page: number) => getArticles(page, activeCategory), [activeCategory]);
+  // Debounce search query
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
-  // Use activeCategory as dependency to refetch when category changes
+  // Create a wrapper function that passes the category and query to getArticles
+  const fetchArticlesWithCategory = useCallback((page: number) => getArticles(page, activeCategory, debouncedSearchQuery), [activeCategory, debouncedSearchQuery]);
+
+  // Use activeCategory and debouncedSearchQuery as dependency to refetch when they change
   const { data: articles, loading, loadingMore, error, loadMore, hasMore, refetch } = useApi(
     fetchArticlesWithCategory,
-    [activeCategory]
+    [activeCategory, debouncedSearchQuery]
   );
 
   const lastElementRef = useInfiniteScroll({
@@ -27,24 +36,8 @@ const HealthPage: React.FC = () => {
     onLoadMore: loadMore,
   });
 
-  const filteredArticles = useMemo(() => {
-    let filtered = articles;
-
-    // Category filtering is now done server-side via API
-    // Only do client-side search filtering
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(article =>
-        article.title.toLowerCase().includes(query) ||
-        article.description.toLowerCase().includes(query)
-      );
-    }
-
-    return filtered;
-  }, [articles, searchQuery]);
-
-  // Display all filtered articles - no artificial limit
-  const displayArticles = filteredArticles;
+  // No client-side filtering needed as API handles it
+  const displayArticles = articles;
   const hasSearchOrFilter = searchQuery.trim() !== '' || activeCategory !== 'All';
 
   return (
@@ -83,7 +76,7 @@ const HealthPage: React.FC = () => {
                 </div>
                 {searchQuery && (
                     <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mt-2 px-1">
-                        Found {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} matching "{searchQuery}"
+                        Found {displayArticles.length} article{displayArticles.length !== 1 ? 's' : ''} matching "{searchQuery}"
                     </p>
                 )}
             </div>

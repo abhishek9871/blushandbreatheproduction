@@ -119,13 +119,16 @@ const fetchArticlesFromPubMed = async (page: number, pageSize: number): Promise<
   }
 };
 
-const fetchArticlesFromNewsAPI = async (page: number, pageSize: number, category?: string): Promise<{ data: Article[]; hasMore: boolean }> => {
+const fetchArticlesFromNewsAPI = async (page: number, pageSize: number, category?: string, query?: string): Promise<{ data: Article[]; hasMore: boolean }> => {
     const url = new URL(`${NEWS_API_BASE_URL}`, window.location.origin);
 
     url.searchParams.set('page', String(page));
     url.searchParams.set('pageSize', String(pageSize));
     if (category && category !== 'All') {
         url.searchParams.set('category', category);
+    }
+    if (query) {
+        url.searchParams.set('q', query);
     }
 
     const response = await fetch(url.toString());
@@ -624,7 +627,7 @@ export const getRateLimitStatus = () => {
     }, initialValue);
 };
 
-const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, delay = 500, category?: string): Promise<{ data: T[], hasMore: boolean }> => {
+const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, delay = 500, category?: string, query?: string): Promise<{ data: T[], hasMore: boolean }> => {
     const withinLimit = trackRateLimit(key);
     if (!withinLimit) {
         throw new Error(`Rate limit exceeded for ${key}`);
@@ -634,7 +637,7 @@ const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, d
         await new Promise(res => setTimeout(res, 300 + Math.random() * 500));
         switch (key) {
             case 'articles': {
-                const newsResult = await fetchArticlesFromNewsAPI(page, Math.floor(config.pageSize * 0.7), category);
+                const newsResult = await fetchArticlesFromNewsAPI(page, Math.floor(config.pageSize * 0.7), category, query);
                 const pubmedResult = await fetchArticlesFromPubMed(page, Math.floor(config.pageSize * 0.3));
                 const combined = [...newsResult.data, ...pubmedResult.data];
                 if (combined.length > 0) return { data: combined, hasMore: true } as unknown as { data: T[]; hasMore: boolean };
@@ -668,15 +671,15 @@ const apiFetch = async <T>(key: ApiResourceKey, page: number = 1, retries = 3, d
         console.error(`apiFetch error for ${key} (page ${page}, retries left ${retries}):`, error);
         if (retries > 0) {
             await new Promise(res => setTimeout(res, delay));
-            return apiFetch(key, page, retries - 1, delay * 2, category);
+            return apiFetch(key, page, retries - 1, delay * 2, category, query);
         }
         console.error(`apiFetch giving up for ${key} after retries`, { key, page });
         throw error;
     }
 };
 
-const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1, category?: string): Promise<{ data: T[], hasMore: boolean }> => {
-    const cacheKey = `${key}_page_${page}${category ? `_${category}` : ''}`;
+const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1, category?: string, query?: string): Promise<{ data: T[], hasMore: boolean }> => {
+    const cacheKey = `${key}_page_${page}${category ? `_${category}` : ''}${query ? `_${query}` : ''}`;
     const config = API_CONFIG[key];
     try {
         const v = localStorage.getItem('api_cache_version');
@@ -699,7 +702,7 @@ const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1, cate
         return cachedData;
     }
     try {
-        const result = await apiFetch<T>(key, page, 3, 500, category);
+        const result = await apiFetch<T>(key, page, 3, 500, category, query);
         setCache(cacheKey, result);
         return result;
     } catch (error) {
@@ -713,7 +716,7 @@ const fetchDataWithCache = async <T>(key: ApiResourceKey, page: number = 1, cate
     }
 };
 
-export const getArticles = (page: number, category?: string) => fetchDataWithCache<Article>('articles', page, category);
+export const getArticles = (page: number, category?: string, query?: string) => fetchDataWithCache<Article>('articles', page, category, query);
 export const getProducts = (page: number) => fetchDataWithCache<Product>('products', page);
 export const getTutorials = (page: number) => fetchDataWithCache<Tutorial>('tutorials', page);
 export const getNutritionData = (page: number) => fetchDataWithCache<(NutritionInfo | TipCard)>('nutrition', page);

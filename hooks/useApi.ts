@@ -41,6 +41,8 @@ export function useApi<T>(fetcher: Fetcher<T>, deps?: any[]) {
   }, [fetcher]);
 
   useEffect(() => {
+    setPage(1);  // Reset page when dependencies change
+    setItems([]); // Clear items when refetching
     loadData(1);
   }, deps ? deps : [loadData]);
   

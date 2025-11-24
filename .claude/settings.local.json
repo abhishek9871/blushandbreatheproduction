@@ -14,7 +14,20 @@
       "Bash(npx wrangler tail:*)",
       "Bash(npm install:*)",
       "Bash(npm uninstall:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(ConvertFrom-Json)",
+      "Bash(ForEach-Object { $_rticles)",
+      "Bash(Group-Object -Property category)",
+      "Bash(Select-Object Name, Count)",
+      "Bash(Sort-Object Count -Descending })",
+      "Bash(node analyze-categories.js:*)",
+      "Bash(\"C:\\Users\\VASU\\Desktop\\blushandbreatheproduction\\articles.json\")",
+      "Bash(\"C:\\Users\\VASU\\Desktop\\blushandbreatheproduction\\articles2.json\")",
+      "Bash(node -e:*)",
+      "Bash(for cat in \"Nutrition\" \"Mental%20Health\" \"Skincare\" \"Health\")",
+      "Bash(do echo \"=== $cat ===\")",
+      "Bash(done)",
+      "Bash(test-nutrition.json)"
     ],
     "deny": [],
     "ask": []

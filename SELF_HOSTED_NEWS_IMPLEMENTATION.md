@@ -506,7 +506,7 @@ npm run build
 #### 2.2 Deploy to Cloudflare Pages
 ```bash
 # Deploy dist folder
-npx wrangler pages deploy dist --project-name jyotilalchandani
+npx wrangler pages deploy dist --project-name jyotilalchandani -prod
 
 # Output:
 # ✨ Compiled Worker successfully

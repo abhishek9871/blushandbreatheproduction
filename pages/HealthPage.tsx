@@ -9,9 +9,18 @@ import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 const CATEGORIES = ['All', 'Nutrition', 'Fitness', 'Mental Health', 'Skincare'];
 
 const HealthPage: React.FC = () => {
-  const { data: articles, loading, loadingMore, error, loadMore, hasMore } = useApi(getArticles);
   const [activeCategory, setActiveCategory] = useState('All');
-  
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Create a wrapper function that passes the category to getArticles
+  const fetchArticlesWithCategory = (page: number) => getArticles(page, activeCategory);
+
+  // Use activeCategory as dependency to refetch when category changes
+  const { data: articles, loading, loadingMore, error, loadMore, hasMore, refetch } = useApi(
+    fetchArticlesWithCategory,
+    [activeCategory]
+  );
+
   const lastElementRef = useInfiniteScroll({
     loading: loadingMore,
     hasMore,
@@ -19,25 +28,70 @@ const HealthPage: React.FC = () => {
   });
 
   const filteredArticles = useMemo(() => {
-    if (activeCategory === 'All') {
-      return articles;
-    }
-    return articles.filter(article => article.category === activeCategory);
-  }, [articles, activeCategory]);
+    let filtered = articles;
 
-  // Use total article count for infinite scroll, not filtered count
+    // Category filtering is now done server-side via API
+    // Only do client-side search filtering
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(article =>
+        article.title.toLowerCase().includes(query) ||
+        article.description.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  }, [articles, searchQuery]);
+
+  // Display all filtered articles - no artificial limit
   const displayArticles = filteredArticles;
+  const hasSearchOrFilter = searchQuery.trim() !== '' || activeCategory !== 'All';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 mt-8">
+            {/* Header */}
             <div className="flex flex-wrap items-end justify-between gap-4 p-4">
                 <div className="flex min-w-72 flex-col gap-2">
                     <h1 className="text-4xl lg:text-5xl font-black tracking-[-0.033em]">Health & Wellness Articles</h1>
-                    <p className="text-base font-normal text-text-subtle-light dark:text-text-subtle-dark">Explore our latest articles on nutrition, fitness, and mental well-being.</p>
+                    <p className="text-base font-normal text-text-subtle-light dark:text-text-subtle-dark">
+                        {loading ? 'Loading articles...' : `Explore ${articles.length}+ articles on nutrition, fitness, mental health, and skincare.`}
+                    </p>
                 </div>
             </div>
-            <div className="flex gap-2 md:gap-3 p-3 overflow-x-auto">
+
+            {/* Search Bar */}
+            <div className="px-4">
+                <div className="relative max-w-2xl">
+                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-subtle-light dark:text-text-subtle-dark">
+                        search
+                    </span>
+                    <input
+                        type="text"
+                        placeholder="Search for specific topics... (e.g., 'vitamin D', 'yoga', 'sleep hygiene')"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full pl-12 pr-4 py-3 rounded-full border-2 border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:outline-none transition-colors"
+                    />
+                    {searchQuery && (
+                        <button
+                            onClick={() => setSearchQuery('')}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-text-subtle-light dark:text-text-subtle-dark hover:text-primary transition-colors"
+                            aria-label="Clear search"
+                        >
+                            <span className="material-symbols-outlined">close</span>
+                        </button>
+                    )}
+                </div>
+                {searchQuery && (
+                    <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mt-2 px-1">
+                        Found {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} matching "{searchQuery}"
+                    </p>
+                )}
+            </div>
+
+            {/* Category Filter Pills - using flex-wrap instead of overflow-x-auto */}
+            <div className="flex flex-wrap gap-2 md:gap-3 p-3">
                 {CATEGORIES.map(category => (
                     <button 
                         key={category}
@@ -52,21 +106,60 @@ const HealthPage: React.FC = () => {
                     </button>
                 ))}
             </div>
-             {error && <ErrorMessage message={error} />}
+
+            {error && <ErrorMessage message={error} />}
+            
+            {/* Articles Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
                 {loading 
                     ? Array.from({ length: 8 }).map((_, i) => <ArticleCardSkeleton key={i} />)
-                    : displayArticles.map((article, index) => (
+                    : displayArticles.map((article) => (
                         <ArticleCard key={article.id} article={article} />
                     ))
                 }
-                {loadingMore && Array.from({ length: 4 }).map((_, i) => <ArticleCardSkeleton key={`loading-${i}`} />)}
-                {/* Invisible sentinel element for infinite scroll - only show when hasMore is true */}
+                {loadingMore && Array.from({ length: 4 }).map((_, i) => (
+                    <ArticleCardSkeleton key={`loading-${i}`} />
+                ))}
+                
+                {/* Infinite scroll sentinel - shows when there are more articles to load */}
                 {!loading && !loadingMore && hasMore && displayArticles.length > 0 && (
-                    <div ref={lastElementRef} style={{ height: '20px', width: '100%', gridColumn: '1 / -1' }} />
+                    <div
+                        ref={lastElementRef}
+                        style={{ height: '20px', width: '100%', gridColumn: '1 / -1' }}
+                    />
                 )}
             </div>
-             {!loading && !hasMore && displayArticles.length > 0 && <p className="text-center text-text-subtle-light dark:text-text-subtle-dark pb-8">You've reached the end!</p>}
+
+            {/* End message when all articles loaded */}
+            {!loading && !hasMore && displayArticles.length > 0 && (
+                <p className="text-center text-text-subtle-light dark:text-text-subtle-dark pb-8">
+                    You've reached the end! Check back later for more articles.
+                </p>
+            )}
+
+            {/* No results message */}
+            {!loading && displayArticles.length === 0 && hasSearchOrFilter && (
+                <div className="text-center py-12">
+                    <span className="material-symbols-outlined text-6xl text-text-subtle-light dark:text-text-subtle-dark mb-4 block">
+                        search_off
+                    </span>
+                    <h3 className="text-xl font-semibold text-text-light dark:text-text-dark mb-2">
+                        No articles found
+                    </h3>
+                    <p className="text-text-subtle-light dark:text-text-subtle-dark mb-4">
+                        Try adjusting your search or filter to find what you're looking for.
+                    </p>
+                    <button
+                        onClick={() => {
+                            setSearchQuery('');
+                            setActiveCategory('All');
+                        }}
+                        className="px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-all"
+                    >
+                        Clear Filters
+                    </button>
+                </div>
+            )}
         </div>
     </div>
   );

@@ -26,36 +26,155 @@
 // NEWS AGGREGATOR - RSS & GUARDIAN INTEGRATION
 // ═══════════════════════════════════════════════════════════════════
 
-// Simple RSS/XML parser for Workers (no external dependencies needed)
+// Enhanced RSS/XML parser for Workers - extracts high-quality content
 function parseRSSFeed(xmlText) {
   const items = [];
   
-  // Match all <item> or <entry> tags
+  // Match all <item> or <entry> tags (RSS 2.0 and Atom)
   const itemRegex = /<item[\s\S]*?<\/item>|<entry[\s\S]*?<\/entry>/gi;
   const matches = xmlText.match(itemRegex) || [];
   
   for (const itemXml of matches) {
     try {
+      // Helper to extract tag content with CDATA support
       const getTag = (tag) => {
         const match = itemXml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\/${tag}>`, 'i'));
-        return match ? match[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').trim() : '';
+        if (!match) return '';
+        let content = match[1].trim();
+        // Remove CDATA wrapper
+        content = content.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
+        return content;
       };
       
+      // Helper to extract attribute values
       const getAttr = (tag, attr) => {
-        const match = itemXml.match(new RegExp(`<${tag}[^>]*${attr}="([^"]*)"`, 'i'));
+        const match = itemXml.match(new RegExp(`<${tag}[^>]*\\s${attr}=["']([^"']*)["']`, 'i'));
         return match ? match[1] : '';
       };
       
+      // Extract all possible attributes from a tag (for self-closing tags)
+      const getAllAttrs = (tag) => {
+        const match = itemXml.match(new RegExp(`<${tag}([^>]*)\\s*/?>`, 'i'));
+        if (!match) return {};
+        const attrStr = match[1];
+        const attrs = {};
+        const attrRegex = /(\w+)=["']([^"']*)["']/g;
+        let attrMatch;
+        while ((attrMatch = attrRegex.exec(attrStr)) !== null) {
+          attrs[attrMatch[1]] = attrMatch[2];
+        }
+        return attrs;
+      };
+      
+      // Helper to extract first image from HTML content
+      const extractImageFromHTML = (html) => {
+        if (!html) return '';
+        // Look for img tags with src attribute
+        const imgMatch = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (imgMatch) return imgMatch[1];
+        
+        // Look for og:image meta tags
+        const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+        if (ogMatch) return ogMatch[1];
+        
+        return '';
+      };
+      
+      // Helper to clean HTML and extract text
+      const cleanHTML = (html) => {
+        if (!html) return '';
+        // Remove script and style tags
+        html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        html = html.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+        // Keep paragraph breaks
+        html = html.replace(/<\/p>/gi, '</p>\n');
+        html = html.replace(/<br\s*\/?>/gi, '\n');
+        // Remove remaining HTML tags but keep the content
+        html = html.replace(/<[^>]+>/g, ' ');
+        // Decode HTML entities
+        html = html.replace(/&nbsp;/g, ' ');
+        html = html.replace(/&amp;/g, '&');
+        html = html.replace(/&lt;/g, '<');
+        html = html.replace(/&gt;/g, '>');
+        html = html.replace(/&quot;/g, '"');
+        html = html.replace(/&#39;/g, "'");
+        // Clean up whitespace
+        html = html.replace(/\s+/g, ' ').trim();
+        return html;
+      };
+      
+      // Extract basic fields
       const title = getTag('title');
       const link = getTag('link') || getAttr('link', 'href') || getTag('guid');
-      const description = getTag('description') || getTag('summary');
-      const pubDate = getTag('pubDate') || getTag('published') || getTag('updated');
-      const content = getTag('content:encoded') || getTag('content') || description;
-      const image = getAttr('media:content', 'url') || getAttr('enclosure', 'url') || getAttr('media:thumbnail', 'url');
       
-      if (title && link) {
-        items.push({ title, link, description, pubDate, content, image });
+      if (!title || !link) continue; // Skip if missing essentials
+      
+      // Extract content - try multiple sources for best quality
+      let fullContent = getTag('content:encoded') || getTag('content') || '';
+      const description = getTag('description') || getTag('summary') || '';
+      
+      // If content is empty or too short, use description
+      if (!fullContent || fullContent.length < 200) {
+        fullContent = description;
       }
+      
+      // Extract author
+      const author = getTag('dc:creator') || getTag('author') || getTag('creator') || '';
+      
+      // Extract date
+      const pubDate = getTag('pubDate') || getTag('published') || getTag('updated') || getTag('dc:date') || '';
+      
+      // Extract category/tags
+      const category = getTag('category');
+      
+      // Extract image - try multiple sources
+      let image = '';
+      
+      // 1. Try media:content tag
+      const mediaContentAttrs = getAllAttrs('media:content');
+      if (mediaContentAttrs.url && (mediaContentAttrs.medium === 'image' || mediaContentAttrs.type?.startsWith('image/'))) {
+        image = mediaContentAttrs.url;
+      }
+      
+      // 2. Try media:thumbnail
+      if (!image) {
+        image = getAttr('media:thumbnail', 'url');
+      }
+      
+      // 3. Try enclosure tag (for podcasts/media)
+      if (!image) {
+        const enclosureAttrs = getAllAttrs('enclosure');
+        if (enclosureAttrs.url && enclosureAttrs.type?.startsWith('image/')) {
+          image = enclosureAttrs.url;
+        }
+      }
+      
+      // 4. Try to extract from content HTML
+      if (!image && fullContent) {
+        image = extractImageFromHTML(fullContent);
+      }
+      
+      // 5. Try to extract from description HTML
+      if (!image && description) {
+        image = extractImageFromHTML(description);
+      }
+      
+      // Clean description for preview (remove HTML)
+      const cleanDescription = cleanHTML(description).substring(0, 400);
+      
+      // Keep full content as HTML for article pages
+      const contentForStorage = fullContent || description || '';
+      
+      items.push({
+        title: title.substring(0, 300), // Limit title length
+        link: link,
+        description: cleanDescription,
+        pubDate: pubDate,
+        content: contentForStorage,
+        image: image,
+        author: author,
+        category: category
+      });
     } catch (e) {
       console.error('Error parsing RSS item:', e);
     }
@@ -64,14 +183,62 @@ function parseRSSFeed(xmlText) {
   return items;
 }
 
-// High-quality health RSS feeds
+// High-quality health RSS feeds - verified working endpoints (tested Nov 2025)
 const HEALTH_RSS_FEEDS = [
-  'https://rss.medicalnewstoday.com/featured',
-  'https://www.healthline.com/rss/health',
-  'https://newsnetwork.mayoclinic.org/feed/',
-  'https://www.nih.gov/news-events/news-releases/rss.xml',
-  'https://www.wellandgood.com/feed/'
+  {
+    url: 'https://feeds.bbci.co.uk/news/health/rss.xml',
+    name: 'BBC Health News',
+    enabled: true
+  },
+  {
+    url: 'https://tools.cdc.gov/api/v2/resources/media/132608.rss',
+    name: 'CDC Health News',
+    enabled: true
+  },
+  {
+    url: 'https://wwwnc.cdc.gov/travel/rss/notices/us',
+    name: 'CDC Travel Health',
+    enabled: true
+  },
+  {
+    url: 'https://www.health.harvard.edu/blog/feed',
+    name: 'Harvard Health Blog',
+    enabled: false // Returns 404, disabled for now
+  },
+  {
+    url: 'https://www.wellandgood.com/feed/',
+    name: 'Well+Good',
+    enabled: false // Requires testing, disabled temporarily
+  }
 ];
+
+// Intelligently determine article category based on content
+function determineCategory(title, description) {
+  const text = (title + ' ' + description).toLowerCase();
+
+  // Expanded keywords for better categorization
+  // Check for Nutrition first (more specific)
+  if (text.match(/\b(nutrition|diet|food|eating|meal|vitamin|protein|carb|carbohydrate|calorie|supplement|nutrient|superfood|recipe|ingredient|snack|breakfast|lunch|dinner|vegan|vegetarian|organic|healthy eating|balanced diet|omega|fiber|antioxidant|mineral)\b/i)) {
+    return 'Nutrition';
+  }
+
+  // Check for Fitness (very specific keywords)
+  if (text.match(/\b(fitness|exercise|workout|gym|training|running|yoga|sport|muscle|cardio|athletic|strength|endurance|jogging|swimming|cycling|pilates|aerobic|marathon|weight lifting|bodybuilding|crossfit|hiit|walking|physical activity|active lifestyle)\b/i)) {
+    return 'Fitness';
+  }
+
+  // Check for Mental Health
+  if (text.match(/\b(mental|anxiety|depression|stress|therapy|mindfulness|meditation|psychology|wellbeing|well-being|psychiatric|counseling|cognitive|emotional|bipolar|ptsd|adhd|autism|self-care|resilience|mindset|happiness|mood)\b/i)) {
+    return 'Mental Health';
+  }
+
+  // Check for Skincare/Beauty
+  if (text.match(/\b(skin|skincare|beauty|cosmetic|acne|wrinkle|facial|moisturizer|sunscreen|dermatology|complexion|anti-aging|serum|cleanser|exfoliat|pore|blemish|collagen|retinol|spf|uv protection|makeup|hair care)\b/i)) {
+    return 'Skincare';
+  }
+
+  return 'Health'; // Default category for general health topics
+}
 
 // Fetch articles from The Guardian API
 async function fetchGuardianNews(env) {
@@ -82,130 +249,230 @@ async function fetchGuardianNews(env) {
   }
 
   try {
-    const url = new URL('https://content.guardianapis.com/search');
-    url.searchParams.set('q', 'health OR wellness OR nutrition OR fitness OR mental health');
-    url.searchParams.set('show-fields', 'body,thumbnail,trailText');
-    url.searchParams.set('page-size', '30');
-    url.searchParams.set('api-key', apiKey);
+    const allArticles = [];
+    
+    // Fetch 3 pages to get 150 articles (50 per page - Guardian API limit)
+    for (let page = 1; page <= 3; page++) {
+      const url = new URL('https://content.guardianapis.com/search');
+      url.searchParams.set('q', 'health OR wellness OR nutrition OR fitness OR mental health OR skincare OR beauty');
+      url.searchParams.set('show-fields', 'body,thumbnail,trailText');
+      url.searchParams.set('page-size', '50'); // Maximum allowed by Guardian API
+      url.searchParams.set('page', String(page));
+      url.searchParams.set('api-key', apiKey);
 
-    const response = await fetch(url.toString());
-    if (!response.ok) {
-      console.error('Guardian API error:', response.status);
-      return [];
+      const response = await fetch(url.toString());
+      if (!response.ok) {
+        console.error(`Guardian API error on page ${page}:`, response.status);
+        continue; // Skip this page but continue with others
+      }
+
+      const data = await response.json();
+      const articles = (data.response?.results || []).map(item => {
+        const title = item.webTitle;
+        const description = item.fields?.trailText || '';
+        
+        return {
+          id: item.webUrl,
+          url: item.webUrl,
+          title: title,
+          description: description,
+          content: item.fields?.body || '',
+          image: item.fields?.thumbnail || '',
+          source: 'The Guardian',
+          publishedAt: item.webPublicationDate,
+          category: determineCategory(title, description) // Smart categorization
+        };
+      });
+
+      allArticles.push(...articles);
+      console.log(`Fetched ${articles.length} articles from The Guardian (page ${page})`);
+      
+      // Small delay between requests to be respectful to the API
+      if (page < 3) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
     }
 
-    const data = await response.json();
-    const articles = (data.response?.results || []).map(item => ({
-      id: item.webUrl,
-      url: item.webUrl,
-      title: item.webTitle,
-      description: item.fields?.trailText || '',
-      content: item.fields?.body || '',
-      image: item.fields?.thumbnail || '',
-      source: 'The Guardian',
-      publishedAt: item.webPublicationDate,
-      category: 'Health'
-    }));
-
-    console.log(`Fetched ${articles.length} articles from The Guardian`);
-    return articles;
+    console.log(`Total fetched from The Guardian: ${allArticles.length} articles`);
+    return allArticles;
   } catch (error) {
     console.error('Error fetching Guardian news:', error);
     return [];
   }
 }
 
-// Fetch and parse RSS feeds
+// Fetch and parse RSS feeds with enhanced quality extraction
 async function fetchRSSFeeds() {
   const allArticles = [];
+  let totalAttempted = 0;
+  let totalSuccess = 0;
 
-  for (const feedUrl of HEALTH_RSS_FEEDS) {
+  for (const feed of HEALTH_RSS_FEEDS) {
+    if (!feed.enabled) continue;
+    
+    totalAttempted++;
+    
     try {
-      const response = await fetch(feedUrl, {
+      console.log(`[RSS] Fetching from ${feed.name}...`);
+      
+      const response = await fetch(feed.url, {
         headers: {
-          'User-Agent': 'BlushAndBreathe/1.0 (+https://jyotilalchandani.pages.dev)'
+          'User-Agent': 'Mozilla/5.0 (compatible; BlushAndBreathe/1.0; +https://jyotilalchandani.pages.dev)',
+          'Accept': 'application/rss+xml, application/xml, text/xml, */*'
+        },
+        cf: {
+          cacheTtl: 1800, // Cache for 30 minutes
+          cacheEverything: true
         }
       });
 
       if (!response.ok) {
-        console.error(`RSS feed error (${feedUrl}):`, response.status);
+        console.error(`[RSS] ${feed.name} returned status ${response.status}`);
         continue;
       }
 
-      const xmlText = await response.text();
-      const items = parseRSSFeed(xmlText);
-
-      // Extract source from feed URL
-      const sourceName = new URL(feedUrl).hostname
-        .replace('www.', '')
-        .replace('rss.', '')
-        .replace('newsnetwork.', '')
-        .split('.')[0];
-      const sourceDisplay = sourceName.charAt(0).toUpperCase() + sourceName.slice(1);
-
-      for (const item of items) {
-        allArticles.push({
-          id: item.link,
-          url: item.link,
-          title: item.title,
-          description: item.description.substring(0, 300),
-          content: item.content,
-          image: item.image || '',
-          source: sourceDisplay,
-          publishedAt: item.pubDate || new Date().toISOString(),
-          category: 'Health'
-        });
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('xml') && !contentType.includes('rss') && !contentType.includes('atom')) {
+        console.warn(`[RSS] ${feed.name} returned unexpected content-type: ${contentType}`);
       }
 
-      console.log(`Fetched ${items.length} articles from ${feedUrl}`);
+      const xmlText = await response.text();
+      
+      if (!xmlText || xmlText.length < 100) {
+        console.error(`[RSS] ${feed.name} returned empty or invalid XML`);
+        continue;
+      }
+      
+      const items = parseRSSFeed(xmlText);
+
+      if (items.length === 0) {
+        console.warn(`[RSS] ${feed.name} parsed but found 0 items`);
+        continue;
+      }
+
+      // Process each item from this feed
+      let validItems = 0;
+      for (const item of items) {
+        // Validate item has required fields
+        if (!item.title || !item.link) {
+          continue;
+        }
+        
+        const title = item.title;
+        const description = item.description;
+        
+        // Create article object with high-quality data
+        const article = {
+          id: item.link,
+          url: item.link,
+          title: title,
+          description: description || title,
+          content: item.content || description || title,
+          image: item.image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800',
+          source: feed.name,
+          publishedAt: item.pubDate || new Date().toISOString(),
+          category: determineCategory(title, description),
+          author: item.author || feed.name
+        };
+        
+        allArticles.push(article);
+        validItems++;
+      }
+
+      totalSuccess++;
+      console.log(`[RSS] ✓ ${feed.name}: ${validItems} articles extracted`);
+      
+      // Small delay between feeds to avoid overwhelming servers
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
     } catch (error) {
-      console.error(`Error fetching RSS feed (${feedUrl}):`, error);
+      console.error(`[RSS] ✗ ${feed.name} failed:`, error.message);
       continue;
     }
   }
 
+  console.log(`[RSS] Summary: ${totalSuccess}/${totalAttempted} feeds successful, ${allArticles.length} total articles`);
   return allArticles;
 }
 
-// Normalize and deduplicate articles
+// Normalize, deduplicate, and mix articles for engaging experience
 function normalizeAndDeduplicate(articles) {
   const seen = new Set();
   const unique = [];
+  const sourceGroups = {
+    guardian: [],
+    rss: []
+  };
 
+  // First pass: deduplicate and group by source
   for (const article of articles) {
-    if (!seen.has(article.url)) {
-      seen.add(article.url);
-      
-      // Generate a clean ID (hash-like from URL)
-      const urlHash = article.url.split('').reduce((hash, char) => {
-        return ((hash << 5) - hash) + char.charCodeAt(0);
-      }, 0);
-      const cleanId = `article_${Math.abs(urlHash)}`;
-
-      // Format date consistently
-      let formattedDate;
-      try {
-        const date = new Date(article.publishedAt);
-        formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD
-      } catch {
+    if (!article.url || seen.has(article.url)) {
+      continue; // Skip if no URL or duplicate
+    }
+    
+    seen.add(article.url);
+    
+    // Format date consistently
+    let formattedDate;
+    try {
+      const date = new Date(article.publishedAt);
+      if (isNaN(date.getTime())) {
         formattedDate = new Date().toISOString().split('T')[0];
+      } else {
+        formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD
       }
+    } catch {
+      formattedDate = new Date().toISOString().split('T')[0];
+    }
 
-      unique.push({
-        id: article.url, // Use URL as ID for frontend routing
-        title: article.title,
-        description: article.description,
-        imageUrl: article.image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800',
-        category: article.category,
-        date: formattedDate,
-        content: article.content
-      });
+    const normalizedArticle = {
+      id: article.url, // Use URL as ID for frontend routing
+      title: article.title || 'Untitled Article',
+      description: article.description || '',
+      imageUrl: article.image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800',
+      category: article.category || 'Health',
+      date: formattedDate,
+      content: article.content || article.description || '',
+      source: article.source || 'Unknown',
+      author: article.author || ''
+    };
+
+    // Group by source for intelligent mixing
+    if (article.source === 'The Guardian') {
+      sourceGroups.guardian.push(normalizedArticle);
+    } else {
+      sourceGroups.rss.push(normalizedArticle);
     }
   }
 
-  // Sort by date (newest first)
-  unique.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  // Sort each group by date (newest first)
+  sourceGroups.guardian.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  sourceGroups.rss.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+  // Intelligent mixing: Alternate between sources for diversity
+  // Pattern: 2 Guardian, 1 RSS, 2 Guardian, 1 RSS, etc.
+  // This creates an engaging, varied feed
+  let guardianIndex = 0;
+  let rssIndex = 0;
+  let pattern = 0; // 0-1: Guardian, 2: RSS
+  
+  while (guardianIndex < sourceGroups.guardian.length || rssIndex < sourceGroups.rss.length) {
+    if (pattern < 2 && guardianIndex < sourceGroups.guardian.length) {
+      // Add Guardian article
+      unique.push(sourceGroups.guardian[guardianIndex++]);
+      pattern++;
+    } else if (rssIndex < sourceGroups.rss.length) {
+      // Add RSS article
+      unique.push(sourceGroups.rss[rssIndex++]);
+      pattern = 0; // Reset pattern
+    } else if (guardianIndex < sourceGroups.guardian.length) {
+      // If RSS exhausted, add remaining Guardian
+      unique.push(sourceGroups.guardian[guardianIndex++]);
+    }
+  }
+
+  console.log(`[Normalization] Mixed ${sourceGroups.guardian.length} Guardian + ${sourceGroups.rss.length} RSS = ${unique.length} total articles`);
+  
   return unique;
 }
 
@@ -744,22 +1011,33 @@ export default {
           });
         }
 
-        const articles = JSON.parse(articlesJson);
+        let articles = JSON.parse(articlesJson);
 
-        // Support pagination via query params
+        // Support pagination and filtering via query params
         const url = new URL(request.url);
         const page = parseInt(url.searchParams.get('page') || '1');
-        const pageSize = parseInt(url.searchParams.get('pageSize') || '20');
+        const pageSize = parseInt(url.searchParams.get('pageSize') || '50'); // Increased from 20 to 50
+        const categoryFilter = url.searchParams.get('category'); // New: category filter
+
+        // Filter by category if specified (and not "All")
+        if (categoryFilter && categoryFilter !== 'All') {
+          articles = articles.filter(article => article.category === categoryFilter);
+        }
+
         const start = (page - 1) * pageSize;
         const end = start + pageSize;
-        
+
         const paginatedArticles = articles.slice(start, end);
+        const hasMore = end < articles.length;
 
         // Return in NewsAPI-compatible format for frontend
         return new Response(JSON.stringify({
           status: 'ok',
           totalResults: articles.length,
-          articles: paginatedArticles
+          articles: paginatedArticles,
+          hasMore: hasMore,
+          currentPage: page,
+          category: categoryFilter || 'All'
         }), {
           headers: { 
             'Content-Type': 'application/json', 

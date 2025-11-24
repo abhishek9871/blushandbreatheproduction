@@ -785,6 +785,33 @@ export const getArticleById = async (id: string): Promise<Article | undefined> =
             console.error('Failed to fetch PubMed article:', error);
         }
     }
+
+    // Try fetching from backend API (New Logic for direct links)
+    try {
+        const url = new URL(`${NEWS_API_BASE_URL}`, window.location.origin);
+        url.searchParams.set('id', id);
+        
+        const response = await fetch(url.toString());
+        if (response.ok) {
+            const json = await response.json() as NewsApiResponse;
+            if (json.status === 'ok' && json.articles && json.articles.length > 0) {
+                const item = json.articles[0] as any;
+                const fallbackImage = mockArticles[0]?.imageUrl || '';
+                const article: Article = {
+                    id: item.id || item.url || '',
+                    title: item.title || 'Untitled article',
+                    description: cleanNewsApiText(item.description || ''),
+                    imageUrl: item.imageUrl || item.image || fallbackImage,
+                    category: item.category || 'Health',
+                    date: item.date || new Date().toISOString().split('T')[0],
+                    content: cleanNewsApiText(item.content || item.description || ''),
+                };
+                return article;
+            }
+        }
+    } catch (error) {
+        console.error('Failed to fetch article by ID from backend:', error);
+    }
     
     const fromMocks = allMockData.find(item => (item as any).id === id && (item as any).contentType === 'Article') as Article | undefined;
     if (fromMocks) return fromMocks;

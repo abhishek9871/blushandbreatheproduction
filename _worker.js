@@ -191,12 +191,12 @@ const HEALTH_RSS_FEEDS = [
     enabled: true
   },
   {
-    url: 'https://tools.cdc.gov/api/v2/resources/media/132608.rss',
-    name: 'CDC Health News',
+    url: 'https://www.sciencedaily.com/rss/top/health.xml',
+    name: 'ScienceDaily Health',
     enabled: true
   },
   {
-    url: 'https://wwwnc.cdc.gov/travel/rss/notices/us',
+    url: 'https://wwwnc.cdc.gov/travel/rss/notices.xml',
     name: 'CDC Travel Health',
     enabled: true
   },
@@ -1015,6 +1015,36 @@ export default {
 
         // Support pagination and filtering via query params
         const url = new URL(request.url);
+        
+        // Check for single article fetch by ID
+        const id = url.searchParams.get('id');
+        if (id) {
+            const article = articles.find(a => a.id === id || a.url === id);
+            if (article) {
+                return new Response(JSON.stringify({
+                    status: 'ok',
+                    totalResults: 1,
+                    articles: [article]
+                }), {
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                        'Access-Control-Allow-Origin': '*',
+                        'Cache-Control': 'public, max-age=3600',
+                        'X-Source': 'self-hosted-aggregator'
+                    }
+                });
+            } else {
+                 return new Response(JSON.stringify({ 
+                    status: 'error', 
+                    message: 'Article not found',
+                    articles: []
+                }), {
+                    status: 404,
+                    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+                });
+            }
+        }
+
         const page = parseInt(url.searchParams.get('page') || '1');
         const pageSize = parseInt(url.searchParams.get('pageSize') || '50'); // Increased from 20 to 50
         const categoryFilter = url.searchParams.get('category'); // New: category filter

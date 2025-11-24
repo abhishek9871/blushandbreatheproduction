@@ -1,3 +1,214 @@
+/**
+ * NEWS AGGREGATOR CONFIGURATION
+ * 
+ * To enable the self-hosted news aggregator:
+ * 
+ * 1. Add Cron Trigger to wrangler.backend.toml:
+ *    [triggers]
+ *    crons = ["0 * * * *"]  # Runs every hour
+ * 
+ * 2. Add Guardian API Secret:
+ *    npx wrangler secret put GUARDIAN_API_KEY --config wrangler.backend.toml
+ *    Get your free API key from: https://open-platform.theguardian.com/access/
+ * 
+ * 3. Ensure nodejs_compat is enabled (already configured):
+ *    compatibility_flags = ["nodejs_compat"]
+ * 
+ * The aggregator fetches from:
+ * - The Guardian API (health section)
+ * - Multiple RSS feeds (Medical News Today, Healthline, Mayo Clinic, NIH, Well+Good)
+ * 
+ * Articles are cached in MERGED_CACHE KV with key: 'latest_health_news'
+ * Cache TTL: Refreshed hourly by cron job
+ */
+
+// ═══════════════════════════════════════════════════════════════════
+// NEWS AGGREGATOR - RSS & GUARDIAN INTEGRATION
+// ═══════════════════════════════════════════════════════════════════
+
+// Simple RSS/XML parser for Workers (no external dependencies needed)
+function parseRSSFeed(xmlText) {
+  const items = [];
+  
+  // Match all <item> or <entry> tags
+  const itemRegex = /<item[\s\S]*?<\/item>|<entry[\s\S]*?<\/entry>/gi;
+  const matches = xmlText.match(itemRegex) || [];
+  
+  for (const itemXml of matches) {
+    try {
+      const getTag = (tag) => {
+        const match = itemXml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\/${tag}>`, 'i'));
+        return match ? match[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').trim() : '';
+      };
+      
+      const getAttr = (tag, attr) => {
+        const match = itemXml.match(new RegExp(`<${tag}[^>]*${attr}="([^"]*)"`, 'i'));
+        return match ? match[1] : '';
+      };
+      
+      const title = getTag('title');
+      const link = getTag('link') || getAttr('link', 'href') || getTag('guid');
+      const description = getTag('description') || getTag('summary');
+      const pubDate = getTag('pubDate') || getTag('published') || getTag('updated');
+      const content = getTag('content:encoded') || getTag('content') || description;
+      const image = getAttr('media:content', 'url') || getAttr('enclosure', 'url') || getAttr('media:thumbnail', 'url');
+      
+      if (title && link) {
+        items.push({ title, link, description, pubDate, content, image });
+      }
+    } catch (e) {
+      console.error('Error parsing RSS item:', e);
+    }
+  }
+  
+  return items;
+}
+
+// High-quality health RSS feeds
+const HEALTH_RSS_FEEDS = [
+  'https://rss.medicalnewstoday.com/featured',
+  'https://www.healthline.com/rss/health',
+  'https://newsnetwork.mayoclinic.org/feed/',
+  'https://www.nih.gov/news-events/news-releases/rss.xml',
+  'https://www.wellandgood.com/feed/'
+];
+
+// Fetch articles from The Guardian API
+async function fetchGuardianNews(env) {
+  const apiKey = env.GUARDIAN_API_KEY;
+  if (!apiKey || apiKey === 'PLACEHOLDER') {
+    console.log('Guardian API key not configured, skipping Guardian fetch');
+    return [];
+  }
+
+  try {
+    const url = new URL('https://content.guardianapis.com/search');
+    url.searchParams.set('q', 'health OR wellness OR nutrition OR fitness OR mental health');
+    url.searchParams.set('show-fields', 'body,thumbnail,trailText');
+    url.searchParams.set('page-size', '30');
+    url.searchParams.set('api-key', apiKey);
+
+    const response = await fetch(url.toString());
+    if (!response.ok) {
+      console.error('Guardian API error:', response.status);
+      return [];
+    }
+
+    const data = await response.json();
+    const articles = (data.response?.results || []).map(item => ({
+      id: item.webUrl,
+      url: item.webUrl,
+      title: item.webTitle,
+      description: item.fields?.trailText || '',
+      content: item.fields?.body || '',
+      image: item.fields?.thumbnail || '',
+      source: 'The Guardian',
+      publishedAt: item.webPublicationDate,
+      category: 'Health'
+    }));
+
+    console.log(`Fetched ${articles.length} articles from The Guardian`);
+    return articles;
+  } catch (error) {
+    console.error('Error fetching Guardian news:', error);
+    return [];
+  }
+}
+
+// Fetch and parse RSS feeds
+async function fetchRSSFeeds() {
+  const allArticles = [];
+
+  for (const feedUrl of HEALTH_RSS_FEEDS) {
+    try {
+      const response = await fetch(feedUrl, {
+        headers: {
+          'User-Agent': 'BlushAndBreathe/1.0 (+https://jyotilalchandani.pages.dev)'
+        }
+      });
+
+      if (!response.ok) {
+        console.error(`RSS feed error (${feedUrl}):`, response.status);
+        continue;
+      }
+
+      const xmlText = await response.text();
+      const items = parseRSSFeed(xmlText);
+
+      // Extract source from feed URL
+      const sourceName = new URL(feedUrl).hostname
+        .replace('www.', '')
+        .replace('rss.', '')
+        .replace('newsnetwork.', '')
+        .split('.')[0];
+      const sourceDisplay = sourceName.charAt(0).toUpperCase() + sourceName.slice(1);
+
+      for (const item of items) {
+        allArticles.push({
+          id: item.link,
+          url: item.link,
+          title: item.title,
+          description: item.description.substring(0, 300),
+          content: item.content,
+          image: item.image || '',
+          source: sourceDisplay,
+          publishedAt: item.pubDate || new Date().toISOString(),
+          category: 'Health'
+        });
+      }
+
+      console.log(`Fetched ${items.length} articles from ${feedUrl}`);
+    } catch (error) {
+      console.error(`Error fetching RSS feed (${feedUrl}):`, error);
+      continue;
+    }
+  }
+
+  return allArticles;
+}
+
+// Normalize and deduplicate articles
+function normalizeAndDeduplicate(articles) {
+  const seen = new Set();
+  const unique = [];
+
+  for (const article of articles) {
+    if (!seen.has(article.url)) {
+      seen.add(article.url);
+      
+      // Generate a clean ID (hash-like from URL)
+      const urlHash = article.url.split('').reduce((hash, char) => {
+        return ((hash << 5) - hash) + char.charCodeAt(0);
+      }, 0);
+      const cleanId = `article_${Math.abs(urlHash)}`;
+
+      // Format date consistently
+      let formattedDate;
+      try {
+        const date = new Date(article.publishedAt);
+        formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD
+      } catch {
+        formattedDate = new Date().toISOString().split('T')[0];
+      }
+
+      unique.push({
+        id: article.url, // Use URL as ID for frontend routing
+        title: article.title,
+        description: article.description,
+        imageUrl: article.image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800',
+        category: article.category,
+        date: formattedDate,
+        content: article.content
+      });
+    }
+  }
+
+  // Sort by date (newest first)
+  unique.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  return unique;
+}
+
 // INLINE Durable Object so Wrangler detects it reliably
 export class AffiliateCounter {
   constructor(state, env) {
@@ -205,6 +416,42 @@ async function transformUSDAData(food, index, page, env) {
 
 // Advanced Mode default export with full routing
 export default {
+  // Scheduled handler for news aggregator cron job
+  async scheduled(event, env, ctx) {
+    console.log(`[News Aggregator] Cron job started at: ${new Date().toISOString()}`);
+    
+    try {
+      // Fetch articles from all sources
+      console.log('[News Aggregator] Fetching from Guardian API...');
+      const guardianArticles = await fetchGuardianNews(env);
+      
+      console.log('[News Aggregator] Fetching from RSS feeds...');
+      const rssArticles = await fetchRSSFeeds();
+      
+      // Combine and deduplicate
+      console.log('[News Aggregator] Normalizing and deduplicating...');
+      const allArticles = normalizeAndDeduplicate([...guardianArticles, ...rssArticles]);
+      
+      console.log(`[News Aggregator] Total unique articles: ${allArticles.length}`);
+      
+      // Store in KV (MERGED_CACHE)
+      await env.MERGED_CACHE?.put(
+        'latest_health_news', 
+        JSON.stringify(allArticles),
+        {
+          expirationTtl: 86400 // 24 hours TTL as backup
+        }
+      );
+      
+      console.log(`[News Aggregator] Successfully updated KV with ${allArticles.length} health articles`);
+      console.log('[News Aggregator] Cron job completed successfully');
+      
+    } catch (error) {
+      console.error('[News Aggregator] Cron job error:', error);
+      // Don't throw - let the cron retry naturally
+    }
+  },
+
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
@@ -424,43 +671,110 @@ export default {
       });
     }
 
-    // News API proxy
-    if (path === '/api/newsapi' && request.method === 'GET') {
-      const url = new URL(request.url);
-      const category = url.searchParams.get('category') || 'health';
-      const language = url.searchParams.get('language') || 'en';
-      const country = url.searchParams.get('country') || 'us';
-      const page = url.searchParams.get('page') || '1';
-      const pageSize = url.searchParams.get('pageSize') || '20';
-      const apiKey = env.NEWSAPI_KEY || env.VITE_NEWSAPI_KEY;
+    // Manual trigger for news aggregator (admin only)
+    if (path === '/api/admin/refresh-news' && request.method === 'POST') {
+      const authHeader = request.headers.get('Authorization');
+      const adminPassword = env.ADMIN_PASSWORD || 'admin123';
+      if (!authHeader || authHeader !== `Bearer ${adminPassword}`) {
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
 
       try {
-        if (!apiKey) {
-          return new Response(JSON.stringify({ status: 'error', message: 'News API key not configured' }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-          });
-        }
-
-        const newsUrl = `https://newsapi.org/v2/top-headlines?category=${category}&language=${language}&country=${country}&page=${page}&pageSize=${pageSize}&apiKey=${apiKey}`;
-        const newsResponse = await fetch(newsUrl, {
-          headers: {
-            'User-Agent': 'BlushAndBreathe/1.0 (+https://jyotilalchandani.pages.dev)'
-          }
-        });
-        const newsData = await newsResponse.json();
-
-        if (!newsResponse.ok) {
-          console.error('NewsAPI response:', newsData);
-          throw new Error(`NewsAPI error: ${newsResponse.status} - ${newsData.message || 'Unknown error'}`);
-        }
-
-        return new Response(JSON.stringify(newsData), {
+        console.log('[Manual Trigger] Starting news aggregation...');
+        
+        console.log('[Manual Trigger] Fetching Guardian articles...');
+        const guardianArticles = await fetchGuardianNews(env);
+        console.log(`[Manual Trigger] Guardian returned ${guardianArticles.length} articles`);
+        
+        console.log('[Manual Trigger] Fetching RSS feeds...');
+        const rssArticles = await fetchRSSFeeds();
+        console.log(`[Manual Trigger] RSS returned ${rssArticles.length} articles`);
+        
+        console.log('[Manual Trigger] Normalizing...');
+        const allArticles = normalizeAndDeduplicate([...guardianArticles, ...rssArticles]);
+        console.log(`[Manual Trigger] Final count: ${allArticles.length} articles`);
+        
+        await env.MERGED_CACHE?.put(
+          'latest_health_news', 
+          JSON.stringify(allArticles),
+          { expirationTtl: 86400 }
+        );
+        
+        return new Response(JSON.stringify({ 
+          success: true, 
+          articlesCount: allArticles.length,
+          guardianCount: guardianArticles.length,
+          rssCount: rssArticles.length,
+          message: 'News cache refreshed successfully'
+        }), {
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
       } catch (error) {
-        console.error('NewsAPI proxy error:', error);
-        return new Response(JSON.stringify({ status: 'error', message: String(error) }), {
+        console.error('[Manual Trigger] Error:', error);
+        console.error('[Manual Trigger] Error stack:', error.stack);
+        return new Response(JSON.stringify({ error: String(error), stack: error.stack }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
+    // News API - Serves cached health articles from aggregator
+    if (path === '/api/newsapi' && request.method === 'GET') {
+      try {
+        // Get cached articles from KV
+        const articlesJson = await env.MERGED_CACHE?.get('latest_health_news');
+        
+        if (!articlesJson) {
+          // Cache warming up - return helpful message
+          return new Response(JSON.stringify({ 
+            status: 'warming_up', 
+            message: 'News cache is warming up. Please try again in a moment.',
+            articles: []
+          }), {
+            status: 503,
+            headers: { 
+              'Content-Type': 'application/json', 
+              'Access-Control-Allow-Origin': '*',
+              'Retry-After': '60'
+            }
+          });
+        }
+
+        const articles = JSON.parse(articlesJson);
+
+        // Support pagination via query params
+        const url = new URL(request.url);
+        const page = parseInt(url.searchParams.get('page') || '1');
+        const pageSize = parseInt(url.searchParams.get('pageSize') || '20');
+        const start = (page - 1) * pageSize;
+        const end = start + pageSize;
+        
+        const paginatedArticles = articles.slice(start, end);
+
+        // Return in NewsAPI-compatible format for frontend
+        return new Response(JSON.stringify({
+          status: 'ok',
+          totalResults: articles.length,
+          articles: paginatedArticles
+        }), {
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Access-Control-Allow-Origin': '*',
+            'Cache-Control': 'public, max-age=600', // Cache in CDN for 10 minutes
+            'X-Source': 'self-hosted-aggregator'
+          }
+        });
+      } catch (error) {
+        console.error('News cache read error:', error);
+        return new Response(JSON.stringify({ 
+          status: 'error', 
+          message: 'Unable to load articles at this time.',
+          articles: []
+        }), {
           status: 500,
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });

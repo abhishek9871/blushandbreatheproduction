@@ -122,9 +122,6 @@ const fetchArticlesFromPubMed = async (page: number, pageSize: number): Promise<
 const fetchArticlesFromNewsAPI = async (page: number, pageSize: number): Promise<{ data: Article[]; hasMore: boolean }> => {
     const url = new URL(`${NEWS_API_BASE_URL}`, window.location.origin);
 
-    url.searchParams.set('category', 'health');
-    url.searchParams.set('language', 'en');
-    url.searchParams.set('country', 'us');
     url.searchParams.set('page', String(page));
     url.searchParams.set('pageSize', String(pageSize));
 
@@ -134,12 +131,39 @@ const fetchArticlesFromNewsAPI = async (page: number, pageSize: number): Promise
     }
 
     const json = await response.json() as NewsApiResponse;
+    
+    // Handle self-hosted aggregator format
+    if (json.status === 'ok' && Array.isArray(json.articles)) {
+        const fallbackImage = mockArticles[0]?.imageUrl || '';
+        
+        // Check if articles are already in our format (have 'id' field)
+        const firstArticle = json.articles[0] as any;
+        if (firstArticle && 'id' in firstArticle && 'imageUrl' in firstArticle) {
+            // Already in our format, just map to Article type
+            const articles: Article[] = json.articles.map((item: any) => ({
+                id: item.id || item.url || '',
+                title: item.title || 'Untitled article',
+                description: cleanNewsApiText(item.description || ''),
+                imageUrl: item.imageUrl || item.image || fallbackImage,
+                category: item.category || 'Health',
+                date: item.date || new Date().toISOString().split('T')[0],
+                content: cleanNewsApiText(item.content || item.description || ''),
+            }));
+            
+            const totalResults = json.totalResults ?? articles.length;
+            const hasMore = page * pageSize < totalResults;
+            return { data: articles, hasMore };
+        }
+    }
+    
+    // Handle errors
     if (json.status === 'error') {
         console.error('NewsAPI responded with an error', { code: json.code, message: json.message });
         throw new Error(json.message || 'NewsAPI responded with an error');
     }
+    
+    // Fallback to old NewsAPI.org format (for backwards compatibility)
     const fallbackImage = mockArticles[0]?.imageUrl || '';
-
     const articles: Article[] = (json.articles || []).map((item) => ({
         id: item.url,
         title: item.title || 'Untitled article',

@@ -3,6 +3,10 @@ compatibility_date = "2024-09-01"
 compatibility_flags = ["nodejs_compat"]
 main = "_worker.js"
 
+# Cron trigger for news aggregator (runs every hour)
+[triggers]
+crons = ["0 * * * *"]
+
 [[kv_namespaces]]
 binding = "MERGED_CACHE"
 id = "8c4c045cf255490a8b9146ab393bd0e0"

@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* ===== Tailwind v4 Dark Mode - Class Based ===== */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== Custom Theme Variables ===== */
+:root {
+  /* Background colors */
+  --background: #ffffff;
+  --background-light: #ffffff;
+  --background-dark: #111827;
+  
+  /* Text colors */
+  --foreground: #1f2937;
+  --text-light: #1f2937;
+  --text-dark: #f9fafb;
+  --text-subtle-light: #525252;
+  --text-subtle-dark: #a3a3a3;
+  
+  /* Brand colors */
+  --primary: #2dd4bf;
+  --secondary: #f472b6;
+  --accent: #fbbf24;
+  --primary-darker: #d97c8b;
+  
+  /* Border colors */
+  --border-light: #e5e7eb;
+  --border-dark: #374151;
+}
+
+/* ===== Tailwind v4 Theme Configuration ===== */
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-primary-darker: var(--primary-darker);
+  --color-background-light: var(--background-light);
+  --color-background-dark: var(--background-dark);
+  --color-text-light: var(--text-light);
+  --color-text-dark: var(--text-dark);
+  --color-text-subtle-light: var(--text-subtle-light);
+  --color-text-subtle-dark: var(--text-subtle-dark);
+  --color-border-light: var(--border-light);
+  --color-border-dark: var(--border-dark);
+  
+  /* Fonts */
+  --font-sans: var(--font-geist-sans), "Lexend", sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --font-display: "Lexend", sans-serif;
+  
+  /* Border radius */
+  --radius-default: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+}
+
+/* Dark mode - class based */
+.dark {
+  --background: #111827;
+  --foreground: #f9fafb;
+}
+
+/* Dark mode - system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #111827;
+    --foreground: #f9fafb;
+  }
+}
+
+/* ===== Base Styles ===== */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Lexend", Arial, Helvetica, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}

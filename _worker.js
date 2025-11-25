@@ -159,8 +159,8 @@ function parseRSSFeed(xmlText) {
         image = extractImageFromHTML(description);
       }
       
-      // Clean description for preview (remove HTML)
-      const cleanDescription = cleanHTML(description).substring(0, 400);
+      // Clean description for preview (remove HTML) - keep full text
+      const cleanDescription = cleanHTML(description);
       
       // Keep full content as HTML for article pages
       const contentForStorage = fullContent || description || '';
@@ -367,19 +367,47 @@ async function fetchRSSFeeds() {
         }
         
         const title = item.title;
-        const description = item.description;
+        const rawDescription = item.description || '';
+        const rawContent = item.content || '';
+        
+        // Smart content/description handling:
+        // - If content:encoded exists, use it as content and description as summary
+        // - If only description exists and it's long (>300 chars), it's likely the full content
+        //   In this case, create a short description from the first ~200 chars
+        // - If description is short (<300 chars), it's a summary and we may not have full content
+        
+        let finalDescription = rawDescription;
+        let finalContent = rawContent;
+        
+        // Check if content is empty or same as description
+        const contentIsEmpty = !rawContent || rawContent.trim() === rawDescription.trim();
+        
+        if (contentIsEmpty && rawDescription.length > 300) {
+          // Description is actually the full content (e.g., Science Daily)
+          // Use it as content, keep full description (frontend fetches real content via Readability)
+          finalContent = rawDescription;
+          // Keep the full description - don't truncate it
+          finalDescription = rawDescription;
+        } else if (contentIsEmpty) {
+          // Short description only (e.g., BBC) - mark that full content needs fetching
+          finalContent = rawDescription; // Use what we have, frontend will fetch full article
+        }
+        
+        // Fallback to title if still empty
+        if (!finalDescription) finalDescription = title;
+        if (!finalContent) finalContent = finalDescription;
         
         // Create article object with high-quality data
         const article = {
           id: item.link,
           url: item.link,
           title: title,
-          description: description || title,
-          content: item.content || description || title,
+          description: finalDescription,
+          content: finalContent,
           image: item.image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800',
           source: feed.name,
           publishedAt: item.pubDate || new Date().toISOString(),
-          category: determineCategory(title, description),
+          category: determineCategory(title, rawDescription),
           author: item.author || feed.name
         };
         

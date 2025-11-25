@@ -2232,13 +2232,24 @@ export default {
           offset: offset.toString()
         });
 
-        // Add search query or category browse
+        // Always filter by category
+        ebayParams.append('category_ids', categoryId);
+
+        // Handle search query
         if (q && q.trim()) {
-          // When there's a search query, use it directly without category_ids
           ebayParams.append('q', q.trim());
         } else {
-          // No search query - browse by category
-          ebayParams.append('category_ids', categoryId);
+          // If no query, provide a default based on category to ensure results
+          // eBay Browse API sometimes fails with just category_ids for broad categories
+          const defaultQueries = {
+            'all': 'health',
+            'vitamins': 'vitamins',
+            'fitness': 'fitness equipment',
+            'supplements': 'supplements',
+            'medical': 'medical supplies',
+            'wellness': 'natural remedies'
+          };
+          ebayParams.append('q', defaultQueries[category] || 'health');
         }
 
         // Map sort parameter

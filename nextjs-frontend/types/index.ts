@@ -130,7 +130,7 @@ export interface EbaySearchResponse {
 
 export interface EbaySearchParams {
   q?: string;
-  category?: 'all' | 'makeup' | 'skincare' | 'hair' | 'fragrance' | 'nails';
+  category?: 'all' | 'makeup' | 'skincare' | 'hair' | 'fragrance' | 'nails' | 'vitamins' | 'fitness' | 'supplements' | 'medical' | 'wellness';
   sort?: 'best' | 'priceAsc' | 'priceDesc' | 'newest';
   minPrice?: number;
   maxPrice?: number;

@@ -27,7 +27,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
       <div className="flex flex-col gap-2">
         <div className="flex justify-between items-center">
             <p className={`text-xs font-bold tracking-wider uppercase ${categoryClass}`}>{article.category}</p>
-            <BookmarkButton itemId={article.id} className="text-text-subtle-light dark:text-text-subtle-dark hover:text-primary dark:hover:text-primary -mr-2" />
+            <BookmarkButton item={{ ...article, contentType: 'Article' }} className="text-text-subtle-light dark:text-text-subtle-dark hover:text-primary dark:hover:text-primary -mr-2" />
         </div>
         <h3 className="text-lg font-bold leading-tight text-text-light dark:text-text-dark group-hover:text-primary transition-colors">{article.title}</h3>
         <p className="text-sm font-normal text-text-subtle-light dark:text-text-subtle-dark line-clamp-2">{article.description}</p>

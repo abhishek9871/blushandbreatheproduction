@@ -1,59 +1,64 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
-import { allMockData } from '../services/apiService'; // A bit of a hack to get all data
-import { Article, Product, Tutorial, Video, NutritionInfo, TipCard } from '../types';
+import { Article, Product, Tutorial, Video, NutritionInfo, TipCard, EbayProductSummary } from '../types';
 
-type BookmarkableItem = Article | Product | Tutorial | Video | NutritionInfo | TipCard;
+// Define a union type for all bookmarkable items
+// We extend the base types to ensure they have a contentType
+export type BookmarkableItem = 
+  | (Article & { contentType: 'Article' })
+  | (Product & { contentType: 'Product' })
+  | (Tutorial & { contentType: 'Tutorial' })
+  | (Video & { contentType: 'Video' })
+  | (NutritionInfo & { contentType: 'Nutrition' })
+  | (TipCard & { contentType: 'Nutrition' })
+  | (EbayProductSummary & { contentType: 'HealthProduct' | 'BeautyProduct' });
 
 interface BookmarkContextType {
-  bookmarkedIds: Set<string>;
   bookmarkedItems: BookmarkableItem[];
-  addBookmark: (id: string) => void;
+  addBookmark: (item: BookmarkableItem) => void;
   removeBookmark: (id: string) => void;
   isBookmarked: (id: string) => boolean;
 }
 
 const BookmarkContext = createContext<BookmarkContextType | undefined>(undefined);
 
-const getInitialBookmarks = (): Set<string> => {
+const getInitialBookmarks = (): BookmarkableItem[] => {
     try {
-        const item = window.localStorage.getItem('bookmarked_items');
-        return item ? new Set(JSON.parse(item)) : new Set();
+        const item = window.localStorage.getItem('bookmarked_items_v2');
+        const parsed = item ? JSON.parse(item) : [];
+        return Array.isArray(parsed) ? parsed : [];
     } catch (error) {
         console.error("Could not access localStorage for bookmarks", error);
-        return new Set();
+        return [];
     }
 }
 
 export const BookmarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(getInitialBookmarks);
-  const [bookmarkedItems, setBookmarkedItems] = useState<BookmarkableItem[]>([]);
+  const [bookmarkedItems, setBookmarkedItems] = useState<BookmarkableItem[]>(getInitialBookmarks);
 
   useEffect(() => {
     try {
-      window.localStorage.setItem('bookmarked_items', JSON.stringify(Array.from(bookmarkedIds)));
-      const items = allMockData.filter(item => bookmarkedIds.has(item.id));
-      setBookmarkedItems(items);
+      window.localStorage.setItem('bookmarked_items_v2', JSON.stringify(bookmarkedItems));
     } catch (error) {
         console.error("Could not access localStorage for bookmarks", error);
     }
-  }, [bookmarkedIds]);
+  }, [bookmarkedItems]);
 
-  const addBookmark = useCallback((id: string) => {
-    setBookmarkedIds(prev => new Set(prev).add(id));
+  const addBookmark = useCallback((item: BookmarkableItem) => {
+    setBookmarkedItems(prev => {
+      if (prev.some(i => i.id === item.id)) return prev;
+      return [...prev, item];
+    });
   }, []);
 
   const removeBookmark = useCallback((id: string) => {
-    setBookmarkedIds(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(id);
-      return newSet;
-    });
+    setBookmarkedItems(prev => prev.filter(item => item.id !== id));
   }, []);
   
-  const isBookmarked = useCallback((id: string) => bookmarkedIds.has(id), [bookmarkedIds]);
+  const isBookmarked = useCallback((id: string) => {
+    return bookmarkedItems.some(item => item.id === id);
+  }, [bookmarkedItems]);
 
-  const value = { bookmarkedIds, bookmarkedItems, addBookmark, removeBookmark, isBookmarked };
+  const value = { bookmarkedItems, addBookmark, removeBookmark, isBookmarked };
 
   return (
     <BookmarkContext.Provider value={value}>

@@ -22,7 +22,7 @@ const VideoCard: React.FC<{ video: Video }> = ({ video }) => {
             <div className="group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark/60 bg-background-light dark:bg-background-dark shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
                 <div className="relative">
                     <div className="absolute top-2 right-2 z-10">
-                        <BookmarkButton itemId={video.id} className="bg-black/40 text-white/80 hover:bg-black/60 hover:text-white" />
+                        <BookmarkButton item={{ ...video, contentType: 'Video' }} className="bg-black/40 text-white/80 hover:bg-black/60 hover:text-white" />
                     </div>
                     <button
                         onClick={handlePlayClick}

@@ -6,6 +6,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { getHighQualityEbayImage } from '../utils/productUtils';
+import BookmarkButton from '../components/BookmarkButton';
 
 const BeautyPageEbay: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -347,6 +348,9 @@ const BeautyPageEbay: React.FC = () => {
                                         to={`/beauty/product/${encodeURIComponent(product.id)}`}
                                         className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
                                     >
+                                        <div className="absolute top-2 right-2 z-10">
+                                            <BookmarkButton item={{ ...product, contentType: 'BeautyProduct' }} className="bg-white/70 dark:bg-black/70 hover:bg-white dark:hover:bg-black text-text-subtle-light dark:text-text-subtle-dark hover:text-secondary" />
+                                        </div>
                                         <div className="aspect-square w-full overflow-hidden bg-gray-100">
                                             <img
                                                 alt={product.title}

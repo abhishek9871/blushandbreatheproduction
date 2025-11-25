@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { NutritionInfo, TipCard } from '../types';
 import { useComparison } from '../hooks/useComparison';
 import { useNutritionCart } from '../hooks/useNutritionCart';
+import BookmarkButton from './BookmarkButton';
 
 const NutrientBar: React.FC<{ label: string; value: number; max: number; color: string }> = ({ label, value, max, color }) => {
   const percentage = max > 0 ? (value / max) * 100 : 0;
@@ -96,6 +97,7 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
 
         {/* Quick Actions */}
         <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <BookmarkButton item={{ ...item, contentType: 'Nutrition' }} className="bg-white/90 dark:bg-black/90 text-text-subtle-light dark:text-text-subtle-dark hover:text-primary dark:hover:text-primary shadow-lg" />
           {showCartActions && cartContext && (
             <button
               onClick={() => cartContext.isInCart(item.id || item.name) 
@@ -291,7 +293,10 @@ const NutritionTipCard: React.FC<{ item: TipCard }> = ({ item }) => {
   const [isRead, setIsRead] = useState(false);
 
   return (
-    <div className="bg-gradient-to-br from-accent/5 to-secondary/5 dark:from-accent/10 dark:to-secondary/10 rounded-xl p-6 border border-accent/20 dark:border-accent/30">
+    <div className="relative bg-gradient-to-br from-accent/5 to-secondary/5 dark:from-accent/10 dark:to-secondary/10 rounded-xl p-6 border border-accent/20 dark:border-accent/30 group">
+      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <BookmarkButton item={{ ...item, contentType: 'Nutrition' }} className="bg-white/50 dark:bg-black/50 hover:bg-white dark:hover:bg-black text-text-subtle-light dark:text-text-subtle-dark hover:text-primary dark:hover:text-primary" />
+      </div>
       <div className="flex items-start gap-4">
         <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
           <span className="material-symbols-outlined text-accent text-2xl">{item.icon}</span>

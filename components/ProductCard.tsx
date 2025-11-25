@@ -22,7 +22,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     return (
         <Link to={`/product/${encodeURIComponent(product.id)}`} className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark shadow-sm hover:shadow-lg transition-shadow duration-300">
              <div className="absolute top-2 right-2 z-10">
-                <BookmarkButton itemId={product.id} className="bg-white/70 dark:bg-black/70 hover:bg-white dark:hover:bg-black text-text-subtle-light dark:text-text-subtle-dark hover:text-secondary" />
+                <BookmarkButton item={{ ...product, contentType: 'Product' }} className="bg-white/70 dark:bg-black/70 hover:bg-white dark:hover:bg-black text-text-subtle-light dark:text-text-subtle-dark hover:text-secondary" />
             </div>
             <div className="aspect-square w-full overflow-hidden bg-gray-100">
                 <img alt={product.name} className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300" src={product.imageUrl} />

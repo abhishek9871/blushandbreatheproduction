@@ -5,6 +5,7 @@ import type { EbaySearchParams, EbayProductSummary, EbaySearchResponse } from '.
 import ErrorMessage from '../components/ErrorMessage';
 import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton';
 import { getHighQualityEbayImage } from '../utils/productUtils';
+import BookmarkButton from '../components/BookmarkButton';
 
 const HealthStorePageEbay: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -366,6 +367,9 @@ const HealthStorePageEbay: React.FC = () => {
                                 className="group flex flex-col overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:border dark:border-gray-700"
                             >
                                 <div className="relative">
+                                    <div className="absolute top-2 right-2 z-10">
+                                        <BookmarkButton item={{ ...product, contentType: 'HealthProduct' }} className="bg-white/70 dark:bg-black/70 hover:bg-white dark:hover:bg-black text-text-subtle-light dark:text-text-subtle-dark hover:text-secondary" />
+                                    </div>
                                     <div className="aspect-square w-full bg-gray-100 dark:bg-gray-700 overflow-hidden">
                                         <img
                                             alt={product.title}

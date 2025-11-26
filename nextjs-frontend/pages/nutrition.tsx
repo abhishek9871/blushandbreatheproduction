@@ -19,6 +19,67 @@ interface NutritionPageProps {
   initialNutritionData: (NutritionInfo | TipCard)[];
 }
 
+/**
+ * Normalize food name to identify duplicates
+ * Removes portion sizes, weights, calorie counts, and common prefixes
+ */
+const normalizeFoodName = (name: string): string => {
+  return name
+    .toLowerCase()
+    // Remove calorie info like "64 cal" at start or end
+    .replace(/^\d+\s*(cal|kcal|calories?)\s*/i, '')
+    .replace(/\s*\d+\s*(cal|kcal|calories?)\s*$/i, '')
+    // Remove portion/weight info like "100g", "1 cup", "1 oz", "per 100g"
+    .replace(/\s*per\s+\d+\s*g\b/gi, '')
+    .replace(/\s*\d+\s*(g|grams?|oz|ounces?|cups?|tbsp|tsp|ml|lb|lbs?)\b/gi, '')
+    // Remove parenthetical info like "(raw)", "(cooked)", "(1 medium)"
+    .replace(/\s*\([^)]*\)\s*/g, ' ')
+    // Remove common prefixes
+    .replace(/^(raw|cooked|fresh|frozen|canned|dried|organic)\s+/i, '')
+    // Remove trailing descriptors
+    .replace(/\s*,\s*(raw|cooked|fresh|frozen|boiled|steamed|fried|grilled|baked).*$/i, '')
+    // Clean up whitespace
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
+/**
+ * Deduplicate food search results
+ * Keeps one representative item per unique normalized food name
+ * Prefers items with 100g portion for consistency with portion size selector
+ */
+const deduplicateFoods = (foods: NutritionInfo[]): NutritionInfo[] => {
+  const foodMap = new Map<string, NutritionInfo>();
+  
+  for (const food of foods) {
+    const normalizedName = normalizeFoodName(food.name);
+    
+    // Skip if normalized name is too short (likely garbage data)
+    if (normalizedName.length < 2) continue;
+    
+    const existing = foodMap.get(normalizedName);
+    
+    if (!existing) {
+      // First occurrence of this food
+      foodMap.set(normalizedName, food);
+    } else {
+      // Check if current item is better (prefer items with "100" in description or more complete data)
+      const currentHas100g = food.description?.includes('100g') || food.description?.includes('100 g');
+      const existingHas100g = existing.description?.includes('100g') || existing.description?.includes('100 g');
+      
+      // Prefer 100g portions, or items with longer descriptions (more complete data)
+      if (currentHas100g && !existingHas100g) {
+        foodMap.set(normalizedName, food);
+      } else if (!currentHas100g && !existingHas100g && 
+                 (food.description?.length || 0) > (existing.description?.length || 0)) {
+        foodMap.set(normalizedName, food);
+      }
+    }
+  }
+  
+  return Array.from(foodMap.values());
+};
+
 export const getStaticProps: GetStaticProps<NutritionPageProps> = async () => {
   try {
     const { data } = await getNutritionData(1);
@@ -71,24 +132,33 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
         if (nutrientData) {
           setNutrientInfo(nutrientData);
           setIsNutrientSearch(true);
-          const foodResult = await searchUSDAFoods(nutrientData.searchQuery, page, 20);
-          setSearchResults(foodResult.data);
-          setTotalHits(foodResult.totalHits);
-          setHasMore(foodResult.hasMore);
+          // Fetch more results to compensate for deduplication, then deduplicate
+          const foodResult = await searchUSDAFoods(nutrientData.searchQuery, page, 50);
+          const deduplicated = deduplicateFoods(foodResult.data);
+          setSearchResults(deduplicated);
+          setTotalHits(deduplicated.length);
+          setHasMore(foodResult.hasMore && deduplicated.length >= 10);
           setCurrentPage(foodResult.currentPage);
           return;
         }
       }
-      const result = await searchUSDAFoods(query, page, 20);
+      // Fetch more results to compensate for deduplication, then deduplicate
+      const result = await searchUSDAFoods(query, page, 50);
       if (page === 1) {
         setNutrientInfo(null);
         setIsNutrientSearch(false);
-        setSearchResults(result.data);
+        const deduplicated = deduplicateFoods(result.data);
+        setSearchResults(deduplicated);
+        setTotalHits(deduplicated.length);
+        setHasMore(result.hasMore && deduplicated.length >= 10);
       } else {
-        setSearchResults(prev => [...prev, ...result.data]);
+        // For pagination, deduplicate the combined results
+        setSearchResults(prev => {
+          const combined = [...prev, ...result.data];
+          return deduplicateFoods(combined);
+        });
+        setHasMore(result.hasMore);
       }
-      setTotalHits(result.totalHits);
-      setHasMore(result.hasMore);
       setCurrentPage(result.currentPage);
     } catch (error) {
       setSearchError('Failed to search foods. Please try again.');
@@ -158,8 +228,8 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
           <div>
             {nutrientInfo && <NutrientEducation nutrientInfo={nutrientInfo} onSearchFoods={(q) => setSearchQuery(q)} />}
             {searchQuery.trim() && totalHits > 0 && (
-              <div className="mb-4 text-sm text-gray-600 flex items-center justify-between">
-                <span>Found {totalHits.toLocaleString()} foods matching &quot;{searchQuery}&quot;{isNutrientSearch && ' rich in this nutrient'}</span>
+              <div className="mb-4 text-sm text-gray-600 dark:text-gray-400 flex items-center justify-between">
+                <span>Found {totalHits.toLocaleString()} unique {totalHits === 1 ? 'food' : 'foods'} matching &quot;{searchQuery}&quot;{isNutrientSearch && ' rich in this nutrient'}</span>
                 {isLoading && <span className="text-blue-600 flex items-center gap-2"><span className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></span>Searching...</span>}
               </div>
             )}
@@ -173,7 +243,7 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
                 {hasMore && searchQuery.trim() && (
                   <div className="mt-8 text-center">
                     <button onClick={loadMore} disabled={isSearching} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors">
-                      {isSearching ? 'Loading...' : `Load More (${totalHits - displayData.length} remaining)`}
+                      {isSearching ? 'Loading...' : 'Load More Foods'}
                     </button>
                   </div>
                 )}

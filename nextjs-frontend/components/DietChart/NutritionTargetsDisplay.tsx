@@ -43,31 +43,31 @@ const NutritionTargetsDisplay: React.FC<NutritionTargetsDisplayProps> = ({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-accent/10 to-accent/5 rounded-2xl p-6 text-center">
-        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-accent/20 flex items-center justify-center">
-          <span className="material-symbols-outlined text-4xl text-accent">analytics</span>
+      <div className="bg-gradient-to-r from-accent/10 to-accent/5 rounded-2xl p-4 sm:p-6 text-center">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 rounded-full bg-accent/20 flex items-center justify-center">
+          <span className="material-symbols-outlined text-3xl sm:text-4xl text-accent">analytics</span>
         </div>
-        <h2 className="text-2xl font-bold text-text-light dark:text-text-dark mb-2">
+        <h2 className="text-xl sm:text-2xl font-bold text-text-light dark:text-text-dark mb-2">
           Your Personalized Nutrition Blueprint
         </h2>
-        <p className="text-text-subtle-light dark:text-text-subtle-dark">
+        <p className="text-sm sm:text-base text-text-subtle-light dark:text-text-subtle-dark">
           Based on your profile, here's your optimal nutrition plan
         </p>
       </div>
 
       {/* BMI Card */}
-      <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-border-light dark:border-border-dark">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-lg">Body Mass Index (BMI)</h3>
-          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getBmiColor(profile.bmiCategory || '')}`}>
+      <div className="bg-white dark:bg-card-dark rounded-xl p-4 sm:p-6 shadow-sm border border-border-light dark:border-border-dark">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
+          <h3 className="font-semibold text-base sm:text-lg">Body Mass Index (BMI)</h3>
+          <span className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${getBmiColor(profile.bmiCategory || '')}`}>
             {profile.bmiCategory}
           </span>
         </div>
-        <div className="flex items-end space-x-4">
-          <div className="text-5xl font-bold text-accent">{profile.bmi}</div>
-          <div className="text-text-subtle-light dark:text-text-subtle-dark pb-2">
-            <p>Ideal weight range: {profile.idealWeightRange?.min} - {profile.idealWeightRange?.max} kg</p>
-            <p>Current weight: {profile.weight} kg</p>
+        <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:space-x-4">
+          <div className="text-4xl sm:text-5xl font-bold text-accent">{profile.bmi}</div>
+          <div className="text-sm sm:text-base text-text-subtle-light dark:text-text-subtle-dark sm:pb-2">
+            <p>Ideal: {profile.idealWeightRange?.min}-{profile.idealWeightRange?.max} kg</p>
+            <p>Current: {profile.weight} kg</p>
           </div>
         </div>
         {/* BMI Scale */}
@@ -136,12 +136,12 @@ const NutritionTargetsDisplay: React.FC<NutritionTargetsDisplayProps> = ({
       </div>
 
       {/* Macro Targets */}
-      <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-border-light dark:border-border-dark">
-        <h3 className="font-semibold text-lg mb-4">Daily Macro Targets</h3>
-        <div className="grid grid-cols-3 gap-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl p-4 sm:p-6 shadow-sm border border-border-light dark:border-border-dark">
+        <h3 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4">Daily Macro Targets</h3>
+        <div className="grid grid-cols-3 gap-2 sm:gap-6">
           <div className="text-center">
-            <div className="relative w-24 h-24 mx-auto mb-3">
-              <svg className="w-full h-full transform -rotate-90">
+            <div className="relative w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-2 sm:mb-3">
+              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 96 96">
                 <circle
                   cx="48" cy="48" r="42"
                   stroke="currentColor"
@@ -159,16 +159,16 @@ const NutritionTargetsDisplay: React.FC<NutritionTargetsDisplayProps> = ({
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-2xl font-bold">{profile.macroPercentages?.protein}%</span>
+                <span className="text-lg sm:text-2xl font-bold">{profile.macroPercentages?.protein}%</span>
               </div>
             </div>
-            <div className="font-semibold text-red-600">Protein</div>
-            <div className="text-2xl font-bold">{profile.macroTargets?.protein}g</div>
+            <div className="font-semibold text-red-600 text-xs sm:text-base">Protein</div>
+            <div className="text-lg sm:text-2xl font-bold">{profile.macroTargets?.protein}g</div>
           </div>
 
           <div className="text-center">
-            <div className="relative w-24 h-24 mx-auto mb-3">
-              <svg className="w-full h-full transform -rotate-90">
+            <div className="relative w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-2 sm:mb-3">
+              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 96 96">
                 <circle
                   cx="48" cy="48" r="42"
                   stroke="currentColor"
@@ -186,16 +186,16 @@ const NutritionTargetsDisplay: React.FC<NutritionTargetsDisplayProps> = ({
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-2xl font-bold">{profile.macroPercentages?.carbs}%</span>
+                <span className="text-lg sm:text-2xl font-bold">{profile.macroPercentages?.carbs}%</span>
               </div>
             </div>
-            <div className="font-semibold text-yellow-600">Carbs</div>
-            <div className="text-2xl font-bold">{profile.macroTargets?.carbs}g</div>
+            <div className="font-semibold text-yellow-600 text-xs sm:text-base">Carbs</div>
+            <div className="text-lg sm:text-2xl font-bold">{profile.macroTargets?.carbs}g</div>
           </div>
 
           <div className="text-center">
-            <div className="relative w-24 h-24 mx-auto mb-3">
-              <svg className="w-full h-full transform -rotate-90">
+            <div className="relative w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-2 sm:mb-3">
+              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 96 96">
                 <circle
                   cx="48" cy="48" r="42"
                   stroke="currentColor"
@@ -213,11 +213,11 @@ const NutritionTargetsDisplay: React.FC<NutritionTargetsDisplayProps> = ({
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-2xl font-bold">{profile.macroPercentages?.fats}%</span>
+                <span className="text-lg sm:text-2xl font-bold">{profile.macroPercentages?.fats}%</span>
               </div>
             </div>
-            <div className="font-semibold text-blue-600">Fats</div>
-            <div className="text-2xl font-bold">{profile.macroTargets?.fats}g</div>
+            <div className="font-semibold text-blue-600 text-xs sm:text-base">Fats</div>
+            <div className="text-lg sm:text-2xl font-bold">{profile.macroTargets?.fats}g</div>
           </div>
         </div>
       </div>
@@ -266,10 +266,10 @@ const NutritionTargetsDisplay: React.FC<NutritionTargetsDisplayProps> = ({
       )}
 
       {/* Actions */}
-      <div className="flex justify-between pt-4">
+      <div className="flex flex-col sm:flex-row justify-between gap-3 pt-4">
         <button
           onClick={onBack}
-          className="px-6 py-3 rounded-lg font-medium border border-border-light dark:border-border-dark hover:bg-accent/10 flex items-center space-x-2"
+          className="px-4 sm:px-6 py-3 rounded-lg font-medium border border-border-light dark:border-border-dark hover:bg-accent/10 flex items-center justify-center space-x-2 order-2 sm:order-1"
         >
           <span className="material-symbols-outlined text-sm">arrow_back</span>
           <span>Update Profile</span>
@@ -278,7 +278,7 @@ const NutritionTargetsDisplay: React.FC<NutritionTargetsDisplayProps> = ({
         <button
           onClick={onGeneratePlan}
           disabled={isGenerating}
-          className={`px-8 py-3 rounded-lg font-medium flex items-center space-x-2 ${
+          className={`px-4 sm:px-8 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 order-1 sm:order-2 ${
             isGenerating
               ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 cursor-not-allowed'
               : 'bg-accent text-white hover:opacity-90'
@@ -287,12 +287,14 @@ const NutritionTargetsDisplay: React.FC<NutritionTargetsDisplayProps> = ({
           {isGenerating ? (
             <>
               <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-              <span>Generating Your Plan...</span>
+              <span className="hidden sm:inline">Generating Your Plan...</span>
+              <span className="sm:hidden">Generating...</span>
             </>
           ) : (
             <>
               <span className="material-symbols-outlined">auto_awesome</span>
-              <span>Generate AI Diet Plan</span>
+              <span className="hidden sm:inline">Generate AI Diet Plan</span>
+              <span className="sm:hidden">Generate Plan</span>
             </>
           )}
         </button>

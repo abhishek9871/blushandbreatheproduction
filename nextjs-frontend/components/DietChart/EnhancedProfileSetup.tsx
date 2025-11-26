@@ -402,19 +402,19 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
             <div className="space-y-6">
               <div>
                 <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Meals Per Day</h3>
-                <div className="flex space-x-3">
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   {[3, 4, 5, 6].map((num) => (
                     <button
                       key={num}
                       onClick={() => handleInputChange('mealsPerDay', num)}
-                      className={`flex-1 py-4 rounded-xl border-2 transition-all ${
+                      className={`py-2 sm:py-4 rounded-xl border-2 transition-all ${
                         formData.mealsPerDay === num
                           ? 'border-accent bg-accent/10 text-accent'
                           : 'border-border-light dark:border-border-dark hover:border-accent/50 text-text-light dark:text-text-dark'
                       }`}
                     >
-                      <div className="text-2xl font-bold text-text-light dark:text-text-dark">{num}</div>
-                      <div className="text-xs text-text-subtle-light dark:text-text-subtle-dark">
+                      <div className="text-xl sm:text-2xl font-bold text-text-light dark:text-text-dark">{num}</div>
+                      <div className="text-[10px] sm:text-xs text-text-subtle-light dark:text-text-subtle-dark">
                         {num === 3 ? '3 main meals' : `${num} meals`}
                       </div>
                     </button>
@@ -424,7 +424,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
 
               <div>
                 <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Cooking Time</h3>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {[
                     { id: 'minimal', label: 'Quick', desc: '<15 min', icon: 'bolt' },
                     { id: 'moderate', label: 'Moderate', desc: '15-30 min', icon: 'schedule' },
@@ -433,17 +433,17 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                     <button
                       key={option.id}
                       onClick={() => handleInputChange('cookingTime', option.id)}
-                      className={`p-4 rounded-xl border-2 transition-all text-center ${
+                      className={`p-2 sm:p-4 rounded-xl border-2 transition-all text-center ${
                         formData.cookingTime === option.id
                           ? 'border-accent bg-accent/10'
                           : 'border-border-light dark:border-border-dark hover:border-accent/50 text-text-light dark:text-text-dark'
                       }`}
                     >
-                      <span className={`material-symbols-outlined text-2xl mb-1 ${
+                      <span className={`material-symbols-outlined text-xl sm:text-2xl mb-1 ${
                         formData.cookingTime === option.id ? 'text-accent' : ''
                       }`}>{option.icon}</span>
-                      <div className="font-medium text-text-light dark:text-text-dark">{option.label}</div>
-                      <div className="text-xs text-text-subtle-light dark:text-text-subtle-dark">{option.desc}</div>
+                      <div className="font-medium text-xs sm:text-base text-text-light dark:text-text-dark">{option.label}</div>
+                      <div className="text-[10px] sm:text-xs text-text-subtle-light dark:text-text-subtle-dark">{option.desc}</div>
                     </button>
                   ))}
                 </div>
@@ -503,11 +503,11 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
       </div>
 
       {/* Navigation */}
-      <div className="flex justify-between pt-4 border-t border-border-light dark:border-border-dark">
+      <div className="flex justify-between pt-4 border-t border-border-light dark:border-border-dark gap-3">
         <button
           onClick={handlePrevious}
           disabled={currentStep === 1}
-          className={`px-6 py-3 rounded-lg font-medium transition-colors flex items-center space-x-2 ${
+          className={`px-4 md:px-6 py-3 rounded-lg font-medium transition-colors flex items-center space-x-1 md:space-x-2 ${
             currentStep === 1
               ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
               : 'bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark border border-border-light dark:border-border-dark hover:bg-accent/10'
@@ -520,7 +520,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
         <button
           onClick={handleNext}
           disabled={!canProceed() || isCalculating}
-          className={`px-6 py-3 rounded-lg font-medium transition-colors flex items-center space-x-2 ${
+          className={`px-4 md:px-6 py-3 rounded-lg font-medium transition-colors flex items-center space-x-1 md:space-x-2 ${
             canProceed() && !isCalculating
               ? 'bg-accent text-white hover:opacity-90'
               : 'bg-gray-300 dark:bg-gray-600 text-gray-500 cursor-not-allowed'
@@ -529,11 +529,12 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
           {isCalculating ? (
             <>
               <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-              <span>Calculating...</span>
+              <span className="hidden sm:inline">Calculating...</span>
             </>
           ) : (
             <>
-              <span>{currentStep === totalSteps ? 'Calculate My Targets' : 'Next'}</span>
+              <span className="hidden sm:inline">{currentStep === totalSteps ? 'Calculate My Targets' : 'Next'}</span>
+              <span className="sm:hidden">{currentStep === totalSteps ? 'Calculate' : 'Next'}</span>
               <span className="material-symbols-outlined text-sm">
                 {currentStep === totalSteps ? 'calculate' : 'arrow_forward'}
               </span>

@@ -289,21 +289,21 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
           <div>
             {/* Search Results Notification Banner */}
             {submittedQuery.trim() && searchResults.length > 0 && (
-              <div className="mb-6 p-4 bg-gradient-to-r from-accent/10 to-secondary/10 border border-accent/30 rounded-xl flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-accent text-2xl">search</span>
-                  <div>
-                    <p className="font-medium text-text-light dark:text-text-dark">
+              <div className="mb-6 p-3 md:p-4 bg-gradient-to-r from-accent/10 to-secondary/10 border border-accent/30 rounded-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="material-symbols-outlined text-accent text-xl sm:text-2xl shrink-0">search</span>
+                  <div className="min-w-0">
+                    <p className="font-medium text-text-light dark:text-text-dark text-sm sm:text-base truncate">
                       Found {totalHits} {totalHits === 1 ? 'food' : 'foods'} matching "{submittedQuery}"
                     </p>
-                    <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                    <p className="text-xs sm:text-sm text-text-subtle-light dark:text-text-subtle-dark hidden sm:block">
                       Search results are available below the AI Diet Planner
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={scrollToResults}
-                  className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors whitespace-nowrap"
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors whitespace-nowrap text-sm sm:text-base w-full sm:w-auto"
                 >
                   <span className="material-symbols-outlined text-lg">arrow_downward</span>
                   View Results

@@ -79,12 +79,12 @@ const DietChartGenerator: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Step Indicator */}
-      <div className="bg-white dark:bg-card-dark rounded-xl p-4 shadow-sm border border-border-light dark:border-border-dark">
+      <div className="bg-white dark:bg-card-dark rounded-xl p-3 sm:p-4 shadow-sm border border-border-light dark:border-border-dark">
         <div className="flex items-center justify-between">
           {steps.map((step, index) => (
             <React.Fragment key={step.id}>
               <div 
-                className={`flex items-center space-x-2 cursor-pointer transition-colors ${
+                className={`flex items-center space-x-1 sm:space-x-2 cursor-pointer transition-colors ${
                   index <= currentStepIndex 
                     ? 'text-accent' 
                     : 'text-text-subtle-light dark:text-text-subtle-dark'
@@ -95,7 +95,7 @@ const DietChartGenerator: React.FC = () => {
                   }
                 }}
               >
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 ${
                   index < currentStepIndex 
                     ? 'bg-accent text-white' 
                     : index === currentStepIndex 
@@ -103,15 +103,15 @@ const DietChartGenerator: React.FC = () => {
                     : 'bg-gray-100 dark:bg-gray-800'
                 }`}>
                   {index < currentStepIndex ? (
-                    <span className="material-symbols-outlined text-lg">check</span>
+                    <span className="material-symbols-outlined text-base sm:text-lg">check</span>
                   ) : (
-                    <span className="material-symbols-outlined text-lg">{step.icon}</span>
+                    <span className="material-symbols-outlined text-base sm:text-lg">{step.icon}</span>
                   )}
                 </div>
                 <span className="hidden sm:inline font-medium">{step.label}</span>
               </div>
               {index < steps.length - 1 && (
-                <div className={`flex-1 h-1 mx-4 rounded ${
+                <div className={`flex-1 h-1 mx-2 sm:mx-4 rounded ${
                   index < currentStepIndex ? 'bg-accent' : 'bg-gray-200 dark:bg-gray-700'
                 }`} />
               )}

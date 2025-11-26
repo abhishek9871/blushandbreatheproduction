@@ -1,5 +1,7 @@
+'use client';
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { NutritionInfo } from '../types';
+import type { NutritionInfo } from '@/types';
 
 interface ComparisonContextType {
   comparedFoods: NutritionInfo[];
@@ -29,9 +31,8 @@ export const ComparisonProvider: React.FC<ComparisonProviderProps> = ({ children
   const [comparedFoods, setComparedFoods] = useState<NutritionInfo[]>([]);
 
   const addToComparison = (food: NutritionInfo) => {
-    if (comparedFoods.length >= 3) return; // Max 3 foods
-    if (comparedFoods.find(f => f.id === food.id)) return; // Avoid duplicates by ID
-    
+    if (comparedFoods.length >= 3) return;
+    if (comparedFoods.find(f => f.id === food.id)) return;
     setComparedFoods([...comparedFoods, food]);
   };
 
@@ -47,7 +48,6 @@ export const ComparisonProvider: React.FC<ComparisonProviderProps> = ({ children
     return comparedFoods.some(f => f.id === foodId);
   };
 
-  // Enhanced comparison check that includes food name to avoid false positives
   const isInComparisonStrict = (food: NutritionInfo) => {
     return comparedFoods.some(f => 
       f.id === food.id && f.name === food.name

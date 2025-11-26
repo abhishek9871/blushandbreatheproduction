@@ -1,3 +1,4 @@
+'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
@@ -10,34 +11,49 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    try {
-        const storedTheme = localStorage.getItem('theme') as Theme | null;
-        if (storedTheme) {
-            return storedTheme;
-        }
-    } catch (e) {
-        console.error("Could not access localStorage for theme", e);
-    }
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
-  });
+// Helper to get initial theme (matches _document.tsx logic)
+function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'dark'; // SSR default
+  
+  try {
+    const stored = localStorage.getItem('theme');
+    if (stored === 'light' || stored === 'dark') return stored;
+  } catch (e) {
+    // localStorage not available
+  }
+  
+  // Check system preference
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+}
 
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  // Initialize with dark for SSR, will sync on client
+  const [theme, setTheme] = useState<Theme>('dark');
+
+  // Sync theme state with DOM on mount (DOM already has correct class from _document script)
   useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove(theme === 'light' ? 'dark' : 'light');
+    const initialTheme = getInitialTheme();
+    setTheme(initialTheme);
+  }, []);
+
+  // Apply theme changes to DOM and localStorage
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove('light', 'dark');
     root.classList.add(theme);
+    
     try {
-        localStorage.setItem('theme', theme);
+      localStorage.setItem('theme', theme);
     } catch (e) {
-        console.error("Could not access localStorage for theme", e);
+      console.error("Could not save theme to localStorage", e);
     }
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
   return (

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef } from 'react';
 
 interface Offer {
@@ -22,6 +24,8 @@ const OffersModal: React.FC<OffersModalProps> = ({ isOpen, onClose, offers, barc
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       modalRef.current?.focus();
@@ -32,6 +36,8 @@ const OffersModal: React.FC<OffersModalProps> = ({ isOpen, onClose, offers, barc
   }, [isOpen]);
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
@@ -45,9 +51,9 @@ const OffersModal: React.FC<OffersModalProps> = ({ isOpen, onClose, offers, barc
     if (onAffiliateClick) {
       onAffiliateClick(offer);
     } else {
-      // Fallback to direct tracking
       try {
-        await fetch('/api/affiliate/click', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        await fetch(`${apiUrl}/api/affiliate/click`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -60,14 +66,17 @@ const OffersModal: React.FC<OffersModalProps> = ({ isOpen, onClose, offers, barc
       } catch (error) {
         console.warn('Failed to track affiliate click:', error);
       }
-      window.open(offer.affiliateUrl, '_blank', 'noopener,noreferrer');
+      if (typeof window !== 'undefined') {
+        window.open(offer.affiliateUrl, '_blank', 'noopener,noreferrer');
+      }
     }
   };
 
   const copyLink = async (url: string) => {
+    if (typeof navigator === 'undefined' || typeof document === 'undefined') return;
+    
     try {
       await navigator.clipboard.writeText(url);
-      // Simple toast
       const toast = document.createElement('div');
       toast.textContent = 'Link copied';
       toast.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg z-50';

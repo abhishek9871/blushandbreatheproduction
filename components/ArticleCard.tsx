@@ -1,7 +1,6 @@
-
 import React from 'react';
-import { Link } from 'react-router-dom';
-import type { Article } from '../types';
+import Link from 'next/link';
+import type { Article } from '@/types';
 import BookmarkButton from './BookmarkButton';
 
 interface ArticleCardProps {
@@ -9,29 +8,30 @@ interface ArticleCardProps {
 }
 
 const categoryColorMap: { [key: string]: string } = {
-    'Nutrition': 'text-accent',
-    'Fitness': 'text-blue-500',
-    'Mental Health': 'text-purple-500',
-    'Skincare': 'text-secondary',
-    'Health': 'text-primary'
-}
+  'Nutrition': 'text-accent',
+  'Fitness': 'text-blue-500',
+  'Mental Health': 'text-purple-500',
+  'Skincare': 'text-secondary',
+  'Health': 'text-primary'
+};
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   const categoryClass = categoryColorMap[article.category] || 'text-primary';
+  
   return (
-    <Link to={`/article/${encodeURIComponent(article.id)}`} className="flex flex-col gap-4 group">
+    <Link href={`/article/${encodeURIComponent(article.id)}`} className="flex flex-col gap-4 group">
       <div 
         className="w-full overflow-hidden bg-center bg-no-repeat bg-cover rounded-xl aspect-video transition-transform group-hover:scale-105" 
         style={{ backgroundImage: `url("${article.imageUrl}")` }}>
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex justify-between items-center">
-            <p className={`text-xs font-bold tracking-wider uppercase ${categoryClass}`}>{article.category}</p>
-            <BookmarkButton item={{ ...article, contentType: 'Article' }} className="text-text-subtle-light dark:text-text-subtle-dark hover:text-primary dark:hover:text-primary -mr-2" />
+          <p className={`text-xs font-bold tracking-wider uppercase ${categoryClass}`}>{article.category}</p>
+          <BookmarkButton item={{ ...article, contentType: 'Article' }} className="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-primary -mr-2" />
         </div>
-        <h3 className="text-lg font-bold leading-tight text-text-light dark:text-text-dark group-hover:text-primary transition-colors">{article.title}</h3>
-        <p className="text-sm font-normal text-text-subtle-light dark:text-text-subtle-dark line-clamp-2">{article.description}</p>
-        <p className="mt-1 text-xs font-normal text-text-subtle-light dark:text-text-subtle-dark">{article.date}</p>
+        <h3 className="text-lg font-bold leading-tight text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors">{article.title}</h3>
+        <p className="text-sm font-normal text-gray-600 dark:text-gray-400 line-clamp-2">{article.description}</p>
+        <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-500">{article.date}</p>
       </div>
     </Link>
   );

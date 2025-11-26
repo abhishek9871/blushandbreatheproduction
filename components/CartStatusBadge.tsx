@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { useNutritionCart } from '../hooks/useNutritionCart';
+'use client';
+
+import React from 'react';
+import { useNutritionCart } from '@/hooks/useNutritionCart';
 
 interface CartStatusBadgeProps {
   onOpenCart: () => void;
@@ -18,14 +20,12 @@ const CartStatusBadge: React.FC<CartStatusBadgeProps> = ({ onOpenCart }) => {
       <span className="material-symbols-outlined text-lg">shopping_cart</span>
       <span className="font-medium text-sm">My Foods</span>
       
-      {/* Item count badge */}
       {itemCount > 0 && (
         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
           {itemCount > 99 ? '99+' : itemCount}
         </span>
       )}
 
-      {/* Hover tooltip */}
       <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block bg-gray-900 text-white text-xs rounded-lg px-3 py-2 whitespace-nowrap z-50">
         <div className="font-medium mb-1">Quick Summary:</div>
         <div>Calories: {Math.round(state.totalCalories)} kcal</div>

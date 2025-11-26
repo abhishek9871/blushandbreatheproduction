@@ -1,12 +1,15 @@
-import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import type { NutritionInfo } from '../types';
+'use client';
+
+import React, { createContext, useContext, useReducer, useEffect, ReactNode, useState } from 'react';
+import type { NutritionInfo } from '@/types';
 
 export interface CartItem extends NutritionInfo {
-  cartItemId: string; // Unique identifier for cart items
+  cartItemId: string;
   addedAt: Date;
-  portionSize: number; // in grams
+  portionSize: number;
   mealType?: 'breakfast' | 'lunch' | 'dinner' | 'snack';
-  plannedFor?: Date; // for meal planning
+  plannedFor?: Date;
+  calories?: number;
 }
 
 interface NutritionCartState {
@@ -15,7 +18,7 @@ interface NutritionCartState {
   totalProtein: number;
   totalCarbs: number;
   totalFats: number;
-  isDirty: boolean; // for sync status
+  isDirty: boolean;
 }
 
 interface NutritionCartContextType {
@@ -35,7 +38,7 @@ interface NutritionCartContextType {
 }
 
 const STORAGE_KEY = 'nutrition_cart_v2';
-const SYNC_DEBOUNCE = 1000; // 1 second debounce for localStorage writes
+const SYNC_DEBOUNCE = 1000;
 
 type CartAction =
   | { type: 'ADD_ITEM'; payload: { item: NutritionInfo; portionSize?: number } }
@@ -51,7 +54,7 @@ type CartAction =
 const calculateTotals = (items: CartItem[]) => {
   return items.reduce(
     (acc, item) => {
-      const multiplier = item.portionSize / 100; // nutrients are per 100g
+      const multiplier = item.portionSize / 100;
       return {
         totalCalories: acc.totalCalories + (item.calories || 0) * multiplier,
         totalProtein: acc.totalProtein + item.nutrients.protein * multiplier,
@@ -63,7 +66,6 @@ const calculateTotals = (items: CartItem[]) => {
   );
 };
 
-// Generate unique cart item ID
 const generateCartItemId = () => {
   return `cart_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 };
@@ -71,7 +73,6 @@ const generateCartItemId = () => {
 const cartReducer = (state: NutritionCartState, action: CartAction): NutritionCartState => {
   switch (action.type) {
     case 'ADD_ITEM': {
-      // Always add as new item with unique ID to allow multiple portions of same food
       const cartItem: CartItem = {
         ...action.payload.item,
         cartItemId: generateCartItemId(),
@@ -79,66 +80,42 @@ const cartReducer = (state: NutritionCartState, action: CartAction): NutritionCa
         portionSize: action.payload.portionSize || 100,
       };
       const newItems = [...state.items, cartItem];
-      
       const totals = calculateTotals(newItems);
-      return {
-        ...state,
-        items: newItems,
-        ...totals,
-        isDirty: true,
-      };
+      return { ...state, items: newItems, ...totals, isDirty: true };
     }
 
     case 'REMOVE_ITEM': {
       const newItems = state.items.filter(item => item.cartItemId !== action.payload.itemId);
       const totals = calculateTotals(newItems);
-      return {
-        ...state,
-        items: newItems,
-        ...totals,
-        isDirty: true,
-      };
+      return { ...state, items: newItems, ...totals, isDirty: true };
     }
 
     case 'UPDATE_PORTION': {
       const newItems = state.items.map(item =>
         item.cartItemId === action.payload.itemId
-          ? { ...item, portionSize: action.payload.portionSize, isDirty: true }
+          ? { ...item, portionSize: action.payload.portionSize }
           : item
       );
       const totals = calculateTotals(newItems);
-      return {
-        ...state,
-        items: newItems,
-        ...totals,
-        isDirty: true,
-      };
+      return { ...state, items: newItems, ...totals, isDirty: true };
     }
 
     case 'SET_MEAL_TYPE': {
       const newItems = state.items.map(item =>
         item.cartItemId === action.payload.itemId
-          ? { ...item, mealType: action.payload.mealType, isDirty: true }
+          ? { ...item, mealType: action.payload.mealType }
           : item
       );
-      return {
-        ...state,
-        items: newItems,
-        isDirty: true,
-      };
+      return { ...state, items: newItems, isDirty: true };
     }
 
     case 'PLAN_FOR_DATE': {
       const newItems = state.items.map(item =>
         item.cartItemId === action.payload.itemId
-          ? { ...item, plannedFor: action.payload.date, isDirty: true }
+          ? { ...item, plannedFor: action.payload.date }
           : item
       );
-      return {
-        ...state,
-        items: newItems,
-        isDirty: true,
-      };
+      return { ...state, items: newItems, isDirty: true };
     }
 
     case 'CLEAR_CART':
@@ -153,11 +130,7 @@ const cartReducer = (state: NutritionCartState, action: CartAction): NutritionCa
 
     case 'LOAD_CART': {
       const totals = calculateTotals(action.payload.items);
-      return {
-        items: action.payload.items,
-        ...totals,
-        isDirty: false,
-      };
+      return { items: action.payload.items, ...totals, isDirty: false };
     }
 
     case 'MARK_DIRTY':
@@ -178,6 +151,7 @@ interface NutritionCartProviderProps {
 }
 
 export const NutritionCartProvider: React.FC<NutritionCartProviderProps> = ({ children }) => {
+  const [mounted, setMounted] = useState(false);
   const [state, dispatch] = useReducer(cartReducer, {
     items: [],
     totalCalories: 0,
@@ -189,11 +163,11 @@ export const NutritionCartProvider: React.FC<NutritionCartProviderProps> = ({ ch
 
   // Load cart from localStorage on mount
   useEffect(() => {
+    setMounted(true);
     try {
       const savedCart = localStorage.getItem(STORAGE_KEY);
       if (savedCart) {
         const parsed = JSON.parse(savedCart);
-        // Convert string dates back to Date objects
         const items = parsed.items.map((item: any) => ({
           ...item,
           addedAt: new Date(item.addedAt),
@@ -203,14 +177,13 @@ export const NutritionCartProvider: React.FC<NutritionCartProviderProps> = ({ ch
       }
     } catch (error) {
       console.warn('Failed to load cart from localStorage:', error);
-      // Clear corrupted data
       localStorage.removeItem(STORAGE_KEY);
     }
   }, []);
 
   // Save cart to localStorage with debouncing
   useEffect(() => {
-    if (!state.isDirty) return;
+    if (!mounted || !state.isDirty) return;
 
     const timeoutId = setTimeout(() => {
       try {
@@ -222,16 +195,11 @@ export const NutritionCartProvider: React.FC<NutritionCartProviderProps> = ({ ch
         dispatch({ type: 'MARK_CLEAN' });
       } catch (error) {
         console.error('Failed to save cart to localStorage:', error);
-        // Handle quota exceeded error
-        if (error instanceof Error && error.name === 'QuotaExceededError') {
-          // Clear old items or implement cleanup strategy
-          console.warn('Storage quota exceeded, consider clearing old data');
-        }
       }
     }, SYNC_DEBOUNCE);
 
     return () => clearTimeout(timeoutId);
-  }, [state]);
+  }, [state, mounted]);
 
   const addItem = (item: NutritionInfo, portionSize: number = 100) => {
     dispatch({ type: 'ADD_ITEM', payload: { item, portionSize } });
@@ -335,54 +303,4 @@ export const useNutritionCart = (): NutritionCartContextType => {
     throw new Error('useNutritionCart must be used within a NutritionCartProvider');
   }
   return context;
-};
-
-// Edge case handling utilities
-export const cartUtils = {
-  // Handle localStorage quota exceeded
-  clearOldCartData: (daysOld: number = 30) => {
-    const keys = Object.keys(localStorage);
-    const cutoffDate = new Date();
-    cutoffDate.setDate(cutoffDate.getDate() - daysOld);
-    
-    keys.forEach(key => {
-      if (key.startsWith('nutrition_cart_')) {
-        try {
-          const data = JSON.parse(localStorage.getItem(key) || '{}');
-          if (data.savedAt && new Date(data.savedAt) < cutoffDate) {
-            localStorage.removeItem(key);
-          }
-        } catch (error) {
-          localStorage.removeItem(key); // Remove corrupted data
-        }
-      }
-    });
-  },
-
-  // Validate cart data integrity
-  validateCartData: (data: any): boolean => {
-    if (!data || !Array.isArray(data.items)) return false;
-    return data.items.every((item: any) => 
-      item.name && 
-      typeof item.portionSize === 'number' && 
-      item.nutrients &&
-      typeof item.nutrients.protein === 'number'
-    );
-  },
-
-  // Get storage usage info
-  getStorageInfo: () => {
-    try {
-      const cartData = localStorage.getItem(STORAGE_KEY);
-      const size = cartData ? new Blob([cartData]).size : 0;
-      const quota = 5 * 1024 * 1024; // 5MB typical localStorage quota
-      return {
-        used: size,
-        quota,
-        percentage: (size / quota) * 100,
-      };
-    } catch (error) {
-      return { used: 0, quota: 0, percentage: 0 };
-    }
-  },
 };

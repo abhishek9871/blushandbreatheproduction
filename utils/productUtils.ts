@@ -1,6 +1,14 @@
-import type { Review, ProductDetail } from '../types';
+import type { Review } from '@/types';
+
+interface ProductImageData {
+  image_front_url?: string;
+  image_ingredients_url?: string;
+  image_packaging_url?: string;
+  image_front_small_url?: string;
+}
 
 export const getLocalReviews = (productId: string): Review[] => {
+  if (typeof window === 'undefined') return [];
   try {
     const stored = localStorage.getItem(`beauty_reviews:${productId}`);
     return stored ? JSON.parse(stored) : [];
@@ -56,7 +64,7 @@ export const mapCategoriesToHuman = (tags: string[]): string => {
   return firstTag ? (categoryMap[firstTag] || firstTag.replace('en:', '').replace(/-/g, ' ')) : 'Beauty';
 };
 
-export const extractImages = (productData: any): { heroImage: string; altImages: string[] } => {
+export const extractImages = (productData: ProductImageData): { heroImage: string; altImages: string[] } => {
   const images: string[] = [];
   
   if (productData.image_front_url) images.push(productData.image_front_url);
@@ -87,23 +95,10 @@ export const getUsageGuideline = (category: string): string => {
 
 /**
  * Transforms eBay image URLs to request higher quality/larger versions.
- * eBay image URLs typically contain size parameters like s-l140, s-l225, s-l300, s-l500, s-l1600, etc.
- * This function replaces those parameters to request the highest quality version available.
- *
- * @param imageUrl - The original eBay image URL (can be low or high quality)
- * @returns The high-quality version of the image URL
  */
 export const getHighQualityEbayImage = (imageUrl: string | null | undefined): string => {
   if (!imageUrl) return 'https://via.placeholder.com/800';
 
-  // eBay image URLs typically have patterns like:
-  // https://i.ebayimg.com/images/g/xxxxx/s-l140.jpg
-  // https://i.ebayimg.com/images/g/xxxxx/s-l225.jpg
-  // https://i.ebayimg.com/images/g/xxxxx/s-l300.jpg
-  // https://i.ebayimg.com/thumbs/images/g/xxxxx/s-l225.jpg
-
-  // Replace any size parameter with the highest quality version (s-l1600)
-  // This handles all common eBay image size patterns
   let highQualityUrl = imageUrl;
 
   // Pattern 1: Replace s-lXXX.jpg/png/webp with s-l1600
@@ -112,7 +107,7 @@ export const getHighQualityEbayImage = (imageUrl: string | null | undefined): st
   // Pattern 2: Replace /thumbs/ path with /images/ for full-size images
   highQualityUrl = highQualityUrl.replace('/thumbs/images/', '/images/');
 
-  // Pattern 3: Handle images without size parameters - add s-l1600 before extension
+  // Pattern 3: Handle images without size parameters
   if (!highQualityUrl.includes('s-l') && highQualityUrl.includes('ebayimg.com')) {
     highQualityUrl = highQualityUrl.replace(/\.(jpg|jpeg|png|webp)$/i, '/s-l1600.$1');
   }

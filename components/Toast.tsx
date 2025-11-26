@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+
+import React, { useState, useEffect, createContext, useContext } from 'react';
 
 interface ToastProps {
   message: string;
@@ -20,7 +22,7 @@ const Toast: React.FC<ToastProps> = ({
       setIsVisible(false);
       setTimeout(() => {
         onClose?.();
-      }, 300); // Wait for fade out animation
+      }, 300);
     }, duration);
 
     return () => clearTimeout(timer);
@@ -79,7 +81,6 @@ const Toast: React.FC<ToastProps> = ({
   );
 };
 
-// Toast container for managing multiple toasts
 interface ToastContainerProps {
   toasts: Array<{
     id: string;
@@ -106,15 +107,14 @@ const ToastContainer: React.FC<ToastContainerProps> = ({ toasts, onRemove }) => 
   );
 };
 
-// Toast context for easy usage throughout the app
 interface ToastContextType {
   showToast: (message: string, type?: ToastProps['type'], duration?: number) => void;
 }
 
-const ToastContext = React.createContext<ToastContextType | undefined>(undefined);
+const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export const useToast = () => {
-  const context = React.useContext(ToastContext);
+  const context = useContext(ToastContext);
   if (context === undefined) {
     throw new Error('useToast must be used within a ToastProvider');
   }
@@ -132,7 +132,6 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const showToast = (message: string, type: ToastProps['type'] = 'success', duration?: number) => {
     const id = Date.now().toString();
     const newToast = { id, message, type, duration };
-    
     setToasts(prev => [...prev, newToast]);
   };
 

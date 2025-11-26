@@ -1,6 +1,7 @@
+'use client';
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,8 @@ const Footer: React.FC = () => {
     setMessage('');
 
     try {
-      const response = await fetch('/api/newsletter/subscribe', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+      const response = await fetch(`${apiUrl}/api/newsletter/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,38 +51,38 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-gray-50 dark:bg-black/20 border-t border-border-light dark:border-border-dark mt-16">
+    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold mb-4">Shop</h3>
-            <ul className="space-y-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">
-              <li><Link className="hover:text-secondary dark:hover:text-secondary transition-colors" to="/beauty">Beauty</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/health">Health</Link></li>
-              <li><Link className="hover:text-accent dark:hover:text-accent transition-colors" to="/nutrition">Nutrition</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/videos">Videos</Link></li>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">Shop</h3>
+            <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+              <li><Link className="hover:text-secondary dark:hover:text-secondary transition-colors" href="/beauty">Beauty</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/health">Health</Link></li>
+              <li><Link className="hover:text-accent dark:hover:text-accent transition-colors" href="/nutrition">Nutrition</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/videos">Videos</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4">About Us</h3>
-            <ul className="space-y-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/about">Our Story</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/careers">Careers</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/press">Press</Link></li>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">About Us</h3>
+            <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/about">Our Story</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/careers">Careers</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/press">Press</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4">Support</h3>
-            <ul className="space-y-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/contact">Contact Us</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/faq">FAQ</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/shipping">Shipping</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/returns">Returns</Link></li>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">Support</h3>
+            <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/contact">Contact Us</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/faq">FAQ</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/shipping">Shipping</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/returns">Returns</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4">Join Our Newsletter</h3>
-            <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mb-4">Get the latest on new arrivals, promotions, and more.</p>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">Join Our Newsletter</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Get the latest on new arrivals, promotions, and more.</p>
             <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
               <div className="flex">
                 <input
@@ -88,7 +90,7 @@ const Footer: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   aria-label="Your email"
-                  className="flex-grow rounded-l-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark/50 focus:ring-primary focus:border-primary text-sm h-11 px-3"
+                  className="flex-grow rounded-l-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-primary focus:border-primary text-sm h-11 px-3"
                   placeholder="Your email"
                   disabled={status === 'loading'}
                 />
@@ -108,11 +110,11 @@ const Footer: React.FC = () => {
             </form>
           </div>
         </div>
-        <div className="mt-8 border-t border-border-light dark:border-border-dark pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-text-subtle-light dark:text-text-subtle-dark">
+        <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600 dark:text-gray-400">
           <p>© 2026 HealthBeauty Hub. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
-            <Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/terms">Terms of Service</Link>
-            <Link className="hover:text-primary dark:hover:text-primary transition-colors" to="/info/privacy">Privacy Policy</Link>
+            <Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/terms">Terms of Service</Link>
+            <Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/privacy">Privacy Policy</Link>
           </div>
         </div>
       </div>

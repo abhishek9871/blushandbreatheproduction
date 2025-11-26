@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 const NutritionHero: React.FC = () => {
@@ -29,18 +31,18 @@ const NutritionHero: React.FC = () => {
             <p className="text-lg md:text-xl text-text-subtle-light dark:text-text-subtle-dark leading-relaxed max-w-2xl">
               {getMotivationalMessage()}
             </p>
-            <div className="flex flex-wrap gap-3 mt-6">
-              <div className="flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-[#1C2C1F]/50 rounded-lg border border-border-light dark:border-border-dark">
-                <span className="material-symbols-outlined text-primary text-lg">restaurant</span>
-                <span className="text-sm font-medium text-text-light dark:text-text-dark">USDA Nutrition Data</span>
+            <div className="flex flex-wrap gap-2 sm:gap-3 mt-4 sm:mt-6">
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 dark:bg-[#1C2C1F]/50 rounded-lg border border-border-light dark:border-border-dark">
+                <span className="material-symbols-outlined text-primary text-base sm:text-lg">restaurant</span>
+                <span className="text-xs sm:text-sm font-medium text-text-light dark:text-text-dark">USDA Data</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-[#1C2C1F]/50 rounded-lg border border-border-light dark:border-border-dark">
-                <span className="material-symbols-outlined text-secondary text-lg">flag</span>
-                <span className="text-sm font-medium text-text-light dark:text-text-dark">Daily Goals</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 dark:bg-[#1C2C1F]/50 rounded-lg border border-border-light dark:border-border-dark">
+                <span className="material-symbols-outlined text-secondary text-base sm:text-lg">auto_awesome</span>
+                <span className="text-xs sm:text-sm font-medium text-text-light dark:text-text-dark">AI Plans</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-[#1C2C1F]/50 rounded-lg border border-border-light dark:border-border-dark">
-                <span className="material-symbols-outlined text-accent text-lg">lunch_dining</span>
-                <span className="text-sm font-medium text-text-light dark:text-text-dark">Meal Planning</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 dark:bg-[#1C2C1F]/50 rounded-lg border border-border-light dark:border-border-dark">
+                <span className="material-symbols-outlined text-accent text-base sm:text-lg">person</span>
+                <span className="text-xs sm:text-sm font-medium text-text-light dark:text-text-dark">Personalized</span>
               </div>
             </div>
           </div>
@@ -52,7 +54,6 @@ const NutritionHero: React.FC = () => {
           </div>
         </div>
 
-        {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-border-light dark:border-border-dark">
           <div className="text-center">
             <div className="text-2xl font-bold text-primary mb-1">300K+</div>

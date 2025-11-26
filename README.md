@@ -1,20 +1,62 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Blush & Breathe - Health & Beauty Hub
 
-# Run and deploy your AI Studio app
+A modern health and beauty web application built with Next.js 16 and Tailwind CSS.
 
-This contains everything you need to run your app locally.
+## Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1jVa8BiKrvFoz1toTHpLCU0JKhYPewrPi
+- **Frontend**: Next.js 16 (Pages Router) + Tailwind CSS v4
+- **Backend**: Cloudflare Workers
+- **AI**: Google Gemini 2.0 Flash (Diet Plan Generation)
+- **Deployment**: Vercel (Frontend) + Cloudflare Workers (Backend)
 
-## Run Locally
+## Getting Started
 
-**Prerequisites:**  Node.js
+```bash
+# Install dependencies
+npm install
 
+# Run development server
+npm run dev
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+# Build for production
+npm run build
+
+# Deploy to Vercel
+npx vercel --prod
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## Project Structure
+
+```
+├── pages/           # Next.js pages (SSR/ISR)
+│   └── api/         # API routes (Vercel Edge Functions)
+├── components/      # React components
+├── services/        # API services
+├── hooks/           # Custom React hooks
+├── styles/          # Global CSS styles
+├── public/          # Static assets
+├── cloudflare-worker/  # Backend worker (hb-reader)
+└── wrangler.backend.toml  # Backend worker config
+```
+
+## Features
+
+- 🏠 Homepage with curated health & beauty content
+- 📰 Article reading with clean extraction (Mozilla Readability)
+- 🛒 Health Store with eBay product integration
+- 🥗 AI-powered Diet Plan Generator (Gemini AI)
+- 📺 YouTube video integration (Shorts + Full Videos)
+- 🌙 Dark/Light mode support
+- 📱 Fully responsive mobile design
+
+## Environment Variables
+
+Set in Vercel dashboard:
+- `YOUTUBE_API_KEY` - YouTube Data API key
+- `GEMINI_API_KEY` - Google Gemini API key
+
+## Documentation
+
+See [CONTEXT.md](./CONTEXT.md) for detailed architecture and development notes.

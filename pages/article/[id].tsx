@@ -9,8 +9,9 @@ import { ArticleCard, ReadingProgressBar, SocialShare, BookmarkButton } from '@/
 import type { Article } from '@/types';
 
 interface ArticlePageProps {
-  article: Article;
+  article: Article | null;
   relatedArticles: Article[];
+  articleNotFound?: boolean;
 }
 
 // Generate paths at build time
@@ -34,7 +35,15 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({ params 
     const article = await getArticleById(decodeURIComponent(id));
 
     if (!article) {
-      return { notFound: true };
+      // Return empty article - client will check sessionStorage
+      return {
+        props: {
+          article: null,
+          relatedArticles: [],
+          articleNotFound: true,
+        },
+        revalidate: 60, // Try again soon
+      };
     }
 
     // Fetch related articles (same category, exclude current)
@@ -47,12 +56,21 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({ params 
       props: {
         article,
         relatedArticles,
+        articleNotFound: false,
       },
       revalidate: 3600, // Re-generate every hour
     };
   } catch (error) {
     console.error('Failed to fetch article:', error);
-    return { notFound: true };
+    // Return empty article - client will check sessionStorage
+    return {
+      props: {
+        article: null,
+        relatedArticles: [],
+        articleNotFound: true,
+      },
+      revalidate: 60,
+    };
   }
 };
 
@@ -120,17 +138,45 @@ const contentToHtml = (content: string): string => {
   }).join('\n');
 };
 
-export default function ArticlePage({ article, relatedArticles }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function ArticlePage({ article: serverArticle, relatedArticles, articleNotFound }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
-  const categoryClass = categoryColorMap[article.category] || 'text-primary';
-  const articleUrl = typeof window !== 'undefined' ? window.location.href : `https://blushandbreathe.com${router.asPath}`;
   
-  // State for full article content fetched via Jina Reader
+  // State for client-side article (from sessionStorage)
+  const [clientArticle, setClientArticle] = useState<Article | null>(null);
+  const [isLoading, setIsLoading] = useState(Boolean(articleNotFound));
+  
+  // State for full article content fetched via Jina Reader (must be before conditional returns)
   const [fullHtml, setFullHtml] = useState<string | null>(null);
   const [isLoadingContent, setIsLoadingContent] = useState(true);
   
+  // Check sessionStorage for pending article on client side
+  useEffect(() => {
+    if (articleNotFound || !serverArticle) {
+      try {
+        const pending = sessionStorage.getItem('pendingArticle');
+        if (pending) {
+          const parsed = JSON.parse(pending) as Article;
+          // Verify this is the right article by checking URL match
+          const currentId = decodeURIComponent(router.query.id as string || '');
+          if (parsed.id === currentId || parsed.id === router.query.id) {
+            setClientArticle(parsed);
+            sessionStorage.removeItem('pendingArticle'); // Clear after use
+          }
+        }
+      } catch (e) {
+        console.error('Failed to read article from sessionStorage:', e);
+      }
+      setIsLoading(false);
+    }
+  }, [articleNotFound, serverArticle, router.query.id]);
+  
+  // Use server article if available, otherwise use client article
+  const article = serverArticle || clientArticle;
+  
   // Fetch full article content from source on client side
   useEffect(() => {
+    if (!article) return;
+    
     let cancelled = false;
     setIsLoadingContent(true);
     setFullHtml(null);
@@ -156,7 +202,42 @@ export default function ArticlePage({ article, relatedArticles }: InferGetStatic
     loadFullContent();
     
     return () => { cancelled = true; };
-  }, [article.id]);
+  }, [article]);
+  
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-500 dark:text-gray-400">Loading article...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // Show 404 if no article found
+  if (!article) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center max-w-md px-4">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Article Not Found</h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            Sorry, we couldn&apos;t find this article. It may have been removed or the link is incorrect.
+          </p>
+          <Link 
+            href="/health" 
+            className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            Browse Articles
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  
+  const categoryClass = categoryColorMap[article.category] || 'text-primary';
+  const articleUrl = typeof window !== 'undefined' ? window.location.href : `https://blushandbreathe.com${router.asPath}`;
   
   // Use fetched content if available, otherwise fall back to API content
   const displayContent = fullHtml || contentToHtml(article.content);

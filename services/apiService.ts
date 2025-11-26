@@ -174,15 +174,39 @@ export const fetchArticlesFromAPI = async (
     if (json.status === 'ok' && Array.isArray(json.articles)) {
       const fallbackImage = mockArticles[0]?.imageUrl || '';
       
-      const articles: Article[] = json.articles.map((item: RawNewsApiArticle) => ({
-        id: item.id || item.url || '',
-        title: item.title || 'Untitled article',
-        description: cleanNewsApiText(item.description || ''),
-        imageUrl: item.imageUrl || item.image || item.urlToImage || fallbackImage,
-        category: item.category || 'Health',
-        date: item.date || item.publishedAt || new Date().toISOString().split('T')[0],
-        content: cleanNewsApiText(item.content || item.description || ''),
-      }));
+      const articles: Article[] = json.articles.map((item: RawNewsApiArticle) => {
+        // Generate a deterministic unique ID: prefer item.id, then item.url, 
+        // then create from title+date (consistent across fetches)
+        let articleId = item.id || item.url || '';
+        if (!articleId) {
+          // Create a deterministic ID from title and date that's consistent across fetches
+          const title = item.title || 'article';
+          const date = item.date || item.publishedAt || '';
+          const combined = `${title}-${date}`;
+          // Create a simple hash from the combined string for uniqueness
+          let hash = 0;
+          for (let i = 0; i < combined.length; i++) {
+            const char = combined.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32-bit integer
+          }
+          const titleSlug = title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .substring(0, 40);
+          articleId = `${titleSlug}-${Math.abs(hash).toString(36)}`;
+        }
+        
+        return {
+          id: articleId,
+          title: item.title || 'Untitled article',
+          description: cleanNewsApiText(item.description || ''),
+          imageUrl: item.imageUrl || item.image || item.urlToImage || fallbackImage,
+          category: item.category || 'Health',
+          date: item.date || item.publishedAt || new Date().toISOString().split('T')[0],
+          content: cleanNewsApiText(item.content || item.description || ''),
+        };
+      });
 
       const hasMore = json.hasMore !== undefined
         ? json.hasMore
@@ -215,7 +239,27 @@ export const getFeaturedArticles = async (): Promise<{ data: Article[]; hasMore:
 };
 
 export const getArticleById = async (id: string): Promise<Article | undefined> => {
+  const fallbackImage = mockArticles[0]?.imageUrl || '';
+  
+  // Helper to transform raw article to Article type
+  const transformArticle = (item: RawNewsApiArticle): Article => ({
+    id: item.id || item.url || '',
+    title: item.title || 'Untitled article',
+    description: cleanNewsApiText(item.description || ''),
+    imageUrl: item.imageUrl || item.image || fallbackImage,
+    category: item.category || 'Health',
+    date: item.date || new Date().toISOString().split('T')[0],
+    content: cleanNewsApiText(item.content || item.description || ''),
+  });
+
+  // Check if ID looks like a URL (articles from search may use URL as ID)
+  const isUrlBasedId = id.startsWith('http://') || id.startsWith('https://');
+  
+  // Check if ID is a generated slug (contains hash at the end like "title-slug-1abc2def")
+  const isGeneratedId = !isUrlBasedId && id.includes('-') && /^[a-z0-9-]+-[a-z0-9]+$/.test(id);
+
   try {
+    // First, try fetching by ID parameter
     const url = new URL(NEWS_API_BASE_URL);
     url.searchParams.set('id', id);
 
@@ -224,24 +268,104 @@ export const getArticleById = async (id: string): Promise<Article | undefined> =
     if (response.ok) {
       const json = await response.json() as NewsApiResponse;
       if (json.status === 'ok' && json.articles && json.articles.length > 0) {
-        const item = json.articles[0];
-        const fallbackImage = mockArticles[0]?.imageUrl || '';
-        return {
-          id: item.id || item.url || '',
-          title: item.title || 'Untitled article',
-          description: cleanNewsApiText(item.description || ''),
-          imageUrl: item.imageUrl || item.image || fallbackImage,
-          category: item.category || 'Health',
-          date: item.date || new Date().toISOString().split('T')[0],
-          content: cleanNewsApiText(item.content || item.description || ''),
-        };
+        const article = transformArticle(json.articles[0]);
+        // Verify the returned article matches the requested ID
+        if (article.id === id) {
+          return article;
+        }
+        console.log('[API] Article ID mismatch, continuing search...');
       }
     }
   } catch (error) {
     console.error('[API] Failed to fetch article by ID:', error);
   }
 
-  // Fallback to mock data
+  // If ID is a URL, extract keywords from URL path and search
+  if (isUrlBasedId) {
+    try {
+      // First try the URL parameter
+      const apiUrl = new URL(NEWS_API_BASE_URL);
+      apiUrl.searchParams.set('url', id);
+
+      console.log('[API] Fetching article by URL:', apiUrl.toString());
+      const response = await fetch(apiUrl.toString(), defaultFetchOptions);
+      if (response.ok) {
+        const json = await response.json() as NewsApiResponse;
+        if (json.status === 'ok' && json.articles && json.articles.length > 0) {
+          const article = transformArticle(json.articles[0]);
+          // Verify the returned article URL matches
+          if (article.id === id) {
+            return article;
+          }
+          console.log('[API] Article URL mismatch, continuing search...');
+        }
+      }
+    } catch (error) {
+      console.error('[API] Failed to fetch article by URL:', error);
+    }
+
+    // Extract keywords from the URL path to search
+    try {
+      const urlObj = new URL(id);
+      const pathParts = urlObj.pathname.split('/').filter(p => p && p.length > 3);
+      // Get the last meaningful part of the path (usually the article slug)
+      const slug = pathParts[pathParts.length - 1] || '';
+      // Convert slug to search keywords
+      const searchQuery = slug.replace(/-/g, ' ').substring(0, 50);
+      
+      if (searchQuery) {
+        console.log('[API] Searching for article with URL keywords:', searchQuery);
+        const { data: articles } = await fetchArticlesFromAPI(1, 30, undefined, searchQuery);
+        
+        // Find article with matching URL
+        const matchingArticle = articles.find(article => article.id === id);
+        if (matchingArticle) {
+          return matchingArticle;
+        }
+      }
+    } catch (error) {
+      console.error('[API] Failed to extract keywords from URL:', error);
+    }
+  }
+
+  // If ID is a generated slug, extract title keywords and search
+  if (isGeneratedId) {
+    try {
+      // Extract title part (remove the hash at the end)
+      const parts = id.split('-');
+      parts.pop(); // Remove hash
+      const searchQuery = parts.join(' ').substring(0, 30);
+      
+      console.log('[API] Searching for article with query:', searchQuery);
+      const { data: articles } = await fetchArticlesFromAPI(1, 20, undefined, searchQuery);
+      
+      // Find the article with matching generated ID
+      const matchingArticle = articles.find(article => article.id === id);
+      if (matchingArticle) {
+        return matchingArticle;
+      }
+      // Do NOT return first result - only return exact matches
+    } catch (error) {
+      console.error('[API] Failed to search for article:', error);
+    }
+  }
+
+  // Last resort: fetch recent articles and try to match by ID
+  try {
+    const { data: articles } = await fetchArticlesFromAPI(1, 100);
+    const matchingArticle = articles.find(
+      article => article.id === id || 
+      (article as Article & { url?: string }).url === id
+    );
+    if (matchingArticle) {
+      return matchingArticle;
+    }
+    // Do NOT return first article - only return exact matches
+  } catch (error) {
+    console.error('[API] Failed to find article in recent articles:', error);
+  }
+
+  // Fallback to mock data - only return if exact match
   return mockArticles.find(article => article.id === id);
 };
 

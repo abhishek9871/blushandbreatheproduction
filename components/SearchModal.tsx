@@ -45,6 +45,7 @@ interface SearchResult {
   link: string;
   externalLink?: boolean;
   originalData?: Video;
+  originalArticle?: Article;
 }
 
 // Popular searches for empty state
@@ -85,6 +86,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
         imageUrl: item.imageUrl,
         meta: { category: item.category },
         link: `/article/${encodeURIComponent(item.id)}`,
+        // Store full article data for direct navigation
+        originalArticle: item,
       });
     });
 
@@ -248,6 +251,14 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     if (result.type === 'video' && result.originalData) {
       setPlayingVideo(result.originalData);
       onClose(); // Close modal when video plays
+    } else if (result.type === 'article' && result.originalArticle) {
+      // Store article data in sessionStorage for the article page to use
+      try {
+        sessionStorage.setItem('pendingArticle', JSON.stringify(result.originalArticle));
+      } catch (e) {
+        console.error('Failed to store article in sessionStorage:', e);
+      }
+      onClose();
     } else if (!result.externalLink) {
       onClose();
     }

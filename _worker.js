@@ -2849,6 +2849,506 @@ export default {
       }
     }
 
+    // ═══════════════════════════════════════════════════════════════════
+    // AI DIET PLAN GENERATION - Powered by Groq (Llama 3)
+    // ═══════════════════════════════════════════════════════════════════
+    
+    // Calculate BMR, TDEE, and macro targets
+    if (path === '/api/nutrition/calculate-targets' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const { weight, height, age, gender, activityLevel, primaryGoal, targetWeight } = body;
+        
+        // Validate required fields
+        if (!weight || !height || !age || !gender || !activityLevel || !primaryGoal) {
+          return new Response(JSON.stringify({
+            error: 'Missing required fields',
+            required: ['weight', 'height', 'age', 'gender', 'activityLevel', 'primaryGoal']
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        // Validate ranges
+        if (weight < 20 || weight > 300) {
+          return new Response(JSON.stringify({ error: 'Weight must be between 20-300 kg' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        if (height < 100 || height > 250) {
+          return new Response(JSON.stringify({ error: 'Height must be between 100-250 cm' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        if (age < 13 || age > 100) {
+          return new Response(JSON.stringify({ error: 'Age must be between 13-100 years' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        // Calculate BMR using Mifflin-St Jeor equation (most accurate)
+        let bmr;
+        if (gender === 'male') {
+          bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+        } else {
+          bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+        }
+        
+        // Activity multipliers
+        const activityMultipliers = {
+          sedentary: 1.2,      // Little or no exercise
+          light: 1.375,        // Light exercise 1-3 days/week
+          moderate: 1.55,      // Moderate exercise 3-5 days/week
+          active: 1.725,       // Hard exercise 6-7 days/week
+          very_active: 1.9     // Very hard exercise, physical job
+        };
+        
+        const multiplier = activityMultipliers[activityLevel] || 1.55;
+        const tdee = Math.round(bmr * multiplier);
+        
+        // Goal-based calorie adjustment
+        let dailyCalorieTarget;
+        let weeklyWeightChange; // in kg
+        switch (primaryGoal) {
+          case 'weight_loss':
+            dailyCalorieTarget = tdee - 500; // 0.5 kg/week loss
+            weeklyWeightChange = -0.5;
+            break;
+          case 'aggressive_weight_loss':
+            dailyCalorieTarget = tdee - 750; // 0.75 kg/week loss
+            weeklyWeightChange = -0.75;
+            break;
+          case 'muscle_gain':
+            dailyCalorieTarget = tdee + 300; // Lean bulk
+            weeklyWeightChange = 0.25;
+            break;
+          case 'bulk':
+            dailyCalorieTarget = tdee + 500; // Standard bulk
+            weeklyWeightChange = 0.5;
+            break;
+          case 'maintenance':
+          case 'health':
+          default:
+            dailyCalorieTarget = tdee;
+            weeklyWeightChange = 0;
+        }
+        
+        // Ensure minimum calories (safety)
+        const minCalories = gender === 'male' ? 1500 : 1200;
+        dailyCalorieTarget = Math.max(dailyCalorieTarget, minCalories);
+        
+        // Calculate macros based on goal
+        let proteinPercent, carbPercent, fatPercent;
+        switch (primaryGoal) {
+          case 'weight_loss':
+          case 'aggressive_weight_loss':
+            proteinPercent = 0.30; // Higher protein for satiety
+            carbPercent = 0.35;
+            fatPercent = 0.35;
+            break;
+          case 'muscle_gain':
+          case 'bulk':
+            proteinPercent = 0.25;
+            carbPercent = 0.50; // Higher carbs for energy
+            fatPercent = 0.25;
+            break;
+          case 'maintenance':
+          case 'health':
+          default:
+            proteinPercent = 0.25;
+            carbPercent = 0.45;
+            fatPercent = 0.30;
+        }
+        
+        // Calculate macro grams
+        const proteinGrams = Math.round((dailyCalorieTarget * proteinPercent) / 4);
+        const carbGrams = Math.round((dailyCalorieTarget * carbPercent) / 4);
+        const fatGrams = Math.round((dailyCalorieTarget * fatPercent) / 9);
+        
+        // Calculate weeks to goal if target weight is set
+        let weeksToGoal = null;
+        if (targetWeight && weeklyWeightChange !== 0) {
+          const weightDiff = targetWeight - weight;
+          if ((weightDiff < 0 && weeklyWeightChange < 0) || (weightDiff > 0 && weeklyWeightChange > 0)) {
+            weeksToGoal = Math.ceil(Math.abs(weightDiff / weeklyWeightChange));
+          }
+        }
+        
+        // BMI calculation
+        const heightInMeters = height / 100;
+        const bmi = Math.round((weight / (heightInMeters * heightInMeters)) * 10) / 10;
+        let bmiCategory;
+        if (bmi < 18.5) bmiCategory = 'Underweight';
+        else if (bmi < 25) bmiCategory = 'Normal';
+        else if (bmi < 30) bmiCategory = 'Overweight';
+        else bmiCategory = 'Obese';
+        
+        // Ideal weight range (BMI 18.5-24.9)
+        const idealWeightMin = Math.round(18.5 * heightInMeters * heightInMeters);
+        const idealWeightMax = Math.round(24.9 * heightInMeters * heightInMeters);
+        
+        const result = {
+          bmr: Math.round(bmr),
+          tdee,
+          dailyCalorieTarget,
+          macroTargets: {
+            protein: proteinGrams,
+            carbs: carbGrams,
+            fats: fatGrams
+          },
+          macroPercentages: {
+            protein: Math.round(proteinPercent * 100),
+            carbs: Math.round(carbPercent * 100),
+            fats: Math.round(fatPercent * 100)
+          },
+          weeklyWeightChange,
+          weeksToGoal,
+          bmi,
+          bmiCategory,
+          idealWeightRange: { min: idealWeightMin, max: idealWeightMax },
+          hydrationGoal: Math.round(weight * 35), // 35ml per kg body weight
+          calculatedAt: new Date().toISOString()
+        };
+        
+        return new Response(JSON.stringify(result), {
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+        
+      } catch (error) {
+        console.error('Calculate targets error:', error);
+        return new Response(JSON.stringify({ error: 'Failed to calculate nutrition targets' }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+    
+    // AI Diet Plan Generation using Groq
+    if (path === '/api/nutrition/generate-diet-plan' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const { userProfile, duration = 'week' } = body;
+        
+        // Validate user profile
+        if (!userProfile) {
+          return new Response(JSON.stringify({ error: 'User profile is required' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        const { 
+          weight, height, age, gender, activityLevel, primaryGoal,
+          dietaryRestrictions = [], allergies = [], cuisinePreferences = [],
+          mealsPerDay = 4, cookingTime = 'moderate', dailyCalorieTarget, macroTargets
+        } = userProfile;
+        
+        // Validate essential fields
+        if (!dailyCalorieTarget || !macroTargets) {
+          return new Response(JSON.stringify({ 
+            error: 'Please calculate your nutrition targets first',
+            missingFields: ['dailyCalorieTarget', 'macroTargets']
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        // Check for cached diet plan
+        const profileHash = JSON.stringify({
+          weight, height, age, gender, activityLevel, primaryGoal,
+          dietaryRestrictions, allergies, cuisinePreferences, mealsPerDay,
+          dailyCalorieTarget, macroTargets
+        });
+        const cacheKey = `diet_plan:${btoa(profileHash).substring(0, 50)}`;
+        
+        const cachedPlan = await env.NUTRITION_CACHE?.get(cacheKey);
+        if (cachedPlan) {
+          const parsed = JSON.parse(cachedPlan);
+          // Return cached plan if less than 24 hours old
+          if (parsed.generatedAt && (Date.now() - new Date(parsed.generatedAt).getTime()) < 24 * 60 * 60 * 1000) {
+            return new Response(JSON.stringify({ ...parsed, fromCache: true }), {
+              headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            });
+          }
+        }
+        
+        // Get Groq API key
+        const groqApiKey = env.GROQ_API_KEY;
+        if (!groqApiKey) {
+          return new Response(JSON.stringify({ error: 'AI service not configured' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        // Build the prompt
+        const systemPrompt = `You are an expert nutritionist and registered dietitian with 20+ years of experience creating personalized diet plans. You specialize in Indian cuisine and can adapt any diet to regional food preferences.
+
+CRITICAL RULES:
+1. ALWAYS respect dietary restrictions and allergies - NEVER include restricted foods
+2. Create practical, realistic meals with locally available ingredients
+3. Include exact portion sizes in grams/ml
+4. Calculate accurate calories and macros for each meal
+5. Ensure daily totals match the target within ±5%
+6. Consider cooking time preferences
+7. Provide variety across the week
+8. Include 1-2 snacks based on mealsPerDay setting
+
+OUTPUT FORMAT: Return ONLY valid JSON matching this exact schema:
+{
+  "weeklyPlan": [
+    {
+      "day": "Monday",
+      "meals": [
+        {
+          "type": "breakfast|morning_snack|lunch|evening_snack|dinner",
+          "time": "8:00 AM",
+          "name": "Meal name",
+          "description": "Brief description",
+          "ingredients": [
+            { "name": "Ingredient", "quantity": 100, "unit": "g", "calories": 150 }
+          ],
+          "totalCalories": 400,
+          "macros": { "protein": 20, "carbs": 45, "fats": 12 },
+          "prepTime": 15,
+          "instructions": "Brief cooking instructions",
+          "alternatives": ["Quick swap option 1", "Quick swap option 2"]
+        }
+      ],
+      "dailyTotals": { "calories": 1800, "protein": 120, "carbs": 180, "fats": 60 }
+    }
+  ],
+  "shoppingList": [
+    { "name": "Item", "quantity": "500g", "category": "produce|dairy|protein|grains|spices|other" }
+  ],
+  "mealPrepTips": ["Tip 1", "Tip 2", "Tip 3"],
+  "weeklyNotes": "General notes about this plan"
+}`;
+
+        const userPrompt = `Create a personalized ${duration === 'day' ? 'daily' : 'weekly'} meal plan with these specifications:
+
+USER PROFILE:
+- Age: ${age} years, Gender: ${gender}
+- Weight: ${weight} kg, Height: ${height} cm
+- Activity Level: ${activityLevel}
+- Goal: ${primaryGoal.replace(/_/g, ' ')}
+
+NUTRITION TARGETS (per day):
+- Calories: ${dailyCalorieTarget} kcal
+- Protein: ${macroTargets.protein}g (${Math.round(macroTargets.protein * 4 / dailyCalorieTarget * 100)}%)
+- Carbs: ${macroTargets.carbs}g (${Math.round(macroTargets.carbs * 4 / dailyCalorieTarget * 100)}%)
+- Fats: ${macroTargets.fats}g (${Math.round(macroTargets.fats * 9 / dailyCalorieTarget * 100)}%)
+
+DIETARY RESTRICTIONS: ${dietaryRestrictions.length > 0 ? dietaryRestrictions.join(', ') : 'None'}
+ALLERGIES: ${allergies.length > 0 ? allergies.join(', ') : 'None'}
+CUISINE PREFERENCES: ${cuisinePreferences.length > 0 ? cuisinePreferences.join(', ') : 'Indian, International mix'}
+MEALS PER DAY: ${mealsPerDay}
+COOKING TIME: ${cookingTime} (${cookingTime === 'minimal' ? '<15 min' : cookingTime === 'moderate' ? '15-30 min' : 'flexible'})
+
+Generate a complete, practical ${duration === 'day' ? '1-day' : '7-day'} meal plan following the exact JSON schema.`;
+
+        // Call Groq API
+        const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${groqApiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            temperature: 0.7,
+            max_tokens: 8000,
+            response_format: { type: 'json_object' }
+          })
+        });
+        
+        if (!groqResponse.ok) {
+          const errorText = await groqResponse.text();
+          console.error('Groq API error:', groqResponse.status, errorText);
+          
+          if (groqResponse.status === 429) {
+            return new Response(JSON.stringify({ 
+              error: 'AI service is busy. Please try again in a moment.',
+              retryAfter: 30
+            }), {
+              status: 429,
+              headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            });
+          }
+          
+          return new Response(JSON.stringify({ 
+            error: 'Failed to generate diet plan',
+            details: errorText,
+            status: groqResponse.status
+          }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        const groqData = await groqResponse.json();
+        const aiContent = groqData.choices?.[0]?.message?.content;
+        
+        if (!aiContent) {
+          return new Response(JSON.stringify({ error: 'AI returned empty response' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        // Parse AI response
+        let dietPlan;
+        try {
+          dietPlan = JSON.parse(aiContent);
+        } catch (parseError) {
+          console.error('Failed to parse AI response:', aiContent);
+          return new Response(JSON.stringify({ error: 'AI response was not valid JSON' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        // Enhance the response with metadata
+        const enhancedPlan = {
+          ...dietPlan,
+          id: crypto.randomUUID(),
+          generatedAt: new Date().toISOString(),
+          validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          userTargets: {
+            dailyCalories: dailyCalorieTarget,
+            macros: macroTargets
+          },
+          duration,
+          aiModel: 'llama-3.3-70b-versatile'
+        };
+        
+        // Cache the plan
+        await env.NUTRITION_CACHE?.put(cacheKey, JSON.stringify(enhancedPlan), {
+          expirationTtl: 24 * 60 * 60 // 24 hours
+        });
+        
+        return new Response(JSON.stringify(enhancedPlan), {
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+        
+      } catch (error) {
+        console.error('Diet plan generation error:', error);
+        return new Response(JSON.stringify({ 
+          error: 'Failed to generate diet plan',
+          message: error.message || 'Unknown error'
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+    
+    // Regenerate a specific meal
+    if (path === '/api/nutrition/regenerate-meal' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const { userProfile, dayIndex, mealType, currentMeal } = body;
+        
+        if (!userProfile || dayIndex === undefined || !mealType) {
+          return new Response(JSON.stringify({ error: 'Missing required fields' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        const { dailyCalorieTarget, macroTargets, dietaryRestrictions = [], allergies = [], cuisinePreferences = [] } = userProfile;
+        
+        const groqApiKey = env.GROQ_API_KEY;
+        if (!groqApiKey) {
+          return new Response(JSON.stringify({ error: 'AI service not configured' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        // Calculate target calories for this meal type
+        let targetCalories;
+        switch (mealType) {
+          case 'breakfast': targetCalories = Math.round(dailyCalorieTarget * 0.25); break;
+          case 'lunch': targetCalories = Math.round(dailyCalorieTarget * 0.30); break;
+          case 'dinner': targetCalories = Math.round(dailyCalorieTarget * 0.30); break;
+          case 'morning_snack':
+          case 'evening_snack':
+            targetCalories = Math.round(dailyCalorieTarget * 0.075); break;
+          default: targetCalories = Math.round(dailyCalorieTarget * 0.25);
+        }
+        
+        const prompt = `Generate a single ${mealType.replace('_', ' ')} meal (different from: ${currentMeal?.name || 'nothing'}).
+
+TARGET: ~${targetCalories} calories
+RESTRICTIONS: ${dietaryRestrictions.join(', ') || 'None'}
+ALLERGIES: ${allergies.join(', ') || 'None'}
+CUISINE: ${cuisinePreferences.join(', ') || 'Indian/International'}
+
+Return JSON:
+{
+  "type": "${mealType}",
+  "time": "appropriate time",
+  "name": "Meal name",
+  "description": "Brief description",
+  "ingredients": [{ "name": "Item", "quantity": 100, "unit": "g", "calories": 150 }],
+  "totalCalories": ${targetCalories},
+  "macros": { "protein": X, "carbs": Y, "fats": Z },
+  "prepTime": 15,
+  "instructions": "Brief instructions",
+  "alternatives": ["Option 1", "Option 2"]
+}`;
+
+        const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${groqApiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+              { role: 'system', content: 'You are a nutritionist. Return ONLY valid JSON.' },
+              { role: 'user', content: prompt }
+            ],
+            temperature: 0.8,
+            max_tokens: 1000,
+            response_format: { type: 'json_object' }
+          })
+        });
+        
+        if (!groqResponse.ok) {
+          return new Response(JSON.stringify({ error: 'Failed to regenerate meal' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
+        
+        const groqData = await groqResponse.json();
+        const newMeal = JSON.parse(groqData.choices?.[0]?.message?.content || '{}');
+        
+        return new Response(JSON.stringify({ meal: newMeal, dayIndex, mealType }), {
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+        
+      } catch (error) {
+        console.error('Meal regeneration error:', error);
+        return new Response(JSON.stringify({ error: 'Failed to regenerate meal' }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
+      }
+    }
+
     // Return 404 for undefined routes
     return new Response(JSON.stringify({ error: 'not_found' }), {
       status: 404,

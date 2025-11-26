@@ -8,14 +8,9 @@ interface ProfileSetupProps { onComplete: () => void; }
 const ProfileSetup: React.FC<ProfileSetupProps> = ({ onComplete }) => {
   const { profile, updateProfile } = useUserProfile();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<{
-    primaryGoal: '' | 'weight_loss' | 'muscle_gain' | 'maintenance' | 'health';
-    activityLevel: '' | 'sedentary' | 'light' | 'moderate' | 'active';
-    dietaryRestrictions: string[];
-    preferredMealTypes: string[];
-  }>({
-    primaryGoal: profile.primaryGoal || '',
-    activityLevel: profile.activityLevel || '',
+  const [formData, setFormData] = useState({
+    primaryGoal: (profile.primaryGoal as string) || '',
+    activityLevel: (profile.activityLevel as string) || '',
     dietaryRestrictions: profile.dietaryRestrictions || [],
     preferredMealTypes: profile.preferredMealTypes || [],
   });
@@ -58,7 +53,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({ onComplete }) => {
 
   const handleNext = () => {
     if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
-    else { updateProfile({ ...formData, isSetup: true }); onComplete(); }
+    else { updateProfile({ ...formData, isSetup: true } as any); onComplete(); }
   };
 
   const canProceed = () => {

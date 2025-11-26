@@ -159,3 +159,140 @@ export interface EbayProductDetail {
 
 // API Resource Types
 export type ApiResourceKey = 'articles' | 'products' | 'tutorials' | 'nutrition' | 'videos';
+
+// ═══════════════════════════════════════════════════════════════════
+// AI DIET PLAN TYPES
+// ═══════════════════════════════════════════════════════════════════
+
+export interface EnhancedUserProfile {
+  // Basic info
+  isSetup: boolean;
+  primaryGoal: 'weight_loss' | 'aggressive_weight_loss' | 'muscle_gain' | 'bulk' | 'maintenance' | 'health' | '';
+  activityLevel: 'sedentary' | 'light' | 'moderate' | 'active' | 'very_active' | '';
+  dietaryRestrictions: string[];
+  preferredMealTypes: string[];
+  
+  // Physical metrics
+  weight?: number;           // kg
+  height?: number;           // cm
+  age?: number;
+  gender?: 'male' | 'female' | 'other';
+  targetWeight?: number;     // optional goal weight
+  
+  // Health & Preferences
+  healthConditions: string[];
+  allergies: string[];
+  cuisinePreferences: string[];
+  mealsPerDay: 3 | 4 | 5 | 6;
+  cookingTime: 'minimal' | 'moderate' | 'flexible';
+  budget: 'budget' | 'moderate' | 'premium';
+  
+  // Calculated values (filled by API)
+  bmr?: number;
+  tdee?: number;
+  dailyCalorieTarget?: number;
+  macroTargets?: {
+    protein: number;
+    carbs: number;
+    fats: number;
+  };
+  macroPercentages?: {
+    protein: number;
+    carbs: number;
+    fats: number;
+  };
+  bmi?: number;
+  bmiCategory?: string;
+  idealWeightRange?: { min: number; max: number };
+  weeklyWeightChange?: number;
+  weeksToGoal?: number | null;
+  hydrationGoal?: number;
+  
+  setupDate?: string;
+  calculatedAt?: string;
+}
+
+export interface MealIngredient {
+  name: string;
+  quantity: number;
+  unit: string;
+  calories: number;
+}
+
+export interface Meal {
+  type: 'breakfast' | 'morning_snack' | 'lunch' | 'evening_snack' | 'dinner';
+  time: string;
+  name: string;
+  description: string;
+  ingredients: MealIngredient[];
+  totalCalories: number;
+  macros: {
+    protein: number;
+    carbs: number;
+    fats: number;
+  };
+  prepTime: number;
+  instructions?: string;
+  alternatives: string[];
+}
+
+export interface DayPlan {
+  day: string;
+  meals: Meal[];
+  dailyTotals: {
+    calories: number;
+    protein: number;
+    carbs: number;
+    fats: number;
+  };
+}
+
+export interface ShoppingItem {
+  name: string;
+  quantity: string;
+  category: 'produce' | 'dairy' | 'protein' | 'grains' | 'spices' | 'other';
+}
+
+export interface DietPlan {
+  id: string;
+  weeklyPlan: DayPlan[];
+  shoppingList: ShoppingItem[];
+  mealPrepTips: string[];
+  weeklyNotes?: string;
+  generatedAt: string;
+  validUntil: string;
+  userTargets: {
+    dailyCalories: number;
+    macros: {
+      protein: number;
+      carbs: number;
+      fats: number;
+    };
+  };
+  duration: 'day' | 'week';
+  aiModel: string;
+  fromCache?: boolean;
+}
+
+export interface NutritionTargets {
+  bmr: number;
+  tdee: number;
+  dailyCalorieTarget: number;
+  macroTargets: {
+    protein: number;
+    carbs: number;
+    fats: number;
+  };
+  macroPercentages: {
+    protein: number;
+    carbs: number;
+    fats: number;
+  };
+  weeklyWeightChange: number;
+  weeksToGoal: number | null;
+  bmi: number;
+  bmiCategory: string;
+  idealWeightRange: { min: number; max: number };
+  hydrationGoal: number;
+  calculatedAt: string;
+}

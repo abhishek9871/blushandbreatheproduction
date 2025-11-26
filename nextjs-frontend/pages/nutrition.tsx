@@ -6,14 +6,13 @@ import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { getNutritionData, searchUSDAFoods, getNutrientInfo } from '@/services/apiService';
 import {
   NutritionCard, NutritionHero, NutritionSearch, NutrientEducation,
-  DailyGoals, MealPlanner, ProgressDashboard, FoodComparison,
   PersonalizedRecommendations, CartStatusBadge, MiniCart,
   LoadingSpinner, ErrorMessage, ToastProvider
 } from '@/components';
-import { ComparisonProvider, NutritionCartProvider, UserProfileProvider } from '@/hooks';
+import { NutritionCartProvider, UserProfileProvider } from '@/hooks';
 import type { NutritionInfo, TipCard } from '@/types';
 
-type TabType = 'foods' | 'goals' | 'meals' | 'progress' | 'compare' | 'recommendations';
+type TabType = 'foods' | 'recommendations';
 
 interface NutritionPageProps {
   initialNutritionData: (NutritionInfo | TipCard)[];
@@ -98,7 +97,7 @@ export const getStaticProps: GetStaticProps<NutritionPageProps> = async () => {
 
 function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
   const [nutritionData] = useState(initialNutritionData);
-  const [activeTab, setActiveTab] = useState<TabType>('foods');
+  const [activeTab, setActiveTab] = useState<TabType>('recommendations');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<NutritionInfo[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -214,12 +213,8 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
   }, [nutritionData, searchResults]);
 
   const tabs = [
-    { id: 'foods' as TabType, label: 'Foods & Tips', icon: 'restaurant' },
-    { id: 'recommendations' as TabType, label: 'For You', icon: 'auto_awesome' },
-    { id: 'compare' as TabType, label: 'Compare', icon: 'compare_arrows' },
-    { id: 'goals' as TabType, label: 'Daily Goals', icon: 'flag' },
-    { id: 'meals' as TabType, label: 'Meal Planner', icon: 'lunch_dining' },
-    { id: 'progress' as TabType, label: 'Progress', icon: 'trending_up' }
+    { id: 'recommendations' as TabType, label: 'AI Diet Planner', icon: 'auto_awesome' },
+    { id: 'foods' as TabType, label: 'Foods & Tips', icon: 'restaurant' }
   ];
 
   return (
@@ -283,13 +278,9 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
           </div>
         )}
         {activeTab === 'recommendations' && <PersonalizedRecommendations availableFoods={foodItems} />}
-        {activeTab === 'compare' && <FoodComparison availableFoods={foodItems} />}
-        {activeTab === 'goals' && <DailyGoals />}
-        {activeTab === 'meals' && <MealPlanner />}
-        {activeTab === 'progress' && <ProgressDashboard />}
       </div>
 
-      <MiniCart isOpen={isMiniCartOpen} onClose={() => setIsMiniCartOpen(false)} onNavigateToGoals={() => setActiveTab('goals')} onNavigateToMeals={() => setActiveTab('meals')} />
+      <MiniCart isOpen={isMiniCartOpen} onClose={() => setIsMiniCartOpen(false)} />
     </main>
   );
 }
@@ -302,13 +293,11 @@ export default function NutritionPage({ initialNutritionData }: InferGetStaticPr
         <meta name="description" content="Explore nutrition data, plan meals, and track your daily nutrition goals with our comprehensive food database." />
       </Head>
       <UserProfileProvider>
-        <ComparisonProvider>
-          <NutritionCartProvider>
-            <ToastProvider>
-              <NutritionPageContent initialNutritionData={initialNutritionData} />
-            </ToastProvider>
-          </NutritionCartProvider>
-        </ComparisonProvider>
+        <NutritionCartProvider>
+          <ToastProvider>
+            <NutritionPageContent initialNutritionData={initialNutritionData} />
+          </ToastProvider>
+        </NutritionCartProvider>
       </UserProfileProvider>
     </>
   );

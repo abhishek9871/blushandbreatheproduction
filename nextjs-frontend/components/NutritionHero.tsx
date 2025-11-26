@@ -37,12 +37,12 @@ const NutritionHero: React.FC = () => {
                 <span className="text-sm font-medium text-text-light dark:text-text-dark">USDA Nutrition Data</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-[#1C2C1F]/50 rounded-lg border border-border-light dark:border-border-dark">
-                <span className="material-symbols-outlined text-secondary text-lg">flag</span>
-                <span className="text-sm font-medium text-text-light dark:text-text-dark">Daily Goals</span>
+                <span className="material-symbols-outlined text-secondary text-lg">auto_awesome</span>
+                <span className="text-sm font-medium text-text-light dark:text-text-dark">AI Diet Plans</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-[#1C2C1F]/50 rounded-lg border border-border-light dark:border-border-dark">
-                <span className="material-symbols-outlined text-accent text-lg">lunch_dining</span>
-                <span className="text-sm font-medium text-text-light dark:text-text-dark">Meal Planning</span>
+                <span className="material-symbols-outlined text-accent text-lg">person</span>
+                <span className="text-sm font-medium text-text-light dark:text-text-dark">Personalized</span>
               </div>
             </div>
           </div>

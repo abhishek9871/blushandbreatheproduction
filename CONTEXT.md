@@ -86,16 +86,19 @@ npx wrangler deploy --config wrangler.backend.toml --env ""
 curl -X POST "https://jyotilalchandani-backend.sparshrajput088.workers.dev/api/admin/refresh-news" \
   -H "Authorization: Bearer admin123"
 
-# Frontend (from nextjs-frontend/) - INCLUDE ALL ENV VARS!
-npm run build && npx vercel --prod -e YOUTUBE_API_KEY=AIzaSyAhO7HnkzSlfCcNq92ztaRFn492RA6YdSA
+# Frontend (from nextjs-frontend/)
+npm run build && npx vercel --prod
 ```
 
-### ⚠️ CRITICAL: Vercel Environment Variables
-When deploying to Vercel, you **MUST** include environment variables in the deploy command:
+### ✅ Vercel Environment Variables (Already Configured)
+The following environment variables are **permanently set** in Vercel project settings:
+- `YOUTUBE_API_KEY` - For Videos page YouTube API integration
+- `GEMINI_API_KEY` - For AI Diet Plan generation
+
+**No need to pass `-e` flags during deployment.** If you need to update them, use:
 ```bash
-npx vercel --prod -e YOUTUBE_API_KEY=<key> -e GEMINI_API_KEY=<key>
+npx vercel env add <VAR_NAME> production
 ```
-**If you forget `-e YOUTUBE_API_KEY=...`**, the Videos page will return 500 errors with `"YouTube API key not configured"`.
 
 ### AI Diet Plan Architecture
 ```
@@ -121,7 +124,7 @@ WeeklyPlanView.tsx displays the plan with dark mode support
 ### 1. Videos Page - YouTube API Integration (Nov 26, 2025)
 - **Feature**: Real YouTube videos with Shorts + Full Videos sections, search, infinite scroll
 - **API Route**: `nextjs-frontend/pages/api/youtube/videos.ts` (server-side YouTube API calls)
-- **API Key**: `YOUTUBE_API_KEY` - **MUST be passed in deploy command** (see Deployment Commands)
+- **API Key**: `YOUTUBE_API_KEY` - Permanently set in Vercel environment variables
 - **Key Files**:
   - `nextjs-frontend/pages/videos.tsx` - Main page with mobile/desktop responsive design
   - `nextjs-frontend/components/VideoCard.tsx` - Video card with view counts, channel info
@@ -144,7 +147,23 @@ WeeklyPlanView.tsx displays the plan with dark mode support
 - **API Key**: `GEMINI_API_KEY` set in Vercel environment variables
 - **Model**: `gemini-2.0-flash` with `temperature: 0.3`, `maxOutputTokens: 8192`
 
-### 2. Dark Mode Fix for Diet Plan (Nov 26, 2025)
+### 3. Nutrition Page Mobile Optimization (Nov 26, 2025)
+- **Feature**: Full mobile optimization for the Nutrition page and AI Diet Generator
+- **Fixes**:
+  - Step indicator: Smaller circles (`w-8 h-8`) and tighter margins on mobile
+  - Footer buttons: Shorter text ("Calculate" vs "Calculate My Targets") on mobile
+  - Search notification banner: Stacked layout, full-width button on mobile
+  - NutritionTargetsDisplay: Responsive macro circles, stacked action buttons
+  - Final Preferences: Fixed button overflow (Cooking Time "Moderate" button)
+  - Hero badges: Compact text ("USDA Data", "AI Plans") on mobile
+- **Key Files**:
+  - `nextjs-frontend/components/DietChart/EnhancedProfileSetup.tsx`
+  - `nextjs-frontend/components/DietChart/DietChartGenerator.tsx`
+  - `nextjs-frontend/components/DietChart/NutritionTargetsDisplay.tsx`
+  - `nextjs-frontend/components/NutritionHero.tsx`
+  - `nextjs-frontend/pages/nutrition.tsx`
+
+### 4. Dark Mode Fix for Diet Plan (Nov 26, 2025)
 - **Problem**: Text invisible on dark backgrounds (labels, buttons, headings)
 - **Fix**: Added `text-text-light dark:text-text-dark` to all text elements
 - **Files**:
@@ -152,7 +171,7 @@ WeeklyPlanView.tsx displays the plan with dark mode support
   - `nextjs-frontend/components/DietChart/WeeklyPlanView.tsx`
   - `nextjs-frontend/styles/globals.css` - Added `card-dark` color variable
 
-### 3. Health Store Pagination (Nov 26, 2025)
+### 5. Health Store Pagination (Nov 26, 2025)
 - **Problem**: "Last Page" button caused "No products found" + pagination disappeared
 - **Fix**: 
   - Show pagination when `total > 0` OR `page > 1` (allows navigating back from empty pages)
@@ -238,4 +257,4 @@ Full article HTML replaces loading state
 3. Check `nextjs-frontend/pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 26, 2025 (Added Videos page with YouTube API + mobile optimizations)*
+*Last updated: November 26, 2025 (Added Nutrition page mobile optimizations + permanent Vercel env vars)*

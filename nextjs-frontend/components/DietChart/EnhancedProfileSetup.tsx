@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useUserProfile } from '@/hooks/useUserProfile';
 
 interface EnhancedProfileSetupProps {
@@ -12,6 +12,14 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
   const { profile, updateProfile } = useUserProfile();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
+  const formRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top of form when navigating between steps
+  const scrollToTop = () => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const [formData, setFormData] = useState({
     // Physical metrics
@@ -125,6 +133,8 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
   const handleNext = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
+      // Scroll to top after state update
+      setTimeout(scrollToTop, 100);
     } else {
       // Prepare profile data
       const profileData = {
@@ -145,6 +155,8 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
   const handlePrevious = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+      // Scroll to top after state update
+      setTimeout(scrollToTop, 100);
     }
   };
 
@@ -480,7 +492,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
   };
 
   return (
-    <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-border-light dark:border-border-dark">
+    <div ref={formRef} className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-border-light dark:border-border-dark scroll-mt-4">
       {/* Progress */}
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import EnhancedProfileSetup from './EnhancedProfileSetup';
 import NutritionTargetsDisplay from './NutritionTargetsDisplay';
@@ -23,6 +23,14 @@ const DietChartGenerator: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<DietChartStep>('profile');
   const [isCalculating, setIsCalculating] = useState(false);
   const [activeTab, setActiveTab] = useState<'plan' | 'shopping'>('plan');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top of component when navigating between major steps
+  const scrollToTop = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   // Determine initial step based on profile state
   useEffect(() => {
@@ -42,6 +50,7 @@ const DietChartGenerator: React.FC = () => {
       const targets = await calculateNutritionTargets(formData);
       if (targets) {
         setCurrentStep('targets');
+        setTimeout(scrollToTop, 100);
       }
     } finally {
       setIsCalculating(false);
@@ -52,6 +61,7 @@ const DietChartGenerator: React.FC = () => {
     const plan = await generateDietPlan('week');
     if (plan) {
       setCurrentStep('plan');
+      setTimeout(scrollToTop, 100);
     }
   };
 
@@ -61,10 +71,12 @@ const DietChartGenerator: React.FC = () => {
 
   const handleBackToProfile = () => {
     setCurrentStep('profile');
+    setTimeout(scrollToTop, 100);
   };
 
   const handleBackToTargets = () => {
     setCurrentStep('targets');
+    setTimeout(scrollToTop, 100);
   };
 
   // Step indicator
@@ -77,7 +89,7 @@ const DietChartGenerator: React.FC = () => {
   const currentStepIndex = steps.findIndex(s => s.id === currentStep);
 
   return (
-    <div className="space-y-6">
+    <div ref={containerRef} className="space-y-6 scroll-mt-4">
       {/* Step Indicator */}
       <div className="bg-white dark:bg-card-dark rounded-xl p-3 sm:p-4 shadow-sm border border-border-light dark:border-border-dark">
         <div className="flex items-center justify-between">
@@ -92,6 +104,7 @@ const DietChartGenerator: React.FC = () => {
                 onClick={() => {
                   if (index < currentStepIndex) {
                     setCurrentStep(step.id as DietChartStep);
+                    setTimeout(scrollToTop, 100);
                   }
                 }}
               >

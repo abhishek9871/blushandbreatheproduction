@@ -106,21 +106,21 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
       </div>
 
       {/* Day Selector */}
-      <div className="bg-white dark:bg-card-dark rounded-xl p-2 shadow-sm border border-border-light dark:border-border-dark overflow-x-auto">
-        <div className="flex space-x-1 min-w-max">
+      <div className="bg-white dark:bg-card-dark rounded-xl p-2 shadow-sm border border-border-light dark:border-border-dark">
+        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-1 sm:gap-2 -mx-1 px-1 pb-1">
           {dietPlan.weeklyPlan.map((day, index) => (
             <button
               key={day.day}
               onClick={() => setSelectedDay(index)}
-              className={`flex-1 min-w-[100px] py-3 px-4 rounded-lg transition-all ${
+              className={`flex-shrink-0 snap-start min-w-[70px] sm:min-w-[90px] flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all ${
                 selectedDay === index
                   ? 'bg-accent text-white shadow-lg'
-                  : 'hover:bg-accent/10 text-text-light dark:text-text-dark'
+                  : 'hover:bg-accent/10 text-text-light dark:text-text-dark bg-gray-50 dark:bg-gray-800/50'
               }`}
             >
-              <div className={`font-medium ${selectedDay === index ? '' : 'text-text-light dark:text-text-dark'}`}>{day.day.substring(0, 3)}</div>
-              <div className={`text-xs ${selectedDay === index ? 'opacity-80' : 'text-text-subtle-light dark:text-text-subtle-dark'}`}>
-                {day.dailyTotals.calories} kcal
+              <div className={`font-medium text-sm sm:text-base ${selectedDay === index ? '' : 'text-text-light dark:text-text-dark'}`}>{day.day.substring(0, 3)}</div>
+              <div className={`text-[10px] sm:text-xs ${selectedDay === index ? 'opacity-80' : 'text-text-subtle-light dark:text-text-subtle-dark'}`}>
+                {day.dailyTotals.calories}
               </div>
             </button>
           ))}
@@ -152,9 +152,9 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
           </div>
 
           {/* Macro Progress */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <div>
-              <div className="flex justify-between text-sm mb-1">
+              <div className="flex justify-between text-xs sm:text-sm mb-1">
                 <span className="text-red-600 font-medium">Protein</span>
                 <span className="text-text-light dark:text-text-dark">{currentDay.dailyTotals.protein}g / {dietPlan.userTargets.macros.protein}g</span>
               </div>
@@ -166,7 +166,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
               </div>
             </div>
             <div>
-              <div className="flex justify-between text-sm mb-1">
+              <div className="flex justify-between text-xs sm:text-sm mb-1">
                 <span className="text-yellow-600 font-medium">Carbs</span>
                 <span className="text-text-light dark:text-text-dark">{currentDay.dailyTotals.carbs}g / {dietPlan.userTargets.macros.carbs}g</span>
               </div>
@@ -178,7 +178,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
               </div>
             </div>
             <div>
-              <div className="flex justify-between text-sm mb-1">
+              <div className="flex justify-between text-xs sm:text-sm mb-1">
                 <span className="text-blue-600 font-medium">Fats</span>
                 <span className="text-text-light dark:text-text-dark">{currentDay.dailyTotals.fats}g / {dietPlan.userTargets.macros.fats}g</span>
               </div>
@@ -208,10 +208,40 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
               >
                 {/* Meal Header */}
                 <div 
-                  className="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                  className="p-3 sm:p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50"
                   onClick={() => setExpandedMeal(isExpanded ? null : mealKey)}
                 >
-                  <div className="flex items-center justify-between">
+                  {/* Mobile Layout */}
+                  <div className="sm:hidden">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${getMealColor(meal.type)}`}>
+                          <span className="material-symbols-outlined text-xl">{getMealIcon(meal.type)}</span>
+                        </div>
+                        <div className="min-w-0">
+                          <h4 className="font-semibold text-text-light dark:text-text-dark text-sm truncate">{meal.name}</h4>
+                          <span className="text-xs text-text-subtle-light dark:text-text-subtle-dark">{meal.time}</span>
+                        </div>
+                      </div>
+                      <span className={`material-symbols-outlined transition-transform shrink-0 ${isExpanded ? 'rotate-180' : ''}`}>
+                        expand_more
+                      </span>
+                    </div>
+                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark line-clamp-1 mb-2 ml-13">
+                      {meal.description}
+                    </p>
+                    <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-lg px-3 py-2">
+                      <div className="font-bold text-accent text-sm">{meal.totalCalories} kcal</div>
+                      <div className="flex items-center gap-3 text-xs">
+                        <span className="text-red-600">P: {meal.macros.protein}g</span>
+                        <span className="text-yellow-600">C: {meal.macros.carbs}g</span>
+                        <span className="text-blue-600">F: {meal.macros.fats}g</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Desktop Layout */}
+                  <div className="hidden sm:flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center ${getMealColor(meal.type)}`}>
                         <span className="material-symbols-outlined">{getMealIcon(meal.type)}</span>
@@ -244,16 +274,16 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
 
                 {/* Expanded Content */}
                 {isExpanded && (
-                  <div className="border-t border-border-light dark:border-border-dark p-4 bg-gray-50 dark:bg-gray-800/30">
+                  <div className="border-t border-border-light dark:border-border-dark p-3 sm:p-4 bg-gray-50 dark:bg-gray-800/30">
                     {/* Ingredients */}
                     <div className="mb-4">
-                      <h5 className="font-medium mb-2 flex items-center space-x-1 text-text-light dark:text-text-dark">
+                      <h5 className="font-medium mb-2 flex items-center space-x-1 text-text-light dark:text-text-dark text-sm sm:text-base">
                         <span className="material-symbols-outlined text-sm">list</span>
                         <span>Ingredients</span>
                       </h5>
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                         {meal.ingredients.map((ing, i) => (
-                          <div key={i} className="bg-white dark:bg-card-dark px-3 py-2 rounded-lg text-sm">
+                          <div key={i} className="bg-white dark:bg-card-dark px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm">
                             <span className="font-medium text-text-light dark:text-text-dark">{ing.name}</span>
                             <span className="text-text-subtle-light dark:text-text-subtle-dark ml-1">
                               ({ing.quantity}{ing.unit})
@@ -266,25 +296,25 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
                     {/* Instructions */}
                     {meal.instructions && (
                       <div className="mb-4">
-                        <h5 className="font-medium mb-2 flex items-center space-x-1 text-text-light dark:text-text-dark">
+                        <h5 className="font-medium mb-2 flex items-center space-x-1 text-text-light dark:text-text-dark text-sm sm:text-base">
                           <span className="material-symbols-outlined text-sm">menu_book</span>
                           <span>Instructions</span>
                         </h5>
-                        <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark bg-white dark:bg-card-dark p-3 rounded-lg">
+                        <p className="text-xs sm:text-sm text-text-subtle-light dark:text-text-subtle-dark bg-white dark:bg-card-dark p-2 sm:p-3 rounded-lg">
                           {meal.instructions}
                         </p>
                       </div>
                     )}
 
                     {/* Prep Time & Alternatives */}
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex items-center space-x-4 text-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                      <div className="flex items-center space-x-3 sm:space-x-4 text-xs sm:text-sm">
                         <span className="flex items-center space-x-1 text-text-subtle-light dark:text-text-subtle-dark">
                           <span className="material-symbols-outlined text-sm">schedule</span>
                           <span>{meal.prepTime} min</span>
                         </span>
                         {meal.alternatives.length > 0 && (
-                          <span className="text-text-subtle-light dark:text-text-subtle-dark">
+                          <span className="text-text-subtle-light dark:text-text-subtle-dark truncate">
                             Alt: {meal.alternatives.slice(0, 2).join(', ')}
                           </span>
                         )}
@@ -295,7 +325,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
                           handleRegenerateMeal(selectedDay, meal);
                         }}
                         disabled={isRegenerating}
-                        className={`px-3 py-1 rounded-lg text-sm flex items-center space-x-1 ${
+                        className={`px-3 py-2 sm:py-1.5 rounded-lg text-sm flex items-center justify-center space-x-1 w-full sm:w-auto ${
                           isRegenerating
                             ? 'bg-gray-200 dark:bg-gray-700 text-gray-500'
                             : 'bg-accent/10 text-accent hover:bg-accent/20'

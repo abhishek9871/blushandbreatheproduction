@@ -22,13 +22,21 @@ export default function VideosPage() {
   const [longPageToken, setLongPageToken] = useState<string | null>(null);
   const [longHasMore, setLongHasMore] = useState(true);
 
-  // State for search
+  // State for search - separate shorts and long videos
   const [searchQuery, setSearchQuery] = useState('');
   const [submittedQuery, setSubmittedQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<Video[]>([]);
-  const [searchLoading, setSearchLoading] = useState(false);
-  const [searchPageToken, setSearchPageToken] = useState<string | null>(null);
-  const [searchHasMore, setSearchHasMore] = useState(false);
+  
+  // Search shorts
+  const [searchShorts, setSearchShorts] = useState<Video[]>([]);
+  const [searchShortsLoading, setSearchShortsLoading] = useState(false);
+  const [searchShortsPageToken, setSearchShortsPageToken] = useState<string | null>(null);
+  const [searchShortsHasMore, setSearchShortsHasMore] = useState(false);
+  
+  // Search long videos
+  const [searchLongVideos, setSearchLongVideos] = useState<Video[]>([]);
+  const [searchLongLoading, setSearchLongLoading] = useState(false);
+  const [searchLongPageToken, setSearchLongPageToken] = useState<string | null>(null);
+  const [searchLongHasMore, setSearchLongHasMore] = useState(false);
 
   // General state
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -36,8 +44,9 @@ export default function VideosPage() {
 
   // Refs for infinite scroll
   const longVideosEndRef = useRef<HTMLDivElement>(null);
-  const searchResultsEndRef = useRef<HTMLDivElement>(null);
+  const searchLongEndRef = useRef<HTMLDivElement>(null);
   const shortsContainerRef = useRef<HTMLDivElement>(null);
+  const searchShortsContainerRef = useRef<HTMLDivElement>(null);
 
   // Fetch shorts
   const fetchShorts = useCallback(async (category: string, pageToken?: string) => {
@@ -78,24 +87,44 @@ export default function VideosPage() {
     }
   }, []);
 
-  // Fetch search results
-  const fetchSearchResults = useCallback(async (query: string, pageToken?: string) => {
+  // Fetch search shorts
+  const fetchSearchShorts = useCallback(async (query: string, pageToken?: string) => {
     if (!query.trim()) return;
-    setSearchLoading(true);
+    setSearchShortsLoading(true);
     try {
-      const result = await searchVideos(query, 'all', pageToken);
+      const result = await searchVideos(query, 'shorts', pageToken);
       if (pageToken) {
-        setSearchResults(prev => [...prev, ...result.videos]);
+        setSearchShorts(prev => [...prev, ...result.videos]);
       } else {
-        setSearchResults(result.videos);
+        setSearchShorts(result.videos);
       }
-      setSearchPageToken(result.nextPageToken);
-      setSearchHasMore(result.hasMore);
+      setSearchShortsPageToken(result.nextPageToken);
+      setSearchShortsHasMore(result.hasMore);
     } catch (err) {
-      console.error('Failed to search videos:', err);
+      console.error('Failed to search shorts:', err);
+    } finally {
+      setSearchShortsLoading(false);
+    }
+  }, []);
+
+  // Fetch search long videos
+  const fetchSearchLongVideos = useCallback(async (query: string, pageToken?: string) => {
+    if (!query.trim()) return;
+    setSearchLongLoading(true);
+    try {
+      const result = await searchVideos(query, 'long', pageToken);
+      if (pageToken) {
+        setSearchLongVideos(prev => [...prev, ...result.videos]);
+      } else {
+        setSearchLongVideos(result.videos);
+      }
+      setSearchLongPageToken(result.nextPageToken);
+      setSearchLongHasMore(result.hasMore);
+    } catch (err) {
+      console.error('Failed to search long videos:', err);
       setError('Search failed. Please try again.');
     } finally {
-      setSearchLoading(false);
+      setSearchLongLoading(false);
     }
   }, []);
 
@@ -111,10 +140,16 @@ export default function VideosPage() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      setSubmittedQuery(searchQuery.trim());
-      setSearchResults([]);
-      setSearchPageToken(null);
-      fetchSearchResults(searchQuery.trim());
+      const query = searchQuery.trim();
+      setSubmittedQuery(query);
+      // Reset search state
+      setSearchShorts([]);
+      setSearchShortsPageToken(null);
+      setSearchLongVideos([]);
+      setSearchLongPageToken(null);
+      // Fetch both shorts and long videos for search
+      fetchSearchShorts(query);
+      fetchSearchLongVideos(query);
     }
   };
 
@@ -122,9 +157,12 @@ export default function VideosPage() {
   const clearSearch = () => {
     setSearchQuery('');
     setSubmittedQuery('');
-    setSearchResults([]);
-    setSearchPageToken(null);
-    setSearchHasMore(false);
+    setSearchShorts([]);
+    setSearchShortsPageToken(null);
+    setSearchShortsHasMore(false);
+    setSearchLongVideos([]);
+    setSearchLongPageToken(null);
+    setSearchLongHasMore(false);
   };
 
   // Infinite scroll observer for long videos
@@ -144,22 +182,22 @@ export default function VideosPage() {
     return () => observer.disconnect();
   }, [longHasMore, longLoading, longPageToken, selectedCategory, fetchLongVideos, submittedQuery]);
 
-  // Infinite scroll observer for search results
+  // Infinite scroll observer for search long videos
   useEffect(() => {
-    if (!searchResultsEndRef.current || !submittedQuery) return;
+    if (!searchLongEndRef.current || !submittedQuery) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && searchHasMore && !searchLoading && searchPageToken) {
-          fetchSearchResults(submittedQuery, searchPageToken);
+        if (entries[0].isIntersecting && searchLongHasMore && !searchLongLoading && searchLongPageToken) {
+          fetchSearchLongVideos(submittedQuery, searchLongPageToken);
         }
       },
       { rootMargin: '200px' }
     );
 
-    observer.observe(searchResultsEndRef.current);
+    observer.observe(searchLongEndRef.current);
     return () => observer.disconnect();
-  }, [searchHasMore, searchLoading, searchPageToken, submittedQuery, fetchSearchResults]);
+  }, [searchLongHasMore, searchLongLoading, searchLongPageToken, submittedQuery, fetchSearchLongVideos]);
 
   // Scroll shorts horizontally
   const scrollShorts = (direction: 'left' | 'right') => {
@@ -172,10 +210,28 @@ export default function VideosPage() {
     }
   };
 
+  // Scroll search shorts horizontally
+  const scrollSearchShorts = (direction: 'left' | 'right') => {
+    if (searchShortsContainerRef.current) {
+      const scrollAmount = 300;
+      searchShortsContainerRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   // Load more shorts
   const loadMoreShorts = () => {
     if (shortsHasMore && !shortsLoading && shortsPageToken) {
       fetchShorts(selectedCategory, shortsPageToken);
+    }
+  };
+
+  // Load more search shorts
+  const loadMoreSearchShorts = () => {
+    if (searchShortsHasMore && !searchShortsLoading && searchShortsPageToken) {
+      fetchSearchShorts(submittedQuery, searchShortsPageToken);
     }
   };
 
@@ -226,10 +282,10 @@ export default function VideosPage() {
                   </div>
                   <button
                     type="submit"
-                    disabled={!searchQuery.trim() || searchLoading}
+                    disabled={!searchQuery.trim() || (searchShortsLoading && searchLongLoading)}
                     className="px-6 py-4 bg-accent hover:bg-accent/90 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium rounded-xl shadow-sm transition-all flex items-center gap-2"
                   >
-                    {searchLoading ? (
+                    {(searchShortsLoading || searchLongLoading) && submittedQuery ? (
                       <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     ) : (
                       <span className="material-symbols-outlined">search</span>
@@ -266,8 +322,9 @@ export default function VideosPage() {
 
           {/* Search Results */}
           {submittedQuery && (
-            <div className="mb-12">
-              <div className="flex items-center justify-between mb-6">
+            <div>
+              {/* Search Header */}
+              <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-accent text-2xl">search</span>
                   <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">
@@ -283,27 +340,132 @@ export default function VideosPage() {
                 </button>
               </div>
 
-              {searchLoading && searchResults.length === 0 ? (
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <VideoCardSkeleton key={i} />
-                  ))}
+              {/* Search Shorts Section */}
+              <section className="mb-12">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <span className="p-2 bg-red-600 rounded-lg">
+                      <span className="material-symbols-outlined text-white">play_arrow</span>
+                    </span>
+                    <h3 className="text-xl font-bold text-text-light dark:text-text-dark">
+                      Shorts
+                    </h3>
+                    <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                      Quick tips under 60 seconds
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => scrollSearchShorts('left')}
+                      className="p-2 rounded-full bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors"
+                    >
+                      <span className="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button
+                      onClick={() => scrollSearchShorts('right')}
+                      className="p-2 rounded-full bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors"
+                    >
+                      <span className="material-symbols-outlined">chevron_right</span>
+                    </button>
+                  </div>
                 </div>
-              ) : searchResults.length > 0 ? (
-                <>
+
+                <div className="relative">
+                  <div
+                    ref={searchShortsContainerRef}
+                    className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                  >
+                    {searchShortsLoading && searchShorts.length === 0 ? (
+                      Array.from({ length: 6 }).map((_, i) => (
+                        <div key={i} className="flex-shrink-0 w-40 sm:w-48">
+                          <div className="aspect-[9/16] rounded-xl bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                        </div>
+                      ))
+                    ) : searchShorts.length > 0 ? (
+                      <>
+                        {searchShorts.map((video) => (
+                          <VideoCard key={video.id} video={video} variant="short" />
+                        ))}
+                        {searchShortsHasMore && (
+                          <button
+                            onClick={loadMoreSearchShorts}
+                            disabled={searchShortsLoading}
+                            className="flex-shrink-0 w-40 sm:w-48 flex items-center justify-center aspect-[9/16] rounded-xl bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors"
+                          >
+                            {searchShortsLoading ? (
+                              <span className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+                            ) : (
+                              <div className="text-center">
+                                <span className="material-symbols-outlined text-4xl text-accent">add_circle</span>
+                                <p className="mt-2 text-sm font-medium text-text-light dark:text-text-dark">Load More</p>
+                              </div>
+                            )}
+                          </button>
+                        )}
+                      </>
+                    ) : !searchShortsLoading ? (
+                      <div className="w-full py-8 text-center text-text-subtle-light dark:text-text-subtle-dark">
+                        No shorts found for this search
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </section>
+
+              {/* Search Long Videos Section */}
+              <section>
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="p-2 bg-accent rounded-lg">
+                    <span className="material-symbols-outlined text-white">smart_display</span>
+                  </span>
+                  <h3 className="text-xl font-bold text-text-light dark:text-text-dark">
+                    Full Videos
+                  </h3>
+                  <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                    In-depth tutorials and guides
+                  </span>
+                </div>
+
+                {searchLongLoading && searchLongVideos.length === 0 ? (
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {searchResults.map((video) => (
-                      <VideoCard key={video.id} video={video} />
+                    {Array.from({ length: 8 }).map((_, i) => (
+                      <VideoCardSkeleton key={i} />
                     ))}
                   </div>
-                  <div ref={searchResultsEndRef} className="h-10" />
-                  {searchLoading && (
-                    <div className="flex justify-center py-8">
-                      <span className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+                ) : searchLongVideos.length > 0 ? (
+                  <>
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      {searchLongVideos.map((video) => (
+                        <VideoCard key={video.id} video={video} />
+                      ))}
                     </div>
-                  )}
-                </>
-              ) : (
+                    <div ref={searchLongEndRef} className="h-10" />
+                    {searchLongLoading && (
+                      <div className="flex justify-center py-8">
+                        <span className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+                      </div>
+                    )}
+                    {!searchLongHasMore && searchLongVideos.length > 0 && (
+                      <p className="text-center text-text-subtle-light dark:text-text-subtle-dark pt-12 pb-8">
+                        You&apos;ve reached the end! 🎉
+                      </p>
+                    )}
+                  </>
+                ) : !searchLongLoading ? (
+                  <div className="text-center py-12">
+                    <span className="material-symbols-outlined text-6xl text-text-subtle-light dark:text-text-subtle-dark mb-4">
+                      video_library
+                    </span>
+                    <p className="text-lg text-text-subtle-light dark:text-text-subtle-dark">
+                      No full videos found for &quot;{submittedQuery}&quot;
+                    </p>
+                  </div>
+                ) : null}
+              </section>
+
+              {/* No results at all */}
+              {!searchShortsLoading && !searchLongLoading && searchShorts.length === 0 && searchLongVideos.length === 0 && (
                 <div className="text-center py-12">
                   <span className="material-symbols-outlined text-6xl text-text-subtle-light dark:text-text-subtle-dark mb-4">
                     search_off

@@ -149,6 +149,17 @@ export default function BeautyPage() {
     router.push({ pathname: router.pathname, query: newQuery }, undefined, { scroll: false });
   };
 
+  // Pagination handler - scrolls to top after page change
+  const handlePageChange = (newPage: number) => {
+    const newQuery = { ...query };
+    newQuery.page = String(newPage);
+    router.push({ pathname: router.pathname, query: newQuery }, undefined, { scroll: false })
+      .then(() => {
+        // Scroll to top after navigation completes
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+  };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     updateSearchParam('q', searchQuery);
@@ -346,33 +357,38 @@ export default function BeautyPage() {
           {!loading && (pagination.total > 0 || page > 1) && (
             <div className="flex flex-col items-center gap-3 mt-8">
               <div className="flex justify-center items-center gap-2">
+                {/* First Page Button */}
                 <button
-                  onClick={() => updateSearchParam('page', 1)}
+                  onClick={() => handlePageChange(1)}
                   disabled={page <= 1}
                   className="p-2 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   title="First page"
                 >
                   <span className="material-symbols-outlined text-xl">first_page</span>
                 </button>
+                {/* Previous Button */}
                 <button
-                  onClick={() => updateSearchParam('page', page - 1)}
+                  onClick={() => handlePageChange(page - 1)}
                   disabled={page <= 1}
                   className="px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Previous
                 </button>
+                {/* Page Indicator */}
                 <span className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                   Page {page}
                 </span>
+                {/* Next Button */}
                 <button
-                  onClick={() => updateSearchParam('page', page + 1)}
+                  onClick={() => handlePageChange(page + 1)}
                   disabled={!pagination.hasNextPage}
                   className="px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Next
                 </button>
+                {/* Skip Forward Button */}
                 <button
-                  onClick={() => updateSearchParam('page', Math.min(page + 10, 200))}
+                  onClick={() => handlePageChange(Math.min(page + 10, 200))}
                   disabled={!pagination.hasNextPage}
                   className="p-2 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   title="Skip forward 10 pages"

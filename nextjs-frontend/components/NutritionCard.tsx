@@ -9,7 +9,7 @@ const NutrientBar: React.FC<{ label: string; value: number; max: number; color: 
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
     <div className="space-y-1">
-      <div className="flex justify-between text-xs"><span className="font-medium">{label}</span><span className="text-text-subtle-light">{value}g</span></div>
+      <div className="flex justify-between text-xs"><span className="font-medium text-gray-700 dark:text-gray-200">{label}</span><span className="text-gray-600 dark:text-gray-300">{value}g</span></div>
       <div className="h-2 bg-border-light dark:bg-border-dark rounded-full overflow-hidden"><div className={`h-full ${color} transition-all duration-500`} style={{ width: `${pct}%` }} /></div>
     </div>
   );
@@ -50,11 +50,11 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
           <h3 className="text-xl font-bold leading-tight">{item.name}</h3>
           <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full font-medium">USDA</span>
         </div>
-        <p className="text-text-subtle-light text-sm line-clamp-2 mb-4">{item.description}</p>
+        <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">{item.description}</p>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Portion Size</label>
-          <select value={selectedPortion} onChange={e => setSelectedPortion(Number(e.target.value))} className="w-full px-3 py-2 border rounded-lg text-sm">
+          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Portion Size</label>
+          <select value={selectedPortion} onChange={e => setSelectedPortion(Number(e.target.value))} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-accent focus:border-accent">
             <option value={50}>50g</option><option value={100}>100g</option><option value={150}>150g</option><option value={200}>200g</option>
           </select>
         </div>
@@ -65,8 +65,31 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
           <NutrientBar label="Fats" value={nutrition.fats} max={30} color="bg-accent" />
         </div>
 
+        {isExpanded && (
+          <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg space-y-3">
+            <h4 className="font-medium text-gray-900 dark:text-white text-sm">Nutrition Summary (per {selectedPortion}g)</h4>
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <div className="text-lg font-bold text-primary">{nutrition.protein}g</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Protein</div>
+              </div>
+              <div className="p-2 bg-secondary/10 rounded-lg">
+                <div className="text-lg font-bold text-secondary">{nutrition.carbs}g</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Carbs</div>
+              </div>
+              <div className="p-2 bg-accent/10 rounded-lg">
+                <div className="text-lg font-bold text-accent">{nutrition.fats}g</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Fats</div>
+              </div>
+            </div>
+            <div className="text-center pt-2 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-xs text-gray-500 dark:text-gray-400">Data sourced from USDA FoodData Central</p>
+            </div>
+          </div>
+        )}
+
         <div className="flex gap-3">
-          <button onClick={() => setIsExpanded(!isExpanded)} className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-background-light dark:bg-background-dark rounded-lg hover:bg-accent/10 text-sm font-medium">
+          <button onClick={() => setIsExpanded(!isExpanded)} className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-accent/10 dark:hover:bg-accent/20 text-sm font-medium text-gray-700 dark:text-gray-200">
             <span className="material-symbols-outlined text-sm">{isExpanded ? 'expand_less' : 'expand_more'}</span>{isExpanded ? 'Less' : 'More'}
           </button>
           {showCartActions && cartContext && (
@@ -84,14 +107,13 @@ const NutritionInfoCard: React.FC<{ item: NutritionInfo } & Omit<NutritionCardPr
 const NutritionTipCard: React.FC<{ item: TipCard }> = ({ item }) => {
   const [isRead, setIsRead] = useState(false);
   return (
-    <div className="relative bg-gradient-to-br from-accent/5 to-secondary/5 rounded-xl p-6 border border-accent/20 group">
-      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><BookmarkButton item={{ ...item, contentType: 'Nutrition' }} className="bg-white/50 dark:bg-black/50" /></div>
+    <div className="relative bg-gradient-to-br from-accent/5 to-secondary/5 rounded-xl p-6 border border-accent/20">
       <div className="flex items-start gap-4">
         <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0"><span className="material-symbols-outlined text-accent text-2xl">{item.icon}</span></div>
         <div className="flex-1">
-          <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-          <p className="text-text-subtle-light leading-relaxed mb-4">{item.description}</p>
-          <button onClick={() => setIsRead(!isRead)} className={`px-4 py-2 rounded-lg text-sm font-medium ${isRead ? 'bg-accent text-white' : 'bg-accent/10 text-accent'}`}>{isRead ? 'Read!' : 'Read Tip'}</button>
+          <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{item.title}</h3>
+          <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">{item.description}</p>
+          <button onClick={() => setIsRead(!isRead)} className={`px-4 py-2 rounded-lg text-sm font-medium ${isRead ? 'bg-accent text-white' : 'bg-accent/10 text-accent hover:bg-accent/20'}`}>{isRead ? 'Read!' : 'Read Tip'}</button>
         </div>
       </div>
     </div>

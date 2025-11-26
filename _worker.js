@@ -3077,7 +3077,7 @@ export default {
           }
         }
         
-        // Get Groq API key
+        // Get Groq API key (faster than Gemini)
         const groqApiKey = env.GROQ_API_KEY;
         if (!groqApiKey) {
           return new Response(JSON.stringify({ error: 'AI service not configured' }), {
@@ -3152,7 +3152,7 @@ COOKING TIME: ${cookingTime} (${cookingTime === 'minimal' ? '<15 min' : cookingT
 
 Generate a complete, practical ${duration === 'day' ? '1-day' : '7-day'} meal plan following the exact JSON schema.`;
 
-        // Call Groq API
+        // Call Groq API (faster response times)
         const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
           headers: {

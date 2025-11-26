@@ -10,6 +10,10 @@
   --background-light: #ffffff;
   --background-dark: #111827;
   
+  /* Card colors */
+  --card-light: #ffffff;
+  --card-dark: #1f2937;
+  
   /* Text colors */
   --foreground: #1f2937;
   --text-light: #1f2937;
@@ -39,6 +43,8 @@
   --color-primary-darker: var(--primary-darker);
   --color-background-light: var(--background-light);
   --color-background-dark: var(--background-dark);
+  --color-card-light: var(--card-light);
+  --color-card-dark: var(--card-dark);
   --color-text-light: var(--text-light);
   --color-text-dark: var(--text-dark);
   --color-text-subtle-light: var(--text-subtle-light);

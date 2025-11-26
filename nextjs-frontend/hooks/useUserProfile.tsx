@@ -223,7 +223,8 @@ export const UserProfileProvider: React.FC<UserProfileProviderProps> = ({ childr
     setDietPlanError(null);
 
     try {
-      const response = await fetch(`${API_BASE}/api/nutrition/generate-diet-plan`, {
+      // Use Vercel API route for AI generation (60s timeout vs Cloudflare's 10ms CPU limit)
+      const response = await fetch('/api/nutrition/generate-diet-plan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -266,7 +267,8 @@ export const UserProfileProvider: React.FC<UserProfileProviderProps> = ({ childr
   // Regenerate a specific meal
   const regenerateMeal = async (dayIndex: number, mealType: string, currentMeal?: any): Promise<any> => {
     try {
-      const response = await fetch(`${API_BASE}/api/nutrition/regenerate-meal`, {
+      // Use Vercel API route for AI regeneration
+      const response = await fetch('/api/nutrition/regenerate-meal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

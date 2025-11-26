@@ -163,7 +163,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Weight (kg) *</label>
+                <label className="block text-sm font-medium mb-2 text-text-light dark:text-text-dark">Weight (kg) *</label>
                 <input
                   type="number"
                   value={formData.weight}
@@ -176,7 +176,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Height (cm) *</label>
+                <label className="block text-sm font-medium mb-2 text-text-light dark:text-text-dark">Height (cm) *</label>
                 <input
                   type="number"
                   value={formData.height}
@@ -189,7 +189,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Age (years) *</label>
+                <label className="block text-sm font-medium mb-2 text-text-light dark:text-text-dark">Age (years) *</label>
                 <input
                   type="number"
                   value={formData.age}
@@ -202,7 +202,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Gender *</label>
+                <label className="block text-sm font-medium mb-2 text-text-light dark:text-text-dark">Gender *</label>
                 <div className="flex space-x-3">
                   {['male', 'female'].map((g) => (
                     <button
@@ -211,7 +211,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                       className={`flex-1 py-3 px-4 rounded-lg border-2 transition-all capitalize ${
                         formData.gender === g
                           ? 'border-accent bg-accent/10 text-accent'
-                          : 'border-border-light dark:border-border-dark hover:border-accent/50'
+                          : 'border-border-light dark:border-border-dark hover:border-accent/50 text-text-light dark:text-text-dark'
                       }`}
                     >
                       <span className="material-symbols-outlined mr-2 align-middle">
@@ -224,7 +224,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium mb-2">Target Weight (kg) - Optional</label>
+                <label className="block text-sm font-medium mb-2 text-text-light dark:text-text-dark">Target Weight (kg) - Optional</label>
                 <input
                   type="number"
                   value={formData.targetWeight}
@@ -255,7 +255,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
 
             <div className="space-y-6">
               <div>
-                <h3 className="font-medium mb-3">Primary Goal *</h3>
+                <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Primary Goal *</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {goals.map((goal) => (
                     <button
@@ -274,7 +274,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                           <span className="material-symbols-outlined">{goal.icon}</span>
                         </div>
                         <div>
-                          <h4 className="font-medium">{goal.label}</h4>
+                          <h4 className="font-medium text-text-light dark:text-text-dark">{goal.label}</h4>
                           <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark">{goal.description}</p>
                         </div>
                       </div>
@@ -284,7 +284,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div>
-                <h3 className="font-medium mb-3">Activity Level *</h3>
+                <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Activity Level *</h3>
                 <div className="space-y-2">
                   {activityLevels.map((level) => (
                     <button
@@ -303,7 +303,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                           <span className="material-symbols-outlined">{level.icon}</span>
                         </div>
                         <div>
-                          <h4 className="font-medium">{level.label}</h4>
+                          <h4 className="font-medium text-text-light dark:text-text-dark">{level.label}</h4>
                           <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark">{level.description}</p>
                         </div>
                       </div>
@@ -328,7 +328,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
 
             <div className="space-y-6">
               <div>
-                <h3 className="font-medium mb-3">Diet Type</h3>
+                <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Diet Type</h3>
                 <div className="flex flex-wrap gap-2">
                   {dietaryOptions.map((option) => (
                     <button
@@ -337,7 +337,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                       className={`px-4 py-2 rounded-full border-2 transition-all flex items-center space-x-2 ${
                         (formData.dietaryRestrictions as string[]).includes(option.id)
                           ? 'border-accent bg-accent/10 text-accent'
-                          : 'border-border-light dark:border-border-dark hover:border-accent/50'
+                          : 'border-border-light dark:border-border-dark hover:border-accent/50 text-text-light dark:text-text-dark'
                       }`}
                     >
                       <span className="material-symbols-outlined text-sm">{option.icon}</span>
@@ -348,7 +348,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div>
-                <h3 className="font-medium mb-3">Allergies</h3>
+                <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Allergies</h3>
                 <div className="flex flex-wrap gap-2">
                   {allergyOptions.map((option) => (
                     <button
@@ -357,7 +357,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                       className={`px-4 py-2 rounded-full border-2 transition-all ${
                         (formData.allergies as string[]).includes(option.id)
                           ? 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
-                          : 'border-border-light dark:border-border-dark hover:border-red-300'
+                          : 'border-border-light dark:border-border-dark hover:border-red-300 text-text-light dark:text-text-dark'
                       }`}
                     >
                       {option.label}
@@ -367,7 +367,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div>
-                <h3 className="font-medium mb-3">Cuisine Preferences</h3>
+                <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Cuisine Preferences</h3>
                 <div className="flex flex-wrap gap-2">
                   {cuisineOptions.map((option) => (
                     <button
@@ -376,7 +376,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                       className={`px-4 py-2 rounded-full border-2 transition-all ${
                         (formData.cuisinePreferences as string[]).includes(option.id)
                           ? 'border-accent bg-accent/10 text-accent'
-                          : 'border-border-light dark:border-border-dark hover:border-accent/50'
+                          : 'border-border-light dark:border-border-dark hover:border-accent/50 text-text-light dark:text-text-dark'
                       }`}
                     >
                       {option.label}
@@ -401,7 +401,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
 
             <div className="space-y-6">
               <div>
-                <h3 className="font-medium mb-3">Meals Per Day</h3>
+                <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Meals Per Day</h3>
                 <div className="flex space-x-3">
                   {[3, 4, 5, 6].map((num) => (
                     <button
@@ -410,10 +410,10 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                       className={`flex-1 py-4 rounded-xl border-2 transition-all ${
                         formData.mealsPerDay === num
                           ? 'border-accent bg-accent/10 text-accent'
-                          : 'border-border-light dark:border-border-dark hover:border-accent/50'
+                          : 'border-border-light dark:border-border-dark hover:border-accent/50 text-text-light dark:text-text-dark'
                       }`}
                     >
-                      <div className="text-2xl font-bold">{num}</div>
+                      <div className="text-2xl font-bold text-text-light dark:text-text-dark">{num}</div>
                       <div className="text-xs text-text-subtle-light dark:text-text-subtle-dark">
                         {num === 3 ? '3 main meals' : `${num} meals`}
                       </div>
@@ -423,7 +423,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div>
-                <h3 className="font-medium mb-3">Cooking Time</h3>
+                <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Cooking Time</h3>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { id: 'minimal', label: 'Quick', desc: '<15 min', icon: 'bolt' },
@@ -436,13 +436,13 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                       className={`p-4 rounded-xl border-2 transition-all text-center ${
                         formData.cookingTime === option.id
                           ? 'border-accent bg-accent/10'
-                          : 'border-border-light dark:border-border-dark hover:border-accent/50'
+                          : 'border-border-light dark:border-border-dark hover:border-accent/50 text-text-light dark:text-text-dark'
                       }`}
                     >
                       <span className={`material-symbols-outlined text-2xl mb-1 ${
                         formData.cookingTime === option.id ? 'text-accent' : ''
                       }`}>{option.icon}</span>
-                      <div className="font-medium">{option.label}</div>
+                      <div className="font-medium text-text-light dark:text-text-dark">{option.label}</div>
                       <div className="text-xs text-text-subtle-light dark:text-text-subtle-dark">{option.desc}</div>
                     </button>
                   ))}
@@ -450,7 +450,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
               </div>
 
               <div>
-                <h3 className="font-medium mb-3">Health Conditions (if any)</h3>
+                <h3 className="font-medium mb-3 text-text-light dark:text-text-dark">Health Conditions (if any)</h3>
                 <div className="flex flex-wrap gap-2">
                   {healthConditionOptions.map((option) => (
                     <button
@@ -459,7 +459,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
                       className={`px-4 py-2 rounded-full border-2 transition-all ${
                         (formData.healthConditions as string[]).includes(option.id)
                           ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400'
-                          : 'border-border-light dark:border-border-dark hover:border-amber-300'
+                          : 'border-border-light dark:border-border-dark hover:border-amber-300 text-text-light dark:text-text-dark'
                       }`}
                     >
                       {option.label}
@@ -484,7 +484,7 @@ const EnhancedProfileSetup: React.FC<EnhancedProfileSetupProps> = ({ onComplete,
       {/* Progress */}
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm font-medium">Step {currentStep} of {totalSteps}</span>
+          <span className="text-sm font-medium text-text-light dark:text-text-dark">Step {currentStep} of {totalSteps}</span>
           <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
             {Math.round((currentStep / totalSteps) * 100)}% Complete
           </span>

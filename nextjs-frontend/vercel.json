@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "pages/api/nutrition/generate-diet-plan.ts": {
+      "maxDuration": 60
+    },
+    "pages/api/nutrition/regenerate-meal.ts": {
+      "maxDuration": 30
+    }
+  }
+}

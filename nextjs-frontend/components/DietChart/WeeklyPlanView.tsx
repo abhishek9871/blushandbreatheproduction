@@ -65,7 +65,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
           <div>
             <h2 className="text-xl font-bold flex items-center space-x-2">
               <span className="material-symbols-outlined text-accent">restaurant_menu</span>
-              <span>Your Weekly Meal Plan</span>
+              <span className="text-text-light dark:text-text-dark">Your Weekly Meal Plan</span>
               {dietPlan.fromCache && (
                 <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 px-2 py-1 rounded-full">
                   Cached
@@ -80,7 +80,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
           <div className="flex space-x-2">
             <button
               onClick={onBack}
-              className="px-4 py-2 rounded-lg border border-border-light dark:border-border-dark hover:bg-accent/10 flex items-center space-x-1"
+              className="px-4 py-2 rounded-lg border border-border-light dark:border-border-dark hover:bg-accent/10 flex items-center space-x-1 text-text-light dark:text-text-dark"
             >
               <span className="material-symbols-outlined text-sm">arrow_back</span>
               <span className="hidden sm:inline">Back</span>
@@ -115,10 +115,10 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
               className={`flex-1 min-w-[100px] py-3 px-4 rounded-lg transition-all ${
                 selectedDay === index
                   ? 'bg-accent text-white shadow-lg'
-                  : 'hover:bg-accent/10'
+                  : 'hover:bg-accent/10 text-text-light dark:text-text-dark'
               }`}
             >
-              <div className="font-medium">{day.day.substring(0, 3)}</div>
+              <div className={`font-medium ${selectedDay === index ? '' : 'text-text-light dark:text-text-dark'}`}>{day.day.substring(0, 3)}</div>
               <div className={`text-xs ${selectedDay === index ? 'opacity-80' : 'text-text-subtle-light dark:text-text-subtle-dark'}`}>
                 {day.dailyTotals.calories} kcal
               </div>
@@ -131,7 +131,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
       {currentDay && (
         <div className="bg-white dark:bg-card-dark rounded-xl p-4 shadow-sm border border-border-light dark:border-border-dark">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold">{currentDay.day}'s Nutrition</h3>
+            <h3 className="font-semibold text-text-light dark:text-text-dark">{currentDay.day}'s Nutrition</h3>
             <div className={`text-sm font-medium ${
               calorieProgress > 105 ? 'text-red-500' : 
               calorieProgress < 95 ? 'text-yellow-500' : 'text-green-500'
@@ -156,7 +156,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="text-red-600 font-medium">Protein</span>
-                <span>{currentDay.dailyTotals.protein}g / {dietPlan.userTargets.macros.protein}g</span>
+                <span className="text-text-light dark:text-text-dark">{currentDay.dailyTotals.protein}g / {dietPlan.userTargets.macros.protein}g</span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div 
@@ -168,7 +168,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="text-yellow-600 font-medium">Carbs</span>
-                <span>{currentDay.dailyTotals.carbs}g / {dietPlan.userTargets.macros.carbs}g</span>
+                <span className="text-text-light dark:text-text-dark">{currentDay.dailyTotals.carbs}g / {dietPlan.userTargets.macros.carbs}g</span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div 
@@ -180,7 +180,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="text-blue-600 font-medium">Fats</span>
-                <span>{currentDay.dailyTotals.fats}g / {dietPlan.userTargets.macros.fats}g</span>
+                <span className="text-text-light dark:text-text-dark">{currentDay.dailyTotals.fats}g / {dietPlan.userTargets.macros.fats}g</span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div 
@@ -218,7 +218,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
                       </div>
                       <div>
                         <div className="flex items-center space-x-2">
-                          <h4 className="font-semibold">{meal.name}</h4>
+                          <h4 className="font-semibold text-text-light dark:text-text-dark">{meal.name}</h4>
                           <span className="text-xs text-text-subtle-light dark:text-text-subtle-dark">
                             {meal.time}
                           </span>
@@ -247,14 +247,14 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
                   <div className="border-t border-border-light dark:border-border-dark p-4 bg-gray-50 dark:bg-gray-800/30">
                     {/* Ingredients */}
                     <div className="mb-4">
-                      <h5 className="font-medium mb-2 flex items-center space-x-1">
+                      <h5 className="font-medium mb-2 flex items-center space-x-1 text-text-light dark:text-text-dark">
                         <span className="material-symbols-outlined text-sm">list</span>
                         <span>Ingredients</span>
                       </h5>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         {meal.ingredients.map((ing, i) => (
                           <div key={i} className="bg-white dark:bg-card-dark px-3 py-2 rounded-lg text-sm">
-                            <span className="font-medium">{ing.name}</span>
+                            <span className="font-medium text-text-light dark:text-text-dark">{ing.name}</span>
                             <span className="text-text-subtle-light dark:text-text-subtle-dark ml-1">
                               ({ing.quantity}{ing.unit})
                             </span>
@@ -266,7 +266,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
                     {/* Instructions */}
                     {meal.instructions && (
                       <div className="mb-4">
-                        <h5 className="font-medium mb-2 flex items-center space-x-1">
+                        <h5 className="font-medium mb-2 flex items-center space-x-1 text-text-light dark:text-text-dark">
                           <span className="material-symbols-outlined text-sm">menu_book</span>
                           <span>Instructions</span>
                         </h5>
@@ -320,7 +320,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
       {/* Meal Prep Tips */}
       {dietPlan.mealPrepTips && dietPlan.mealPrepTips.length > 0 && (
         <div className="bg-accent/5 rounded-xl p-4 border border-accent/20">
-          <h3 className="font-semibold mb-3 flex items-center space-x-2">
+          <h3 className="font-semibold mb-3 flex items-center space-x-2 text-text-light dark:text-text-dark">
             <span className="material-symbols-outlined text-accent">tips_and_updates</span>
             <span>Meal Prep Tips</span>
           </h3>
@@ -328,7 +328,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
             {dietPlan.mealPrepTips.map((tip, i) => (
               <li key={i} className="flex items-start space-x-2 text-sm">
                 <span className="material-symbols-outlined text-accent text-sm mt-0.5">check_circle</span>
-                <span>{tip}</span>
+                <span className="text-text-light dark:text-text-dark">{tip}</span>
               </li>
             ))}
           </ul>
@@ -338,7 +338,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
       {/* Weekly Notes */}
       {dietPlan.weeklyNotes && (
         <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
-          <h3 className="font-semibold mb-2 flex items-center space-x-2">
+          <h3 className="font-semibold mb-2 flex items-center space-x-2 text-text-light dark:text-text-dark">
             <span className="material-symbols-outlined text-blue-600">info</span>
             <span>Weekly Notes</span>
           </h3>

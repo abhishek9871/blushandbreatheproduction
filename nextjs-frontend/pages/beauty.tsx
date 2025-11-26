@@ -316,7 +316,7 @@ export default function BeautyPage() {
               products.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/beauty/product/${encodeURIComponent(product.id)}`}
+                  href={`/product/${encodeURIComponent(product.id)}`}
                   className="group flex flex-col overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:border dark:border-gray-700"
                 >
                   <div className="relative">

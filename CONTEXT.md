@@ -46,10 +46,21 @@ blushandbreatheproduction/
 │   └── src/index.ts           # Article extraction worker
 ├── pages/                     # Next.js pages (SSR/ISR)
 │   ├── api/                   # API routes
+│   │   ├── contact.ts         # Contact form → Resend email
 │   │   ├── nutrition/         # Vercel Edge Functions for AI
 │   │   │   ├── generate-diet-plan.ts  # Gemini diet plan generation
 │   │   │   └── regenerate-meal.ts     # Gemini meal regeneration
 │   │   └── youtube/videos.ts  # YouTube API proxy
+│   ├── info/                  # Footer info pages (SEO optimized)
+│   │   ├── about.tsx          # Our Story
+│   │   ├── careers.tsx        # Careers page
+│   │   ├── press.tsx          # Press & Media
+│   │   ├── contact.tsx        # Contact form
+│   │   ├── faq.tsx            # FAQ with category filters
+│   │   ├── shipping.tsx       # Shipping info (eBay disclaimer)
+│   │   ├── returns.tsx        # Returns info (eBay disclaimer)
+│   │   ├── terms.tsx          # Terms of Service
+│   │   └── privacy.tsx        # Privacy Policy
 │   ├── index.tsx              # Homepage
 │   ├── nutrition.tsx          # Nutrition page
 │   ├── videos.tsx             # Videos page
@@ -99,10 +110,18 @@ npm run build && npx vercel --prod
 The following environment variables are **permanently set** in Vercel project settings:
 - `YOUTUBE_API_KEY` - For Videos page YouTube API integration
 - `GEMINI_API_KEY` - For AI Diet Plan generation
+- `RESEND_API_KEY` - For Contact Form email delivery (via Resend API)
+- `CONTACT_EMAIL` - Destination email for contact form submissions (`sparshrajput088@gmail.com`)
 
 **No need to pass `-e` flags during deployment.** If you need to update them, use:
 ```bash
 npx vercel env add <VAR_NAME> production
+```
+
+⚠️ **Important**: When adding env vars via CLI, use interactive mode (don't pipe with `echo`) to avoid newline characters:
+```bash
+npx vercel env add CONTACT_EMAIL production
+# Then type the value when prompted
 ```
 
 ### AI Diet Plan Architecture
@@ -126,7 +145,42 @@ WeeklyPlanView.tsx displays the plan with dark mode support
 
 ## Recent Fixes Applied
 
-### 1. Videos Page - YouTube API Integration (Nov 26, 2025)
+### 1. Newsletter & Contact Form Email Integration (Nov 26, 2025)
+
+**Newsletter** (existing):
+- Backend endpoint: `POST /api/newsletter/subscribe` on Cloudflare Worker
+- Called from `components/Footer.tsx`
+- Uses `NEXT_PUBLIC_API_URL` environment variable
+
+**Contact Form** (new):
+- **API Route**: `pages/api/contact.ts` (Next.js API route)
+- **Email Service**: [Resend](https://resend.com) (100 free emails/day)
+- **Flow**: Form → `/api/contact` → Resend API → Gmail inbox
+- **Sender**: `onboarding@resend.dev` (Resend's default domain)
+- **Features**:
+  - HTML formatted emails with gradient header
+  - Reply-to set to sender's email for easy responses
+  - Subject categories: General, Feedback, Partnership, Press, Technical, Other
+  - Error handling with user-friendly messages
+- **Files**:
+  - `pages/api/contact.ts` - API endpoint with Resend integration
+  - `pages/info/contact.tsx` - Contact form UI with error/success states
+
+**Resend Setup** (if API key expires or changes):
+1. Create account at https://resend.com
+2. Generate API key from Dashboard → API Keys
+3. Add to Vercel: `npx vercel env add RESEND_API_KEY production`
+4. Add recipient: `npx vercel env add CONTACT_EMAIL production`
+5. Redeploy: `npx vercel --prod --force`
+
+**Info Pages** (all in `pages/info/`):
+- SEO optimized with meta tags, canonical URLs, Open Graph
+- Scroll-to-top behavior on all pages (`useEffect` + `window.scrollTo`)
+- Mobile responsive with Tailwind
+- Dark mode support
+- **Important disclaimers** on Shipping/Returns: "Blush & Breathe is a content aggregator. eBay handles all orders."
+
+### 2. Videos Page - YouTube API Integration (Nov 26, 2025)
 - **Feature**: Real YouTube videos with Shorts + Full Videos sections, search, infinite scroll
 - **API Route**: `pages/api/youtube/videos.ts` (server-side YouTube API calls)
 - **API Key**: `YOUTUBE_API_KEY` - Permanently set in Vercel environment variables
@@ -140,7 +194,7 @@ WeeklyPlanView.tsx displays the plan with dark mode support
   - Play buttons always visible on mobile (no hover)
   - Edge-to-edge shorts scroll with snap behavior
 
-### 2. AI Diet Plan with Gemini (Nov 26, 2025)
+### 3. AI Diet Plan with Gemini (Nov 26, 2025)
 - **Feature**: Personalized diet plan generation using Google Gemini 2.0 Flash
 - **Problem**: Cloudflare Workers free plan has 10ms CPU limit - AI calls timeout
 - **Solution**: Hybrid approach - Vercel Edge Functions handle AI (60s timeout)
@@ -152,7 +206,7 @@ WeeklyPlanView.tsx displays the plan with dark mode support
 - **API Key**: `GEMINI_API_KEY` set in Vercel environment variables
 - **Model**: `gemini-2.0-flash` with `temperature: 0.3`, `maxOutputTokens: 8192`
 
-### 3. Nutrition Page Mobile Optimization (Nov 26, 2025)
+### 4. Nutrition Page Mobile Optimization (Nov 26, 2025)
 - **Feature**: Full mobile optimization for the Nutrition page and AI Diet Generator
 - **Fixes**:
   - Step indicator: Smaller circles (`w-8 h-8`) and tighter margins on mobile
@@ -168,7 +222,7 @@ WeeklyPlanView.tsx displays the plan with dark mode support
   - `components/NutritionHero.tsx`
   - `pages/nutrition.tsx`
 
-### 4. Dark Mode Fix for Diet Plan (Nov 26, 2025)
+### 5. Dark Mode Fix for Diet Plan (Nov 26, 2025)
 - **Problem**: Text invisible on dark backgrounds (labels, buttons, headings)
 - **Fix**: Added `text-text-light dark:text-text-dark` to all text elements
 - **Files**:
@@ -176,7 +230,7 @@ WeeklyPlanView.tsx displays the plan with dark mode support
   - `components/DietChart/WeeklyPlanView.tsx`
   - `styles/globals.css` - Added `card-dark` color variable
 
-### 5. Health Store Pagination (Nov 26, 2025)
+### 6. Health Store Pagination (Nov 26, 2025)
 - **Problem**: "Last Page" button caused "No products found" + pagination disappeared
 - **Fix**: 
   - Show pagination when `total > 0` OR `page > 1` (allows navigating back from empty pages)
@@ -185,12 +239,12 @@ WeeklyPlanView.tsx displays the plan with dark mode support
   - Added warning message for empty pages
 - **File**: `pages/health-store/index.tsx` (lines 406-465)
 
-### 2. Product Card Bookmark/Tag Overlap (Nov 26, 2025)
+### 7. Product Card Bookmark/Tag Overlap (Nov 26, 2025)
 - **Problem**: Bookmark button overlapped with "FOR HEALTH" benefit tag (both top-right)
 - **Fix**: Moved bookmark button to `top-2 left-2`, kept benefit tag at `top-2 right-2`
 - **File**: `pages/health-store/index.tsx` (lines 371-387)
 
-### 3. Clear Search Button (Nov 26, 2025)
+### 8. Clear Search Button (Nov 26, 2025)
 - **Problem**: No way to clear search and return to default product listing
 - **Fix**: Added X button inside search input field that:
   - Appears when user types or has active search query (`?q=...`)
@@ -198,16 +252,16 @@ WeeklyPlanView.tsx displays the plan with dark mode support
   - Wrapped input + clear button in relative container for proper positioning
 - **File**: `pages/health-store/index.tsx` (lines 169-176, 231-250)
 
-### 4. Navigation Link Highlighting (Nov 25, 2025)
+### 9. Navigation Link Highlighting (Nov 25, 2025)
 - **Problem**: `/health` link highlighted when on `/health-store`
 - **Fix**: Changed `isActive` to use exact match OR `path + '/'` prefix
 - **File**: `components/Header.tsx` (line 21-25)
 
-### 5. RSS Feed Description Truncation
+### 10. RSS Feed Description Truncation
 - **Problem**: Descriptions were cut off at 400 characters
 - **Fix**: Removed `.substring(0, 400)` in `_worker.js`
 
-### 6. Dark/Light Mode Toggle
+### 11. Dark/Light Mode Toggle
 - **Problem**: Tailwind v4 defaults to media-query dark mode
 - **Fix**: Added `@custom-variant dark (&:where(.dark, .dark *));`
 - **File**: `styles/globals.css`
@@ -262,4 +316,4 @@ Full article HTML replaces loading state
 3. Check `pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 26, 2025 (Added Nutrition page mobile optimizations + permanent Vercel env vars)*
+*Last updated: November 26, 2025 (Added Contact Form with Resend email integration + Info pages)*

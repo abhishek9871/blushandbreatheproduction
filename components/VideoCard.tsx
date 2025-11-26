@@ -51,36 +51,44 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, variant = 'default' }) => 
     return (
       <>
         <div 
-          onClick={handlePlayClick}
           className="group relative flex-shrink-0 w-32 sm:w-40 md:w-48 cursor-pointer active:scale-[0.98] transition-transform"
         >
           <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900">
-            <img
-              alt={video.title}
-              className="absolute inset-0 w-full h-full object-cover"
-              src={video.imageUrl}
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            {/* Play button - always visible on mobile, hover on desktop */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
-              <div className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
-                <span className="material-symbols-outlined text-2xl md:text-3xl text-white">play_arrow</span>
+            {/* Bookmark button */}
+            <div className="absolute top-1.5 left-1.5 md:top-2 md:left-2 z-20">
+              <BookmarkButton 
+                item={{ ...video, contentType: 'Video', isShort: true }} 
+                className="bg-black/50 text-white/80 hover:bg-black/70 hover:text-white p-1.5 md:p-2 !text-sm md:!text-base" 
+              />
+            </div>
+            <div onClick={handlePlayClick}>
+              <img
+                alt={video.title}
+                className="absolute inset-0 w-full h-full object-cover"
+                src={video.imageUrl}
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              {/* Play button - always visible on mobile, hover on desktop */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+                <div className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+                  <span className="material-symbols-outlined text-2xl md:text-3xl text-white">play_arrow</span>
+                </div>
               </div>
+              <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3">
+                <h3 className="text-white font-semibold text-xs md:text-sm line-clamp-2 leading-tight">
+                  {video.title}
+                </h3>
+                {video.viewCount && (
+                  <p className="text-white/70 text-[10px] md:text-xs mt-0.5 md:mt-1">
+                    {formatViewCount(video.viewCount)}
+                  </p>
+                )}
+              </div>
+              <span className="absolute top-1.5 right-1.5 md:top-2 md:right-2 bg-black/60 px-1 md:px-1.5 py-0.5 rounded text-[10px] md:text-xs font-medium text-white">
+                {video.duration}
+              </span>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3">
-              <h3 className="text-white font-semibold text-xs md:text-sm line-clamp-2 leading-tight">
-                {video.title}
-              </h3>
-              {video.viewCount && (
-                <p className="text-white/70 text-[10px] md:text-xs mt-0.5 md:mt-1">
-                  {formatViewCount(video.viewCount)}
-                </p>
-              )}
-            </div>
-            <span className="absolute top-1.5 right-1.5 md:top-2 md:right-2 bg-black/60 px-1 md:px-1.5 py-0.5 rounded text-[10px] md:text-xs font-medium text-white">
-              {video.duration}
-            </span>
           </div>
         </div>
         {isPlayerOpen && <VideoPlayer video={video} onClose={() => setIsPlayerOpen(false)} />}

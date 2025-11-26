@@ -199,12 +199,39 @@ WeeklyPlanView.tsx displays the plan with dark mode support
 - **Problem**: Cloudflare Workers free plan has 10ms CPU limit - AI calls timeout
 - **Solution**: Hybrid approach - Vercel Edge Functions handle AI (60s timeout)
 - **Files**:
-  - `pages/api/nutrition/generate-diet-plan.ts` - Main AI endpoint
-  - `pages/api/nutrition/regenerate-meal.ts` - Meal regeneration
+  - `pages/api/nutrition/generate-diet-plan.ts` - Main AI endpoint (60s timeout)
+  - `pages/api/nutrition/regenerate-meal.ts` - Meal regeneration (30s timeout)
   - `hooks/useUserProfile.tsx` - Routes AI calls to Vercel API
-  - `vercel.json` - Configures 60s/30s timeouts
+  - `vercel.json` - Configures Edge Function timeouts
 - **API Key**: `GEMINI_API_KEY` set in Vercel environment variables
 - **Model**: `gemini-2.0-flash` with `temperature: 0.3`, `maxOutputTokens: 8192`
+
+### 3a. Swap Meal Feature (Nov 26, 2025)
+- **Feature**: Intelligent AI-powered meal swapping while maintaining exact calorie/macro targets
+- **Problem**: "Swap Meal" button on generated diet plan did nothing meaningful
+- **Solution**: 
+  - Enhanced `regenerate-meal.ts` to use current meal's nutritional data as targets
+  - Prompt instructs Gemini to generate DIFFERENT meal with SAME calories (±10%)
+  - Uses alternatives from current meal as inspiration
+  - Updates state immutably so React re-renders properly
+- **UI Improvements**:
+  - Green border highlight on swapped meal card
+  - "Meal swapped successfully!" banner with checkmark
+  - Success indication auto-clears after 3 seconds
+- **Key Code Changes**:
+  - `hooks/useUserProfile.tsx` (lines 294-327): Proper immutable state updates for `setDietPlan`
+  - `pages/api/nutrition/regenerate-meal.ts` (lines 55-118): Smart prompt with target matching
+  - `components/DietChart/WeeklyPlanView.tsx`: Added `swappedMeal` state for visual feedback
+
+### 3b. Gemini API Key Leak Fix (Nov 26, 2025)
+- **Problem**: Diet plan generation failed with 500 error: "Your API key was reported as leaked"
+- **Cause**: Google flagged the Gemini API key (likely exposed in public repo)
+- **Fix**:
+  1. Generate new API key at https://aistudio.google.com/app/apikey
+  2. Delete old compromised key
+  3. Update `GEMINI_API_KEY` in Vercel project settings
+  4. Redeploy: `npx vercel --prod`
+- **Prevention**: Never commit API keys to git. Use environment variables only.
 
 ### 4. Nutrition Page Mobile Optimization (Nov 26, 2025)
 - **Feature**: Full mobile optimization for the Nutrition page and AI Diet Generator
@@ -266,6 +293,15 @@ WeeklyPlanView.tsx displays the plan with dark mode support
 - **Fix**: Added `@custom-variant dark (&:where(.dark, .dark *));`
 - **File**: `styles/globals.css`
 
+### 12. Article Search Relevance Fix (Nov 26, 2025)
+- **Problem**: Search results showed irrelevant articles (e.g., searching "yoga" returned unrelated health articles)
+- **Solution**: Client-side filtering in `services/apiService.ts`:
+  - Word boundary matching (`\b${term}\b`) prevents partial matches
+  - Title/description matches prioritized (scored higher)
+  - Category matching also considered
+  - Results re-sorted by match score after filtering
+- **File**: `services/apiService.ts` - `searchArticles()` function
+
 ## Data Flow
 
 ```
@@ -316,4 +352,4 @@ Full article HTML replaces loading state
 3. Check `pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 26, 2025 (Added Contact Form with Resend email integration + Info pages)*
+*Last updated: November 26, 2025 (Added Swap Meal AI feature, fixed Gemini API key leak, article search relevance)*

@@ -618,7 +618,186 @@ async function fetchUSDAFood(apiKey, query, retries = 3) {
   }
 }
 
-// Helper function to fetch image from Unsplash API
+// High-quality curated food images by category (Unsplash CDN - reliable and fast)
+const FOOD_CATEGORY_IMAGES = {
+  // Fruits
+  apple: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400&q=80',
+  banana: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&q=80',
+  orange: 'https://images.unsplash.com/photo-1547514701-42782101795e?w=400&q=80',
+  strawberry: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400&q=80',
+  blueberry: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=400&q=80',
+  grape: 'https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=400&q=80',
+  mango: 'https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&q=80',
+  pineapple: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400&q=80',
+  watermelon: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80',
+  lemon: 'https://images.unsplash.com/photo-1590502593747-42a996133562?w=400&q=80',
+  avocado: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400&q=80',
+  peach: 'https://images.unsplash.com/photo-1629828874514-c1e5103f2e40?w=400&q=80',
+  cherry: 'https://images.unsplash.com/photo-1528821128474-27f963b062bf?w=400&q=80',
+  kiwi: 'https://images.unsplash.com/photo-1585059895524-72359e06133a?w=400&q=80',
+  
+  // Vegetables
+  broccoli: 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400&q=80',
+  carrot: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&q=80',
+  spinach: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400&q=80',
+  tomato: 'https://images.unsplash.com/photo-1546470427-0d4db154cde8?w=400&q=80',
+  potato: 'https://images.unsplash.com/photo-1518977676601-b53f82ber44?w=400&q=80',
+  onion: 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400&q=80',
+  cucumber: 'https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?w=400&q=80',
+  lettuce: 'https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=400&q=80',
+  pepper: 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=400&q=80',
+  corn: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&q=80',
+  beans: 'https://images.unsplash.com/photo-1551462147-ff29053bfc14?w=400&q=80',
+  peas: 'https://images.unsplash.com/photo-1587735243474-e9d39f6d4e8e?w=400&q=80',
+  cabbage: 'https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=400&q=80',
+  celery: 'https://images.unsplash.com/photo-1580391564590-aeca65c5e2d3?w=400&q=80',
+  mushroom: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80',
+  
+  // Proteins
+  chicken: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&q=80',
+  beef: 'https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400&q=80',
+  pork: 'https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400&q=80',
+  fish: 'https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=400&q=80',
+  salmon: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&q=80',
+  tuna: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80',
+  shrimp: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=400&q=80',
+  egg: 'https://images.unsplash.com/photo-1582169296194-e4d644c48063?w=400&q=80',
+  turkey: 'https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?w=400&q=80',
+  lamb: 'https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400&q=80',
+  bacon: 'https://images.unsplash.com/photo-1606851091851-e8c8c0fca5ba?w=400&q=80',
+  sausage: 'https://images.unsplash.com/photo-1432139509613-5c4255815697?w=400&q=80',
+  tofu: 'https://images.unsplash.com/photo-1628689469838-524a4a973b8e?w=400&q=80',
+  
+  // Dairy
+  milk: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&q=80',
+  cheese: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400&q=80',
+  yogurt: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
+  butter: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=400&q=80',
+  cream: 'https://images.unsplash.com/photo-1587657262400-5e78cd77a3a1?w=400&q=80',
+  
+  // Grains & Carbs
+  bread: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80',
+  rice: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400&q=80',
+  pasta: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&q=80',
+  oats: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=400&q=80',
+  cereal: 'https://images.unsplash.com/photo-1521483451569-e33803c0330c?w=400&q=80',
+  quinoa: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&q=80',
+  noodle: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&q=80',
+  
+  // Nuts & Seeds
+  almond: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=400&q=80',
+  peanut: 'https://images.unsplash.com/photo-1567892320421-1c657571ea4f?w=400&q=80',
+  walnut: 'https://images.unsplash.com/photo-1563412885-139e4045ec09?w=400&q=80',
+  cashew: 'https://images.unsplash.com/photo-1509912033470-1de0f06b4f9f?w=400&q=80',
+  
+  // Beverages
+  coffee: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80',
+  tea: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80',
+  juice: 'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&q=80',
+  smoothie: 'https://images.unsplash.com/photo-1502741224143-90386d7f8c82?w=400&q=80',
+  soda: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400&q=80',
+  
+  // Prepared Foods
+  pizza: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80',
+  burger: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80',
+  sandwich: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&q=80',
+  salad: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80',
+  soup: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80',
+  steak: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&q=80',
+  taco: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80',
+  burrito: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&q=80',
+  sushi: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80',
+  curry: 'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&q=80',
+  biryani: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&q=80',
+  fries: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80',
+  
+  // Desserts & Sweets
+  cake: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80',
+  cookie: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&q=80',
+  chocolate: 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400&q=80',
+  ice: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&q=80',
+  donut: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400&q=80',
+  pie: 'https://images.unsplash.com/photo-1535920527002-b35e96722eb9?w=400&q=80',
+  
+  // Default fallbacks by category
+  fruit: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=400&q=80',
+  vegetable: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80',
+  meat: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&q=80',
+  seafood: 'https://images.unsplash.com/photo-1579631542720-3a87824fff86?w=400&q=80',
+  dairy: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400&q=80',
+  grain: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&q=80',
+  snack: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&q=80',
+  beverage: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&q=80',
+  default: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80'
+};
+
+// Extract primary food keyword from complex USDA descriptions
+function extractFoodKeyword(description) {
+  if (!description) return null;
+  
+  const lowerDesc = description.toLowerCase();
+  
+  // Check for exact matches first
+  for (const keyword of Object.keys(FOOD_CATEGORY_IMAGES)) {
+    if (lowerDesc.includes(keyword)) {
+      return keyword;
+    }
+  }
+  
+  // Extract first meaningful word (skip common prefixes)
+  const skipWords = ['raw', 'cooked', 'fresh', 'frozen', 'canned', 'dried', 'organic', 'fast', 'food', 'foods', 'with', 'without', 'plain', 'whole', 'sliced', 'diced', 'chopped', 'ground', 'boiled', 'fried', 'baked', 'grilled', 'roasted', 'steamed'];
+  
+  const words = lowerDesc
+    .replace(/[^a-z\s]/g, ' ')
+    .split(/\s+/)
+    .filter(word => word.length > 2 && !skipWords.includes(word));
+  
+  if (words.length > 0) {
+    // Check if first word matches any category
+    for (const word of words) {
+      if (FOOD_CATEGORY_IMAGES[word]) {
+        return word;
+      }
+    }
+  }
+  
+  return null;
+}
+
+// Get curated image URL for a food item
+function getCuratedFoodImage(description) {
+  const keyword = extractFoodKeyword(description);
+  if (keyword && FOOD_CATEGORY_IMAGES[keyword]) {
+    return FOOD_CATEGORY_IMAGES[keyword];
+  }
+  return null;
+}
+
+// Helper function to fetch image from Pexels API (better for food images)
+async function fetchPexelsImage(query, apiKey) {
+  if (!apiKey) return null;
+  
+  try {
+    const response = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(query + ' food')}&per_page=1&orientation=landscape`, {
+      headers: {
+        'Authorization': apiKey
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.photos && data.photos.length > 0) {
+        return data.photos[0].src.medium; // Use medium size for faster loading
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error('Pexels API error:', error);
+    return null;
+  }
+}
+
+// Helper function to fetch image from Unsplash API (fallback)
 async function fetchUnsplashImage(query, accessKey) {
   if (!accessKey) return null;
   
@@ -669,24 +848,37 @@ async function transformUSDAData(food, index, page, env) {
     const servingSize = food.servingSize || 100;
     const servingUnit = food.servingSizeUnit || 'g';
 
-    // Get image URL using Unsplash API
-    let imageUrl = 'https://picsum.photos/400/300?random=' + index; // Default placeholder fallback
+    // Get image URL using smart curated image system
+    // Priority: 1. Curated images (instant, accurate) 2. Pexels API 3. Unsplash API 4. Default fallback
+    let imageUrl = FOOD_CATEGORY_IMAGES.default; // Default fallback
     
-    // Try to get a specific image from Unsplash
-    // Clean up search terms: remove commas, extra spaces, and ensure it's a simple query
-    const rawTerm = food.description?.split(',')[0] || food.description || 'food';
-    const searchTerms = rawTerm.trim();
-    
-    // Use provided Unsplash key or fallback to env
-    // The user provided key: 45KTR6-Zue9Pkb6Obw4swYQE7r0iUqfa-ghgJc73UpI
-    const unsplashKey = env.UNSPLASH_ACCESS_KEY || '45KTR6-Zue9Pkb6Obw4swYQE7r0iUqfa-ghgJc73UpI';
-    
-    const unsplashUrl = await fetchUnsplashImage(searchTerms, unsplashKey);
-    if (unsplashUrl) {
-      imageUrl = unsplashUrl;
-    } 
-    // If Unsplash fails, we stick with the Picsum placeholder.
-    // We DO NOT use source.unsplash.com as it is deprecated and broken.
+    // First, try to get a curated image (fastest and most accurate)
+    const curatedImage = getCuratedFoodImage(food.description);
+    if (curatedImage) {
+      imageUrl = curatedImage;
+    } else {
+      // If no curated image, try Pexels API (better food photos than Unsplash)
+      const rawTerm = food.description?.split(',')[0] || food.description || 'food';
+      const searchTerms = rawTerm.trim();
+      
+      // Try Pexels first (better for food images)
+      const pexelsKey = env.PEXELS_API_KEY;
+      if (pexelsKey) {
+        const pexelsUrl = await fetchPexelsImage(searchTerms, pexelsKey);
+        if (pexelsUrl) {
+          imageUrl = pexelsUrl;
+        }
+      }
+      
+      // If Pexels fails, try Unsplash as fallback
+      if (imageUrl === FOOD_CATEGORY_IMAGES.default) {
+        const unsplashKey = env.UNSPLASH_ACCESS_KEY || '45KTR6-Zue9Pkb6Obw4swYQE7r0iUqfa-ghgJc73UpI';
+        const unsplashUrl = await fetchUnsplashImage(searchTerms, unsplashKey);
+        if (unsplashUrl) {
+          imageUrl = unsplashUrl;
+        }
+      }
+    }
 
     // Generate description based on nutrients
     const benefits = [];

@@ -166,6 +166,15 @@ const HealthStorePage: React.FC = () => {
         updateSearchParam('q', searchQuery);
     };
 
+    const handleClearSearch = () => {
+        setSearchQuery('');
+        // Remove 'q' from URL to show default results
+        const newQuery = { ...query };
+        delete newQuery.q;
+        delete newQuery.page; // Reset to page 1
+        router.push({ pathname: router.pathname, query: newQuery }, undefined, { scroll: false });
+    };
+
     const handlePriceRangeSelect = (min: number | undefined, max: number | undefined) => {
         const newQuery = { ...query };
         
@@ -219,12 +228,26 @@ const HealthStorePage: React.FC = () => {
                                     <div className="text-gray-500 flex border border-gray-200 bg-white items-center justify-center pl-4 rounded-l-lg border-r-0 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
                                         <span className="material-symbols-outlined">search</span>
                                     </div>
-                                    <input
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-brand-text focus:outline-0 focus:ring-2 focus:ring-[#2C7A7B]/50 focus:border-[#2C7A7B] border border-gray-200 bg-white h-full placeholder:text-gray-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal dark:bg-gray-800 dark:border-gray-700 dark:placeholder:text-gray-400 dark:text-gray-200"
-                                        placeholder="Search for vitamins, supplements, gear..."
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                    />
+                                    {/* Input wrapper with clear button */}
+                                    <div className="relative flex-1 flex">
+                                        <input
+                                            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-brand-text focus:outline-0 focus:ring-2 focus:ring-[#2C7A7B]/50 focus:border-[#2C7A7B] border border-gray-200 bg-white h-full placeholder:text-gray-500 px-4 border-l-0 pl-2 pr-10 text-base font-normal leading-normal dark:bg-gray-800 dark:border-gray-700 dark:placeholder:text-gray-400 dark:text-gray-200"
+                                            placeholder="Search for vitamins, supplements, gear..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                        />
+                                        {/* Clear search button - shows when there's text in input or active search */}
+                                        {(searchQuery || q) && (
+                                            <button
+                                                type="button"
+                                                onClick={handleClearSearch}
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                                                title="Clear search"
+                                            >
+                                                <span className="material-symbols-outlined text-xl">close</span>
+                                            </button>
+                                        )}
+                                    </div>
                                     <button
                                         type="submit"
                                         className="px-6 rounded-r-lg bg-[#2C7A7B] text-white hover:bg-[#2C7A7B]/90 transition-colors font-medium"

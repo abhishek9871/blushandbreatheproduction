@@ -369,8 +369,13 @@ const HealthStorePage: React.FC = () => {
                                     className="group flex flex-col overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 dark:border dark:border-gray-700"
                                 >
                                     <div className="relative">
-                                        <div className="absolute top-2 right-2 z-10">
+                                        {/* Bookmark Button - Top Left */}
+                                        <div className="absolute top-2 left-2 z-10">
                                             <BookmarkButton item={{ ...product, contentType: 'HealthProduct' }} className="bg-white/70 dark:bg-black/70 hover:bg-white dark:hover:bg-black text-text-subtle-light dark:text-text-subtle-dark hover:text-secondary" />
+                                        </div>
+                                        {/* Benefit Tag - Top Right */}
+                                        <div className="absolute top-2 right-2 z-10 rounded bg-blue-100 px-2 py-1 text-xs font-semibold uppercase text-[#4299E1] dark:bg-blue-900/50 dark:text-blue-300">
+                                            {getBenefitTag(category)}
                                         </div>
                                         <div className="aspect-square w-full bg-gray-100 dark:bg-gray-700 overflow-hidden">
                                             <img
@@ -378,10 +383,6 @@ const HealthStorePage: React.FC = () => {
                                                 className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                                                 src={getHighQualityEbayImage(product.imageUrl)}
                                             />
-                                        </div>
-                                        {/* Benefit Tag */}
-                                        <div className="absolute top-3 right-3 rounded bg-blue-100 px-2 py-1 text-xs font-semibold uppercase text-[#4299E1] dark:bg-blue-900/50 dark:text-blue-300">
-                                            {getBenefitTag(category)}
                                         </div>
                                     </div>
                                     <div className="flex flex-1 flex-col p-4">
@@ -403,26 +404,56 @@ const HealthStorePage: React.FC = () => {
                         )}
                     </div>
 
-                    {/* Pagination */}
-                    {!loading && products.length > 0 && (
-                        <div className="flex justify-center gap-4 mt-8">
-                            <button
-                                onClick={() => updateSearchParam('page', page - 1)}
-                                disabled={page <= 1}
-                                className="px-6 py-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
-                                Previous
-                            </button>
-                            <span className="flex items-center px-4 text-sm">
-                                Page {page} of {Math.ceil(pagination.total / pagination.pageSize) || 1}
-                            </span>
-                            <button
-                                onClick={() => updateSearchParam('page', page + 1)}
-                                disabled={!pagination.hasNextPage}
-                                className="px-6 py-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
-                                Next
-                            </button>
+                    {/* Pagination - Always show if we have total > 0 OR if we're on page > 1 (so user can navigate back) */}
+                    {!loading && (pagination.total > 0 || page > 1) && (
+                        <div className="flex flex-col items-center gap-3 mt-8">
+                            {/* Navigation Buttons */}
+                            <div className="flex justify-center items-center gap-2">
+                                {/* First Page Button */}
+                                <button
+                                    onClick={() => updateSearchParam('page', 1)}
+                                    disabled={page <= 1}
+                                    className="p-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                    title="First page"
+                                >
+                                    <span className="material-symbols-outlined text-xl">first_page</span>
+                                </button>
+                                {/* Previous Button */}
+                                <button
+                                    onClick={() => updateSearchParam('page', page - 1)}
+                                    disabled={page <= 1}
+                                    className="px-5 py-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    Previous
+                                </button>
+                                {/* Page Indicator */}
+                                <span className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                                    Page {page}
+                                </span>
+                                {/* Next Button */}
+                                <button
+                                    onClick={() => updateSearchParam('page', page + 1)}
+                                    disabled={!pagination.hasNextPage}
+                                    className="px-5 py-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    Next
+                                </button>
+                                {/* Skip Forward Button (jump 10 pages) */}
+                                <button
+                                    onClick={() => updateSearchParam('page', Math.min(page + 10, Math.min(Math.ceil(pagination.total / pagination.pageSize), 200)))}
+                                    disabled={!pagination.hasNextPage}
+                                    className="p-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                    title="Skip forward 10 pages"
+                                >
+                                    <span className="material-symbols-outlined text-xl">last_page</span>
+                                </button>
+                            </div>
+                            {/* Empty page warning */}
+                            {products.length === 0 && page > 1 && (
+                                <p className="text-sm text-amber-600 dark:text-amber-400">
+                                    No products on this page. Try going back to earlier pages.
+                                </p>
+                            )}
                         </div>
                     )}
                 </section>

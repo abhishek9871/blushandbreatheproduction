@@ -1,7 +1,7 @@
 'use client';
 
 import Head from 'next/head';
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { getNutritionData, searchUSDAFoods, getNutrientInfo } from '@/services/apiService';
 import {
@@ -108,6 +108,14 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
   const [nutrientInfo, setNutrientInfo] = useState<{ name: string; searchQuery: string; benefits: string[]; dailyValue?: string; sources?: string[]; } | null>(null);
   const [isNutrientSearch, setIsNutrientSearch] = useState(false);
   const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
+  const searchResultsRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to search results when search is performed on AI Diet Planner tab
+  const scrollToResults = useCallback(() => {
+    if (searchResultsRef.current) {
+      searchResultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
 
   const isNutrientQuery = useCallback((query: string): boolean => {
     const nutrients = ['vitamin c', 'vitamin d', 'vitamin a', 'protein', 'carbohydrates', 'fat', 'fiber', 'iron', 'calcium', 'potassium', 'magnesium', 'zinc'];
@@ -277,7 +285,74 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
             )}
           </div>
         )}
-        {activeTab === 'recommendations' && <PersonalizedRecommendations availableFoods={foodItems} />}
+        {activeTab === 'recommendations' && (
+          <div>
+            {/* Search Results Notification Banner */}
+            {submittedQuery.trim() && searchResults.length > 0 && (
+              <div className="mb-6 p-4 bg-gradient-to-r from-accent/10 to-secondary/10 border border-accent/30 rounded-xl flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-accent text-2xl">search</span>
+                  <div>
+                    <p className="font-medium text-text-light dark:text-text-dark">
+                      Found {totalHits} {totalHits === 1 ? 'food' : 'foods'} matching "{submittedQuery}"
+                    </p>
+                    <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                      Search results are available below the AI Diet Planner
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={scrollToResults}
+                  className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors whitespace-nowrap"
+                >
+                  <span className="material-symbols-outlined text-lg">arrow_downward</span>
+                  View Results
+                </button>
+              </div>
+            )}
+            
+            <PersonalizedRecommendations availableFoods={foodItems} />
+            
+            {/* Search Results Section (below AI Diet Planner) */}
+            {submittedQuery.trim() && (
+              <div ref={searchResultsRef} className="mt-12 pt-8 border-t border-border-light dark:border-border-dark">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="material-symbols-outlined text-accent text-2xl">restaurant</span>
+                  <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">Search Results</h2>
+                </div>
+                
+                {nutrientInfo && <NutrientEducation nutrientInfo={nutrientInfo} onSearchFoods={(q) => { setSearchQuery(q); handleSearch(q); }} />}
+                
+                {isLoading && searchResults.length === 0 && <LoadingSpinner />}
+                {displayError && <ErrorMessage message={displayError} />}
+                
+                {!displayError && searchResults.length > 0 && (
+                  <>
+                    <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                      Found {totalHits.toLocaleString()} unique {totalHits === 1 ? 'food' : 'foods'} matching "{submittedQuery}"{isNutrientSearch && ' rich in this nutrient'}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {searchResults.map((item, i) => <NutritionCard key={`${item.id || 'item'}-${i}`} item={item} showCartActions={true} />)}
+                    </div>
+                    {hasMore && (
+                      <div className="mt-8 text-center">
+                        <button onClick={loadMore} disabled={isSearching} className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 disabled:opacity-50 transition-colors">
+                          {isSearching ? 'Loading...' : 'Load More Foods'}
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+                
+                {!isLoading && !displayError && searchResults.length === 0 && (
+                  <div className="text-center py-12">
+                    <p className="text-gray-500 dark:text-gray-400 text-lg">No foods found matching "{submittedQuery}"</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <MiniCart isOpen={isMiniCartOpen} onClose={() => setIsMiniCartOpen(false)} />

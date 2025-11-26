@@ -1804,8 +1804,8 @@ export default {
         const page = parseInt(searchParams.get('page') || '1');
         const pageSize = Math.min(parseInt(searchParams.get('pageSize') || '24'), 50);
 
-        // Create cache key with version to bust old cache after category restriction changes
-        const cacheKey = `ebay_search:v2_beauty_only:${q}:${category}:${sort}:${minPrice || ''}:${maxPrice || ''}:${condition || ''}:${page}:${pageSize}`;
+        // Create cache key with version to bust old cache after filter logic changes
+        const cacheKey = `ebay_search:v3_beauty:${q}:${category}:${sort}:${minPrice || ''}:${maxPrice || ''}:${condition || ''}:${page}:${pageSize}`;
         
         // Check cache first (5 minute TTL)
         const cachedResult = await env.MERGED_CACHE?.get(cacheKey);
@@ -1871,14 +1871,18 @@ export default {
         }
         // 'best' uses eBay's default Best Match
 
-        // Build price filter
+        // Build filters array (eBay requires proper filter syntax)
+        const filters = [];
+        
+        // Price filter - eBay doesn't accept '*' wildcards
         if (minPrice || maxPrice) {
-          const min = minPrice || '*';
-          const max = maxPrice || '*';
-          ebayParams.append('filter', `price:[${min}..${max}],priceCurrency:USD`);
+          const min = minPrice ? parseFloat(minPrice) : 0;
+          const max = maxPrice ? parseFloat(maxPrice) : 999999;
+          filters.push(`price:[${min}..${max}]`);
+          filters.push('priceCurrency:USD');
         }
 
-        // Build condition filter
+        // Condition filter
         if (condition) {
           const conditionMap = {
             'new': 'NEW',
@@ -1887,14 +1891,13 @@ export default {
           };
           const ebayCondition = conditionMap[condition];
           if (ebayCondition) {
-            const filterValue = `conditions:{${ebayCondition}}`;
-            const existingFilter = ebayParams.get('filter');
-            if (existingFilter) {
-              ebayParams.set('filter', `${existingFilter},${filterValue}`);
-            } else {
-              ebayParams.append('filter', filterValue);
-            }
+            filters.push(`conditions:{${ebayCondition}}`);
           }
+        }
+        
+        // Add all filters as a single parameter
+        if (filters.length > 0) {
+          ebayParams.append('filter', filters.join(','));
         }
 
         // Call eBay Browse API
@@ -2190,8 +2193,8 @@ export default {
         const page = parseInt(searchParams.get('page') || '1');
         const pageSize = Math.min(parseInt(searchParams.get('pageSize') || '24'), 50);
 
-        // Create cache key
-        const cacheKey = `ebay_health_search:${q}:${category}:${sort}:${minPrice || ''}:${maxPrice || ''}:${condition || ''}:${page}:${pageSize}`;
+        // Create cache key with version to bust cache after filter logic changes
+        const cacheKey = `ebay_health_search:v2:${q}:${category}:${sort}:${minPrice || ''}:${maxPrice || ''}:${condition || ''}:${page}:${pageSize}`;
 
         // Check cache first (5 minute TTL)
         const cachedResult = await env.MERGED_CACHE?.get(cacheKey);
@@ -2262,14 +2265,18 @@ export default {
         }
         // 'best' uses eBay's default Best Match
 
-        // Build price filter
+        // Build filters array (eBay requires proper filter syntax)
+        const filters = [];
+        
+        // Price filter - eBay doesn't accept '*' wildcards
         if (minPrice || maxPrice) {
-          const min = minPrice || '*';
-          const max = maxPrice || '*';
-          ebayParams.append('filter', `price:[${min}..${max}],priceCurrency:USD`);
+          const min = minPrice ? parseFloat(minPrice) : 0;
+          const max = maxPrice ? parseFloat(maxPrice) : 999999;
+          filters.push(`price:[${min}..${max}]`);
+          filters.push('priceCurrency:USD');
         }
 
-        // Build condition filter
+        // Condition filter
         if (condition) {
           const conditionMap = {
             'new': 'NEW',
@@ -2278,14 +2285,13 @@ export default {
           };
           const ebayCondition = conditionMap[condition];
           if (ebayCondition) {
-            const filterValue = `conditions:{${ebayCondition}}`;
-            const existingFilter = ebayParams.get('filter');
-            if (existingFilter) {
-              ebayParams.set('filter', `${existingFilter},${filterValue}`);
-            } else {
-              ebayParams.append('filter', filterValue);
-            }
+            filters.push(`conditions:{${ebayCondition}}`);
           }
+        }
+        
+        // Add all filters as a single parameter
+        if (filters.length > 0) {
+          ebayParams.append('filter', filters.join(','));
         }
 
         // Call eBay Browse API

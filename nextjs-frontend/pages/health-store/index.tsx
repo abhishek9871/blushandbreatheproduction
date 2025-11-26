@@ -20,7 +20,6 @@ const HealthStorePage: React.FC = () => {
     // UI State
     const [searchQuery, setSearchQuery] = useState('');
     const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-    const [showConditionDropdown, setShowConditionDropdown] = useState(false);
     const [showPriceDropdown, setShowPriceDropdown] = useState(false);
 
     const categories = ['all', 'vitamins', 'fitness', 'supplements', 'medical', 'wellness'] as const;
@@ -33,7 +32,6 @@ const HealthStorePage: React.FC = () => {
         : 'all';
 
     const sort = (query.sort as EbaySearchParams['sort']) || 'best';
-    const condition = query.condition as EbaySearchParams['condition'];
     const minPrice = query.minPrice ? Number(query.minPrice) : undefined;
     const maxPrice = query.maxPrice ? Number(query.maxPrice) : undefined;
     const page = Number(query.page) || 1;
@@ -56,7 +54,6 @@ const HealthStorePage: React.FC = () => {
     };
 
     const sortOptions = ['best', 'priceAsc', 'priceDesc', 'newest'] as const;
-    const conditions = ['new', 'used', 'refurbished'] as const;
     const priceRanges = [
         { label: 'All Prices', min: undefined, max: undefined },
         { label: 'Under $25', min: undefined, max: 25 },
@@ -96,7 +93,6 @@ const HealthStorePage: React.FC = () => {
             if (!filtersRef.current.contains(event.target)) {
                 setShowCategoryDropdown(false);
                 setShowPriceDropdown(false);
-                setShowConditionDropdown(false);
             }
         };
 
@@ -104,7 +100,6 @@ const HealthStorePage: React.FC = () => {
             if (event.key === 'Escape') {
                 setShowCategoryDropdown(false);
                 setShowPriceDropdown(false);
-                setShowConditionDropdown(false);
             }
         };
 
@@ -129,7 +124,6 @@ const HealthStorePage: React.FC = () => {
                     q,
                     category,
                     sort,
-                    condition,
                     minPrice,
                     maxPrice,
                     page,
@@ -148,7 +142,7 @@ const HealthStorePage: React.FC = () => {
         };
 
         fetchProducts();
-    }, [isReady, q, category, sort, condition, minPrice, maxPrice, page]);
+    }, [isReady, q, category, sort, minPrice, maxPrice, page]);
 
     const updateSearchParam = (key: string, value: string | number | undefined) => {
         const newQuery = { ...query };
@@ -191,6 +185,14 @@ const HealthStorePage: React.FC = () => {
         const range = priceRanges.find(r => r.min === minPrice && r.max === maxPrice);
         return range ? range.label : 'All Prices';
     }, [minPrice, maxPrice]);
+
+    // Check if any filters are active
+    const hasActiveFilters = category !== 'all' || sort !== 'best' || minPrice !== undefined || maxPrice !== undefined || q !== '';
+
+    const handleResetFilters = () => {
+        setSearchQuery('');
+        router.push({ pathname: router.pathname }, undefined, { scroll: false });
+    };
 
     return (
         <>
@@ -271,7 +273,6 @@ const HealthStorePage: React.FC = () => {
                             onClick={() => {
                                 setShowCategoryDropdown(!showCategoryDropdown);
                                 setShowPriceDropdown(false);
-                                setShowConditionDropdown(false);
                             }}
                             className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
                         >
@@ -299,7 +300,6 @@ const HealthStorePage: React.FC = () => {
                             onClick={() => {
                                 setShowPriceDropdown(!showPriceDropdown);
                                 setShowCategoryDropdown(false);
-                                setShowConditionDropdown(false);
                             }}
                             className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
                         >
@@ -321,40 +321,6 @@ const HealthStorePage: React.FC = () => {
                         )}
                     </div>
 
-                    {/* Condition Dropdown */}
-                    <div className="relative">
-                        <button
-                            onClick={() => {
-                                setShowConditionDropdown(!showConditionDropdown);
-                                setShowCategoryDropdown(false);
-                                setShowPriceDropdown(false);
-                            }}
-                            className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors capitalize"
-                        >
-                            <p className="text-sm font-medium leading-normal">Condition: {condition || 'All'}</p>
-                            <span className="material-symbols-outlined text-xl">{showConditionDropdown ? 'expand_less' : 'expand_more'}</span>
-                        </button>
-                        {showConditionDropdown && (
-                            <div className="absolute top-12 left-0 bg-white dark:bg-gray-800 border border-border-light dark:border-border-dark rounded-lg shadow-lg z-10 min-w-40">
-                                <button
-                                    onClick={() => { updateSearchParam('condition', undefined); setShowConditionDropdown(false); }}
-                                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm"
-                                >
-                                    All
-                                </button>
-                                {conditions.map(cond => (
-                                    <button
-                                        key={cond}
-                                        onClick={() => { updateSearchParam('condition', cond); setShowConditionDropdown(false); }}
-                                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm capitalize"
-                                    >
-                                        {cond}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
                     {/* Sort Button */}
                     <button
                         onClick={() => {
@@ -367,6 +333,17 @@ const HealthStorePage: React.FC = () => {
                         <p className="text-sm font-medium leading-normal">Sort: {sortLabels[sort]}</p>
                         <span className="material-symbols-outlined text-xl">swap_vert</span>
                     </button>
+
+                    {/* Reset Filters Button */}
+                    {hasActiveFilters && (
+                        <button
+                            onClick={handleResetFilters}
+                            className="flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-4 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"
+                        >
+                            <span className="material-symbols-outlined text-xl">restart_alt</span>
+                            <p className="text-sm font-medium leading-normal">Reset</p>
+                        </button>
+                    )}
                 </div>
 
                 {/* Products Grid */}

@@ -40,6 +40,10 @@ module.exports = {
     } else if (path.startsWith('/article/') || path.startsWith('/product/')) {
       priority = 0.8;
       changefreq = 'weekly';
+    } else if (path.startsWith('/info/')) {
+      // Info pages (about, contact, faq, shipping, returns, etc.)
+      priority = 0.6;
+      changefreq = 'monthly';
     }
     
     return {

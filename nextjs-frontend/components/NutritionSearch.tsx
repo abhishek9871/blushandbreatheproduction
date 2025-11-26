@@ -5,13 +5,22 @@ import React, { useState, useEffect, useRef } from 'react';
 interface NutritionSearchProps {
   value: string;
   onChange: (value: string) => void;
+  onSearch: (query: string) => void;
   onClear: () => void;
+  isSearching?: boolean;
 }
 
-const NutritionSearch: React.FC<NutritionSearchProps> = ({ value, onChange, onClear }) => {
+const NutritionSearch: React.FC<NutritionSearchProps> = ({ value, onChange, onSearch, onClear, isSearching }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSearch = () => {
+    if (value.trim()) {
+      onSearch(value.trim());
+      setSuggestions([]);
+    }
+  };
 
   const popularFoods = [
     'apple', 'banana', 'orange', 'strawberry', 'blueberry',
@@ -35,12 +44,17 @@ const NutritionSearch: React.FC<NutritionSearchProps> = ({ value, onChange, onCl
 
   const handleSuggestionClick = (suggestion: string) => {
     onChange(suggestion);
+    onSearch(suggestion);
     setSuggestions([]);
     inputRef.current?.blur();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearch();
+      inputRef.current?.blur();
+    } else if (e.key === 'Escape') {
       setSuggestions([]);
       inputRef.current?.blur();
     }
@@ -48,35 +62,55 @@ const NutritionSearch: React.FC<NutritionSearchProps> = ({ value, onChange, onCl
 
   return (
     <div className="relative max-w-2xl mx-auto">
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-          <span className="material-symbols-outlined text-text-subtle-light dark:text-text-subtle-dark">
-            search
-          </span>
+      <div className="flex gap-3">
+        <div className="relative flex-1">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <span className="material-symbols-outlined text-text-subtle-light dark:text-text-subtle-dark">
+              search
+            </span>
+          </div>
+
+          <input
+            ref={inputRef}
+            type="text"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+            onKeyDown={handleKeyDown}
+            placeholder="Search for foods, nutrients, or health tips..."
+            className="w-full pl-12 pr-12 py-4 text-lg bg-white dark:bg-[#1C2C1F] border-2 border-border-light dark:border-border-dark rounded-xl shadow-sm focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-200 placeholder:text-text-subtle-light dark:placeholder:text-text-subtle-dark"
+          />
+
+          {value && (
+            <button
+              onClick={onClear}
+              className="absolute inset-y-0 right-0 pr-4 flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-xl transition-colors"
+            >
+              <span className="material-symbols-outlined text-text-subtle-light dark:text-text-subtle-dark">
+                close
+              </span>
+            </button>
+          )}
         </div>
 
-        <input
-          ref={inputRef}
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-          onKeyDown={handleKeyDown}
-          placeholder="Search for foods, nutrients, or health tips..."
-          className="w-full pl-12 pr-12 py-4 text-lg bg-white dark:bg-[#1C2C1F] border-2 border-border-light dark:border-border-dark rounded-xl shadow-sm focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-200 placeholder:text-text-subtle-light dark:placeholder:text-text-subtle-dark"
-        />
-
-        {value && (
-          <button
-            onClick={onClear}
-            className="absolute inset-y-0 right-0 pr-4 flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-xl transition-colors"
-          >
-            <span className="material-symbols-outlined text-text-subtle-light dark:text-text-subtle-dark">
-              close
-            </span>
-          </button>
-        )}
+        <button
+          onClick={handleSearch}
+          disabled={!value.trim() || isSearching}
+          className="px-6 py-4 bg-accent hover:bg-accent/90 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium rounded-xl shadow-sm transition-all duration-200 flex items-center gap-2"
+        >
+          {isSearching ? (
+            <>
+              <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <span className="hidden sm:inline">Searching...</span>
+            </>
+          ) : (
+            <>
+              <span className="material-symbols-outlined">search</span>
+              <span className="hidden sm:inline">Search</span>
+            </>
+          )}
+        </button>
       </div>
 
       {isFocused && suggestions.length > 0 && (
@@ -104,7 +138,10 @@ const NutritionSearch: React.FC<NutritionSearchProps> = ({ value, onChange, onCl
           {['protein', 'vitamin C', 'healthy fats', 'fiber rich'].map((tip) => (
             <button
               key={tip}
-              onClick={() => onChange(tip)}
+              onClick={() => {
+                onChange(tip);
+                onSearch(tip);
+              }}
               className="px-3 py-1 bg-accent/10 hover:bg-accent/20 text-accent rounded-full transition-colors"
             >
               {tip}

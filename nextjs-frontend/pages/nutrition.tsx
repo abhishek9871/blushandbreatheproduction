@@ -168,19 +168,39 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
     }
   }, [isNutrientQuery]);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (searchQuery.trim()) performSearch(searchQuery, 1);
-      else { setSearchResults([]); setTotalHits(0); setHasMore(false); setNutrientInfo(null); setIsNutrientSearch(false); }
-    }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery, performSearch]);
+  // Track the submitted search query separately from the typed value
+  const [submittedQuery, setSubmittedQuery] = useState('');
 
-  const loadMore = useCallback(() => { if (hasMore && !isSearching) performSearch(searchQuery, currentPage + 1); }, [hasMore, isSearching, searchQuery, currentPage, performSearch]);
+  // Handle explicit search (Enter key or Search button)
+  const handleSearch = useCallback((query: string) => {
+    setSubmittedQuery(query);
+    if (query.trim()) {
+      performSearch(query, 1);
+    } else {
+      setSearchResults([]);
+      setTotalHits(0);
+      setHasMore(false);
+      setNutrientInfo(null);
+      setIsNutrientSearch(false);
+    }
+  }, [performSearch]);
 
-  const displayData = useMemo(() => searchQuery.trim() ? searchResults : (nutritionData || []), [searchQuery, searchResults, nutritionData]);
-  const isLoading = useMemo(() => searchQuery.trim() ? isSearching : false, [searchQuery, isSearching]);
-  const displayError = useMemo(() => searchQuery.trim() ? searchError : null, [searchQuery, searchError]);
+  // Clear search results when input is cleared
+  const handleClear = useCallback(() => {
+    setSearchQuery('');
+    setSubmittedQuery('');
+    setSearchResults([]);
+    setTotalHits(0);
+    setHasMore(false);
+    setNutrientInfo(null);
+    setIsNutrientSearch(false);
+  }, []);
+
+  const loadMore = useCallback(() => { if (hasMore && !isSearching) performSearch(submittedQuery, currentPage + 1); }, [hasMore, isSearching, submittedQuery, currentPage, performSearch]);
+
+  const displayData = useMemo(() => submittedQuery.trim() ? searchResults : (nutritionData || []), [submittedQuery, searchResults, nutritionData]);
+  const isLoading = useMemo(() => submittedQuery.trim() ? isSearching : false, [submittedQuery, isSearching]);
+  const displayError = useMemo(() => submittedQuery.trim() ? searchError : null, [submittedQuery, searchError]);
 
   const handleAddToCart = (item: NutritionInfo | TipCard) => {
     // Add item to cart logic here
@@ -208,7 +228,13 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
 
       <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div className="flex-1 w-full sm:w-auto">
-          <NutritionSearch value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} />
+          <NutritionSearch 
+            value={searchQuery} 
+            onChange={setSearchQuery} 
+            onSearch={handleSearch}
+            onClear={handleClear}
+            isSearching={isSearching}
+          />
         </div>
         <CartStatusBadge onOpenCart={() => setIsMiniCartOpen(true)} />
       </div>
@@ -226,10 +252,10 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
       <div className="min-h-[600px]">
         {activeTab === 'foods' && (
           <div>
-            {nutrientInfo && <NutrientEducation nutrientInfo={nutrientInfo} onSearchFoods={(q) => setSearchQuery(q)} />}
-            {searchQuery.trim() && totalHits > 0 && (
+            {nutrientInfo && <NutrientEducation nutrientInfo={nutrientInfo} onSearchFoods={(q) => { setSearchQuery(q); handleSearch(q); }} />}
+            {submittedQuery.trim() && totalHits > 0 && (
               <div className="mb-4 text-sm text-gray-600 dark:text-gray-400 flex items-center justify-between">
-                <span>Found {totalHits.toLocaleString()} unique {totalHits === 1 ? 'food' : 'foods'} matching &quot;{searchQuery}&quot;{isNutrientSearch && ' rich in this nutrient'}</span>
+                <span>Found {totalHits.toLocaleString()} unique {totalHits === 1 ? 'food' : 'foods'} matching &quot;{submittedQuery}&quot;{isNutrientSearch && ' rich in this nutrient'}</span>
                 {isLoading && <span className="text-blue-600 flex items-center gap-2"><span className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></span>Searching...</span>}
               </div>
             )}
@@ -240,7 +266,7 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {displayData.map((item, i) => <NutritionCard key={`${(item as NutritionInfo).id || 'item'}-${i}`} item={item} showCartActions={activeTab === 'foods'} />)}
                 </div>
-                {hasMore && searchQuery.trim() && (
+                {hasMore && submittedQuery.trim() && (
                   <div className="mt-8 text-center">
                     <button onClick={loadMore} disabled={isSearching} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors">
                       {isSearching ? 'Loading...' : 'Load More Foods'}
@@ -249,9 +275,9 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
                 )}
               </>
             )}
-            {!isLoading && !displayError && displayData.length === 0 && (
+            {!isLoading && !displayError && displayData.length === 0 && submittedQuery.trim() && (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">{searchQuery.trim() ? `No foods found matching "${searchQuery}"` : 'No nutrition items available.'}</p>
+                <p className="text-gray-500 text-lg">No foods found matching &quot;{submittedQuery}&quot;</p>
               </div>
             )}
           </div>

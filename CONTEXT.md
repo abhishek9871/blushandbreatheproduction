@@ -15,7 +15,7 @@
 │  • ISR with 1hr revalidation    │  • wrangler.backend.toml       │
 │  • URL: blushandbreath          │  • KV: MERGED_CACHE            │
 │    production.vercel.app        │  • Durable Objects: Affiliate  │
-│                                 │  • Cron: Hourly RSS refresh    │
+│  • Vercel Edge Functions for AI │  • Cron: Hourly RSS refresh    │
 ├─────────────────────────────────┴─────────────────────────────────┤
 │  ARTICLE READER (Cloudflare Worker)                              │
 │  • hb-reader worker (cloudflare-worker/src/index.ts)             │
@@ -47,11 +47,17 @@ blushandbreatheproduction/
 │   └── src/index.ts           # Article extraction worker
 ├── nextjs-frontend/           # NEW: Next.js frontend
 │   ├── pages/                 # Next.js pages (SSR/ISR)
+│   │   └── api/nutrition/     # Vercel Edge Functions for AI
+│   │       ├── generate-diet-plan.ts  # Gemini diet plan generation
+│   │       └── regenerate-meal.ts     # Gemini meal regeneration
 │   ├── components/            # React components
+│   │   └── DietChart/         # Diet plan UI components
 │   ├── services/              # API services
 │   │   ├── apiService.ts      # Backend API calls
 │   │   └── fullArticle.ts     # Article fetching via hb-reader
 │   ├── hooks/                 # Custom React hooks
+│   │   └── useUserProfile.tsx # Diet plan state & AI calls
+│   ├── vercel.json            # Vercel config (Edge Function timeouts)
 │   └── styles/globals.css     # Tailwind CSS styles
 ├── src/                       # OLD: React SPA (reference only)
 ├── pages/                     # OLD: React pages (reference only)
@@ -84,9 +90,48 @@ curl -X POST "https://jyotilalchandani-backend.sparshrajput088.workers.dev/api/a
 npm run build && npx vercel --prod
 ```
 
+### AI Diet Plan Architecture
+```
+User fills profile form (EnhancedProfileSetup.tsx)
+        │
+        ▼
+useUserProfile.tsx calls /api/nutrition/generate-diet-plan
+        │
+        ▼
+Vercel Edge Function (60s timeout) calls Gemini 2.0 Flash API
+        │
+        ▼
+Gemini returns JSON diet plan (weeklyPlan, shoppingList, tips)
+        │
+        ▼
+WeeklyPlanView.tsx displays the plan with dark mode support
+```
+
+**Why Vercel Edge for AI?** Cloudflare Workers free plan has 10ms CPU limit. AI calls need 15-45 seconds. Vercel Edge Functions allow 60s timeout.
+
 ## Recent Fixes Applied
 
-### 1. Health Store Pagination (Nov 26, 2025)
+### 1. AI Diet Plan with Gemini (Nov 26, 2025)
+- **Feature**: Personalized diet plan generation using Google Gemini 2.0 Flash
+- **Problem**: Cloudflare Workers free plan has 10ms CPU limit - AI calls timeout
+- **Solution**: Hybrid approach - Vercel Edge Functions handle AI (60s timeout)
+- **Files**:
+  - `nextjs-frontend/pages/api/nutrition/generate-diet-plan.ts` - Main AI endpoint
+  - `nextjs-frontend/pages/api/nutrition/regenerate-meal.ts` - Meal regeneration
+  - `nextjs-frontend/hooks/useUserProfile.tsx` - Routes AI calls to Vercel API
+  - `nextjs-frontend/vercel.json` - Configures 60s/30s timeouts
+- **API Key**: `GEMINI_API_KEY` set in Vercel environment variables
+- **Model**: `gemini-2.0-flash` with `temperature: 0.3`, `maxOutputTokens: 8192`
+
+### 2. Dark Mode Fix for Diet Plan (Nov 26, 2025)
+- **Problem**: Text invisible on dark backgrounds (labels, buttons, headings)
+- **Fix**: Added `text-text-light dark:text-text-dark` to all text elements
+- **Files**:
+  - `nextjs-frontend/components/DietChart/EnhancedProfileSetup.tsx`
+  - `nextjs-frontend/components/DietChart/WeeklyPlanView.tsx`
+  - `nextjs-frontend/styles/globals.css` - Added `card-dark` color variable
+
+### 3. Health Store Pagination (Nov 26, 2025)
 - **Problem**: "Last Page" button caused "No products found" + pagination disappeared
 - **Fix**: 
   - Show pagination when `total > 0` OR `page > 1` (allows navigating back from empty pages)
@@ -172,4 +217,4 @@ Full article HTML replaces loading state
 3. Check `nextjs-frontend/pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 26, 2025*
+*Last updated: November 26, 2025 (Added AI Diet Plan with Gemini)*

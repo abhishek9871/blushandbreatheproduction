@@ -20,7 +20,8 @@ const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
 
   const isActive = (path: string) => {
     if (path === '/') return pathname === '/';
-    return pathname?.startsWith(path);
+    // Exact match or path followed by / (to avoid /health matching /health-store)
+    return pathname === path || pathname?.startsWith(path + '/');
   };
 
   return (

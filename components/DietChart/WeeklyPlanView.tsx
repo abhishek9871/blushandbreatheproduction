@@ -21,6 +21,7 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
   const [selectedDay, setSelectedDay] = useState(0);
   const [expandedMeal, setExpandedMeal] = useState<string | null>(null);
   const [regeneratingMeal, setRegeneratingMeal] = useState<string | null>(null);
+  const [swappedMeal, setSwappedMeal] = useState<string | null>(null);
 
   const getMealIcon = (type: string) => {
     switch (type) {
@@ -47,8 +48,15 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
   const handleRegenerateMeal = async (dayIndex: number, meal: Meal) => {
     const mealKey = `${dayIndex}-${meal.type}`;
     setRegeneratingMeal(mealKey);
+    setSwappedMeal(null);
     try {
-      await regenerateMeal(dayIndex, meal.type, meal);
+      const newMeal = await regenerateMeal(dayIndex, meal.type, meal);
+      if (newMeal) {
+        // Show success indication
+        setSwappedMeal(mealKey);
+        // Clear success indication after 3 seconds
+        setTimeout(() => setSwappedMeal(null), 3000);
+      }
     } finally {
       setRegeneratingMeal(null);
     }
@@ -200,12 +208,24 @@ const WeeklyPlanView: React.FC<WeeklyPlanViewProps> = ({
             const mealKey = `${selectedDay}-${meal.type}`;
             const isExpanded = expandedMeal === mealKey;
             const isRegenerating = regeneratingMeal === mealKey;
+            const wasSwapped = swappedMeal === mealKey;
 
             return (
               <div
                 key={mealKey}
-                className="bg-white dark:bg-card-dark rounded-xl shadow-sm border border-border-light dark:border-border-dark overflow-hidden"
+                className={`bg-white dark:bg-card-dark rounded-xl shadow-sm border overflow-hidden transition-all duration-300 ${
+                  wasSwapped 
+                    ? 'border-green-500 ring-2 ring-green-500/20' 
+                    : 'border-border-light dark:border-border-dark'
+                }`}
               >
+                {/* Success indicator */}
+                {wasSwapped && (
+                  <div className="bg-green-500 text-white text-xs py-1 px-3 flex items-center justify-center gap-1">
+                    <span className="material-symbols-outlined text-sm">check_circle</span>
+                    <span>Meal swapped successfully!</span>
+                  </div>
+                )}
                 {/* Meal Header */}
                 <div 
                   className="p-3 sm:p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50"

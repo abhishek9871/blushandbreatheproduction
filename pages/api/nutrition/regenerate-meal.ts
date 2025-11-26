@@ -52,39 +52,68 @@ export default async function handler(
       return res.status(500).json({ error: 'AI service not configured' });
     }
 
-    // Calculate target calories for this meal type
+    // Use current meal's calories as target, or calculate based on meal type
     let targetCalories: number;
-    switch (mealType) {
-      case 'breakfast':
-        targetCalories = Math.round(dailyCalorieTarget * 0.25);
-        break;
-      case 'lunch':
-        targetCalories = Math.round(dailyCalorieTarget * 0.35);
-        break;
-      case 'dinner':
-        targetCalories = Math.round(dailyCalorieTarget * 0.3);
-        break;
-      default:
-        targetCalories = Math.round(dailyCalorieTarget * 0.1);
+    let targetMacros = { protein: 0, carbs: 0, fats: 0 };
+    
+    if (currentMeal?.totalCalories) {
+      // Use the exact same calories as the current meal for a true swap
+      targetCalories = currentMeal.totalCalories;
+      if (currentMeal.macros) {
+        targetMacros = currentMeal.macros;
+      }
+    } else {
+      // Fallback to percentage-based calculation
+      switch (mealType) {
+        case 'breakfast':
+          targetCalories = Math.round(dailyCalorieTarget * 0.25);
+          break;
+        case 'lunch':
+          targetCalories = Math.round(dailyCalorieTarget * 0.35);
+          break;
+        case 'dinner':
+          targetCalories = Math.round(dailyCalorieTarget * 0.3);
+          break;
+        default:
+          targetCalories = Math.round(dailyCalorieTarget * 0.1);
+      }
     }
 
-    const prompt = `Generate a single ${mealType} meal with approximately ${targetCalories} calories.
-${dietaryRestrictions.length > 0 ? `Dietary restrictions: ${dietaryRestrictions.join(', ')}` : ''}
-${allergies.length > 0 ? `Allergies to avoid: ${allergies.join(', ')}` : ''}
-${cuisinePreferences.length > 0 ? `Cuisine preferences: ${cuisinePreferences.join(', ')}` : 'Indian or international cuisine'}
-${currentMeal ? `Current meal to replace: ${currentMeal.name}. Generate something different.` : ''}
+    // Build a smarter prompt that considers alternatives and keeps nutrition similar
+    const hasAlternatives = currentMeal?.alternatives && currentMeal.alternatives.length > 0;
+    const alternativeSuggestion = hasAlternatives 
+      ? `Consider using one of these suggested alternatives as inspiration: ${currentMeal.alternatives.join(', ')}.`
+      : '';
+
+    const prompt = `Generate a COMPLETELY DIFFERENT ${mealType} meal to swap with the current one.
+
+IMPORTANT REQUIREMENTS:
+- Target calories: approximately ${targetCalories} kcal (±10%)
+${targetMacros.protein > 0 ? `- Target macros: ~${targetMacros.protein}g protein, ~${targetMacros.carbs}g carbs, ~${targetMacros.fats}g fats` : ''}
+${dietaryRestrictions.length > 0 ? `- Dietary restrictions: ${dietaryRestrictions.join(', ')}` : ''}
+${allergies.length > 0 ? `- Allergies to avoid: ${allergies.join(', ')}` : ''}
+${cuisinePreferences.length > 0 ? `- Cuisine preferences: ${cuisinePreferences.join(', ')}` : '- Use Indian or international cuisine'}
+
+${currentMeal ? `CURRENT MEAL TO REPLACE (generate something DIFFERENT):
+- Name: ${currentMeal.name}
+- Description: ${currentMeal.description || 'N/A'}
+- Main ingredients: ${currentMeal.ingredients?.map((i: any) => i.name).slice(0, 5).join(', ') || 'N/A'}
+
+${alternativeSuggestion}
+
+DO NOT use the same main ingredients. Create a fresh, different meal option that the user would enjoy as a change.` : ''}
 
 Return ONLY valid JSON in this exact format:
 {
   "type": "${mealType}",
-  "time": "appropriate time",
-  "name": "Meal name",
-  "description": "Brief description",
+  "time": "${currentMeal?.time || 'appropriate time'}",
+  "name": "New Meal Name (different from current)",
+  "description": "Brief appetizing description",
   "ingredients": [{ "name": "Item", "quantity": 100, "unit": "g", "calories": 150 }],
   "totalCalories": ${targetCalories},
-  "macros": { "protein": X, "carbs": Y, "fats": Z },
+  "macros": { "protein": ${targetMacros.protein || 'X'}, "carbs": ${targetMacros.carbs || 'Y'}, "fats": ${targetMacros.fats || 'Z'} },
   "prepTime": 15,
-  "instructions": "Brief instructions",
+  "instructions": "Clear step-by-step instructions",
   "alternatives": ["Option 1", "Option 2"]
 }`;
 

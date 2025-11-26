@@ -291,23 +291,38 @@ export const UserProfileProvider: React.FC<UserProfileProviderProps> = ({ childr
 
       const result = await response.json();
       
-      // Update the diet plan with the new meal
+      // Update the diet plan with the new meal using proper immutable update
       if (dietPlan && result.meal) {
-        const updatedPlan = { ...dietPlan };
-        const dayPlan = updatedPlan.weeklyPlan[dayIndex];
-        if (dayPlan) {
-          const mealIndex = dayPlan.meals.findIndex(m => m.type === mealType);
-          if (mealIndex >= 0) {
-            dayPlan.meals[mealIndex] = result.meal;
-            // Recalculate daily totals
-            dayPlan.dailyTotals = {
-              calories: dayPlan.meals.reduce((sum, m) => sum + m.totalCalories, 0),
-              protein: dayPlan.meals.reduce((sum, m) => sum + m.macros.protein, 0),
-              carbs: dayPlan.meals.reduce((sum, m) => sum + m.macros.carbs, 0),
-              fats: dayPlan.meals.reduce((sum, m) => sum + m.macros.fats, 0)
-            };
-            setDietPlan(updatedPlan);
-          }
+        const mealIndex = dietPlan.weeklyPlan[dayIndex]?.meals.findIndex(m => m.type === mealType);
+        
+        if (mealIndex !== undefined && mealIndex >= 0) {
+          // Create new meals array with the updated meal
+          const newMeals = dietPlan.weeklyPlan[dayIndex].meals.map((m, idx) => 
+            idx === mealIndex ? result.meal : m
+          );
+          
+          // Calculate new daily totals
+          const newDailyTotals = {
+            calories: newMeals.reduce((sum, m) => sum + m.totalCalories, 0),
+            protein: newMeals.reduce((sum, m) => sum + m.macros.protein, 0),
+            carbs: newMeals.reduce((sum, m) => sum + m.macros.carbs, 0),
+            fats: newMeals.reduce((sum, m) => sum + m.macros.fats, 0)
+          };
+          
+          // Create new weekly plan with updated day
+          const newWeeklyPlan = dietPlan.weeklyPlan.map((day, idx) => 
+            idx === dayIndex 
+              ? { ...day, meals: newMeals, dailyTotals: newDailyTotals }
+              : day
+          );
+          
+          // Create completely new diet plan object to trigger re-render
+          const updatedPlan: DietPlan = {
+            ...dietPlan,
+            weeklyPlan: newWeeklyPlan
+          };
+          
+          setDietPlan(updatedPlan);
         }
       }
 

@@ -2,6 +2,7 @@
 
 import Head from 'next/head';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useRouter } from 'next/router';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { getNutritionData, searchUSDAFoods, getNutrientInfo } from '@/services/apiService';
 import {
@@ -96,6 +97,7 @@ export const getStaticProps: GetStaticProps<NutritionPageProps> = async () => {
 };
 
 function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
+  const router = useRouter();
   const [nutritionData] = useState(initialNutritionData);
   const [activeTab, setActiveTab] = useState<TabType>('recommendations');
   const [searchQuery, setSearchQuery] = useState('');
@@ -109,6 +111,7 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
   const [isNutrientSearch, setIsNutrientSearch] = useState(false);
   const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
   const searchResultsRef = useRef<HTMLDivElement>(null);
+  const initialSearchDone = useRef(false);
 
   // Scroll to search results when search is performed on AI Diet Planner tab
   const scrollToResults = useCallback(() => {
@@ -202,6 +205,21 @@ function NutritionPageContent({ initialNutritionData }: NutritionPageProps) {
     setNutrientInfo(null);
     setIsNutrientSearch(false);
   }, []);
+
+  // Handle URL search param (from search modal)
+  useEffect(() => {
+    if (router.isReady && !initialSearchDone.current) {
+      const urlSearch = router.query.search as string | undefined;
+      if (urlSearch) {
+        initialSearchDone.current = true;
+        setSearchQuery(urlSearch);
+        setActiveTab('foods');
+        handleSearch(urlSearch);
+        // Clear the URL param without navigation
+        router.replace('/nutrition', undefined, { shallow: true });
+      }
+    }
+  }, [router.isReady, router.query.search, handleSearch, router]);
 
   const loadMore = useCallback(() => { if (hasMore && !isSearching) performSearch(submittedQuery, currentPage + 1); }, [hasMore, isSearching, submittedQuery, currentPage, performSearch]);
 

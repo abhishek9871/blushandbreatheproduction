@@ -161,6 +161,17 @@ const HealthStorePage: React.FC = () => {
         router.push({ pathname: router.pathname, query: newQuery }, undefined, { scroll: false });
     };
 
+    // Pagination handler - scrolls to top after page change
+    const handlePageChange = (newPage: number) => {
+        const newQuery = { ...query };
+        newQuery.page = String(newPage);
+        router.push({ pathname: router.pathname, query: newQuery }, undefined, { scroll: false })
+            .then(() => {
+                // Scroll to top after navigation completes
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+    };
+
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         updateSearchParam('q', searchQuery);
@@ -434,7 +445,7 @@ const HealthStorePage: React.FC = () => {
                             <div className="flex justify-center items-center gap-2">
                                 {/* First Page Button */}
                                 <button
-                                    onClick={() => updateSearchParam('page', 1)}
+                                    onClick={() => handlePageChange(1)}
                                     disabled={page <= 1}
                                     className="p-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                     title="First page"
@@ -443,7 +454,7 @@ const HealthStorePage: React.FC = () => {
                                 </button>
                                 {/* Previous Button */}
                                 <button
-                                    onClick={() => updateSearchParam('page', page - 1)}
+                                    onClick={() => handlePageChange(page - 1)}
                                     disabled={page <= 1}
                                     className="px-5 py-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                 >
@@ -455,7 +466,7 @@ const HealthStorePage: React.FC = () => {
                                 </span>
                                 {/* Next Button */}
                                 <button
-                                    onClick={() => updateSearchParam('page', page + 1)}
+                                    onClick={() => handlePageChange(page + 1)}
                                     disabled={!pagination.hasNextPage}
                                     className="px-5 py-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                 >
@@ -463,7 +474,7 @@ const HealthStorePage: React.FC = () => {
                                 </button>
                                 {/* Skip Forward Button (jump 10 pages) */}
                                 <button
-                                    onClick={() => updateSearchParam('page', Math.min(page + 10, Math.min(Math.ceil(pagination.total / pagination.pageSize), 200)))}
+                                    onClick={() => handlePageChange(Math.min(page + 10, Math.min(Math.ceil(pagination.total / pagination.pageSize), 200)))}
                                     disabled={!pagination.hasNextPage}
                                     className="p-2 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                     title="Skip forward 10 pages"

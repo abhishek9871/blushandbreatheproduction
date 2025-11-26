@@ -14,7 +14,10 @@ export {
   
   // Videos
   getVideos,
-  fetchVideosFromYouTube,
+  getShorts,
+  getLongVideos,
+  searchVideos,
+  fetchVideosFromAPI,
   
   // Nutrition
   getNutritionData,

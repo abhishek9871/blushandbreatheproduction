@@ -246,100 +246,97 @@ export const getArticleById = async (id: string): Promise<Article | undefined> =
 };
 
 // --- YOUTUBE API FUNCTIONS ---
-export const fetchVideosFromYouTube = async (
-  page: number = 1,
-  pageSize: number = 8,
-  category: string = 'All'
-): Promise<{ data: Video[]; hasMore: boolean }> => {
-  if (!YOUTUBE_API_KEY) {
-    console.warn('Missing YouTube API key - Set NEXT_PUBLIC_YOUTUBE_API_KEY in environment');
-    return { data: mockVideos, hasMore: false };
-  }
+interface YouTubeAPIResponse {
+  videos: Video[];
+  nextPageToken: string | null;
+  hasMore: boolean;
+  totalResults?: number;
+}
 
+// Page token storage for pagination
+const pageTokenCache: Record<string, string[]> = {};
+
+export const fetchVideosFromAPI = async (
+  category: string = 'All',
+  type: 'shorts' | 'long' | 'all' = 'all',
+  pageToken?: string,
+  maxResults: number = 12,
+  searchQuery?: string
+): Promise<YouTubeAPIResponse> => {
   try {
-    let searchQuery = 'health beauty skincare wellness nutrition tutorial';
-
-    if (category === 'Skincare') {
-      searchQuery = 'skincare routine healthy skin tips facial care';
-    } else if (category === 'Makeup') {
-      searchQuery = 'makeup tutorial beauty tips makeup looks';
-    } else if (category === 'Wellness') {
-      searchQuery = 'wellness health tips fitness yoga meditation';
-    } else if (category === 'Nutrition') {
-      searchQuery = 'nutrition healthy diet recipes healthy eating';
-    }
-
-    const searchParams = new URLSearchParams({
-      part: 'snippet',
-      type: 'video',
-      q: searchQuery,
-      maxResults: String(pageSize),
-      key: YOUTUBE_API_KEY,
-      order: 'relevance',
+    const params = new URLSearchParams({
+      category,
+      type,
+      maxResults: String(maxResults),
     });
 
-    const searchResponse = await fetch(`${YOUTUBE_API_BASE_URL}/search?${searchParams.toString()}`);
-    if (!searchResponse.ok) {
-      throw new Error(`YouTube API error: ${searchResponse.status}`);
+    if (pageToken) {
+      params.set('pageToken', pageToken);
     }
 
-    const searchData = await searchResponse.json();
-    const videoIds = (searchData.items || []).map((item: YouTubeSearchItem) => item.id.videoId);
-
-    if (videoIds.length === 0) {
-      return { data: [], hasMore: false };
+    if (searchQuery) {
+      params.set('query', searchQuery);
     }
 
-    // Get video details including duration
-    const videosParams = new URLSearchParams({
-      part: 'snippet,contentDetails',
-      id: videoIds.join(','),
-      key: YOUTUBE_API_KEY,
-    });
-
-    const videosResponse = await fetch(`${YOUTUBE_API_BASE_URL}/videos?${videosParams.toString()}`);
-    if (!videosResponse.ok) {
-      throw new Error(`YouTube Videos API error: ${videosResponse.status}`);
+    const response = await fetch(`/api/youtube/videos?${params.toString()}`);
+    
+    if (!response.ok) {
+      throw new Error(`Video API error: ${response.status}`);
     }
 
-    const videosData = await videosResponse.json();
-
-    const formatDuration = (isoDuration: string): string => {
-      const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
-      const match = isoDuration.match(regex);
-      if (!match) return '0:00';
-
-      const hours = match[1] ? parseInt(match[1]) : 0;
-      const minutes = match[2] ? parseInt(match[2]) : 0;
-      const seconds = match[3] ? parseInt(match[3]) : 0;
-
-      if (hours > 0) {
-        return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      }
-      return `${minutes}:${String(seconds).padStart(2, '0')}`;
+    const data = await response.json();
+    return {
+      videos: data.videos || [],
+      nextPageToken: data.nextPageToken || null,
+      hasMore: data.hasMore || false,
+      totalResults: data.totalResults,
     };
-
-    const videos: Video[] = (videosData.items || []).map((item: YouTubeVideoItem) => ({
-      id: item.id,
-      title: item.snippet.title,
-      description: item.snippet.description,
-      imageUrl:
-        item.snippet.thumbnails.high?.url ||
-        item.snippet.thumbnails.medium?.url ||
-        item.snippet.thumbnails.default?.url ||
-        mockVideos[0]?.imageUrl || '',
-      duration: formatDuration(item.contentDetails.duration),
-    }));
-
-    return { data: videos, hasMore: videos.length === pageSize };
   } catch (error) {
-    console.error('YouTube API fetch error:', error);
-    return { data: mockVideos, hasMore: false };
+    console.error('fetchVideosFromAPI error:', error);
+    // Return mock data as fallback
+    return {
+      videos: mockVideos,
+      nextPageToken: null,
+      hasMore: false,
+    };
   }
 };
 
-export const getVideos = (page: number = 1, category?: string) => {
-  return fetchVideosFromYouTube(page, 8, category || 'All');
+// Fetch shorts (videos under 60 seconds)
+export const getShorts = async (
+  category: string = 'All',
+  pageToken?: string
+): Promise<YouTubeAPIResponse> => {
+  return fetchVideosFromAPI(category, 'shorts', pageToken, 12);
+};
+
+// Fetch long videos (videos over 60 seconds)
+export const getLongVideos = async (
+  category: string = 'All',
+  pageToken?: string
+): Promise<YouTubeAPIResponse> => {
+  return fetchVideosFromAPI(category, 'long', pageToken, 12);
+};
+
+// Search videos with custom query
+export const searchVideos = async (
+  query: string,
+  type: 'shorts' | 'long' | 'all' = 'all',
+  pageToken?: string
+): Promise<YouTubeAPIResponse> => {
+  return fetchVideosFromAPI('All', type, pageToken, 20, query);
+};
+
+// Legacy function for backwards compatibility
+export const getVideos = async (
+  page: number = 1,
+  category?: string
+): Promise<{ data: Video[]; hasMore: boolean }> => {
+  const result = await fetchVideosFromAPI(category || 'All', 'all', undefined, 12);
+  return {
+    data: result.videos,
+    hasMore: result.hasMore,
+  };
 };
 
 // --- NUTRITION API FUNCTIONS ---

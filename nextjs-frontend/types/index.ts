@@ -54,6 +54,11 @@ export interface Video {
   description: string;
   imageUrl: string;
   duration: string;
+  durationSeconds?: number; // Duration in seconds for filtering
+  viewCount?: number;
+  channelTitle?: string;
+  publishedAt?: string;
+  isShort?: boolean; // Videos under 60 seconds
 }
 
 export interface ProductDetail {

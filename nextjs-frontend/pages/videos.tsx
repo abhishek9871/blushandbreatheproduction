@@ -244,29 +244,29 @@ export default function VideosPage() {
 
       <div className="min-h-screen">
         {/* Hero Section */}
-        <div className="bg-gradient-to-b from-accent/10 to-transparent py-12 md:py-16">
+        <div className="bg-gradient-to-b from-accent/10 to-transparent py-8 md:py-16">
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center text-center">
-              <h1 className="text-4xl md:text-5xl font-black tracking-tight text-text-light dark:text-text-dark">
+              <h1 className="text-3xl md:text-5xl font-black tracking-tight text-text-light dark:text-text-dark">
                 Video Library
               </h1>
-              <p className="mt-4 max-w-2xl text-lg text-text-subtle-light dark:text-text-subtle-dark">
+              <p className="mt-2 md:mt-4 max-w-2xl text-sm md:text-lg text-text-subtle-light dark:text-text-subtle-dark px-4 md:px-0">
                 Discover top-rated health, beauty, and wellness videos from expert creators
               </p>
 
               {/* Search Bar */}
-              <form onSubmit={handleSearch} className="mt-8 w-full max-w-2xl">
-                <div className="flex gap-3">
+              <form onSubmit={handleSearch} className="mt-6 md:mt-8 w-full max-w-2xl px-2 md:px-0">
+                <div className="flex gap-2 md:gap-3">
                   <div className="relative flex-1">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-subtle-light dark:text-text-subtle-dark">
+                    <span className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-xl md:text-2xl text-text-subtle-light dark:text-text-subtle-dark">
                       search
                     </span>
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Search videos (e.g., skincare routine, healthy recipes...)"
-                      className="w-full pl-12 pr-12 py-4 text-lg bg-white dark:bg-[#1C2C1F] border-2 border-border-light dark:border-border-dark rounded-xl shadow-sm focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-text-subtle-light dark:placeholder:text-text-subtle-dark"
+                      placeholder="Search videos..."
+                      className="w-full pl-10 md:pl-12 pr-10 md:pr-12 py-3 md:py-4 text-base md:text-lg bg-white dark:bg-[#1C2C1F] border-2 border-border-light dark:border-border-dark rounded-xl shadow-sm focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-text-subtle-light dark:placeholder:text-text-subtle-dark"
                     />
                     {searchQuery && (
                       <button
@@ -283,14 +283,14 @@ export default function VideosPage() {
                   <button
                     type="submit"
                     disabled={!searchQuery.trim() || (searchShortsLoading && searchLongLoading)}
-                    className="px-6 py-4 bg-accent hover:bg-accent/90 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium rounded-xl shadow-sm transition-all flex items-center gap-2"
+                    className="px-4 md:px-6 py-3 md:py-4 bg-accent hover:bg-accent/90 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium rounded-xl shadow-sm transition-all flex items-center gap-2"
                   >
                     {(searchShortsLoading || searchLongLoading) && submittedQuery ? (
                       <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     ) : (
-                      <span className="material-symbols-outlined">search</span>
+                      <span className="material-symbols-outlined text-xl md:text-2xl">search</span>
                     )}
-                    <span className="hidden sm:inline">Search</span>
+                    <span className="hidden md:inline">Search</span>
                   </button>
                 </div>
               </form>
@@ -301,20 +301,22 @@ export default function VideosPage() {
         <div className="container mx-auto px-4 md:px-6 py-8">
           {/* Category Filter */}
           {!submittedQuery && (
-            <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
-              {CATEGORIES.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-5 text-sm font-medium transition-all ${
-                    selectedCategory === category
-                      ? 'bg-accent text-white shadow-md'
-                      : 'bg-border-light dark:bg-border-dark text-text-light dark:text-text-dark hover:bg-accent/20'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+            <div className="mb-6 md:mb-10 -mx-4 px-4 md:mx-0 md:px-0">
+              <div className="flex md:flex-wrap md:justify-center gap-2 md:gap-3 overflow-x-auto pb-2 md:pb-0 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                {CATEGORIES.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`flex h-10 md:h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 md:px-5 text-sm font-medium transition-all whitespace-nowrap ${
+                      selectedCategory === category
+                        ? 'bg-accent text-white shadow-md'
+                        : 'bg-border-light dark:bg-border-dark text-text-light dark:text-text-dark hover:bg-accent/20'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
 
@@ -324,37 +326,40 @@ export default function VideosPage() {
           {submittedQuery && (
             <div>
               {/* Search Header */}
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-accent text-2xl">search</span>
-                  <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 md:mb-8">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <span className="material-symbols-outlined text-accent text-xl md:text-2xl">search</span>
+                  <h2 className="text-lg md:text-2xl font-bold text-text-light dark:text-text-dark line-clamp-1">
                     Results for &quot;{submittedQuery}&quot;
                   </h2>
                 </div>
                 <button
                   onClick={clearSearch}
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-accent hover:bg-accent/10 rounded-lg transition-colors"
+                  className="flex items-center gap-2 px-3 md:px-4 py-2 text-sm font-medium text-accent hover:bg-accent/10 rounded-lg transition-colors self-start sm:self-auto"
                 >
                   <span className="material-symbols-outlined text-lg">close</span>
-                  Clear Search
+                  Clear
                 </button>
               </div>
 
               {/* Search Shorts Section */}
-              <section className="mb-12">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <span className="p-2 bg-red-600 rounded-lg">
-                      <span className="material-symbols-outlined text-white">play_arrow</span>
+              <section className="mb-8 md:mb-12">
+                <div className="flex items-center justify-between mb-4 md:mb-6">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <span className="p-1.5 md:p-2 bg-red-600 rounded-lg">
+                      <span className="material-symbols-outlined text-white text-lg md:text-2xl">play_arrow</span>
                     </span>
-                    <h3 className="text-xl font-bold text-text-light dark:text-text-dark">
-                      Shorts
-                    </h3>
-                    <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
-                      Quick tips under 60 seconds
-                    </span>
+                    <div className="flex flex-col md:flex-row md:items-center md:gap-3">
+                      <h3 className="text-lg md:text-xl font-bold text-text-light dark:text-text-dark">
+                        Shorts
+                      </h3>
+                      <span className="text-xs md:text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                        Quick tips under 60 seconds
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  {/* Hide navigation on mobile */}
+                  <div className="hidden md:flex items-center gap-2">
                     <button
                       onClick={() => scrollSearchShorts('left')}
                       className="p-2 rounded-full bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors"
@@ -370,42 +375,45 @@ export default function VideosPage() {
                   </div>
                 </div>
 
-                <div className="relative">
+                {/* Mobile: edge-to-edge scroll */}
+                <div className="relative -mx-4 md:mx-0">
                   <div
                     ref={searchShortsContainerRef}
-                    className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
+                    className="flex gap-3 md:gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth px-4 md:px-0 snap-x snap-mandatory md:snap-none"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                   >
                     {searchShortsLoading && searchShorts.length === 0 ? (
                       Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="flex-shrink-0 w-40 sm:w-48">
+                        <div key={i} className="flex-shrink-0 w-32 sm:w-40 md:w-48 snap-start">
                           <div className="aspect-[9/16] rounded-xl bg-gray-200 dark:bg-gray-700 animate-pulse" />
                         </div>
                       ))
                     ) : searchShorts.length > 0 ? (
                       <>
                         {searchShorts.map((video) => (
-                          <VideoCard key={video.id} video={video} variant="short" />
+                          <div key={video.id} className="snap-start">
+                            <VideoCard video={video} variant="short" />
+                          </div>
                         ))}
                         {searchShortsHasMore && (
                           <button
                             onClick={loadMoreSearchShorts}
                             disabled={searchShortsLoading}
-                            className="flex-shrink-0 w-40 sm:w-48 flex items-center justify-center aspect-[9/16] rounded-xl bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors"
+                            className="flex-shrink-0 w-32 sm:w-40 md:w-48 flex items-center justify-center aspect-[9/16] rounded-xl bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors snap-start"
                           >
                             {searchShortsLoading ? (
                               <span className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
                             ) : (
                               <div className="text-center">
-                                <span className="material-symbols-outlined text-4xl text-accent">add_circle</span>
-                                <p className="mt-2 text-sm font-medium text-text-light dark:text-text-dark">Load More</p>
+                                <span className="material-symbols-outlined text-3xl md:text-4xl text-accent">add_circle</span>
+                                <p className="mt-2 text-xs md:text-sm font-medium text-text-light dark:text-text-dark">Load More</p>
                               </div>
                             )}
                           </button>
                         )}
                       </>
                     ) : !searchShortsLoading ? (
-                      <div className="w-full py-8 text-center text-text-subtle-light dark:text-text-subtle-dark">
+                      <div className="w-full py-6 md:py-8 text-center text-sm md:text-base text-text-subtle-light dark:text-text-subtle-dark">
                         No shorts found for this search
                       </div>
                     ) : null}
@@ -415,27 +423,29 @@ export default function VideosPage() {
 
               {/* Search Long Videos Section */}
               <section>
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="p-2 bg-accent rounded-lg">
-                    <span className="material-symbols-outlined text-white">smart_display</span>
+                <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                  <span className="p-1.5 md:p-2 bg-accent rounded-lg">
+                    <span className="material-symbols-outlined text-white text-lg md:text-2xl">smart_display</span>
                   </span>
-                  <h3 className="text-xl font-bold text-text-light dark:text-text-dark">
-                    Full Videos
-                  </h3>
-                  <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
-                    In-depth tutorials and guides
-                  </span>
+                  <div className="flex flex-col md:flex-row md:items-center md:gap-3">
+                    <h3 className="text-lg md:text-xl font-bold text-text-light dark:text-text-dark">
+                      Full Videos
+                    </h3>
+                    <span className="text-xs md:text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                      In-depth tutorials and guides
+                    </span>
+                  </div>
                 </div>
 
                 {searchLongLoading && searchLongVideos.length === 0 ? (
-                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-6">
                     {Array.from({ length: 8 }).map((_, i) => (
                       <VideoCardSkeleton key={i} />
                     ))}
                   </div>
                 ) : searchLongVideos.length > 0 ? (
                   <>
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-6">
                       {searchLongVideos.map((video) => (
                         <VideoCard key={video.id} video={video} />
                       ))}
@@ -485,20 +495,23 @@ export default function VideosPage() {
           {!submittedQuery && (
             <>
               {/* Shorts Section */}
-              <section className="mb-12">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <span className="p-2 bg-red-600 rounded-lg">
-                      <span className="material-symbols-outlined text-white">play_arrow</span>
+              <section className="mb-8 md:mb-12">
+                <div className="flex items-center justify-between mb-4 md:mb-6">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <span className="p-1.5 md:p-2 bg-red-600 rounded-lg">
+                      <span className="material-symbols-outlined text-white text-lg md:text-2xl">play_arrow</span>
                     </span>
-                    <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">
-                      Shorts
-                    </h2>
-                    <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
-                      Quick tips under 60 seconds
-                    </span>
+                    <div className="flex flex-col md:flex-row md:items-center md:gap-3">
+                      <h2 className="text-lg md:text-2xl font-bold text-text-light dark:text-text-dark">
+                        Shorts
+                      </h2>
+                      <span className="text-xs md:text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                        Quick tips under 60 seconds
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  {/* Hide navigation on mobile - use touch swipe */}
+                  <div className="hidden md:flex items-center gap-2">
                     <button
                       onClick={() => scrollShorts('left')}
                       className="p-2 rounded-full bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors"
@@ -514,35 +527,38 @@ export default function VideosPage() {
                   </div>
                 </div>
 
-                <div className="relative">
+                {/* Mobile: edge-to-edge scroll, Desktop: contained */}
+                <div className="relative -mx-4 md:mx-0">
                   <div
                     ref={shortsContainerRef}
-                    className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
+                    className="flex gap-3 md:gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth px-4 md:px-0 snap-x snap-mandatory md:snap-none"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                   >
                     {shortsLoading && shorts.length === 0 ? (
                       Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="flex-shrink-0 w-40 sm:w-48">
+                        <div key={i} className="flex-shrink-0 w-32 sm:w-40 md:w-48 snap-start">
                           <div className="aspect-[9/16] rounded-xl bg-gray-200 dark:bg-gray-700 animate-pulse" />
                         </div>
                       ))
                     ) : (
                       <>
                         {shorts.map((video) => (
-                          <VideoCard key={video.id} video={video} variant="short" />
+                          <div key={video.id} className="snap-start">
+                            <VideoCard video={video} variant="short" />
+                          </div>
                         ))}
                         {shortsHasMore && (
                           <button
                             onClick={loadMoreShorts}
                             disabled={shortsLoading}
-                            className="flex-shrink-0 w-40 sm:w-48 flex items-center justify-center aspect-[9/16] rounded-xl bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors"
+                            className="flex-shrink-0 w-32 sm:w-40 md:w-48 flex items-center justify-center aspect-[9/16] rounded-xl bg-border-light dark:bg-border-dark hover:bg-accent/20 transition-colors snap-start"
                           >
                             {shortsLoading ? (
                               <span className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
                             ) : (
                               <div className="text-center">
-                                <span className="material-symbols-outlined text-4xl text-accent">add_circle</span>
-                                <p className="mt-2 text-sm font-medium text-text-light dark:text-text-dark">Load More</p>
+                                <span className="material-symbols-outlined text-3xl md:text-4xl text-accent">add_circle</span>
+                                <p className="mt-2 text-xs md:text-sm font-medium text-text-light dark:text-text-dark">Load More</p>
                               </div>
                             )}
                           </button>
@@ -555,27 +571,29 @@ export default function VideosPage() {
 
               {/* Long Videos Section */}
               <section>
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="p-2 bg-accent rounded-lg">
-                    <span className="material-symbols-outlined text-white">smart_display</span>
+                <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                  <span className="p-1.5 md:p-2 bg-accent rounded-lg">
+                    <span className="material-symbols-outlined text-white text-lg md:text-2xl">smart_display</span>
                   </span>
-                  <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">
-                    Full Videos
-                  </h2>
-                  <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
-                    In-depth tutorials and guides
-                  </span>
+                  <div className="flex flex-col md:flex-row md:items-center md:gap-3">
+                    <h2 className="text-lg md:text-2xl font-bold text-text-light dark:text-text-dark">
+                      Full Videos
+                    </h2>
+                    <span className="text-xs md:text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                      In-depth tutorials and guides
+                    </span>
+                  </div>
                 </div>
 
                 {longLoading && longVideos.length === 0 ? (
-                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-6">
                     {Array.from({ length: 8 }).map((_, i) => (
                       <VideoCardSkeleton key={i} />
                     ))}
                   </div>
                 ) : longVideos.length > 0 ? (
                   <>
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-6">
                       {longVideos.map((video) => (
                         <VideoCard key={video.id} video={video} />
                       ))}

@@ -86,9 +86,16 @@ npx wrangler deploy --config wrangler.backend.toml --env ""
 curl -X POST "https://jyotilalchandani-backend.sparshrajput088.workers.dev/api/admin/refresh-news" \
   -H "Authorization: Bearer admin123"
 
-# Frontend (from nextjs-frontend/)
-npm run build && npx vercel --prod
+# Frontend (from nextjs-frontend/) - INCLUDE ALL ENV VARS!
+npm run build && npx vercel --prod -e YOUTUBE_API_KEY=AIzaSyAhO7HnkzSlfCcNq92ztaRFn492RA6YdSA
 ```
+
+### ⚠️ CRITICAL: Vercel Environment Variables
+When deploying to Vercel, you **MUST** include environment variables in the deploy command:
+```bash
+npx vercel --prod -e YOUTUBE_API_KEY=<key> -e GEMINI_API_KEY=<key>
+```
+**If you forget `-e YOUTUBE_API_KEY=...`**, the Videos page will return 500 errors with `"YouTube API key not configured"`.
 
 ### AI Diet Plan Architecture
 ```
@@ -111,7 +118,21 @@ WeeklyPlanView.tsx displays the plan with dark mode support
 
 ## Recent Fixes Applied
 
-### 1. AI Diet Plan with Gemini (Nov 26, 2025)
+### 1. Videos Page - YouTube API Integration (Nov 26, 2025)
+- **Feature**: Real YouTube videos with Shorts + Full Videos sections, search, infinite scroll
+- **API Route**: `nextjs-frontend/pages/api/youtube/videos.ts` (server-side YouTube API calls)
+- **API Key**: `YOUTUBE_API_KEY` - **MUST be passed in deploy command** (see Deployment Commands)
+- **Key Files**:
+  - `nextjs-frontend/pages/videos.tsx` - Main page with mobile/desktop responsive design
+  - `nextjs-frontend/components/VideoCard.tsx` - Video card with view counts, channel info
+  - `nextjs-frontend/services/apiService.ts` - `getShorts()`, `getLongVideos()`, `searchVideos()`
+- **Mobile Optimizations**:
+  - Horizontal scroll for categories and shorts (touch swipe)
+  - Stacked section headers (title above subtitle)
+  - Play buttons always visible on mobile (no hover)
+  - Edge-to-edge shorts scroll with snap behavior
+
+### 2. AI Diet Plan with Gemini (Nov 26, 2025)
 - **Feature**: Personalized diet plan generation using Google Gemini 2.0 Flash
 - **Problem**: Cloudflare Workers free plan has 10ms CPU limit - AI calls timeout
 - **Solution**: Hybrid approach - Vercel Edge Functions handle AI (60s timeout)
@@ -217,4 +238,4 @@ Full article HTML replaces loading state
 3. Check `nextjs-frontend/pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 26, 2025 (Added AI Diet Plan with Gemini)*
+*Last updated: November 26, 2025 (Added Videos page with YouTube API + mobile optimizations)*

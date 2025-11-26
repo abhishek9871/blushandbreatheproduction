@@ -52,7 +52,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, variant = 'default' }) => 
       <>
         <div 
           onClick={handlePlayClick}
-          className="group relative flex-shrink-0 w-40 sm:w-48 cursor-pointer"
+          className="group relative flex-shrink-0 w-32 sm:w-40 md:w-48 cursor-pointer active:scale-[0.98] transition-transform"
         >
           <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900">
             <img
@@ -62,22 +62,23 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, variant = 'default' }) => 
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
-                <span className="material-symbols-outlined text-3xl text-white">play_arrow</span>
+            {/* Play button - always visible on mobile, hover on desktop */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+              <div className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+                <span className="material-symbols-outlined text-2xl md:text-3xl text-white">play_arrow</span>
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-3">
-              <h3 className="text-white font-semibold text-sm line-clamp-2 leading-tight">
+            <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3">
+              <h3 className="text-white font-semibold text-xs md:text-sm line-clamp-2 leading-tight">
                 {video.title}
               </h3>
               {video.viewCount && (
-                <p className="text-white/70 text-xs mt-1">
+                <p className="text-white/70 text-[10px] md:text-xs mt-0.5 md:mt-1">
                   {formatViewCount(video.viewCount)}
                 </p>
               )}
             </div>
-            <span className="absolute top-2 right-2 bg-black/60 px-1.5 py-0.5 rounded text-xs font-medium text-white">
+            <span className="absolute top-1.5 right-1.5 md:top-2 md:right-2 bg-black/60 px-1 md:px-1.5 py-0.5 rounded text-[10px] md:text-xs font-medium text-white">
               {video.duration}
             </span>
           </div>
@@ -90,7 +91,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, variant = 'default' }) => 
   // Default variant for grid layout
   return (
     <>
-      <div className="group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark/60 bg-background-light dark:bg-background-dark shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+      <div className="group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark/60 bg-background-light dark:bg-background-dark shadow-sm transition-all md:hover:-translate-y-1 md:hover:shadow-lg active:scale-[0.99]">
         <div className="relative">
           <div className="absolute top-2 right-2 z-10">
             <BookmarkButton 
@@ -110,16 +111,17 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, variant = 'default' }) => 
                 src={video.imageUrl}
                 loading="lazy"
               />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm">
-                  <span className="material-symbols-outlined text-5xl text-white">play_arrow</span>
+              {/* Play button - always visible on mobile, hover on desktop */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30 md:bg-black/40 opacity-100 md:opacity-0 transition-opacity md:group-hover:opacity-100">
+                <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm">
+                  <span className="material-symbols-outlined text-3xl md:text-5xl text-white">play_arrow</span>
                 </div>
               </div>
-              <span className="absolute bottom-2 right-2 rounded-md bg-black/60 px-2 py-1 text-xs font-medium text-white/90">
+              <span className="absolute bottom-2 right-2 rounded-md bg-black/60 px-1.5 md:px-2 py-0.5 md:py-1 text-[11px] md:text-xs font-medium text-white/90">
                 {video.duration}
               </span>
               {video.isShort && (
-                <span className="absolute top-2 left-2 rounded-md bg-red-600 px-2 py-1 text-xs font-medium text-white">
+                <span className="absolute top-2 left-2 rounded-md bg-red-600 px-1.5 md:px-2 py-0.5 md:py-1 text-[11px] md:text-xs font-medium text-white">
                   SHORT
                 </span>
               )}
@@ -131,16 +133,16 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, variant = 'default' }) => 
           className="block flex-1 text-left cursor-pointer"
           aria-label={`Play video: ${video.title}`}
         >
-          <div className="flex flex-col p-4">
-            <h3 className="font-bold leading-snug line-clamp-2 text-text-light dark:text-text-dark">
+          <div className="flex flex-col p-3 md:p-4">
+            <h3 className="font-bold leading-snug line-clamp-2 text-sm md:text-base text-text-light dark:text-text-dark">
               {video.title}
             </h3>
             {video.channelTitle && (
-              <p className="mt-1 text-sm text-text-subtle-light dark:text-text-subtle-dark">
+              <p className="mt-0.5 md:mt-1 text-xs md:text-sm text-text-subtle-light dark:text-text-subtle-dark">
                 {video.channelTitle}
               </p>
             )}
-            <div className="mt-1 flex items-center gap-2 text-xs text-text-subtle-light dark:text-text-subtle-dark">
+            <div className="mt-0.5 md:mt-1 flex items-center gap-1.5 md:gap-2 text-[11px] md:text-xs text-text-subtle-light dark:text-text-subtle-dark">
               {video.viewCount && (
                 <span>{formatViewCount(video.viewCount)}</span>
               )}

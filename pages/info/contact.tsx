@@ -10,19 +10,39 @@ export default function ContactPage() {
     message: ''
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    // Simulate form submission
-    setTimeout(() => {
-      setStatus('sent');
-      setFormData({ name: '', email: '', subject: 'general', message: '' });
-    }, 1500);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus('sent');
+        setFormData({ name: '', email: '', subject: 'general', message: '' });
+      } else {
+        setStatus('error');
+        setErrorMessage(data.error || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      setStatus('error');
+      setErrorMessage('Failed to send message. Please try again.');
+    }
   };
 
   return (
@@ -164,6 +184,16 @@ export default function ContactPage() {
                         />
                       </div>
                       
+                      {/* Error Message */}
+                      {status === 'error' && errorMessage && (
+                        <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                          <p className="text-red-600 dark:text-red-400 text-sm flex items-center gap-2">
+                            <span className="material-symbols-outlined text-lg">error</span>
+                            {errorMessage}
+                          </p>
+                        </div>
+                      )}
+
                       <button
                         type="submit"
                         disabled={status === 'sending'}

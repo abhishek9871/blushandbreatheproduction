@@ -208,11 +208,45 @@ export const fetchArticlesFromAPI = async (
         };
       });
 
+      // If a search query was provided, filter articles client-side to ensure relevance
+      // (Backend search may not always return relevant results)
+      let filteredArticles = articles;
+      if (query && query.trim().length > 0) {
+        const searchTerms = query.toLowerCase().trim().split(/\s+/);
+        
+        // First, find articles with search term in title or description (high relevance)
+        const highRelevance = articles.filter(article => {
+          const titleLower = article.title.toLowerCase();
+          const descLower = (article.description || '').toLowerCase();
+          
+          // Check if ANY search term appears in title or description
+          return searchTerms.some(term => {
+            // Use word boundary matching to avoid partial matches like "asleep" for "sleep"
+            const wordBoundaryRegex = new RegExp(`\\b${term}\\b`, 'i');
+            return wordBoundaryRegex.test(titleLower) || wordBoundaryRegex.test(descLower);
+          });
+        });
+        
+        // If we have high relevance matches, use those
+        // Otherwise, fall back to checking content (but still require word boundary match)
+        if (highRelevance.length > 0) {
+          filteredArticles = highRelevance;
+        } else {
+          filteredArticles = articles.filter(article => {
+            const contentLower = (article.content || '').toLowerCase();
+            return searchTerms.some(term => {
+              const wordBoundaryRegex = new RegExp(`\\b${term}\\b`, 'i');
+              return wordBoundaryRegex.test(contentLower);
+            });
+          });
+        }
+      }
+
       const hasMore = json.hasMore !== undefined
         ? json.hasMore
-        : page * pageSize < (json.totalResults ?? articles.length);
+        : page * pageSize < (json.totalResults ?? filteredArticles.length);
 
-      return { data: articles, hasMore };
+      return { data: filteredArticles, hasMore };
     }
 
     if (json.status === 'error') {

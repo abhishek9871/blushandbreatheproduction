@@ -86,19 +86,40 @@ npm run build && npx vercel --prod
 
 ## Recent Fixes Applied
 
-### 1. RSS Feed Description Truncation
+### 1. Health Store Pagination (Nov 26, 2025)
+- **Problem**: "Last Page" button caused "No products found" + pagination disappeared
+- **Fix**: 
+  - Show pagination when `total > 0` OR `page > 1` (allows navigating back from empty pages)
+  - Changed "Last Page" → "Skip Forward 10 pages" (capped at page 200 due to eBay API limits)
+  - Added page indicator ("Page X")
+  - Added warning message for empty pages
+- **File**: `nextjs-frontend/pages/health-store/index.tsx` (lines 406-465)
+
+### 2. Product Card Bookmark/Tag Overlap (Nov 26, 2025)
+- **Problem**: Bookmark button overlapped with "FOR HEALTH" benefit tag (both top-right)
+- **Fix**: Moved bookmark button to `top-2 left-2`, kept benefit tag at `top-2 right-2`
+- **File**: `nextjs-frontend/pages/health-store/index.tsx` (lines 371-387)
+
+### 3. Clear Search Button (Nov 26, 2025)
+- **Problem**: No way to clear search and return to default product listing
+- **Fix**: Added X button inside search input field that:
+  - Appears when user types or has active search query (`?q=...`)
+  - Clears input state AND removes `q` param from URL
+  - Wrapped input + clear button in relative container for proper positioning
+- **File**: `nextjs-frontend/pages/health-store/index.tsx` (lines 169-176, 231-250)
+
+### 4. Navigation Link Highlighting (Nov 25, 2025)
+- **Problem**: `/health` link highlighted when on `/health-store`
+- **Fix**: Changed `isActive` to use exact match OR `path + '/'` prefix
+- **File**: `nextjs-frontend/components/Header.tsx` (line 21-25)
+
+### 5. RSS Feed Description Truncation
 - **Problem**: Descriptions were cut off at 400 characters
-- **Fix**: `_worker.js` line 163 - removed `.substring(0, 400)`
-- **File**: `_worker.js`
+- **Fix**: Removed `.substring(0, 400)` in `_worker.js`
 
-### 2. Full Article Content (BBC/Science Daily)
-- **Problem**: RSS feeds don't include full article content
-- **Fix**: Client-side fetching via hb-reader worker (Mozilla Readability)
-- **File**: `nextjs-frontend/services/fullArticle.ts`
-
-### 3. Dark/Light Mode Toggle
+### 6. Dark/Light Mode Toggle
 - **Problem**: Tailwind v4 defaults to media-query dark mode
-- **Fix**: Added `@custom-variant dark (&:where(.dark, .dark *));` to globals.css
+- **Fix**: Added `@custom-variant dark (&:where(.dark, .dark *));`
 - **File**: `nextjs-frontend/styles/globals.css`
 
 ## Data Flow
@@ -151,4 +172,4 @@ Full article HTML replaces loading state
 3. Check `nextjs-frontend/pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 25, 2025*
+*Last updated: November 26, 2025*

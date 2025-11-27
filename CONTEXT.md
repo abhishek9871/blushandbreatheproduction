@@ -88,8 +88,14 @@ blushandbreatheproduction/
 │   └── fullArticle.ts         # Article fetching via hb-reader
 ├── hooks/                     # Custom React hooks
 │   └── useUserProfile.tsx     # Diet plan state & AI calls
+├── lib/                       # Data libraries
+│   └── data/                  # Research data files
+│       ├── banned-substances.json    # 8 banned substances
+│       ├── legal-supplements.json    # Legal alternatives
+│       ├── affiliate-products.json   # 19 affiliate products
+│       └── index.ts                  # Data access functions
 ├── types/                     # TypeScript types
-│   └── substance.ts           # MedicineInfo, DrugInteraction types
+│   └── substance.ts           # MedicineInfo, DrugInteraction, BannedSubstance types
 ├── styles/globals.css         # Tailwind CSS styles
 ├── public/                    # Static assets
 ├── vercel.json                # Vercel config (Edge Function timeouts)
@@ -469,6 +475,120 @@ GET /api/indian-medicine/[name]?list=true # Multiple results (up to 20)
 - Only the optimized JSON is deployed to keep under Vercel's 100MB limit
 - API route caches parsed JSON in memory after first request
 
+### 14. Banned Substances & Legal Alternatives System (Nov 27, 2025)
+
+**Overview**: Research-based encyclopedia of banned/dangerous substances with legal alternatives and affiliate product recommendations.
+
+#### Data Files (`lib/data/`)
+| File | Content | Records |
+|------|---------|---------|
+| `banned-substances.json` | Banned/dangerous substances | 8 substances |
+| `legal-supplements.json` | Safe legal alternatives | Multiple supplements |
+| `affiliate-products.json` | Affiliate product recommendations | 19 products |
+| `index.ts` | Data access & search functions | - |
+
+#### Banned Substances Covered
+| Substance | Category | Status | Why Banned |
+|-----------|----------|--------|------------|
+| **DMAA** | Stimulant | FDA Banned (2013) | 5 deaths, cardiovascular risks |
+| **Phenibut** | Nootropic | FDA Banned (2019) | 1,320 poison cases, severe withdrawal |
+| **Kratom** | Other | Restricted (7 states) | 91 overdose deaths, opioid-like |
+| **SARMs** | SARM | Unapproved drug | Felony charges, liver toxicity |
+| **Ephedrine** | Stimulant | FDA Banned (2004) | 155 deaths, cardiac events |
+| **Clenbuterol** | Stimulant | Not for humans | Veterinary only, cardiac hypertrophy |
+| **Cardarine** | Other | Never approved | Cancer at ALL doses in studies |
+| **Nandrolone** | Prohormone | Schedule III | Controlled substance, felony |
+
+#### Data Structure (Banned Substance)
+```typescript
+interface BannedSubstance {
+  id: string;
+  slug: string;
+  name: string;
+  alternativeNames: string[];
+  category: 'stimulant' | 'nootropic' | 'sarm' | 'prohormone' | 'other';
+  legalStatus: 'banned_usa' | 'restricted' | 'controlled';
+  legalStatusDetails: string;
+  bannedDate?: string;
+  bannedBy: string[];
+  stateRestrictions: Record<string, string>;
+  healthRisks: { category: string; description: string; severity: string; sources: string[] }[];
+  sideEffects: string[];
+  contraindications: string[];
+  overdoseRisk: 'low' | 'moderate' | 'high';
+  addictionPotential: 'low' | 'moderate' | 'high';
+  description: string;
+  mechanism: string;
+  history: string;
+  whyBanned: string;
+  legalAlternatives: string[];  // slugs of legal supplements
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string[];
+}
+```
+
+#### Affiliate Products (19 products)
+| Brand | Products | Commission |
+|-------|----------|------------|
+| Transparent Labs | BULK Pre-Workout, Creatine HMB, SLEEP | 10% |
+| Nootropics Depot | Alpha-GPC, L-Theanine, Ashwagandha, Rhodiola, Magnesium, Lion's Mane | 15% |
+| Gorilla Mind | Gorilla Mode Pre-Workout | 3% (Amazon) |
+| BulkSupplements | Creatine, Beta-Alanine, Citrulline | 3% (Amazon) |
+| NOW Foods | Ashwagandha, Rhodiola, Magnesium | 3% (Amazon) |
+| Thorne Research | Alpha-GPC | 10% |
+| Jarrow Formulas | Alpha-GPC | 3% (Amazon) |
+| Host Defense | Lion's Mane | 3% (Amazon) |
+
+#### Data Access Functions (`lib/data/index.ts`)
+```typescript
+// Banned substances
+getBannedSubstances(): BannedSubstance[]
+getBannedSubstanceBySlug(slug: string): BannedSubstance | undefined
+getBannedSubstanceSlugs(): string[]
+
+// Legal supplements
+getLegalSupplements(): LegalSupplement[]
+getLegalSupplementBySlug(slug: string): LegalSupplement | undefined
+getLegalAlternatives(bannedSlug: string): LegalSupplement[]
+
+// Affiliate products
+getAffiliateProducts(): AffiliateProduct[]
+getAffiliateProductsForSupplement(supplementSlug: string): AffiliateProduct[]
+getAffiliateProductsForBanned(bannedSlug: string): AffiliateProduct[]
+
+// Search
+searchSubstances(query: string): { banned: [], supplements: [] }
+getSubstancesByCategory(category: string): { banned: [], supplements: [] }
+
+// Validation
+validateDataIntegrity(): { isValid: boolean; errors: string[]; stats: {} }
+```
+
+#### Use Case Flow
+```
+User searches "DMAA alternative"
+       ↓
+getBannedSubstanceBySlug('dmaa')
+       ↓
+Returns: risks, legal status, why banned
+       ↓
+getLegalAlternatives('dmaa')
+       ↓
+Returns: caffeine, citrulline-malate, beta-alanine
+       ↓
+getAffiliateProductsForBanned('dmaa')
+       ↓
+Returns: Transparent Labs BULK, Gorilla Mode, BulkSupplements products
+       ↓
+User clicks affiliate link → Commission earned
+```
+
+#### Related Components
+- `components/legal/AffiliateDisclosure.tsx` - FTC disclosure component
+- `components/substances/AffiliateProductCTA.tsx` - Product recommendation cards
+- `pages/compare/[slug].tsx` - Substance comparison pages
+
 ## Data Flow
 
 ```
@@ -519,4 +639,4 @@ Full article HTML replaces loading state
 3. Check `pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 27, 2025 (Indian Medicines Database - 254K medicines with prices, uses, side effects, substitutes; Intelligent search)*
+*Last updated: November 27, 2025 (Indian Medicines Database 254K, Intelligent Search, Banned Substances Encyclopedia with Affiliate Products)*

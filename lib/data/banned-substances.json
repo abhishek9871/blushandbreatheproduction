@@ -1,0 +1,338 @@
+{
+  "substances": [
+    {
+      "id": "banned-dmaa",
+      "slug": "dmaa",
+      "name": "DMAA",
+      "alternativeNames": ["1,3-Dimethylamylamine", "Methylhexanamine", "Geranamine", "Pentylamine derivative"],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "Banned as unsafe food additive (April 2013). Prohibited by WADA since 2010.",
+      "bannedDate": "2013-04-11",
+      "bannedBy": ["FDA", "WADA"],
+      "stateRestrictions": {
+        "US": "Federal ban",
+        "Australia": "Banned",
+        "UK": "Banned",
+        "Canada": "Banned",
+        "New Zealand": "Banned"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "86 reports of illnesses and deaths (FDA database), including at least 5 fatalities directly attributed.",
+          "severity": "high",
+          "sources": ["FDA Adverse Event Database"]
+        },
+        {
+          "category": "Neurological",
+          "description": "Case reports of hemorrhagic stroke in young athletes.",
+          "severity": "high",
+          "sources": ["FDA Warning Letters 2013"]
+        }
+      ],
+      "sideEffects": ["Hemorrhagic stroke", "Cardiac arrest", "Myocardial infarction", "Hypertensive crisis", "Pulmonary edema", "Elevated blood pressure", "Rapid heartbeat"],
+      "contraindications": ["Heart conditions", "High blood pressure", "Use of other stimulants", "Pregnancy", "History of stroke"],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "DMAA (1,3-dimethylamylamine) is a synthetic stimulant originally developed as a nasal decongestant. It gained popularity in pre-workout supplements and weight loss products between 2005-2013 but has been banned due to serious cardiovascular risks including deaths.",
+      "mechanism": "Norepinephrine releasing agent causing vasoconstriction, elevated blood pressure and heart rate. Increases CNS stimulation and peripheral vasoconstriction.",
+      "history": "Originally patented by Eli Lilly in 1944 as a nasal decongestant. Resurfaced in supplements around 2006 marketed as 'geranium extract' despite being synthetic. Found in pre-workout supplements until FDA ban.",
+      "whyBanned": "Unacceptable risk of serious cardiovascular events even at recommended doses. Benefits do not outweigh risks. 5 deaths directly attributed to DMAA use.",
+      "legalAlternatives": ["caffeine", "citrulline-malate", "beta-alanine"],
+      "metaTitle": "DMAA (1,3-DMAA) - Why It's Banned & Safe Alternatives | Blush & Breathe",
+      "metaDescription": "Learn why DMAA was banned by the FDA after 5 deaths, its health risks including stroke and heart attack, and discover safe legal alternatives for pre-workout energy.",
+      "keywords": ["dmaa", "1,3-dmaa", "methylhexanamine", "banned pre workout", "dmaa alternative", "dmaa dangers", "dmaa deaths"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-phenibut",
+      "slug": "phenibut",
+      "name": "Phenibut",
+      "alternativeNames": ["4-Amino-3-phenylbutanoic acid", "Phenyl-GABA", "β-Phenyl-γ-aminobutyric acid"],
+      "category": "nootropic",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "Banned as dietary supplement ingredient (April 2019). Schedule II in Alabama.",
+      "bannedDate": "2019-04-01",
+      "bannedBy": ["FDA"],
+      "stateRestrictions": {
+        "Alabama": "Schedule II controlled substance",
+        "Australia": "Banned",
+        "France": "Banned",
+        "Germany": "Banned",
+        "UK": "Banned",
+        "Italy": "Banned"
+      },
+      "healthRisks": [
+        {
+          "category": "Overdose/Poisoning",
+          "description": "1,320 poison center cases reported (2009-2019), sharp increase 2015-2019. 3 deaths, 80 comas.",
+          "severity": "high",
+          "sources": ["American Association of Poison Control Centers"]
+        },
+        {
+          "category": "Withdrawal",
+          "description": "Severe withdrawal syndrome similar to alcohol withdrawal - can be life-threatening.",
+          "severity": "high",
+          "sources": ["FDA Safety Alert 2019"]
+        }
+      ],
+      "sideEffects": ["Agitation and anxiety", "Tachycardia", "Drowsiness and sedation", "Severe withdrawal syndrome", "Respiratory depression", "Hallucinations", "Seizures"],
+      "contraindications": ["History of substance abuse", "CNS depressant use", "Alcohol use", "Pregnancy", "Liver disease"],
+      "overdoseRisk": "high",
+      "addictionPotential": "high",
+      "description": "Phenibut is a GABA analogue that binds to GABA-B receptors, producing anxiolytic and sedative effects similar to GHB. Marketed as a nootropic/anxiety reliever but has high abuse potential with severe, potentially life-threatening withdrawal syndrome.",
+      "mechanism": "Binds to GABA-B receptors, producing anxiolytic and sedative effects similar to GHB. Crosses blood-brain barrier efficiently. Also has some GABA-A activity at higher doses.",
+      "history": "Developed in the Soviet Union in the 1960s for cosmonauts to manage stress and anxiety. Never approved for medical use in the USA. Gained popularity as a nootropic/supplement in the 2010s.",
+      "whyBanned": "FDA determined risk of severe withdrawal, addiction, and overdose outweighs claimed benefits. Not proven effective for stated uses. Withdrawal can cause seizures and death.",
+      "legalAlternatives": ["l-theanine", "ashwagandha", "magnesium-glycinate"],
+      "metaTitle": "Phenibut - Why It's Banned, Withdrawal Dangers & Safe Alternatives",
+      "metaDescription": "Learn why Phenibut was banned by the FDA, the severe withdrawal syndrome risks, and discover safe legal alternatives for anxiety and relaxation.",
+      "keywords": ["phenibut", "phenibut ban", "phenibut withdrawal", "phenibut alternative", "phenibut dangers", "gaba supplement"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-kratom",
+      "slug": "kratom",
+      "name": "Kratom",
+      "alternativeNames": ["Mitragyna speciosa", "Ketum", "Kakuam", "Thang"],
+      "category": "other",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "Under FDA Import Alert 54-15. Illegal in 7 states. Age/testing restrictions in others.",
+      "bannedBy": ["FDA (Import Alert)"],
+      "stateRestrictions": {
+        "Alabama": "Illegal",
+        "Arkansas": "Illegal",
+        "Indiana": "Illegal",
+        "Rhode Island": "Illegal",
+        "Vermont": "Illegal",
+        "Wisconsin": "Illegal",
+        "Louisiana": "Illegal (effective Aug 1, 2025)",
+        "Georgia": "Age 21+, lab testing required",
+        "Texas": "Synthetic kratom banned, strict alkaloid limits"
+      },
+      "healthRisks": [
+        {
+          "category": "Overdose",
+          "description": "91 overdose deaths (2016-2017 alone). Opioid-like toxicity.",
+          "severity": "high",
+          "sources": ["CDC MMWR Report"]
+        },
+        {
+          "category": "Contamination",
+          "description": "199 people infected in 2018 Salmonella outbreak. Products often contaminated with bacteria, heavy metals.",
+          "severity": "moderate",
+          "sources": ["CDC Outbreak Report 2018"]
+        }
+      ],
+      "sideEffects": ["Opioid-like toxicity and overdose", "Withdrawal symptoms", "Liver toxicity", "Constipation", "Nausea and vomiting", "Tolerance and rapid escalation"],
+      "contraindications": ["Opioid use disorder history", "Liver disease", "Pregnancy", "CNS depressant use"],
+      "overdoseRisk": "high",
+      "addictionPotential": "high",
+      "description": "Kratom is a plant from Southeast Asia containing alkaloids that act on opioid receptors. Marketed as a 'natural herbal supplement' but has opioid-like effects with overdose risk, withdrawal syndrome, and significant contamination issues.",
+      "mechanism": "Mitragynine and 7-hydroxymitragynine act on mu-opioid receptors (similar to opioids). Also has NMDA antagonism. Effects are dose-dependent: stimulant at low doses, sedative at high doses.",
+      "history": "Traditional use in Southeast Asia for centuries. Gained popularity in the US in the 2010s as an alternative to opioids. Multiple contamination outbreaks and deaths led to increased regulation.",
+      "whyBanned": "Opioid-like effects with overdose risk, contamination issues, withdrawal syndrome, and lack of quality control. FDA cannot ensure safety of kratom products.",
+      "legalAlternatives": ["ashwagandha", "rhodiola-rosea"],
+      "metaTitle": "Kratom - Legal Status, Overdose Risks & Safe Alternatives",
+      "metaDescription": "Learn about Kratom's legal status (banned in 7 states), opioid-like risks, 91 deaths, and discover safe legal alternatives for energy and relaxation.",
+      "keywords": ["kratom", "kratom legal", "kratom ban", "kratom deaths", "kratom alternative", "mitragyna speciosa"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-sarms",
+      "slug": "sarms",
+      "name": "SARMs (Selective Androgen Receptor Modulators)",
+      "alternativeNames": ["Ostarine", "Ligandrol", "RAD-140", "Andarine", "MK-677"],
+      "category": "sarm",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "Unapproved drugs - cannot be sold as dietary supplements. Felony charges for distribution.",
+      "bannedBy": ["FDA", "WADA", "DOD"],
+      "stateRestrictions": {
+        "US": "Federal - Unapproved drug",
+        "Military": "ALL SARMs on DOD Prohibited List"
+      },
+      "healthRisks": [
+        {
+          "category": "Legal",
+          "description": "Multiple felony convictions for SARM distribution (2024-2025). Criminal risk to suppliers AND users.",
+          "severity": "high",
+          "sources": ["DOJ Press Releases 2024"]
+        },
+        {
+          "category": "Hormonal",
+          "description": "Testosterone suppression requiring Post-Cycle Therapy. Unknown long-term effects.",
+          "severity": "moderate",
+          "sources": ["Clinical case reports"]
+        }
+      ],
+      "sideEffects": ["Liver toxicity", "Cardiovascular events", "Testosterone suppression", "Cancer risk (animal studies)", "Mood changes"],
+      "contraindications": ["Hormone-sensitive cancers", "Liver disease", "Heart disease", "Women (virilization risk)"],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "moderate",
+      "description": "SARMs are synthetic drugs that bind to androgen receptors, claiming to build muscle selectively. They are unapproved drugs with unknown long-term risks, often contaminated or mislabeled, and carry serious legal consequences.",
+      "mechanism": "Bind to androgen receptors in muscle tissue, stimulating anabolic (muscle-building) effects. Claimed to be selective for muscle vs. prostate, but this selectivity is not proven in humans.",
+      "history": "Developed by pharmaceutical companies in the 1990s for muscle wasting diseases. None have been FDA approved. Proliferated in the supplement industry as 'research chemicals' to skirt regulations.",
+      "whyBanned": "Unapproved drugs with unknown long-term risks. FDA cannot ensure safety. Products often contaminated or mislabeled. Active criminal enforcement.",
+      "legalAlternatives": ["creatine-monohydrate"],
+      "metaTitle": "SARMs - Why They're Illegal, Health Risks & Legal Alternatives",
+      "metaDescription": "Learn why SARMs are illegal unapproved drugs, the criminal penalties, health risks, and discover safe legal alternatives for muscle building.",
+      "keywords": ["sarms", "ostarine", "ligandrol", "rad-140", "sarms legal", "sarms ban", "sarms alternative"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-ephedrine",
+      "slug": "ephedrine",
+      "name": "Ephedrine",
+      "alternativeNames": ["Ephedra", "Ma Huang", "Ephedra sinica alkaloid"],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "Banned as dietary supplement ingredient since 2004. Landmark FDA ban case.",
+      "bannedDate": "2004-04-12",
+      "bannedBy": ["FDA", "WADA"],
+      "stateRestrictions": {
+        "US": "Federal ban since 2004"
+      },
+      "healthRisks": [
+        {
+          "category": "Mortality",
+          "description": "155 deaths attributed to ephedra products (FDA count, 1995-2004). 10,000+ adverse event reports.",
+          "severity": "high",
+          "sources": ["FDA Final Rule 2004"]
+        },
+        {
+          "category": "Cardiovascular",
+          "description": "Heart attacks, strokes, arrhythmias, hypertensive crisis documented.",
+          "severity": "high",
+          "sources": ["RAND Corporation Analysis"]
+        }
+      ],
+      "sideEffects": ["Heart attack", "Stroke", "Arrhythmia", "Hypertensive crisis", "Seizures", "Myocardial infarction"],
+      "contraindications": ["Heart disease", "High blood pressure", "Diabetes", "Thyroid disease", "MAO inhibitor use"],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "Ephedrine is a sympathomimetic alkaloid that was widely used in weight loss and energy supplements until banned in 2004 after causing 155 deaths. This landmark case established modern FDA supplement oversight.",
+      "mechanism": "Alpha and beta-adrenergic agonist. Stimulates heart rate, blood pressure, and thermogenesis. Similar to adrenaline in effects.",
+      "history": "Used in traditional Chinese medicine for thousands of years. Became popular in US supplements in the 1990s. FDA banned after documenting 155 deaths. This case drove development of modern supplement regulations.",
+      "whyBanned": "Unacceptable cardiovascular risk. Risk-benefit analysis showed benefits do not justify mortality risk. 155 deaths documented before ban.",
+      "legalAlternatives": ["caffeine"],
+      "metaTitle": "Ephedrine (Ephedra) - Why It's Banned, 155 Deaths & Safe Alternatives",
+      "metaDescription": "Learn why Ephedrine was banned after 155 deaths, its dangerous cardiovascular effects, and discover safe legal alternatives for weight loss and energy.",
+      "keywords": ["ephedrine", "ephedra", "ma huang", "ephedra ban", "ephedrine deaths", "ephedrine alternative"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-clenbuterol",
+      "slug": "clenbuterol",
+      "name": "Clenbuterol",
+      "alternativeNames": ["Clen", "Spiropent", "Beta-2 agonist"],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "NOT approved for human use in USA. Approved only for veterinary use (horses).",
+      "bannedBy": ["FDA", "WADA"],
+      "stateRestrictions": {
+        "US": "Not approved for human use"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "Cardiac hypertrophy, arrhythmia, electrolyte imbalances. Limited human safety data.",
+          "severity": "high",
+          "sources": ["Clinical case reports"]
+        }
+      ],
+      "sideEffects": ["Cardiac hypertrophy", "Arrhythmia", "Tremors", "Muscle cramps", "Electrolyte imbalance", "Insomnia"],
+      "contraindications": ["Heart disease", "Arrhythmias", "Hypertension", "Hyperthyroidism"],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "low",
+      "description": "Clenbuterol is a beta-2 agonist approved only for veterinary use in horses. It is used illegally in bodybuilding for fat loss and muscle preservation. Not studied extensively in humans.",
+      "mechanism": "Beta-2 agonist - increases metabolism and fat mobilization. Also increases muscle protein synthesis. Causes cardiac hypertrophy with chronic use.",
+      "history": "Developed as a bronchodilator. Approved for veterinary use in some countries. Used in bodybuilding communities since the 1980s. Food contamination incidents in Europe (2013).",
+      "whyBanned": "Not approved for human use. Veterinary drug only. Cardiovascular risks exceed any potential benefits. No human safety data.",
+      "legalAlternatives": ["caffeine"],
+      "metaTitle": "Clenbuterol - Why It's Illegal for Humans & Safe Alternatives",
+      "metaDescription": "Learn why Clenbuterol is only approved for horses, the cardiovascular dangers, and discover safe legal alternatives for fat loss.",
+      "keywords": ["clenbuterol", "clen", "clenbuterol legal", "clenbuterol ban", "clenbuterol alternative"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-gw501516",
+      "slug": "gw501516",
+      "name": "Cardarine (GW501516)",
+      "alternativeNames": ["GW501516", "Endurobol", "GSX-R"],
+      "category": "other",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "Never FDA approved. Development abandoned due to cancer risk at ALL tested doses.",
+      "bannedBy": ["FDA (never approved)", "WADA"],
+      "healthRisks": [
+        {
+          "category": "Cancer",
+          "description": "CANCER RISK - Caused multiple cancer types in animal studies at ALL tested doses. Development abandoned by GSK.",
+          "severity": "high",
+          "sources": ["GlaxoSmithKline internal studies"]
+        }
+      ],
+      "sideEffects": ["Multiple cancer types (animal studies)", "Liver toxicity", "Bladder cancer risk"],
+      "contraindications": ["Everyone - not safe for human use", "Any cancer history", "Liver disease"],
+      "overdoseRisk": "high",
+      "addictionPotential": "low",
+      "description": "Cardarine (GW501516) is a PPAR delta agonist that was abandoned during drug development after causing cancer in animal studies at ALL tested doses. One of the most dangerous compounds still sold online.",
+      "mechanism": "Activates PPAR delta, increases fatty acid oxidation and endurance capacity. Also promotes cancer cell growth in multiple organ systems.",
+      "history": "Developed by GlaxoSmithKline for metabolic diseases. Development abandoned after 2-year animal studies showed cancer at all doses. Still sold illegally online as 'research chemical'.",
+      "whyBanned": "Cancer risk at ALL tested doses in animal models. Development abandoned by manufacturer due to unacceptable cancer risk. Never safe for human use.",
+      "legalAlternatives": ["beta-alanine", "citrulline-malate"],
+      "metaTitle": "Cardarine (GW501516) - Cancer Risk Warning & Safe Alternatives",
+      "metaDescription": "CRITICAL WARNING: Cardarine caused cancer at ALL doses in studies. Learn why GSK abandoned it and discover safe legal alternatives for endurance.",
+      "keywords": ["cardarine", "gw501516", "cardarine cancer", "cardarine danger", "cardarine alternative", "endurobol"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-nandrolone",
+      "slug": "nandrolone",
+      "name": "Nandrolone (Deca-Durabolin)",
+      "alternativeNames": ["Deca", "NPP", "Nandrolone Phenylpropionate", "19-nortestosterone"],
+      "category": "prohormone",
+      "legalStatus": "controlled",
+      "legalStatusDetails": "Schedule III controlled substance. Illegal without prescription. Felony possession.",
+      "bannedBy": ["DEA", "WADA", "FDA (without Rx)"],
+      "stateRestrictions": {
+        "US": "Schedule III Controlled Substance - Felony"
+      },
+      "healthRisks": [
+        {
+          "category": "Legal",
+          "description": "Illegal possession is a felony. Most supply is from black market/counterfeits.",
+          "severity": "high",
+          "sources": ["DEA Scheduling"]
+        },
+        {
+          "category": "Hormonal",
+          "description": "Testosterone suppression, testicular atrophy, requires PCT. Virilization in women.",
+          "severity": "high",
+          "sources": ["Clinical studies"]
+        }
+      ],
+      "sideEffects": ["Liver toxicity", "Cardiovascular effects", "Testicular atrophy", "Gynecomastia", "Virilization in women", "Mood effects"],
+      "contraindications": ["Prostate cancer", "Breast cancer", "Heart disease", "Liver disease", "Pregnancy"],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "high",
+      "description": "Nandrolone is an anabolic androgenic steroid classified as a Schedule III controlled substance. Illegal possession is a felony. Most gym supply is from black market with unknown purity.",
+      "mechanism": "Synthetic androgen. Binds to androgen receptors, stimulating protein synthesis and muscle growth. Suppresses natural testosterone production.",
+      "history": "Developed in the 1950s for medical use. Classified as Schedule III controlled substance under the Anabolic Steroid Control Act. Still prescribed rarely for anemia and wasting diseases.",
+      "whyBanned": "Controlled substance with abuse potential and significant health risks. Illegal without prescription. Black market products often contaminated.",
+      "legalAlternatives": ["creatine-monohydrate"],
+      "metaTitle": "Nandrolone (Deca) - Schedule III Controlled Substance & Alternatives",
+      "metaDescription": "Learn why Nandrolone is a Schedule III controlled substance (felony possession), health risks, and discover safe legal alternatives for muscle building.",
+      "keywords": ["nandrolone", "deca durabolin", "deca", "npp", "anabolic steroids", "nandrolone alternative"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    }
+  ]
+}

@@ -301,3 +301,8 @@ export interface NutritionTargets {
   hydrationGoal: number;
   calculatedAt: string;
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// SUBSTANCE EDUCATION TYPES (Re-exported)
+// ═══════════════════════════════════════════════════════════════════
+export * from './substance';

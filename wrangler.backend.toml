@@ -31,6 +31,23 @@ id = "63dd4c653efb42eb8b46714e9def97f4"
 binding = "NUTRITION_CACHE"
 id = "cf7453d1b2794240a9bf909ee86eda2f"
 
+# ═══════════════════════════════════════════════════════════════════
+# SUBSTANCE EDUCATION KV NAMESPACES
+# Note: Create these in Cloudflare dashboard and update IDs
+# ═══════════════════════════════════════════════════════════════════
+
+[[kv_namespaces]]
+binding = "SUBSTANCE_CACHE"
+id = "ae605f986088485a8e8d3d6632064f94"
+
+[[kv_namespaces]]
+binding = "MEDICINE_CACHE"
+id = "44523f6edb7e4f569069711683557bb9"
+
+[[kv_namespaces]]
+binding = "AFFILIATE_DATA"
+id = "8bd7397d53744071844cd73f7abe2bff"
+
 [[durable_objects.bindings]]
 name = "AFFILIATE_DO"
 class_name = "AffiliateCounter"

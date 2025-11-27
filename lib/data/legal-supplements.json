@@ -1,0 +1,421 @@
+{
+  "supplements": [
+    {
+      "id": "supp-caffeine",
+      "slug": "caffeine",
+      "name": "Caffeine",
+      "alternativeNames": ["Caffeine Anhydrous", "Natural Caffeine", "1,3,7-trimethylxanthine", "Trimethylxanthine"],
+      "category": "nootropic",
+      "description": "Caffeine is the world's most widely consumed psychoactive substance and the most-studied nootropic. It's a natural stimulant found in coffee, tea, and many supplements that enhances alertness, focus, and physical performance.",
+      "benefits": ["Increased energy and alertness", "Enhanced focus and concentration", "Improved athletic performance", "Boosted metabolism", "Reduced perceived exertion during exercise"],
+      "mechanism": "Adenosine A1 and A2A receptor antagonist; blocks adenosine-induced drowsiness, increases catecholamine release (dopamine, norepinephrine, epinephrine). Inhibits phosphodiesterase.",
+      "dosage": {
+        "recommended": "100-200mg",
+        "minimum": "50mg",
+        "maximum": "400mg per day",
+        "timing": "30-60 minutes before activity",
+        "withFood": false,
+        "notes": "Tolerance develops with regular use. Cycle off periodically for maximum effect."
+      },
+      "forms": ["capsule", "powder", "tablet", "liquid"],
+      "sideEffects": ["Insomnia if taken late", "Jitteriness at high doses", "Increased heart rate", "Anxiety", "Dependence with chronic use"],
+      "contraindications": ["Anxiety disorders", "Cardiac arrhythmias", "Hypertension", "Pregnancy/Breastfeeding"],
+      "drugInteractions": ["CYP1A2 substrate - metabolized slower with some antibiotics", "Caution with tricyclic antidepressants", "May reduce effectiveness of some sedatives"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Enhances physical performance",
+          "evidenceLevel": "strong",
+          "studies": 500,
+          "summary": "Caffeine improves endurance, strength, and power output in numerous studies.",
+          "sources": ["ISSN Position Stand 2021"]
+        },
+        {
+          "claim": "Improves cognitive function",
+          "evidenceLevel": "strong",
+          "studies": 300,
+          "summary": "Well-documented improvements in attention, reaction time, and memory.",
+          "sources": ["Neuroscience & Biobehavioral Reviews"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["USP", "NSF"],
+      "replacementFor": ["dmaa", "ephedrine"],
+      "affiliateProducts": ["tl-bulk", "gorilla-mode"],
+      "metaTitle": "Caffeine - Benefits, Dosage, Side Effects & Where to Buy",
+      "metaDescription": "Complete guide to caffeine supplements: benefits for energy and performance, optimal dosage, side effects, and the best quality products to buy.",
+      "keywords": ["caffeine", "caffeine supplement", "caffeine pills", "energy supplement", "pre workout caffeine", "caffeine dosage"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-l-theanine",
+      "slug": "l-theanine",
+      "name": "L-Theanine",
+      "alternativeNames": ["Theanine", "Suntheanine", "N-Ethyl-L-glutamine"],
+      "category": "amino_acid",
+      "description": "L-Theanine is an amino acid found naturally in tea leaves that promotes relaxation without sedation. It's renowned for its synergy with caffeine, providing calm focus.",
+      "benefits": ["Relaxation without drowsiness", "Enhanced focus when paired with caffeine", "Reduced anxiety", "Improved sleep quality"],
+      "mechanism": "Increases alpha brain wave activity (8-12 Hz), modulates glutamate/GABA neurotransmission, crosses blood-brain barrier efficiently.",
+      "dosage": {
+        "recommended": "200mg",
+        "minimum": "100mg",
+        "maximum": "400mg per dose",
+        "timing": "Any time; 30 min before stressful events",
+        "withFood": false,
+        "notes": "Synergistic with caffeine (1:2 ratio caffeine:theanine recommended)."
+      },
+      "forms": ["capsule", "powder", "tablet"],
+      "sideEffects": ["Generally well-tolerated", "Mild headache at very high doses"],
+      "contraindications": ["Caution with antihypertensive medications", "Hypotension risk"],
+      "drugInteractions": ["No major interactions known"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Reduces anxiety without sedation",
+          "evidenceLevel": "strong",
+          "studies": 200,
+          "summary": "Multiple studies show L-theanine reduces stress markers and promotes relaxation.",
+          "sources": ["Asia Pacific Journal of Clinical Nutrition"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["USP", "Suntheanine"],
+      "replacementFor": ["phenibut"],
+      "affiliateProducts": ["tl-sleep", "nd-theanine"],
+      "metaTitle": "L-Theanine - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to L-Theanine: benefits for relaxation and focus, optimal dosage, caffeine synergy, and the best quality products to buy.",
+      "keywords": ["l-theanine", "theanine", "suntheanine", "caffeine theanine", "relaxation supplement"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-creatine-monohydrate",
+      "slug": "creatine-monohydrate",
+      "name": "Creatine Monohydrate",
+      "alternativeNames": ["Creatine", "Creapure", "Micronized Creatine"],
+      "category": "amino_acid",
+      "description": "Creatine monohydrate is the most researched and effective sports supplement for increasing strength, power, and muscle mass. It also has cognitive benefits.",
+      "benefits": ["Increased muscle strength and power", "Enhanced muscle mass", "Improved high-intensity performance", "Cognitive support"],
+      "mechanism": "Increases phosphocreatine in muscle cells, improving ATP regeneration during intense exercise. Increases myonuclei in muscle fibers.",
+      "dosage": {
+        "recommended": "5g daily",
+        "minimum": "3g daily",
+        "maximum": "20g (loading phase only)",
+        "timing": "Any time daily; consistency matters more than timing",
+        "withFood": false,
+        "notes": "Loading phase optional: 20g/day for 5-7 days, then 3-5g maintenance."
+      },
+      "forms": ["powder", "capsule", "tablet"],
+      "sideEffects": ["Weight gain (water retention)", "Rare: cramping, GI upset"],
+      "contraindications": ["Kidney disease (monitor)", "Dehydration risk"],
+      "drugInteractions": ["NSAIDs may reduce effectiveness"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Increases strength and power output",
+          "evidenceLevel": "strong",
+          "studies": 600,
+          "summary": "Most researched supplement with overwhelming evidence for performance benefits.",
+          "sources": ["ISSN Position Stand", "Journal of the International Society of Sports Nutrition"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["Creapure", "USP", "NSF"],
+      "replacementFor": ["sarms", "nandrolone"],
+      "affiliateProducts": ["tl-creatine", "bulk-creatine"],
+      "metaTitle": "Creatine Monohydrate - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to Creatine Monohydrate: proven benefits for strength and muscle, optimal dosage protocol, and the best quality products to buy.",
+      "keywords": ["creatine", "creatine monohydrate", "creapure", "muscle supplement", "strength supplement"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-beta-alanine",
+      "slug": "beta-alanine",
+      "name": "Beta-Alanine",
+      "alternativeNames": ["3-Aminopropionic acid", "Carnosine precursor", "CarnoSyn"],
+      "category": "amino_acid",
+      "description": "Beta-alanine is an amino acid that increases muscle carnosine levels, buffering lactic acid during high-intensity exercise to improve endurance.",
+      "benefits": ["Improved muscular endurance", "Delayed fatigue", "Enhanced high-rep performance", "Increased carnosine levels"],
+      "mechanism": "Precursor to carnosine, which buffers hydrogen ions (lactic acid) in muscle. Takes 2-4 weeks of daily use to build tissue levels.",
+      "dosage": {
+        "recommended": "3-5g daily",
+        "minimum": "2g daily",
+        "maximum": "6g daily",
+        "timing": "Split doses throughout day to reduce tingling; or take with meals",
+        "withFood": true,
+        "notes": "Tingling (paresthesia) is harmless. Takes 2-4 weeks to saturate muscles."
+      },
+      "forms": ["powder", "capsule"],
+      "sideEffects": ["Paresthesia (harmless tingling)", "Rare: nausea at high single doses"],
+      "contraindications": ["None major known"],
+      "drugInteractions": ["No major interactions"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Improves muscular endurance",
+          "evidenceLevel": "strong",
+          "studies": 250,
+          "summary": "Consistent evidence for improved performance in 1-4 minute duration activities.",
+          "sources": ["ISSN Position Stand"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["CarnoSyn", "NSF"],
+      "replacementFor": ["dmaa", "gw501516"],
+      "affiliateProducts": ["tl-bulk", "bulk-beta-alanine"],
+      "metaTitle": "Beta-Alanine - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to Beta-Alanine: benefits for endurance, tingling explained, optimal dosage, and the best quality products to buy.",
+      "keywords": ["beta alanine", "carnosyn", "endurance supplement", "pre workout ingredient"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-citrulline-malate",
+      "slug": "citrulline-malate",
+      "name": "Citrulline Malate",
+      "alternativeNames": ["L-Citrulline", "Citrulline Malate 2:1", "L-Citrulline-L-malate"],
+      "category": "amino_acid",
+      "description": "Citrulline malate is an amino acid compound that enhances nitric oxide production for improved blood flow, muscle pumps, and endurance.",
+      "benefits": ["Enhanced muscle pumps", "Improved blood flow", "Reduced fatigue", "Better endurance"],
+      "mechanism": "Converted to arginine then to nitric oxide, improving vasodilation and blood flow. Malate supports ATP regeneration via the Krebs cycle.",
+      "dosage": {
+        "recommended": "6-8g (2:1 ratio)",
+        "minimum": "3g",
+        "maximum": "10g",
+        "timing": "30-60 minutes before workout",
+        "withFood": false,
+        "notes": "2:1 citrulline to malate ratio is standard. Pure L-citrulline needs lower doses."
+      },
+      "forms": ["powder", "capsule"],
+      "sideEffects": ["GI upset at high doses", "Mild diarrhea"],
+      "contraindications": ["Caution with blood pressure medications"],
+      "drugInteractions": ["Caution with PDE5 inhibitors (viagra/cialis)"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Improves exercise performance",
+          "evidenceLevel": "moderate",
+          "studies": 180,
+          "summary": "Good evidence for improved endurance and reduced fatigue during resistance training.",
+          "sources": ["European Journal of Sport Science"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["NSF", "USP"],
+      "replacementFor": ["dmaa", "gw501516"],
+      "affiliateProducts": ["tl-bulk", "bulk-citrulline"],
+      "metaTitle": "Citrulline Malate - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to Citrulline Malate: benefits for pumps and endurance, optimal dosage, and the best quality products to buy.",
+      "keywords": ["citrulline", "citrulline malate", "l-citrulline", "pump supplement", "nitric oxide"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-ashwagandha",
+      "slug": "ashwagandha",
+      "name": "Ashwagandha",
+      "alternativeNames": ["Withania somnifera", "Indian Ginseng", "KSM-66", "Sensoril"],
+      "category": "adaptogen",
+      "description": "Ashwagandha is an adaptogenic herb used for thousands of years in Ayurveda. It helps the body manage stress, reduces cortisol, and may improve sleep quality.",
+      "benefits": ["Reduced stress and anxiety", "Lower cortisol levels", "Improved sleep quality", "Enhanced recovery"],
+      "mechanism": "Withanolides modulate GABA receptors and stress hormone pathways. Acts as an adaptogen, helping the body resist stressors.",
+      "dosage": {
+        "recommended": "300-600mg standardized extract",
+        "minimum": "300mg",
+        "maximum": "1200mg",
+        "timing": "Morning or evening; consistent daily use",
+        "withFood": true,
+        "notes": "Use standardized extracts (KSM-66 or Sensoril). Takes 2-4 weeks for full effects."
+      },
+      "forms": ["capsule", "powder", "gummy"],
+      "sideEffects": ["Mild sedation", "GI upset", "Headache"],
+      "contraindications": ["Pregnancy/breastfeeding", "Autoimmune conditions", "Thyroid disorders"],
+      "drugInteractions": ["Caution with sedatives", "May affect thyroid medications"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Reduces cortisol and stress",
+          "evidenceLevel": "strong",
+          "studies": 120,
+          "summary": "Multiple RCTs show significant reductions in cortisol and perceived stress.",
+          "sources": ["Indian Journal of Psychological Medicine"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["KSM-66", "Sensoril", "USP"],
+      "replacementFor": ["phenibut", "kratom"],
+      "affiliateProducts": ["nd-ashwagandha", "now-ashwagandha"],
+      "metaTitle": "Ashwagandha - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to Ashwagandha: benefits for stress and cortisol, KSM-66 vs Sensoril, optimal dosage, and the best quality products to buy.",
+      "keywords": ["ashwagandha", "ksm-66", "sensoril", "adaptogen", "stress supplement", "cortisol"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-rhodiola-rosea",
+      "slug": "rhodiola-rosea",
+      "name": "Rhodiola Rosea",
+      "alternativeNames": ["Golden Root", "Arctic Root", "Rosavin"],
+      "category": "adaptogen",
+      "description": "Rhodiola rosea is an adaptogenic herb that helps combat fatigue, improve mood, and enhance work capacity under stress.",
+      "benefits": ["Reduced fatigue", "Improved mood", "Enhanced work capacity", "Better stress resilience"],
+      "mechanism": "Rosavins and salidroside modulate monoamine neurotransmitters (serotonin, dopamine, norepinephrine). Increases cellular energy production.",
+      "dosage": {
+        "recommended": "200-400mg standardized extract",
+        "minimum": "100mg",
+        "maximum": "600mg",
+        "timing": "Morning on empty stomach; avoid late day (may affect sleep)",
+        "withFood": false,
+        "notes": "Use extract standardized to 3% rosavins, 1% salidroside."
+      },
+      "forms": ["capsule", "tablet"],
+      "sideEffects": ["Insomnia if taken late", "Dry mouth", "Dizziness"],
+      "contraindications": ["Bipolar disorder", "Severe anxiety"],
+      "drugInteractions": ["May interact with antidepressants"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Reduces mental fatigue",
+          "evidenceLevel": "moderate",
+          "studies": 100,
+          "summary": "Good evidence for improved mental performance under stress and fatigue.",
+          "sources": ["Phytomedicine"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["USP"],
+      "replacementFor": ["kratom"],
+      "affiliateProducts": ["nd-rhodiola", "now-rhodiola"],
+      "metaTitle": "Rhodiola Rosea - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to Rhodiola Rosea: benefits for fatigue and mood, optimal dosage, standardization, and the best quality products to buy.",
+      "keywords": ["rhodiola", "rhodiola rosea", "golden root", "adaptogen", "fatigue supplement"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-magnesium-glycinate",
+      "slug": "magnesium-glycinate",
+      "name": "Magnesium Glycinate",
+      "alternativeNames": ["Magnesium Bisglycinate", "Chelated Magnesium", "Buffered Magnesium"],
+      "category": "mineral",
+      "description": "Magnesium glycinate is a highly bioavailable form of magnesium chelated with glycine. It's excellent for sleep, relaxation, and muscle recovery with minimal GI side effects.",
+      "benefits": ["Improved sleep quality", "Muscle relaxation", "Reduced anxiety", "Better recovery"],
+      "mechanism": "Magnesium activates GABA receptors and is required for 300+ enzymatic reactions. Glycine provides additional calming effects.",
+      "dosage": {
+        "recommended": "200-400mg elemental magnesium",
+        "minimum": "100mg",
+        "maximum": "600mg",
+        "timing": "Evening, 30-60 minutes before bed",
+        "withFood": true,
+        "notes": "Dosage refers to elemental magnesium. Check supplement label for actual content."
+      },
+      "forms": ["capsule", "powder", "tablet"],
+      "sideEffects": ["Laxative effect at high doses", "Drowsiness"],
+      "contraindications": ["Kidney disease", "Heart block"],
+      "drugInteractions": ["May reduce absorption of some antibiotics and bisphosphonates"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Improves sleep quality",
+          "evidenceLevel": "moderate",
+          "studies": 300,
+          "summary": "Good evidence for sleep improvements, especially in those with deficiency.",
+          "sources": ["Nutrients Journal"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["USP", "NSF"],
+      "replacementFor": ["phenibut"],
+      "affiliateProducts": ["tl-sleep", "nd-magnesium", "now-magnesium"],
+      "metaTitle": "Magnesium Glycinate - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to Magnesium Glycinate: benefits for sleep and relaxation, why glycinate is best, optimal dosage, and the best products to buy.",
+      "keywords": ["magnesium glycinate", "magnesium bisglycinate", "magnesium for sleep", "magnesium supplement"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-lions-mane",
+      "slug": "lions-mane",
+      "name": "Lion's Mane Mushroom",
+      "alternativeNames": ["Hericium erinaceus", "Yamabushitake", "Bearded Tooth Fungus"],
+      "category": "nootropic",
+      "description": "Lion's Mane is a medicinal mushroom that supports cognitive function by stimulating nerve growth factor (NGF) production. It may help with memory, focus, and neuroprotection.",
+      "benefits": ["Enhanced cognitive function", "Supports nerve growth factor", "Improved memory", "Neuroprotection"],
+      "mechanism": "Hericenones and erinacines stimulate NGF and BDNF production, supporting neuroplasticity, nerve regeneration, and myelin health.",
+      "dosage": {
+        "recommended": "500-1000mg extract",
+        "minimum": "500mg",
+        "maximum": "3000mg",
+        "timing": "Morning or with meals",
+        "withFood": true,
+        "notes": "Use fruiting body extracts for best bioavailability. Effects take 4-8 weeks."
+      },
+      "forms": ["capsule", "powder", "tincture"],
+      "sideEffects": ["Generally well-tolerated", "Rare: mild allergy", "GI upset"],
+      "contraindications": ["Mushroom allergies"],
+      "drugInteractions": ["May interact with blood thinners"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Supports cognitive function",
+          "evidenceLevel": "moderate",
+          "studies": 80,
+          "summary": "Promising evidence for cognitive benefits, especially in older adults.",
+          "sources": ["Biomedical Research"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["Organic", "USP"],
+      "replacementFor": [],
+      "affiliateProducts": ["nd-lions-mane", "host-defense-lions-mane"],
+      "metaTitle": "Lion's Mane Mushroom - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to Lion's Mane: cognitive benefits, NGF support, optimal dosage, fruiting body vs mycelium, and the best quality products to buy.",
+      "keywords": ["lions mane", "lion's mane mushroom", "hericium erinaceus", "nootropic mushroom", "ngf supplement"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "supp-alpha-gpc",
+      "slug": "alpha-gpc",
+      "name": "Alpha-GPC",
+      "alternativeNames": ["L-Alpha Glycerylphosphorylcholine", "Choline Alfoscerate", "aGPC"],
+      "category": "nootropic",
+      "description": "Alpha-GPC is a highly bioavailable choline source that crosses the blood-brain barrier efficiently, supporting acetylcholine production for memory and focus.",
+      "benefits": ["Enhanced memory and learning", "Improved focus", "Increased power output", "Supports acetylcholine"],
+      "mechanism": "Directly supplies choline for acetylcholine synthesis. Crosses the blood-brain barrier efficiently, unlike other choline sources.",
+      "dosage": {
+        "recommended": "300-600mg",
+        "minimum": "300mg",
+        "maximum": "1200mg",
+        "timing": "30-60 minutes before cognitive tasks or workouts",
+        "withFood": false,
+        "notes": "Often stacked with other nootropics. May enhance growth hormone when taken pre-workout."
+      },
+      "forms": ["capsule", "powder"],
+      "sideEffects": ["Headache", "GI upset", "Insomnia at high doses"],
+      "contraindications": ["Bipolar disorder", "Trimethylaminuria"],
+      "drugInteractions": ["May enhance effects of cholinergic drugs"],
+      "safetyRating": "low",
+      "scientificEvidence": [
+        {
+          "claim": "Supports cognitive function",
+          "evidenceLevel": "moderate",
+          "studies": 150,
+          "summary": "Evidence supports cognitive benefits, particularly in older adults with decline.",
+          "sources": ["Clinical Therapeutics"]
+        }
+      ],
+      "fdaStatus": "gras",
+      "qualityCertifications": ["USP"],
+      "replacementFor": [],
+      "affiliateProducts": ["nd-alpha-gpc", "thorne-alpha-gpc", "jarrow-alpha-gpc"],
+      "metaTitle": "Alpha-GPC - Benefits, Dosage & Best Products",
+      "metaDescription": "Complete guide to Alpha-GPC: cognitive benefits, choline for brain health, optimal dosage, and the best quality products to buy.",
+      "keywords": ["alpha gpc", "alpha-gpc", "choline supplement", "nootropic", "memory supplement"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    }
+  ]
+}

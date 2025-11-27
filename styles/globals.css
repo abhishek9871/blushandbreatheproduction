@@ -3,33 +3,53 @@
 /* ===== Tailwind v4 Dark Mode - Class Based ===== */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ===== Custom Theme Variables ===== */
+/* ===== Custom Theme Variables - Medical Grade Design System ===== */
 :root {
   /* Background colors */
   --background: #ffffff;
   --background-light: #ffffff;
-  --background-dark: #111827;
+  --background-dark: #0f172a;
   
   /* Card colors */
   --card-light: #ffffff;
-  --card-dark: #1f2937;
+  --card-dark: #1e293b;
   
   /* Text colors */
-  --foreground: #1f2937;
-  --text-light: #1f2937;
-  --text-dark: #f9fafb;
-  --text-subtle-light: #525252;
-  --text-subtle-dark: #a3a3a3;
+  --foreground: #1e293b;
+  --text-light: #1e293b;
+  --text-dark: #f8fafc;
+  --text-subtle-light: #64748b;
+  --text-subtle-dark: #94a3b8;
   
   /* Brand colors */
   --primary: #2dd4bf;
   --secondary: #f472b6;
   --accent: #fbbf24;
-  --primary-darker: #d97c8b;
+  --primary-darker: #14b8a6;
+  
+  /* Medical-Grade Colors */
+  --medical-blue: #0284c7;        /* Trust, authority */
+  --medical-blue-light: #e0f2fe;
+  --medical-blue-dark: #0c4a6e;
+  --alert-red: #dc2626;           /* Danger, banned */
+  --alert-red-light: #fef2f2;
+  --alert-red-dark: #7f1d1d;
+  --success-green: #16a34a;       /* Safe, legal */
+  --success-green-light: #f0fdf4;
+  --success-green-dark: #14532d;
+  --warning-amber: #d97706;       /* Caution */
+  --warning-amber-light: #fffbeb;
+  --warning-amber-dark: #78350f;
   
   /* Border colors */
-  --border-light: #e5e7eb;
-  --border-dark: #374151;
+  --border-light: #e2e8f0;
+  --border-dark: #334155;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 /* ===== Tailwind v4 Theme Configuration ===== */
@@ -51,6 +71,20 @@
   --color-text-subtle-dark: var(--text-subtle-dark);
   --color-border-light: var(--border-light);
   --color-border-dark: var(--border-dark);
+  
+  /* Medical-Grade Colors */
+  --color-medical-blue: var(--medical-blue);
+  --color-medical-blue-light: var(--medical-blue-light);
+  --color-medical-blue-dark: var(--medical-blue-dark);
+  --color-alert-red: var(--alert-red);
+  --color-alert-red-light: var(--alert-red-light);
+  --color-alert-red-dark: var(--alert-red-dark);
+  --color-success-green: var(--success-green);
+  --color-success-green-light: var(--success-green-light);
+  --color-success-green-dark: var(--success-green-dark);
+  --color-warning-amber: var(--warning-amber);
+  --color-warning-amber-light: var(--warning-amber-light);
+  --color-warning-amber-dark: var(--warning-amber-dark);
   
   /* Fonts */
   --font-sans: var(--font-geist-sans), "Lexend", sans-serif;
@@ -103,4 +137,227 @@ html {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Chrome, Safari and Opera */
+}
+
+/* ===== Medical Grade Component Styles ===== */
+
+/* Verdict Banners */
+.verdict-banned {
+  background: linear-gradient(135deg, var(--alert-red-light) 0%, #fff5f5 100%);
+  border: 2px solid var(--alert-red);
+  border-radius: 1rem;
+}
+
+.verdict-safe {
+  background: linear-gradient(135deg, var(--success-green-light) 0%, #f0fff4 100%);
+  border: 2px solid var(--success-green);
+  border-radius: 1rem;
+}
+
+.verdict-caution {
+  background: linear-gradient(135deg, var(--warning-amber-light) 0%, #fffbeb 100%);
+  border: 2px solid var(--warning-amber);
+  border-radius: 1rem;
+}
+
+/* Medical Card Styles */
+.medical-card {
+  background: var(--card-light);
+  border: 1px solid var(--border-light);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.medical-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.dark .medical-card {
+  background: var(--card-dark);
+  border-color: var(--border-dark);
+}
+
+/* Safe Swap Box */
+.safe-swap-box {
+  background: linear-gradient(135deg, var(--success-green-light) 0%, var(--medical-blue-light) 100%);
+  border: 2px solid var(--success-green);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.safe-swap-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: var(--success-green);
+  opacity: 0.1;
+  border-radius: 0 0 0 100%;
+}
+
+.dark .safe-swap-box {
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.15) 0%, rgba(2, 132, 199, 0.15) 100%);
+  border-color: var(--success-green-dark);
+}
+
+/* CTA Button Styles */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+  min-height: 48px; /* Mobile tap target */
+  cursor: pointer;
+}
+
+.cta-button-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-darker) 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(45, 212, 191, 0.4);
+}
+
+.cta-button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(45, 212, 191, 0.5);
+}
+
+.cta-button-danger {
+  background: linear-gradient(135deg, var(--alert-red) 0%, var(--alert-red-dark) 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(220, 38, 38, 0.3);
+}
+
+.cta-button-success {
+  background: linear-gradient(135deg, var(--success-green) 0%, var(--success-green-dark) 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(22, 163, 74, 0.3);
+}
+
+/* Pros/Cons List Styles */
+.pros-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.pros-list li::before {
+  content: '✓';
+  color: var(--success-green);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.cons-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.cons-list li::before {
+  content: '✗';
+  color: var(--alert-red);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Mobile-First Table Scroll */
+.table-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+}
+
+.table-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
+}
+
+/* Sticky Mobile CTA */
+.sticky-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: var(--background);
+  border-top: 1px solid var(--border-light);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 40;
+  display: none;
+}
+
+.dark .sticky-cta {
+  background: var(--background-dark);
+  border-color: var(--border-dark);
+}
+
+@media (max-width: 768px) {
+  .sticky-cta {
+    display: block;
+  }
+  
+  .sticky-cta-spacer {
+    height: 80px; /* Space for sticky CTA */
+  }
+}
+
+/* Typography for Medical Content */
+.medical-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.medical-body {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--text-subtle-light);
+}
+
+.dark .medical-body {
+  color: var(--text-subtle-dark);
+}
+
+/* Citation Styles */
+.citation {
+  vertical-align: super;
+  font-size: 0.75rem;
+  color: var(--medical-blue);
+  cursor: help;
+  text-decoration: none;
+}
+
+.citation:hover {
+  text-decoration: underline;
+}
+
+.footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.875rem;
+  color: var(--text-subtle-light);
+}
+
+.dark .footnotes {
+  border-color: var(--border-dark);
+  color: var(--text-subtle-dark);
 }

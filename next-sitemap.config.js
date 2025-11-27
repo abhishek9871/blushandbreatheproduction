@@ -1,4 +1,9 @@
 /** @type {import('next-sitemap').IConfig} */
+
+// Import substance data for sitemap generation
+const bannedSubstancesData = require('./lib/data/banned-substances.json');
+const legalSupplementsData = require('./lib/data/legal-supplements.json');
+
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://blushandbreathe.com',
   generateRobotsTxt: true,
@@ -17,6 +22,11 @@ module.exports = {
         userAgent: '*',
         allow: '/',
         disallow: ['/api/', '/admin/'],
+      },
+      // Be specific about substance pages for responsible crawling
+      {
+        userAgent: '*',
+        allow: ['/banned/', '/supplement/', '/medicine/', '/compare/'],
       },
     ],
     additionalSitemaps: [
@@ -45,6 +55,20 @@ module.exports = {
       priority = 0.6;
       changefreq = 'monthly';
     }
+    // Substance Education Pages
+    else if (path.startsWith('/banned/')) {
+      priority = 0.9; // High priority - safety content
+      changefreq = 'weekly';
+    } else if (path.startsWith('/supplement/')) {
+      priority = 0.8;
+      changefreq = 'weekly';
+    } else if (path.startsWith('/compare/')) {
+      priority = 0.7;
+      changefreq = 'monthly';
+    } else if (path.startsWith('/medicine/')) {
+      priority = 0.7;
+      changefreq = 'weekly';
+    }
     
     return {
       loc: path,
@@ -59,20 +83,50 @@ module.exports = {
   additionalPaths: async (config) => {
     const result = [];
     
-    // Note: Dynamic paths with fallback: 'blocking' are automatically 
-    // included when they are visited. For comprehensive sitemap coverage,
-    // you can fetch and add popular dynamic paths here.
+    // ═══════════════════════════════════════════════════════════════════
+    // BANNED SUBSTANCES
+    // ═══════════════════════════════════════════════════════════════════
+    const bannedSubstances = bannedSubstancesData.substances || [];
+    bannedSubstances.forEach(substance => {
+      result.push({
+        loc: `/banned/${substance.slug}`,
+        changefreq: 'weekly',
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      });
+    });
     
-    // Example: Add featured articles
-    // const { getArticles } = await import('./services/apiService');
-    // const { data: articles } = await getArticles(1);
-    // articles.forEach(article => {
-    //   result.push({
-    //     loc: `/article/${article.id}`,
-    //     changefreq: 'weekly',
-    //     priority: 0.8,
-    //   });
-    // });
+    // ═══════════════════════════════════════════════════════════════════
+    // LEGAL SUPPLEMENTS
+    // ═══════════════════════════════════════════════════════════════════
+    const supplements = legalSupplementsData.supplements || [];
+    supplements.forEach(supplement => {
+      result.push({
+        loc: `/supplement/${supplement.slug}`,
+        changefreq: 'weekly',
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      });
+    });
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // COMPARISON PAGES
+    // ═══════════════════════════════════════════════════════════════════
+    // Generate comparison URLs for each banned substance with its alternatives
+    bannedSubstances.forEach(substance => {
+      if (substance.legalAlternatives && substance.legalAlternatives.length > 0) {
+        substance.legalAlternatives.forEach(altSlug => {
+          result.push({
+            loc: `/compare/${substance.slug}-vs-${altSlug}`,
+            changefreq: 'monthly',
+            priority: 0.7,
+            lastmod: new Date().toISOString(),
+          });
+        });
+      }
+    });
+    
+    console.log(`[Sitemap] Generated ${result.length} substance education URLs`);
     
     return result;
   },

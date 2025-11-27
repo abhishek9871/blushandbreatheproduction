@@ -210,6 +210,12 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
                   Wikipedia
                 </span>
               )}
+              {medicine.sources.myUpchar && (
+                <span className="px-2 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 rounded text-xs flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">flag</span>
+                  India (myUpchar)
+                </span>
+              )}
             </div>
           </header>
 
@@ -606,6 +612,91 @@ const brandNameMappings: Record<string, string> = {
   // Other common mappings
   'nuvigil': 'armodafinil',
   'waklert': 'armodafinil',
+  
+  // ═══════════════════════════════════════════════════════════════════
+  // INTERNATIONAL TO US NAME MAPPINGS
+  // ═══════════════════════════════════════════════════════════════════
+  'paracetamol': 'acetaminophen', // International → US name
+  'salbutamol': 'albuterol', // International → US name
+  'adrenaline': 'epinephrine', // International → US name
+  
+  // ═══════════════════════════════════════════════════════════════════
+  // INDIAN BRAND NAMES - Popular Indian pharmaceutical brands
+  // ═══════════════════════════════════════════════════════════════════
+  // Paracetamol/Acetaminophen brands (India)
+  'crocin': 'acetaminophen',
+  'dolo': 'acetaminophen',
+  'dolo 650': 'acetaminophen',
+  'calpol': 'acetaminophen',
+  'pacimol': 'acetaminophen',
+  'metacin': 'acetaminophen',
+  'pyrigesic': 'acetaminophen',
+  'fepanil': 'acetaminophen',
+  // Ibuprofen brands (India)
+  'brufen': 'ibuprofen',
+  'ibugesic': 'ibuprofen',
+  'combiflam': 'ibuprofen',
+  // Aspirin brands (India)
+  'disprin': 'aspirin',
+  'ecosprin': 'aspirin',
+  // Omeprazole brands (India)
+  'omez': 'omeprazole',
+  'ocid': 'omeprazole',
+  // Pantoprazole brands (India)
+  'pan': 'pantoprazole',
+  'pan 40': 'pantoprazole',
+  'pantop': 'pantoprazole',
+  'pantocid': 'pantocid',
+  // Azithromycin brands (India)
+  'azee': 'azithromycin',
+  'azithral': 'azithromycin',
+  'zithromax': 'azithromycin',
+  // Amoxicillin brands (India)
+  'mox': 'amoxicillin',
+  'novamox': 'amoxicillin',
+  // Cetirizine brands (India)
+  'cetzine': 'cetirizine',
+  'zyrtec': 'cetirizine',
+  'alerid': 'cetirizine',
+  'okacet': 'cetirizine',
+  // Metformin brands (India)
+  'glycomet': 'metformin',
+  'glucophage': 'metformin',
+  // Atorvastatin brands (India)
+  'atorva': 'atorvastatin',
+  'lipitor': 'atorvastatin',
+  'tonact': 'atorvastatin',
+  // Amlodipine brands (India)
+  'amlong': 'amlodipine',
+  'amlip': 'amlodipine',
+  'stamlo': 'amlodipine',
+  // Telmisartan brands (India)
+  'telma': 'telmisartan',
+  'telmikind': 'telmisartan',
+  // Montelukast brands (India)
+  'montair': 'montelukast',
+  'montek': 'montelukast',
+  // Levothyroxine brands (India)
+  'thyronorm': 'levothyroxine',
+  'eltroxin': 'levothyroxine',
+  // Vitamin D brands (India)
+  'd3 must': 'cholecalciferol',
+  'calcirol': 'cholecalciferol',
+  'uprise d3': 'cholecalciferol',
+  // Multivitamin brands (India)
+  'zincovit': 'multivitamin',
+  'becosules': 'multivitamin',
+  'supradyn': 'multivitamin',
+  // Other popular Indian brands
+  'shelcal': 'calcium carbonate',
+  'limcee': 'vitamin c',
+  'allegra': 'fexofenadine',
+  'sinarest': 'acetaminophen',
+  'vicks action 500': 'acetaminophen',
+  'saridon': 'acetaminophen',
+  'volini': 'diclofenac',
+  'voveran': 'diclofenac',
+  'flexon': 'ibuprofen',
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1078,6 +1169,126 @@ async function fetchFromPubChem(drugName: string): Promise<MedicineInfo | null> 
   }
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// myUpchar API - Indian Medicine Database (2L+ medicines)
+// ═══════════════════════════════════════════════════════════════════
+async function fetchFromMyUpchar(drugName: string): Promise<MedicineInfo | null> {
+  try {
+    // Check if this is a brand name that needs mapping
+    const normalizedName = drugName.toLowerCase().trim();
+    const genericName = brandNameMappings[normalizedName] || drugName;
+    
+    const encodedName = encodeURIComponent(genericName);
+    
+    // myUpchar API endpoint - searching for Allopath (modern medicine)
+    const url = `https://beta.myupchar.com/api/medicine/search?name=${encodedName}&type=Allopath&page=1`;
+    
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'MediVault/1.0 (HealthBeauty Hub Medicine Encyclopedia)',
+        'Accept': 'application/json',
+      }
+    });
+    
+    if (!response.ok) {
+      return null;
+    }
+    
+    const data = await response.json();
+    
+    // Check if we got results
+    if (!data || !data.medicines || data.medicines.length === 0) {
+      return null;
+    }
+    
+    // Find the best match from results
+    const medicine = data.medicines[0];
+    
+    // Build synonyms from alternatives
+    const synonyms: string[] = [];
+    if (medicine.alternatives) {
+      synonyms.push(...medicine.alternatives.slice(0, 10));
+    }
+    
+    // Build side effects text
+    const sideEffectsText = Array.isArray(medicine.side_effects) 
+      ? medicine.side_effects.map((se: string) => `• ${se}`).join('\n')
+      : 'Side effects information available. Consult a healthcare professional.';
+    
+    // Build uses text
+    const usesText = Array.isArray(medicine.uses)
+      ? medicine.uses.map((use: string) => `• ${use}`).join('\n')
+      : medicine.uses || `${genericName} is a medicine available in India.`;
+    
+    const myupcharMedicine: MedicineInfo = {
+      id: `myupchar-${medicine.id || genericName}`,
+      slug: genericName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      
+      brandName: medicine.name || '',
+      genericName: medicine.salt_content || genericName,
+      alternativeNames: synonyms,
+      
+      drugClass: medicine.category ? [medicine.category] : ['Medicine (India)'],
+      pharmacologicClass: [],
+      
+      activeIngredients: [{
+        name: medicine.salt_content || genericName,
+        strength: medicine.strength || '',
+        unit: ''
+      }],
+      inactiveIngredients: [],
+      
+      dosageForms: medicine.dosage_form ? [medicine.dosage_form] : [],
+      routesOfAdministration: ['Oral'],
+      
+      manufacturer: {
+        name: medicine.manufacturer || 'Various manufacturers (India)',
+      },
+      ndcCodes: [],
+      
+      label: {
+        indicationsAndUsage: usesText,
+        dosageAndAdministration: medicine.dosage || 'Consult prescribing information or healthcare provider for dosage.',
+        warnings: 'This medicine information is from the Indian pharmaceutical database (myUpchar). Always consult a qualified healthcare provider before use.',
+        adverseReactions: sideEffectsText,
+        drugInteractions: 'Consult prescribing information for drug interactions.',
+        contraindications: medicine.contraindications || 'Consult prescribing information for contraindications.',
+        overdosage: '',
+        clinicalPharmacology: `Active ingredient: ${medicine.salt_content || genericName}`,
+      },
+      
+      pillImages: [],
+      
+      fdaApplicationNumber: undefined,
+      approvalDate: undefined,
+      marketStatus: 'prescription', // Most Indian medicines require prescription
+      
+      rxcui: undefined,
+      rxnormSynonyms: synonyms,
+      
+      metaTitle: `${medicine.name || genericName} - Indian Medicine Information | MediVault`,
+      metaDescription: `${medicine.name || genericName} medicine information from India. ${medicine.manufacturer ? `Manufactured by ${medicine.manufacturer}.` : ''} Find uses, side effects, and alternatives.`,
+      keywords: [genericName.toLowerCase(), 'india', 'medicine', 'indian pharmaceutical', medicine.manufacturer?.toLowerCase() || ''].filter(Boolean),
+      
+      sources: {
+        openFDA: false,
+        rxNorm: false,
+        dailyMed: false,
+        pubChem: false,
+        myUpchar: true,
+      },
+      
+      lastUpdated: new Date().toISOString(),
+      fetchedAt: new Date().toISOString(),
+    };
+    
+    return myupcharMedicine;
+  } catch (error) {
+    console.error('myUpchar fetch error:', error);
+    return null;
+  }
+}
+
 export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params }) => {
   const slug = params?.slug as string;
 
@@ -1144,7 +1355,28 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
     }
 
     // ═══════════════════════════════════════════════════════════════════
-    // STEP 3: Try Wikipedia only (for drugs with Wikipedia articles)
+    // STEP 3: Try myUpchar (Indian medicine database - 2L+ medicines)
+    // ═══════════════════════════════════════════════════════════════════
+    const myupcharMedicine = await fetchFromMyUpchar(resolvedName);
+    
+    if (myupcharMedicine) {
+      // Enrich with Wikipedia data
+      const wikiData = await fetchWikipediaData(resolvedName);
+      let medicine = myupcharMedicine;
+      
+      if (wikiData) {
+        medicine = enrichWithWikipedia(medicine, wikiData);
+        medicine.sources.wikipedia = true;
+      }
+      
+      return {
+        props: { medicine },
+        revalidate: 86400, // Revalidate daily
+      };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // STEP 4: Try Wikipedia only (for drugs with Wikipedia articles)
     // ═══════════════════════════════════════════════════════════════════
     const wikiMedicine = await fetchFromWikipediaOnly(resolvedName);
     
@@ -1156,7 +1388,7 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
     }
 
     // ═══════════════════════════════════════════════════════════════════
-    // STEP 4: Fallback to PubChem (chemical properties only)
+    // STEP 5: Fallback to PubChem (chemical properties only)
     // ═══════════════════════════════════════════════════════════════════
     const pubchemMedicine = await fetchFromPubChem(resolvedName);
     
@@ -1171,7 +1403,7 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
     // No data found in any source
     // ═══════════════════════════════════════════════════════════════════
     return {
-      props: { medicine: null, error: `"${drugName}" not found in OpenFDA, DrugCentral, Wikipedia, or PubChem databases. Try searching with a different name or spelling.` },
+      props: { medicine: null, error: `"${drugName}" not found in OpenFDA, DrugCentral, myUpchar (India), Wikipedia, or PubChem databases. Try searching with a different name or spelling.` },
       revalidate: 60,
     };
   } catch (error) {

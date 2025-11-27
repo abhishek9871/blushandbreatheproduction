@@ -226,6 +226,8 @@ export interface MedicineInfo {
     pubChem?: boolean; // NIH chemical compound database
     drugCentral?: boolean; // DrugCentral via MyChem.info
     wikipedia?: boolean; // Wikipedia drug articles
+    myUpchar?: boolean; // Indian medicine database (myUpchar.com)
+    cdsco?: boolean; // Indian Central Drugs Standard Control Organization
   };
   
   // Timestamps

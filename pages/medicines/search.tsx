@@ -384,9 +384,10 @@ export default function MedicineSearchPage() {
                   <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-1">About MediVault Search</h4>
                   <p className="text-sm text-blue-700 dark:text-blue-400">
                     MediVault searches multiple databases: <strong>OpenFDA</strong> (FDA-approved drugs), 
-                    <strong>RxNorm</strong> (US prescription drugs), and <strong>PubChem</strong> (NIH database with 100M+ compounds including nootropics, 
-                    international drugs, and research chemicals). This comprehensive search covers both FDA-approved medications 
-                    and substances like Phenylpiracetam, Piracetam, and other nootropics.
+                    <strong>RxNorm</strong> (US prescription drugs), <strong>myUpchar</strong> (2L+ Indian medicines including Crocin, Dolo, Combiflam),
+                    <strong>DrugCentral</strong> (international drugs), and <strong>PubChem</strong> (NIH database with 100M+ compounds). 
+                    This comprehensive search covers FDA-approved medications, Indian pharmaceuticals (Sun Pharma, Cipla, Dr. Reddy&apos;s), 
+                    and nootropics like Phenylpiracetam and Piracetam.
                   </p>
                 </div>
               </div>

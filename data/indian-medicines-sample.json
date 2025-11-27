@@ -1,0 +1,1117 @@
+[
+  {
+    "id": "1",
+    "name": "Crocin 650 Tablet",
+    "baseName": "Crocin",
+    "price": 30.87,
+    "manufacturer": "GlaxoSmithKline Pharmaceuticals Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Paracetamol (650mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Bacterial skin infections"
+    ],
+    "sideEffects": [
+      "Itching",
+      "Burning sensation",
+      "Stinging sensation",
+      "Pain"
+    ],
+    "substitutes": [
+      "Mupisone Ointment",
+      "Mupisoft Ointment",
+      "T-Bact 2% Ointment",
+      "B Bact Ointment",
+      "Mupifen Ointment"
+    ],
+    "chemicalClass": "Natural crotonic acid derivative {Medium-chain fatty acids}",
+    "habitForming": false,
+    "therapeuticClass": "DERMA",
+    "actionClass": "Cell membrane active agent"
+  },
+  {
+    "id": "2",
+    "name": "Crocin Advance Tablet",
+    "baseName": "Crocin Advance",
+    "price": 28.48,
+    "manufacturer": "GlaxoSmithKline Pharmaceuticals Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 20 tablets",
+    "composition1": "Paracetamol (500mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Pain relief",
+      "Treatment of Fever"
+    ],
+    "sideEffects": [
+      "Stomach pain",
+      "Nausea",
+      "Vomiting"
+    ],
+    "substitutes": [
+      "Calpol 500mg Tablet",
+      "Dolo 500 Tablet",
+      "T-98 Tablet",
+      "Pacimol 500 Tablet",
+      "Parazex 500mg Tablet"
+    ],
+    "chemicalClass": "P-Aminophenol Derivative",
+    "habitForming": false,
+    "therapeuticClass": "PAIN ANALGESICS",
+    "actionClass": "Analgesic & Antipyretic-PCM"
+  },
+  {
+    "id": "3",
+    "name": "Dolo 650 Tablet",
+    "baseName": "Dolo",
+    "price": 31.64,
+    "manufacturer": "Micro Labs Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Paracetamol (650mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Pain relief",
+      "Treatment of Fever"
+    ],
+    "sideEffects": [
+      "Stomach pain",
+      "Nausea",
+      "Vomiting"
+    ],
+    "substitutes": [
+      "Algina 650 Tablet",
+      "Pyrakem 650mg Tablet",
+      "PUC 650 Tablet",
+      "Paracip 650 Tablet",
+      "Dolopar 650 Tablet"
+    ],
+    "chemicalClass": "P-Aminophenol Derivative",
+    "habitForming": false,
+    "therapeuticClass": "PAIN ANALGESICS",
+    "actionClass": "Analgesic & Antipyretic-PCM"
+  },
+  {
+    "id": "4",
+    "name": "Calpol 500 Tablet",
+    "baseName": "Calpol",
+    "price": 14.12,
+    "manufacturer": "GlaxoSmithKline Pharmaceuticals Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Paracetamol (500mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Pain relief",
+      "Treatment of Fever"
+    ],
+    "sideEffects": [
+      "Stomach pain",
+      "Nausea",
+      "Vomiting"
+    ],
+    "substitutes": [
+      "Dolo 500 Tablet",
+      "T-98 Tablet",
+      "Pacimol 500 Tablet",
+      "Parazex 500mg Tablet",
+      "Paracip 500 Tablet"
+    ],
+    "chemicalClass": "P-Aminophenol Derivative",
+    "habitForming": false,
+    "therapeuticClass": "PAIN ANALGESICS",
+    "actionClass": "Analgesic & Antipyretic-PCM"
+  },
+  {
+    "id": "5",
+    "name": "Combiflam Tablet",
+    "baseName": "Combiflam",
+    "price": 41.58,
+    "manufacturer": "Sanofi India Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 20 tablets",
+    "composition1": "Ibuprofen (400mg)",
+    "composition2": "Paracetamol (325mg)",
+    "isDiscontinued": false,
+    "uses": [
+      "Pain relief",
+      "Treatment of Fever"
+    ],
+    "sideEffects": [
+      "Heartburn",
+      "Indigestion",
+      "Nausea",
+      "Stomach pain"
+    ],
+    "substitutes": [
+      "Answell 400 mg/325 mg Tablet",
+      "Bruace 400 mg/325 mg Tablet",
+      "Rupar 400 mg/325 mg Tablet",
+      "Brufamol Tablet",
+      "Brumol 400 mg/325 mg Tablet"
+    ],
+    "chemicalClass": "NA",
+    "habitForming": false,
+    "therapeuticClass": "PAIN ANALGESICS",
+    "actionClass": "NA"
+  },
+  {
+    "id": "6",
+    "name": "Brufen 400 Tablet",
+    "baseName": "Brufen",
+    "price": 12.76,
+    "manufacturer": "Abbott",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Ibuprofen (400mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Pain relief",
+      "Treatment of Fever"
+    ],
+    "sideEffects": [
+      "Vomiting",
+      "Nausea",
+      "Dizziness",
+      "Abdominal pain",
+      "Constipation",
+      "Flatulence",
+      "Diarrhea",
+      "Dyspepsia",
+      "Headache",
+      "Fatigue",
+      "Rash"
+    ],
+    "substitutes": [
+      "Ibupal 400mg Tablet",
+      "Bruriff 400mg Tablet",
+      "IBUFLAMAR 400MG TABLET",
+      "ALFAM 400MG TABLET",
+      "NORSWEL 400MG TABLET"
+    ],
+    "chemicalClass": "Propionic acid Derivatives",
+    "habitForming": false,
+    "therapeuticClass": "PAIN ANALGESICS",
+    "actionClass": "NSAID's- Non-Selective COX 1&2 Inhibitors (propionic acid)"
+  },
+  {
+    "id": "7",
+    "name": "Azithral 500 Tablet",
+    "baseName": "Azithral",
+    "price": 132.36,
+    "manufacturer": "Alembic Pharmaceuticals Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 5 tablets",
+    "composition1": "Azithromycin (500mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Bacterial infections"
+    ],
+    "sideEffects": [
+      "Vomiting",
+      "Nausea",
+      "Abdominal pain",
+      "Diarrhea"
+    ],
+    "substitutes": [
+      "Zithrocare 500mg Tablet",
+      "Azax 500 Tablet",
+      "Zady 500 Tablet",
+      "Cazithro 500mg Tablet",
+      "Trulimax 500mg Tablet"
+    ],
+    "chemicalClass": "Macrolides",
+    "habitForming": false,
+    "therapeuticClass": "ANTI INFECTIVES",
+    "actionClass": "Macrolides"
+  },
+  {
+    "id": "8",
+    "name": "Azee 500 Tablet",
+    "baseName": "Azee",
+    "price": 132.38,
+    "manufacturer": "Cipla Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 5 tablets",
+    "composition1": "Azithromycin (500mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Bacterial infections"
+    ],
+    "sideEffects": [
+      "Vomiting",
+      "Nausea",
+      "Abdominal pain",
+      "Diarrhea"
+    ],
+    "substitutes": [
+      "Zithrocare 500mg Tablet",
+      "Azax 500 Tablet",
+      "Zady 500 Tablet",
+      "Cazithro 500mg Tablet",
+      "Trulimax 500mg Tablet"
+    ],
+    "chemicalClass": "Macrolides",
+    "habitForming": false,
+    "therapeuticClass": "ANTI INFECTIVES",
+    "actionClass": "Macrolides"
+  },
+  {
+    "id": "9",
+    "name": "Augmentin 625 Duo Tablet",
+    "baseName": "Augmentin",
+    "price": 223.42,
+    "manufacturer": "GlaxoSmithKline Pharmaceuticals Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Amoxycillin (500mg)",
+    "composition2": "Clavulanic Acid (125mg)",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Bacterial infections"
+    ],
+    "sideEffects": [
+      "Vomiting",
+      "Nausea",
+      "Diarrhea"
+    ],
+    "substitutes": [
+      "Penciclav 500 mg/125 mg Tablet",
+      "Moxikind-CV 625 Tablet",
+      "Moxiforce-CV 625 Tablet",
+      "Fightox 625 Tablet",
+      "Novamox CV 625mg Tablet"
+    ],
+    "chemicalClass": "NA",
+    "habitForming": false,
+    "therapeuticClass": "ANTI INFECTIVES",
+    "actionClass": "NA"
+  },
+  {
+    "id": "10",
+    "name": "Amoxyclav 625 Tablet",
+    "baseName": "Amoxyclav",
+    "price": 223.27,
+    "manufacturer": "Abbott",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Amoxycillin (500mg)",
+    "composition2": "Clavulanic Acid (125mg)",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Bacterial infections"
+    ],
+    "sideEffects": [
+      "Vomiting",
+      "Nausea",
+      "Diarrhea"
+    ],
+    "substitutes": [
+      "Penciclav 500 mg/125 mg Tablet",
+      "Moxikind-CV 625 Tablet",
+      "Moxiforce-CV 625 Tablet",
+      "Fightox 625 Tablet",
+      "Novamox CV 625mg Tablet"
+    ],
+    "chemicalClass": "NA",
+    "habitForming": false,
+    "therapeuticClass": "ANTI INFECTIVES",
+    "actionClass": "NA"
+  },
+  {
+    "id": "11",
+    "name": "Pan 40 Tablet",
+    "baseName": "Pan",
+    "price": 98.7,
+    "manufacturer": "Alkem Laboratories Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Pantoprazole (40mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Heartburn",
+      "Treatment of Gastroesophageal reflux disease (Acid reflux)",
+      "Treatment of Peptic ulcer disease"
+    ],
+    "sideEffects": [
+      "Diarrhea",
+      "Flatulence",
+      "Headache",
+      "Nausea",
+      "Stomach pain",
+      "Vomiting",
+      "Dizziness"
+    ],
+    "substitutes": [
+      "Pantoride 40 Tablet",
+      "Topp 40 Tablet",
+      "Panplus 40 Tablet",
+      "Pancare 40mg Tablet",
+      "Aciban 40 Tablet"
+    ],
+    "chemicalClass": "Sulfinylbenzimidazole Derivative",
+    "habitForming": false,
+    "therapeuticClass": "GASTRO INTESTINAL",
+    "actionClass": "Proton pump inhibitors"
+  },
+  {
+    "id": "12",
+    "name": "Pantop 40 Tablet",
+    "baseName": "Pantop",
+    "price": 104.93,
+    "manufacturer": "Aristo Pharmaceuticals Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Pantoprazole (40mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Heartburn",
+      "Treatment of Gastroesophageal reflux disease (Acid reflux)",
+      "Treatment of Peptic ulcer disease"
+    ],
+    "sideEffects": [
+      "Diarrhea",
+      "Flatulence",
+      "Headache",
+      "Nausea",
+      "Stomach pain",
+      "Vomiting",
+      "Dizziness"
+    ],
+    "substitutes": [
+      "Pantoride 40 Tablet",
+      "Topp 40 Tablet",
+      "Panplus 40 Tablet",
+      "Pancare 40mg Tablet",
+      "Aciban 40 Tablet"
+    ],
+    "chemicalClass": "Sulfinylbenzimidazole Derivative",
+    "habitForming": false,
+    "therapeuticClass": "GASTRO INTESTINAL",
+    "actionClass": "Proton pump inhibitors"
+  },
+  {
+    "id": "13",
+    "name": "Omez 20 Capsule",
+    "baseName": "Omez",
+    "price": 69.5,
+    "manufacturer": "Dr Reddy's Laboratories Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 capsules",
+    "composition1": "Omeprazole (20mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Heartburn",
+      "Treatment of Gastroesophageal reflux disease (Acid reflux)",
+      "Treatment of Peptic ulcer disease"
+    ],
+    "sideEffects": [
+      "Diarrhea",
+      "Flatulence",
+      "Headache",
+      "Nausea",
+      "Stomach pain",
+      "Vomiting"
+    ],
+    "substitutes": [
+      "Kemopraz 20mg Capsule",
+      "Omee Capsule",
+      "Omecip Capsule",
+      "Omesec 20 Capsule",
+      "Omesec 20 Capsule"
+    ],
+    "chemicalClass": "Timoprazole Derivative",
+    "habitForming": false,
+    "therapeuticClass": "GASTRO INTESTINAL",
+    "actionClass": "Proton pump inhibitors"
+  },
+  {
+    "id": "14",
+    "name": "Allegra 120mg Tablet",
+    "baseName": "Allegra",
+    "price": 218.81,
+    "manufacturer": "Sanofi India Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Fexofenadine (120mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Sneezing and runny nose due to allergies",
+      "Treatment of Allergic conditions"
+    ],
+    "sideEffects": [
+      "Headache",
+      "Drowsiness",
+      "Dizziness",
+      "Nausea"
+    ],
+    "substitutes": [
+      "Lcfex Tablet",
+      "Etofex 120mg Tablet",
+      "F Din 120mg Tablet",
+      "Nexofex 120mg Tablet",
+      "Fexise 120mg Tablet"
+    ],
+    "chemicalClass": "Diphenylmethane Derivative",
+    "habitForming": false,
+    "therapeuticClass": "RESPIRATORY",
+    "actionClass": "H1 Antihistaminics (second Generation)"
+  },
+  {
+    "id": "15",
+    "name": "Cetrizine 10mg Tablet",
+    "baseName": "Cetrizine",
+    "price": 8.5,
+    "manufacturer": "Various",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Cetirizine (10mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Allergic conditions"
+    ],
+    "sideEffects": [
+      "Sleepiness",
+      "Dizziness"
+    ],
+    "substitutes": [
+      "Dio 1 10mg Tablet",
+      "Leecet Tablet",
+      "Okacet Tablet",
+      "Cetcip Tablet",
+      "Mast 1 Tablet"
+    ],
+    "chemicalClass": "Phenylmethyl Piperazinyl Derivative",
+    "habitForming": false,
+    "therapeuticClass": "RESPIRATORY",
+    "actionClass": "H1 Antihistaminics (second Generation)"
+  },
+  {
+    "id": "16",
+    "name": "Zyrtec 10mg Tablet",
+    "baseName": "Zyrtec",
+    "price": 62,
+    "manufacturer": "Johnson & Johnson Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Cetirizine (10mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Allergic conditions"
+    ],
+    "sideEffects": [
+      "Nausea",
+      "Headache",
+      "Muscle pain",
+      "Edema (swelling)",
+      "Sleepiness",
+      "Dizziness"
+    ],
+    "substitutes": [
+      "Cetrilix 5mg Syrup",
+      "Cetmac 5mg/5ml Syrup",
+      "Ralcet 5mg/5ml Syrup",
+      "Mast 1 Syrup",
+      "Ezin Syrup"
+    ],
+    "chemicalClass": "Phenylmethyl Piperazinyl Derivative",
+    "habitForming": false,
+    "therapeuticClass": "RESPIRATORY",
+    "actionClass": "H1 Antihistaminics (second Generation)"
+  },
+  {
+    "id": "17",
+    "name": "Disprin Tablet",
+    "baseName": "Disprin",
+    "price": 6.92,
+    "manufacturer": "Reckitt Benckiser Healthcare India Pvt. Ltd.",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Aspirin (350mg)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "18",
+    "name": "Ecosprin 75 Tablet",
+    "baseName": "Ecosprin",
+    "price": 10.74,
+    "manufacturer": "USV Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 14 tablets",
+    "composition1": "Aspirin (75mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Prevention of Angina (heart-related chest pain)",
+      "Treatment and prevention of Heart attack",
+      "Treatment and prevention of Stroke"
+    ],
+    "sideEffects": [
+      "Heartburn",
+      "Increased bleeding tendency",
+      "Nausea",
+      "Upset stomach",
+      "Vomiting"
+    ],
+    "substitutes": [
+      "Sprin 75mg Tablet",
+      "CV Sprin 75mg Tablet",
+      "Aspidot 75mg Tablet",
+      "E Prin 75mg Tablet",
+      "Actisprin 75mg Tablet"
+    ],
+    "chemicalClass": "Acylsalicylic Acid Derivative",
+    "habitForming": false,
+    "therapeuticClass": "BLOOD RELATED",
+    "actionClass": "NSAID's- Non-Selective COX 1&2 Inhibitors (Salicylates)"
+  },
+  {
+    "id": "19",
+    "name": "Glycomet 500 Tablet",
+    "baseName": "Glycomet",
+    "price": 23,
+    "manufacturer": "USV Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 20 tablets",
+    "composition1": "Metformin (500mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Type 2 diabetes mellitus"
+    ],
+    "sideEffects": [
+      "Diarrhea",
+      "Nausea",
+      "Vomiting",
+      "Flatulence"
+    ],
+    "substitutes": [
+      "Biciphage 500 Tablet",
+      "Okamet 500 Tablet",
+      "Etformin 500mg Tablet",
+      "Bigomet 500 Tablet",
+      "Glycirite 500mg Tablet"
+    ],
+    "chemicalClass": "Biguanides Derivative",
+    "habitForming": false,
+    "therapeuticClass": "ANTI DIABETIC",
+    "actionClass": "Biguanides"
+  },
+  {
+    "id": "20",
+    "name": "Metformin 500mg Tablet",
+    "baseName": "Metformin",
+    "price": 15,
+    "manufacturer": "Various",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Metformin (500mg)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "21",
+    "name": "Montair LC Tablet",
+    "baseName": "Montair LC",
+    "price": 195,
+    "manufacturer": "Cipla Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Montelukast (10mg)",
+    "composition2": "Levocetirizine (5mg)",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Sneezing and runny nose due to allergies",
+      "Treatment of Hay fever",
+      "Treatment of Allergic skin conditions"
+    ],
+    "sideEffects": [
+      "Nausea",
+      "Diarrhea",
+      "Dryness in mouth",
+      "Fatigue",
+      "Headache",
+      "Skin rash",
+      "Sleepiness",
+      "Vomiting"
+    ],
+    "substitutes": [
+      "Montina-L Tablet",
+      "Solitair Tablet",
+      "Lecope-M Tablet",
+      "Monticope Tablet",
+      "Levocet M Tablet"
+    ],
+    "chemicalClass": "NA",
+    "habitForming": false,
+    "therapeuticClass": "RESPIRATORY",
+    "actionClass": "NA"
+  },
+  {
+    "id": "22",
+    "name": "Sinarest Tablet",
+    "baseName": "Sinarest",
+    "price": 26,
+    "manufacturer": "Centaur Pharmaceuticals Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Paracetamol (500mg)",
+    "composition2": "Phenylephrine (10mg)",
+    "isDiscontinued": false,
+    "uses": [
+      "Common cold"
+    ],
+    "sideEffects": [
+      "Diarrhea",
+      "Rash",
+      "Nausea",
+      "Headache",
+      "Insomnia (difficulty in sleeping)",
+      "Tachycardia",
+      "Palpitations",
+      "Dizziness",
+      "Fear",
+      "Anxiety",
+      "Restlessness",
+      "Tremors",
+      "Weakness",
+      "Discomfort when urinating",
+      "Hallucination",
+      "Convulsion"
+    ],
+    "substitutes": [
+      "Coldgard Syrup",
+      "Atcold CC Syrup",
+      "Phencin Syrup",
+      "Macbery P  Syrup",
+      "Corsyl Plus Syrup"
+    ],
+    "chemicalClass": "NA",
+    "habitForming": false,
+    "therapeuticClass": "RESPIRATORY",
+    "actionClass": "NA"
+  },
+  {
+    "id": "23",
+    "name": "Vicks Action 500 Tablet",
+    "baseName": "Vicks Action",
+    "price": 20,
+    "manufacturer": "Procter & Gamble Health Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Paracetamol (500mg)",
+    "composition2": "Caffeine (25mg)",
+    "isDiscontinued": false
+  },
+  {
+    "id": "24",
+    "name": "Saridon Tablet",
+    "baseName": "Saridon",
+    "price": 25,
+    "manufacturer": "Bayer Zydus Pharma Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Paracetamol (250mg)",
+    "composition2": "Propyphenazone (150mg)",
+    "isDiscontinued": false
+  },
+  {
+    "id": "25",
+    "name": "Volini Gel",
+    "baseName": "Volini",
+    "price": 115,
+    "manufacturer": "Sun Pharmaceutical Industries Ltd",
+    "type": "allopathy",
+    "packSize": "tube of 30 gm",
+    "composition1": "Diclofenac (1%)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "26",
+    "name": "Voveran 50 Tablet",
+    "baseName": "Voveran",
+    "price": 31.1,
+    "manufacturer": "Novartis India Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Diclofenac (50mg)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "27",
+    "name": "Flexon Tablet",
+    "baseName": "Flexon",
+    "price": 35,
+    "manufacturer": "Aristo Pharmaceuticals Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Ibuprofen (400mg)",
+    "composition2": "Paracetamol (325mg)",
+    "isDiscontinued": false,
+    "uses": [
+      "Pain relief",
+      "Treatment of Fever"
+    ],
+    "sideEffects": [
+      "Heartburn",
+      "Indigestion",
+      "Nausea",
+      "Stomach pain"
+    ],
+    "substitutes": [
+      "Answell 400 mg/325 mg Tablet",
+      "Bruace 400 mg/325 mg Tablet",
+      "Rupar 400 mg/325 mg Tablet",
+      "Brufamol Tablet",
+      "Brumol 400 mg/325 mg Tablet"
+    ],
+    "chemicalClass": "NA",
+    "habitForming": false,
+    "therapeuticClass": "PAIN ANALGESICS",
+    "actionClass": "NA"
+  },
+  {
+    "id": "28",
+    "name": "Shelcal 500 Tablet",
+    "baseName": "Shelcal",
+    "price": 162,
+    "manufacturer": "Torrent Pharmaceuticals Ltd",
+    "type": "allopathy",
+    "packSize": "bottle of 30 tablets",
+    "composition1": "Calcium (500mg)",
+    "composition2": "Vitamin D3 (250 IU)",
+    "isDiscontinued": false
+  },
+  {
+    "id": "29",
+    "name": "Limcee Tablet",
+    "baseName": "Limcee",
+    "price": 21.5,
+    "manufacturer": "Abbott",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Vitamin C (500mg)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "30",
+    "name": "Becosules Capsule",
+    "baseName": "Becosules",
+    "price": 32,
+    "manufacturer": "Pfizer Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 20 capsules",
+    "composition1": "Vitamin B Complex",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "31",
+    "name": "Supradyn Tablet",
+    "baseName": "Supradyn",
+    "price": 38,
+    "manufacturer": "Abbott",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Multivitamin",
+    "composition2": "Minerals",
+    "isDiscontinued": false
+  },
+  {
+    "id": "32",
+    "name": "Zincovit Tablet",
+    "baseName": "Zincovit",
+    "price": 115,
+    "manufacturer": "Apex Laboratories Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "bottle of 15 tablets",
+    "composition1": "Zinc",
+    "composition2": "Multivitamin",
+    "isDiscontinued": false
+  },
+  {
+    "id": "33",
+    "name": "Uprise D3 Tablet",
+    "baseName": "Uprise D3",
+    "price": 135,
+    "manufacturer": "Alkem Laboratories Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Cholecalciferol (60000 IU)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "34",
+    "name": "Betadine Solution",
+    "baseName": "Betadine",
+    "price": 96,
+    "manufacturer": "Win-Medicare Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "bottle of 100 ml",
+    "composition1": "Povidone Iodine (5%)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment and prevention of Wound infection"
+    ],
+    "sideEffects": [
+      "Application site reactions (burning, irritation, itching and redness)"
+    ],
+    "substitutes": [
+      "Povicidal 5% Powder",
+      "WOCKADINE 5% POWDER",
+      "Zovi 5% Powder"
+    ],
+    "chemicalClass": "Iodinated polyvinyl polymer",
+    "habitForming": false,
+    "therapeuticClass": "OPHTHAL OTOLOGICALS",
+    "actionClass": "Antiseptics and disinfectants"
+  },
+  {
+    "id": "35",
+    "name": "Betadine Ointment",
+    "baseName": "Betadine",
+    "price": 62,
+    "manufacturer": "Win-Medicare Pvt Ltd",
+    "type": "allopathy",
+    "packSize": "tube of 20 gm",
+    "composition1": "Povidone Iodine (5%)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment and prevention of Wound infection"
+    ],
+    "sideEffects": [
+      "Application site reactions (burning, irritation, itching and redness)"
+    ],
+    "substitutes": [
+      "Povicidal 5% Powder",
+      "WOCKADINE 5% POWDER",
+      "Zovi 5% Powder"
+    ],
+    "chemicalClass": "Iodinated polyvinyl polymer",
+    "habitForming": false,
+    "therapeuticClass": "OPHTHAL OTOLOGICALS",
+    "actionClass": "Antiseptics and disinfectants"
+  },
+  {
+    "id": "36",
+    "name": "Dettol Antiseptic Liquid",
+    "baseName": "Dettol",
+    "price": 73,
+    "manufacturer": "Reckitt Benckiser Healthcare India Pvt. Ltd.",
+    "type": "allopathy",
+    "packSize": "bottle of 125 ml",
+    "composition1": "Chloroxylenol (4.8%)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "37",
+    "name": "Moov Pain Relief Cream",
+    "baseName": "Moov",
+    "price": 95,
+    "manufacturer": "Reckitt Benckiser Healthcare India Pvt. Ltd.",
+    "type": "allopathy",
+    "packSize": "tube of 50 gm",
+    "composition1": "Diclofenac Diethylamine",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "38",
+    "name": "Iodex Balm",
+    "baseName": "Iodex",
+    "price": 55,
+    "manufacturer": "GlaxoSmithKline Consumer Healthcare Ltd",
+    "type": "allopathy",
+    "packSize": "jar of 40 gm",
+    "composition1": "Methyl Salicylate",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "39",
+    "name": "Zandu Balm",
+    "baseName": "Zandu Balm",
+    "price": 45,
+    "manufacturer": "Emami Ltd",
+    "type": "ayurvedic",
+    "packSize": "jar of 25 ml",
+    "composition1": "Ayurvedic",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "40",
+    "name": "Hajmola Tablet",
+    "baseName": "Hajmola",
+    "price": 10,
+    "manufacturer": "Dabur India Ltd",
+    "type": "ayurvedic",
+    "packSize": "bottle of 120 tablets",
+    "composition1": "Digestive Herbs",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "41",
+    "name": "Pudinhara Capsule",
+    "baseName": "Pudinhara",
+    "price": 85,
+    "manufacturer": "Dabur India Ltd",
+    "type": "ayurvedic",
+    "packSize": "strip of 10 capsules",
+    "composition1": "Pudina (Mint)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "42",
+    "name": "ORS Powder",
+    "baseName": "ORS",
+    "price": 22,
+    "manufacturer": "Various",
+    "type": "allopathy",
+    "packSize": "packet of 21.8 gm",
+    "composition1": "Oral Rehydration Salts",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "43",
+    "name": "Electral Powder",
+    "baseName": "Electral",
+    "price": 22,
+    "manufacturer": "FDC Ltd",
+    "type": "allopathy",
+    "packSize": "packet of 21.8 gm",
+    "composition1": "Oral Rehydration Salts",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "44",
+    "name": "Gelusil MPS Tablet",
+    "baseName": "Gelusil MPS",
+    "price": 74,
+    "manufacturer": "Pfizer Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Magaldrate",
+    "composition2": "Simethicone",
+    "isDiscontinued": false
+  },
+  {
+    "id": "45",
+    "name": "Digene Tablet",
+    "baseName": "Digene",
+    "price": 68,
+    "manufacturer": "Abbott",
+    "type": "allopathy",
+    "packSize": "strip of 15 tablets",
+    "composition1": "Magaldrate",
+    "composition2": "Simethicone",
+    "isDiscontinued": false
+  },
+  {
+    "id": "46",
+    "name": "Eno Powder",
+    "baseName": "Eno",
+    "price": 10,
+    "manufacturer": "GlaxoSmithKline Consumer Healthcare Ltd",
+    "type": "allopathy",
+    "packSize": "sachet of 5 gm",
+    "composition1": "Sodium Bicarbonate",
+    "composition2": "Citric Acid",
+    "isDiscontinued": false
+  },
+  {
+    "id": "47",
+    "name": "Loperamide 2mg Capsule",
+    "baseName": "Loperamide",
+    "price": 15,
+    "manufacturer": "Various",
+    "type": "allopathy",
+    "packSize": "strip of 10 capsules",
+    "composition1": "Loperamide (2mg)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "48",
+    "name": "Norflox TZ Tablet",
+    "baseName": "Norflox TZ",
+    "price": 65,
+    "manufacturer": "Cipla Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Norfloxacin (400mg)",
+    "composition2": "Tinidazole (600mg)",
+    "isDiscontinued": false
+  },
+  {
+    "id": "49",
+    "name": "Ciprofloxacin 500 Tablet",
+    "baseName": "Ciprofloxacin",
+    "price": 35,
+    "manufacturer": "Various",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Ciprofloxacin (500mg)",
+    "composition2": "",
+    "isDiscontinued": false
+  },
+  {
+    "id": "50",
+    "name": "Ciplox 500 Tablet",
+    "baseName": "Ciplox",
+    "price": 60,
+    "manufacturer": "Cipla Ltd",
+    "type": "allopathy",
+    "packSize": "strip of 10 tablets",
+    "composition1": "Ciprofloxacin (500mg)",
+    "composition2": "",
+    "isDiscontinued": false,
+    "uses": [
+      "Treatment of Bacterial infections"
+    ],
+    "sideEffects": [
+      "Headache",
+      "Dizziness",
+      "Gastrointestinal disorder",
+      "Joint pain",
+      "Urticaria"
+    ],
+    "substitutes": [
+      "Wocipflo 500mg Tablet",
+      "Strox 500mg Tablet",
+      "Ciprodac 500 Tablet",
+      "Alciflox 500mg Tablet",
+      "Cifran OD 500mg Tablet"
+    ],
+    "chemicalClass": "Fluoroquinolone",
+    "habitForming": false,
+    "therapeuticClass": "GASTRO INTESTINAL",
+    "actionClass": "Quinolones/ Fluroquinolones"
+  }
+]

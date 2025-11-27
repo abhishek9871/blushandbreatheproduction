@@ -60,6 +60,243 @@ const generateFAQs = (medicine: MedicineInfo) => {
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
+// ═══════════════════════════════════════════════════════════════════
+// INDIAN MEDICINES DATABASE - Local dataset (250K+ medicines)
+// ═══════════════════════════════════════════════════════════════════
+import indianMedicinesData from '@/data/indian-medicines-sample.json';
+
+// Optimized field names for smaller file size
+interface IndianMedicineOptimized {
+  i: string;      // id
+  n: string;      // name
+  b: string;      // baseName
+  p: number;      // price
+  m: string;      // manufacturer
+  t: string;      // type
+  k: string;      // packSize
+  c1: string;     // composition1
+  c2?: string;    // composition2
+  d?: boolean;    // isDiscontinued
+  u?: string[];   // uses
+  se?: string[];  // sideEffects
+  su?: string[];  // substitutes
+  tc?: string;    // therapeuticClass
+  hf?: boolean;   // habitForming
+}
+
+// Full interface for internal use
+interface IndianMedicine {
+  id: string;
+  name: string;
+  baseName: string;
+  price: number;
+  manufacturer: string;
+  type: string;
+  packSize: string;
+  composition1: string;
+  composition2: string;
+  isDiscontinued: boolean;
+  uses?: string[];
+  sideEffects?: string[];
+  substitutes?: string[];
+  therapeuticClass?: string;
+  habitForming?: boolean;
+}
+
+// Convert optimized format to full format
+function expandMedicine(opt: IndianMedicineOptimized): IndianMedicine {
+  return {
+    id: opt.i,
+    name: opt.n,
+    baseName: opt.b,
+    price: opt.p,
+    manufacturer: opt.m,
+    type: opt.t,
+    packSize: opt.k,
+    composition1: opt.c1,
+    composition2: opt.c2 || '',
+    isDiscontinued: opt.d || false,
+    uses: opt.u || [],
+    sideEffects: opt.se || [],
+    substitutes: opt.su || [],
+    therapeuticClass: opt.tc || '',
+    habitForming: opt.hf || false,
+  };
+}
+
+const indianMedicines: IndianMedicine[] = indianMedicinesData as IndianMedicine[];
+
+// Search Indian medicines - Local sample first, then API for full 254K database
+function searchIndianMedicineLocal(searchTerm: string): IndianMedicine | null {
+  const normalized = searchTerm.toLowerCase().trim();
+  
+  // Exact match on base name first
+  let match = indianMedicines.find(m => 
+    m.baseName.toLowerCase() === normalized ||
+    m.name.toLowerCase() === normalized
+  );
+  
+  if (match) return match;
+  
+  // Partial match on name
+  match = indianMedicines.find(m => 
+    m.name.toLowerCase().includes(normalized) ||
+    m.baseName.toLowerCase().includes(normalized)
+  );
+  
+  if (match) return match;
+  
+  // Match on composition
+  match = indianMedicines.find(m => {
+    const comp1 = m.composition1.toLowerCase().replace(/\([^)]+\)/g, '').trim();
+    return comp1.includes(normalized) || normalized.includes(comp1.split(' ')[0]);
+  });
+  
+  return match || null;
+}
+
+// Search full Indian medicines database (254K medicines) - reads from optimized JSON file
+async function searchIndianMedicineFullDB(searchTerm: string): Promise<IndianMedicine | null> {
+  try {
+    // Import fs and path for server-side file reading
+    const fs = await import('fs');
+    const path = await import('path');
+    
+    const filePath = path.join(process.cwd(), 'data', 'indian-medicines.json');
+    
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      console.log('Full Indian medicines database not found');
+      return null;
+    }
+    
+    const data = fs.readFileSync(filePath, 'utf-8');
+    const allMedicinesOptimized: IndianMedicineOptimized[] = JSON.parse(data);
+    
+    const normalized = searchTerm.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+    
+    // Exact match on base name first
+    let match = allMedicinesOptimized.find(m => 
+      m.b.toLowerCase().replace(/[^a-z0-9]/g, '') === normalized ||
+      m.n.toLowerCase().replace(/[^a-z0-9]/g, '') === normalized
+    );
+    
+    if (match) return expandMedicine(match);
+    
+    // Partial match on name
+    match = allMedicinesOptimized.find(m => 
+      m.n.toLowerCase().replace(/[^a-z0-9]/g, '').includes(normalized) ||
+      m.b.toLowerCase().replace(/[^a-z0-9]/g, '').includes(normalized)
+    );
+    
+    if (match) return expandMedicine(match);
+    
+    // Match on composition
+    match = allMedicinesOptimized.find(m => {
+      const comp1 = m.c1.toLowerCase().replace(/[^a-z0-9]/g, '');
+      return comp1.includes(normalized);
+    });
+    
+    return match ? expandMedicine(match) : null;
+  } catch (error) {
+    console.error('Indian medicine search error:', error);
+    return null;
+  }
+}
+
+// Convert Indian medicine to MedicineInfo format
+function convertIndianMedicineToInfo(med: IndianMedicine): MedicineInfo {
+  const composition = [med.composition1, med.composition2].filter(Boolean).join(' + ');
+  
+  // Build uses text from enriched data
+  const usesText = med.uses && med.uses.length > 0
+    ? med.uses.map(u => `• ${u}`).join('\n')
+    : `${med.name} contains ${composition}. Consult your healthcare provider for specific uses.`;
+  
+  // Build side effects text from enriched data
+  const sideEffectsText = med.sideEffects && med.sideEffects.length > 0
+    ? med.sideEffects.map(s => `• ${s}`).join('\n')
+    : 'Side effects vary. Consult prescribing information or your healthcare provider.';
+  
+  // Build substitutes text
+  const substitutesText = med.substitutes && med.substitutes.length > 0
+    ? `Alternative medicines: ${med.substitutes.slice(0, 5).join(', ')}`
+    : '';
+  
+  // Drug class from therapeutic class if available
+  const drugClass = med.therapeuticClass 
+    ? [med.therapeuticClass]
+    : [med.type.charAt(0).toUpperCase() + med.type.slice(1)];
+  
+  return {
+    id: `indian-${med.id}`,
+    slug: med.baseName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    
+    brandName: med.name,
+    genericName: med.composition1.replace(/\([^)]+\)/g, '').trim(),
+    alternativeNames: med.substitutes || [],
+    
+    drugClass: drugClass,
+    pharmacologicClass: [],
+    
+    activeIngredients: [{
+      name: med.composition1.replace(/\([^)]+\)/g, '').trim(),
+      strength: med.composition1.match(/\(([^)]+)\)/)?.[1] || '',
+      unit: ''
+    }],
+    inactiveIngredients: [],
+    
+    dosageForms: [med.packSize],
+    routesOfAdministration: ['Oral'],
+    
+    manufacturer: {
+      name: med.manufacturer,
+    },
+    ndcCodes: [],
+    
+    label: {
+      indicationsAndUsage: usesText,
+      dosageAndAdministration: `Consult your healthcare provider for proper dosage. This medicine is available as ${med.packSize}.${med.habitForming ? '\n\n⚠️ This medicine may be habit-forming. Use only as directed by your doctor.' : ''}`,
+      warnings: med.habitForming 
+        ? '⚠️ HABIT FORMING: This medicine may cause dependence. Use only as directed by your healthcare provider. Do not exceed recommended dose.'
+        : 'This medicine information is from the Indian pharmaceutical database. Always consult a qualified healthcare provider before use.',
+      adverseReactions: sideEffectsText,
+      drugInteractions: substitutesText ? `${substitutesText}\n\nConsult prescribing information for drug interactions.` : 'Consult prescribing information for drug interactions.',
+      contraindications: 'Consult prescribing information for contraindications.',
+      overdosage: '',
+      clinicalPharmacology: `Active composition: ${composition}`,
+    },
+    
+    pillImages: [],
+    
+    fdaApplicationNumber: undefined,
+    approvalDate: undefined,
+    marketStatus: med.habitForming ? 'prescription' : 'prescription',
+    
+    rxcui: undefined,
+    rxnormSynonyms: med.substitutes || [],
+    
+    metaTitle: `${med.name} - Uses, Side Effects, Price ₹${med.price} | MediVault`,
+    metaDescription: `${med.name} by ${med.manufacturer}. ${med.uses?.[0] || `Contains ${composition}`}. Price: ₹${med.price}. Side effects, substitutes & more.`,
+    keywords: [med.baseName.toLowerCase(), med.manufacturer.toLowerCase(), 'india', 'medicine', composition.toLowerCase(), ...(med.uses || []).map(u => u.toLowerCase())].filter(Boolean),
+    
+    // Custom fields for Indian medicines
+    indianPrice: med.price,
+    indianPackSize: med.packSize,
+    
+    sources: {
+      openFDA: false,
+      rxNorm: false,
+      dailyMed: false,
+      pubChem: false,
+      indianDatabase: true,
+    },
+    
+    lastUpdated: new Date().toISOString(),
+    fetchedAt: new Date().toISOString(),
+  };
+}
+
 export default function MedicinePage({ medicine, error }: MedicinePageProps) {
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   
@@ -214,6 +451,18 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
                 <span className="px-2 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 rounded text-xs flex items-center gap-1">
                   <span className="material-symbols-outlined text-xs">flag</span>
                   India (myUpchar)
+                </span>
+              )}
+              {medicine.sources.indianDatabase && (
+                <span className="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded text-xs flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">flag</span>
+                  🇮🇳 India
+                </span>
+              )}
+              {medicine.indianPrice && (
+                <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded text-xs flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">currency_rupee</span>
+                  ₹{medicine.indianPrice}
                 </span>
               )}
             </div>
@@ -1171,14 +1420,12 @@ async function fetchFromPubChem(drugName: string): Promise<MedicineInfo | null> 
 
 // ═══════════════════════════════════════════════════════════════════
 // myUpchar API - Indian Medicine Database (2L+ medicines)
+// Direct search - searches with EXACT name (for Indian brand names)
 // ═══════════════════════════════════════════════════════════════════
-async function fetchFromMyUpchar(drugName: string): Promise<MedicineInfo | null> {
+async function fetchFromMyUpcharDirect(drugName: string): Promise<MedicineInfo | null> {
   try {
-    // Check if this is a brand name that needs mapping
-    const normalizedName = drugName.toLowerCase().trim();
-    const genericName = brandNameMappings[normalizedName] || drugName;
-    
-    const encodedName = encodeURIComponent(genericName);
+    // Search with the EXACT name provided (no brand name mapping)
+    const encodedName = encodeURIComponent(drugName);
     
     // myUpchar API endpoint - searching for Allopath (modern medicine)
     const url = `https://beta.myupchar.com/api/medicine/search?name=${encodedName}&type=Allopath&page=1`;
@@ -1218,21 +1465,25 @@ async function fetchFromMyUpchar(drugName: string): Promise<MedicineInfo | null>
     // Build uses text
     const usesText = Array.isArray(medicine.uses)
       ? medicine.uses.map((use: string) => `• ${use}`).join('\n')
-      : medicine.uses || `${genericName} is a medicine available in India.`;
+      : medicine.uses || `${medicine.name || drugName} is a medicine available in India.`;
+    
+    // Get the display name - prefer API response name, fallback to search term
+    const displayName = medicine.name || drugName;
+    const saltContent = medicine.salt_content || '';
     
     const myupcharMedicine: MedicineInfo = {
-      id: `myupchar-${medicine.id || genericName}`,
-      slug: genericName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      id: `myupchar-${medicine.id || drugName}`,
+      slug: drugName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       
-      brandName: medicine.name || '',
-      genericName: medicine.salt_content || genericName,
+      brandName: displayName, // Show the actual brand name (Crocin, Dolo, etc.)
+      genericName: saltContent, // Show the salt/generic (Paracetamol, etc.)
       alternativeNames: synonyms,
       
       drugClass: medicine.category ? [medicine.category] : ['Medicine (India)'],
       pharmacologicClass: [],
       
       activeIngredients: [{
-        name: medicine.salt_content || genericName,
+        name: saltContent || displayName,
         strength: medicine.strength || '',
         unit: ''
       }],
@@ -1242,7 +1493,7 @@ async function fetchFromMyUpchar(drugName: string): Promise<MedicineInfo | null>
       routesOfAdministration: ['Oral'],
       
       manufacturer: {
-        name: medicine.manufacturer || 'Various manufacturers (India)',
+        name: medicine.manufacturer || 'Indian Pharmaceutical Company',
       },
       ndcCodes: [],
       
@@ -1254,7 +1505,7 @@ async function fetchFromMyUpchar(drugName: string): Promise<MedicineInfo | null>
         drugInteractions: 'Consult prescribing information for drug interactions.',
         contraindications: medicine.contraindications || 'Consult prescribing information for contraindications.',
         overdosage: '',
-        clinicalPharmacology: `Active ingredient: ${medicine.salt_content || genericName}`,
+        clinicalPharmacology: saltContent ? `Active ingredient: ${saltContent}` : '',
       },
       
       pillImages: [],
@@ -1266,9 +1517,9 @@ async function fetchFromMyUpchar(drugName: string): Promise<MedicineInfo | null>
       rxcui: undefined,
       rxnormSynonyms: synonyms,
       
-      metaTitle: `${medicine.name || genericName} - Indian Medicine Information | MediVault`,
-      metaDescription: `${medicine.name || genericName} medicine information from India. ${medicine.manufacturer ? `Manufactured by ${medicine.manufacturer}.` : ''} Find uses, side effects, and alternatives.`,
-      keywords: [genericName.toLowerCase(), 'india', 'medicine', 'indian pharmaceutical', medicine.manufacturer?.toLowerCase() || ''].filter(Boolean),
+      metaTitle: `${displayName} - Indian Medicine Information | MediVault`,
+      metaDescription: `${displayName} medicine information from India. ${saltContent ? `Contains ${saltContent}.` : ''} ${medicine.manufacturer ? `Manufactured by ${medicine.manufacturer}.` : ''} Find uses, side effects, and alternatives.`,
+      keywords: [displayName.toLowerCase(), saltContent.toLowerCase(), 'india', 'medicine', 'indian pharmaceutical', medicine.manufacturer?.toLowerCase() || ''].filter(Boolean),
       
       sources: {
         openFDA: false,
@@ -1302,13 +1553,48 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
   try {
     // Convert slug to drug name (replace hyphens with spaces)
     const drugName = slug.replace(/-/g, ' ');
-    
-    // Check if this is a known brand name and get the generic name
     const normalizedName = drugName.toLowerCase().trim();
-    const resolvedName = brandNameMappings[normalizedName] || drugName;
+    const genericName = brandNameMappings[normalizedName];
     
     // ═══════════════════════════════════════════════════════════════════
-    // STEP 1: Try OpenFDA (FDA-approved drugs) - most authoritative source
+    // STEP 1: Search LOCAL Indian medicines sample (50 popular medicines)
+    // This gives instant results for common Indian brands
+    // ═══════════════════════════════════════════════════════════════════
+    let indianMedicine = searchIndianMedicineLocal(drugName);
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // STEP 1b: If not in local sample, search FULL database (254K medicines)
+    // ═══════════════════════════════════════════════════════════════════
+    if (!indianMedicine) {
+      indianMedicine = await searchIndianMedicineFullDB(drugName);
+    }
+    
+    if (indianMedicine) {
+      console.log(`✅ Found in Indian database: ${indianMedicine.name}`);
+      let medicine = convertIndianMedicineToInfo(indianMedicine);
+      
+      // Get the generic compound name for Wikipedia enrichment
+      const genericCompound = indianMedicine.composition1.replace(/\([^)]+\)/g, '').trim();
+      
+      // Enrich with Wikipedia data about the generic compound
+      const wikiData = await fetchWikipediaData(genericCompound);
+      
+      if (wikiData) {
+        medicine = enrichWithWikipedia(medicine, wikiData);
+        medicine.sources.wikipedia = true;
+      }
+      
+      return {
+        props: { medicine },
+        revalidate: 86400, // Revalidate daily
+      };
+    }
+    
+    // For non-Indian medicines, use resolved name (brand → generic mapping)
+    const resolvedName = genericName || drugName;
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // STEP 2: Try OpenFDA (FDA-approved drugs) - most authoritative source
     // ═══════════════════════════════════════════════════════════════════
     try {
       const response = await fetch(`${API_BASE_URL}/api/medicine/${encodeURIComponent(resolvedName)}`);
@@ -1334,7 +1620,7 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
     }
 
     // ═══════════════════════════════════════════════════════════════════
-    // STEP 2: Try MyChem.info/DrugCentral (international drugs & nootropics)
+    // STEP 3: Try MyChem.info/DrugCentral (international drugs & nootropics)
     // ═══════════════════════════════════════════════════════════════════
     const mychemMedicine = await fetchFromMyChem(resolvedName);
     
@@ -1355,9 +1641,9 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
     }
 
     // ═══════════════════════════════════════════════════════════════════
-    // STEP 3: Try myUpchar (Indian medicine database - 2L+ medicines)
+    // STEP 4: Try myUpchar with resolved name (generic fallback)
     // ═══════════════════════════════════════════════════════════════════
-    const myupcharMedicine = await fetchFromMyUpchar(resolvedName);
+    const myupcharMedicine = await fetchFromMyUpcharDirect(resolvedName);
     
     if (myupcharMedicine) {
       // Enrich with Wikipedia data

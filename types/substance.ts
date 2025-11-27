@@ -218,6 +218,10 @@ export interface MedicineInfo {
   metaDescription: string;
   keywords: string[];
   
+  // Indian Market Data (optional)
+  indianPrice?: number; // Price in INR (₹)
+  indianPackSize?: string; // Pack size in India (e.g., "strip of 15 tablets")
+  
   // Data Sources
   sources: {
     openFDA?: boolean;
@@ -228,6 +232,7 @@ export interface MedicineInfo {
     wikipedia?: boolean; // Wikipedia drug articles
     myUpchar?: boolean; // Indian medicine database (myUpchar.com)
     cdsco?: boolean; // Indian Central Drugs Standard Control Organization
+    indianDatabase?: boolean; // Local Indian medicines CSV database
   };
   
   // Timestamps

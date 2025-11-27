@@ -1,17 +1,22 @@
 /**
  * Next.js API Route: /api/substances/banned/[slug]
  * 
- * Proxy route to fetch banned substance data from Cloudflare Worker backend.
+ * Fetches banned substance data from local JSON file.
  */
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { BannedSubstance, SubstanceAPIResponse } from '@/types';
+import type { BannedSubstance } from '@/types';
+import bannedSubstancesData from '@/lib/data/banned-substances.json';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.yourdomain.com';
+interface SubstanceAPIResponse {
+  success: boolean;
+  data: BannedSubstance | null;
+  error?: string;
+}
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<SubstanceAPIResponse<BannedSubstance>>
+  res: NextApiResponse<SubstanceAPIResponse>
 ) {
   if (req.method !== 'GET') {
     return res.status(405).json({
@@ -32,30 +37,26 @@ export default async function handler(
   }
 
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/banned/${encodeURIComponent(slug)}`,
-      {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-        },
-      }
+    // Find substance by slug in local data
+    const substance = bannedSubstancesData.substances.find(
+      (s: any) => s.slug.toLowerCase() === slug.toLowerCase()
     );
-
-    const data = await response.json();
 
     // Set caching headers
     res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
 
-    if (!response.ok) {
-      return res.status(response.status).json({
+    if (!substance) {
+      return res.status(404).json({
         success: false,
         data: null,
-        error: data.error || 'Failed to fetch substance data'
+        error: 'Substance not found'
       });
     }
 
-    return res.status(200).json(data);
+    return res.status(200).json({
+      success: true,
+      data: substance as BannedSubstance
+    });
   } catch (error) {
     console.error('Banned substance API error:', error);
     return res.status(500).json({

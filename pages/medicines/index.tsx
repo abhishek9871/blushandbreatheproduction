@@ -318,6 +318,202 @@ export default function MedicinesPage({ featuredMedicines }: MedicinesPageProps)
           </div>
         </section>
 
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        {/* DANGER ZONE - Banned Substances (High SEO Value) */}
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        <section className="py-16 bg-gradient-to-br from-red-50 via-orange-50 to-amber-50 dark:from-red-950/30 dark:via-orange-950/20 dark:to-amber-950/20 border-y-4 border-red-200 dark:border-red-900">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 rounded-full text-sm font-medium mb-4">
+                <span className="material-symbols-outlined text-lg">warning</span>
+                FDA Banned & Restricted
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Banned Supplement Ingredients
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                These substances have been flagged by the FDA, DEA, or WADA for serious safety concerns. 
+                Learn about the dangers and discover safe, legal alternatives.
+              </p>
+            </div>
+
+            {/* Banned Substances Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {/* Stimulant Amines */}
+              <Link href="/banned/dmaa" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-red-200 dark:border-red-800 p-4 hover:shadow-lg hover:border-red-400 dark:hover:border-red-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-red-600 dark:text-red-400">dangerous</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-red-600">DMAA</h3>
+                    <span className="text-xs text-red-600 dark:text-red-400">5 Deaths • FDA Banned</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">1,3-Dimethylamylamine - Banned stimulant</p>
+              </Link>
+
+              <Link href="/banned/dmha" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-red-200 dark:border-red-800 p-4 hover:shadow-lg hover:border-red-400 dark:hover:border-red-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-red-600 dark:text-red-400">dangerous</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-red-600">DMHA</h3>
+                    <span className="text-xs text-red-600 dark:text-red-400">12 Warning Letters</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Octodrine - Unsafe stimulant</p>
+              </Link>
+
+              <Link href="/banned/ephedrine" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-red-200 dark:border-red-800 p-4 hover:shadow-lg hover:border-red-400 dark:hover:border-red-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-red-600 dark:text-red-400">skull</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-red-600">Ephedrine</h3>
+                    <span className="text-xs text-red-600 dark:text-red-400">155+ Deaths • Banned 2004</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Ma Huang - Landmark FDA ban</p>
+              </Link>
+
+              <Link href="/banned/bmpea" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-red-200 dark:border-red-800 p-4 hover:shadow-lg hover:border-red-400 dark:hover:border-red-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-red-600 dark:text-red-400">dangerous</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-red-600">BMPEA</h3>
+                    <span className="text-xs text-red-600 dark:text-red-400">Amphetamine Analog</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Synthetic adulterant in Acacia</p>
+              </Link>
+
+              {/* GABAergic */}
+              <Link href="/banned/phenibut" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-orange-200 dark:border-orange-800 p-4 hover:shadow-lg hover:border-orange-400 dark:hover:border-orange-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-orange-600 dark:text-orange-400">psychology_alt</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-orange-600">Phenibut</h3>
+                    <span className="text-xs text-orange-600 dark:text-orange-400">1,320 Poison Cases</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">GABA analog - Severe withdrawal</p>
+              </Link>
+
+              <Link href="/banned/tianeptine" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-orange-200 dark:border-orange-800 p-4 hover:shadow-lg hover:border-orange-400 dark:hover:border-orange-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-orange-600 dark:text-orange-400">skull</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-orange-600">Tianeptine</h3>
+                    <span className="text-xs text-orange-600 dark:text-orange-400">&quot;Gas Station Heroin&quot;</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Zaza, Tianaa - Opioid effects</p>
+              </Link>
+
+              <Link href="/banned/kratom" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-amber-200 dark:border-amber-800 p-4 hover:shadow-lg hover:border-amber-400 dark:hover:border-amber-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-amber-600 dark:text-amber-400">eco</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-amber-600">Kratom</h3>
+                    <span className="text-xs text-amber-600 dark:text-amber-400">91 Deaths • 7 States Ban</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Mitragyna speciosa - Opioid-like</p>
+              </Link>
+
+              {/* SARMs */}
+              <Link href="/banned/sarms" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-purple-200 dark:border-purple-800 p-4 hover:shadow-lg hover:border-purple-400 dark:hover:border-purple-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-purple-600 dark:text-purple-400">fitness_center</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-purple-600">SARMs</h3>
+                    <span className="text-xs text-purple-600 dark:text-purple-400">Felony • Prison Time</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Ostarine, LGD - Unapproved drugs</p>
+              </Link>
+
+              <Link href="/banned/ostarine" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-purple-200 dark:border-purple-800 p-4 hover:shadow-lg hover:border-purple-400 dark:hover:border-purple-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-purple-600 dark:text-purple-400">science</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-purple-600">Ostarine</h3>
+                    <span className="text-xs text-purple-600 dark:text-purple-400">20+ Liver Injury Cases</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">MK-2866 - Most detected SARM</p>
+              </Link>
+
+              <Link href="/banned/cardarine" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-red-200 dark:border-red-800 p-4 hover:shadow-lg hover:border-red-400 dark:hover:border-red-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-red-600 dark:text-red-400">emergency</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-red-600">Cardarine</h3>
+                    <span className="text-xs text-red-600 dark:text-red-400">⚠️ CAUSES CANCER</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">GW501516 - Dev abandoned</p>
+              </Link>
+
+              {/* Nootropics */}
+              <Link href="/banned/adrafinil" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-blue-200 dark:border-blue-800 p-4 hover:shadow-lg hover:border-blue-400 dark:hover:border-blue-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-blue-600 dark:text-blue-400">neurology</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-600">Adrafinil</h3>
+                    <span className="text-xs text-blue-600 dark:text-blue-400">Modafinil Prodrug</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Hepatotoxic - Prison sentences</p>
+              </Link>
+
+              <Link href="/banned/phenylpiracetam" className="group bg-white dark:bg-gray-800 rounded-xl border-2 border-blue-200 dark:border-blue-800 p-4 hover:shadow-lg hover:border-blue-400 dark:hover:border-blue-600 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-blue-600 dark:text-blue-400">psychology</span>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-600">Phenylpiracetam</h3>
+                    <span className="text-xs text-blue-600 dark:text-blue-400">WADA Banned</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Carphedon - Only banned racetam</p>
+              </Link>
+            </div>
+
+            {/* View All Button */}
+            <div className="text-center mt-8">
+              <Link
+                href="/medicines/search?category=banned"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-semibold transition-colors"
+              >
+                <span className="material-symbols-outlined">shield</span>
+                View All 30+ Banned Substances
+                <span className="material-symbols-outlined">arrow_forward</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Advanced Features Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-6xl mx-auto px-4">

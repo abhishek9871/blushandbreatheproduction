@@ -27,7 +27,7 @@ import {
 import { LoadingSpinner } from '@/components';
 import { useLegalAlternatives, useAffiliateProducts } from '@/hooks';
 import { trackPageView, trackWarningViewed } from '@/lib/analytics';
-import { getAffiliateProductsForSupplement } from '@/lib/data';
+import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs } from '@/lib/data';
 import type { BannedSubstance, LegalSupplement, AffiliateProduct } from '@/types';
 
 // Substances that require age verification
@@ -349,20 +349,20 @@ export default function BannedSubstancePage({ substance, error }: BannedSubstanc
 }
 
 /**
- * Generate static paths for ISR
- * Returns empty paths initially - pages generated on-demand
+ * Generate static paths for all banned substances
  */
 export const getStaticPaths: GetStaticPaths = async () => {
-  // For initial build, return empty paths
-  // Pages will be generated on first request (fallback: 'blocking')
+  // Get all banned substance slugs from local data
+  const slugs = getBannedSubstanceSlugs();
+  
   return {
-    paths: [],
-    fallback: 'blocking',
+    paths: slugs.map((slug) => ({ params: { slug } })),
+    fallback: 'blocking', // New pages generated on-demand
   };
 };
 
 /**
- * Fetch substance data at build/request time
+ * Fetch substance data from local JSON at build time
  */
 export const getStaticProps: GetStaticProps<BannedSubstancePageProps> = async ({ params }) => {
   const slug = params?.slug as string;
@@ -375,19 +375,19 @@ export const getStaticProps: GetStaticProps<BannedSubstancePageProps> = async ({
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/banned/${encodeURIComponent(slug)}`);
-    const result = await response.json();
+    // Get substance directly from local JSON data
+    const substance = getBannedSubstanceBySlug(slug);
 
-    if (!result.success || !result.data) {
+    if (!substance) {
       return {
         props: { substance: null, error: 'Substance not found' },
-        revalidate: 60, // Try again in 1 minute
+        revalidate: 60,
       };
     }
 
     return {
       props: {
-        substance: result.data,
+        substance,
       },
       revalidate: 3600, // Revalidate every hour
     };

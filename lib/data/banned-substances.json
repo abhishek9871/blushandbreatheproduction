@@ -4,12 +4,20 @@
       "id": "banned-dmaa",
       "slug": "dmaa",
       "name": "DMAA",
-      "alternativeNames": ["1,3-Dimethylamylamine", "Methylhexanamine", "Geranamine", "Pentylamine derivative"],
+      "alternativeNames": [
+        "1,3-Dimethylamylamine",
+        "Methylhexanamine",
+        "Geranamine",
+        "Pentylamine derivative"
+      ],
       "category": "stimulant",
       "legalStatus": "banned_usa",
       "legalStatusDetails": "Banned as unsafe food additive (April 2013). Prohibited by WADA since 2010.",
       "bannedDate": "2013-04-11",
-      "bannedBy": ["FDA", "WADA"],
+      "bannedBy": [
+        "FDA",
+        "WADA"
+      ],
       "stateRestrictions": {
         "US": "Federal ban",
         "Australia": "Banned",
@@ -22,27 +30,57 @@
           "category": "Cardiovascular",
           "description": "86 reports of illnesses and deaths (FDA database), including at least 5 fatalities directly attributed.",
           "severity": "high",
-          "sources": ["FDA Adverse Event Database"]
+          "sources": [
+            "FDA Adverse Event Database"
+          ]
         },
         {
           "category": "Neurological",
           "description": "Case reports of hemorrhagic stroke in young athletes.",
           "severity": "high",
-          "sources": ["FDA Warning Letters 2013"]
+          "sources": [
+            "FDA Warning Letters 2013"
+          ]
         }
       ],
-      "sideEffects": ["Hemorrhagic stroke", "Cardiac arrest", "Myocardial infarction", "Hypertensive crisis", "Pulmonary edema", "Elevated blood pressure", "Rapid heartbeat"],
-      "contraindications": ["Heart conditions", "High blood pressure", "Use of other stimulants", "Pregnancy", "History of stroke"],
+      "sideEffects": [
+        "Hemorrhagic stroke",
+        "Cardiac arrest",
+        "Myocardial infarction",
+        "Hypertensive crisis",
+        "Pulmonary edema",
+        "Elevated blood pressure",
+        "Rapid heartbeat"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "High blood pressure",
+        "Use of other stimulants",
+        "Pregnancy",
+        "History of stroke"
+      ],
       "overdoseRisk": "high",
       "addictionPotential": "moderate",
       "description": "DMAA (1,3-dimethylamylamine) is a synthetic stimulant originally developed as a nasal decongestant. It gained popularity in pre-workout supplements and weight loss products between 2005-2013 but has been banned due to serious cardiovascular risks including deaths.",
       "mechanism": "Norepinephrine releasing agent causing vasoconstriction, elevated blood pressure and heart rate. Increases CNS stimulation and peripheral vasoconstriction.",
       "history": "Originally patented by Eli Lilly in 1944 as a nasal decongestant. Resurfaced in supplements around 2006 marketed as 'geranium extract' despite being synthetic. Found in pre-workout supplements until FDA ban.",
       "whyBanned": "Unacceptable risk of serious cardiovascular events even at recommended doses. Benefits do not outweigh risks. 5 deaths directly attributed to DMAA use.",
-      "legalAlternatives": ["caffeine", "citrulline-malate", "beta-alanine"],
+      "legalAlternatives": [
+        "caffeine",
+        "citrulline-malate",
+        "beta-alanine"
+      ],
       "metaTitle": "DMAA (1,3-DMAA) - Why It's Banned & Safe Alternatives | Blush & Breathe",
       "metaDescription": "Learn why DMAA was banned by the FDA after 5 deaths, its health risks including stroke and heart attack, and discover safe legal alternatives for pre-workout energy.",
-      "keywords": ["dmaa", "1,3-dmaa", "methylhexanamine", "banned pre workout", "dmaa alternative", "dmaa dangers", "dmaa deaths"],
+      "keywords": [
+        "dmaa",
+        "1,3-dmaa",
+        "methylhexanamine",
+        "banned pre workout",
+        "dmaa alternative",
+        "dmaa dangers",
+        "dmaa deaths"
+      ],
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
     },
@@ -50,12 +88,18 @@
       "id": "banned-phenibut",
       "slug": "phenibut",
       "name": "Phenibut",
-      "alternativeNames": ["4-Amino-3-phenylbutanoic acid", "Phenyl-GABA", "β-Phenyl-γ-aminobutyric acid"],
+      "alternativeNames": [
+        "4-Amino-3-phenylbutanoic acid",
+        "Phenyl-GABA",
+        "β-Phenyl-γ-aminobutyric acid"
+      ],
       "category": "nootropic",
       "legalStatus": "banned_usa",
       "legalStatusDetails": "Banned as dietary supplement ingredient (April 2019). Schedule II in Alabama.",
       "bannedDate": "2019-04-01",
-      "bannedBy": ["FDA"],
+      "bannedBy": [
+        "FDA"
+      ],
       "stateRestrictions": {
         "Alabama": "Schedule II controlled substance",
         "Australia": "Banned",
@@ -69,27 +113,56 @@
           "category": "Overdose/Poisoning",
           "description": "1,320 poison center cases reported (2009-2019), sharp increase 2015-2019. 3 deaths, 80 comas.",
           "severity": "high",
-          "sources": ["American Association of Poison Control Centers"]
+          "sources": [
+            "American Association of Poison Control Centers"
+          ]
         },
         {
           "category": "Withdrawal",
           "description": "Severe withdrawal syndrome similar to alcohol withdrawal - can be life-threatening.",
           "severity": "high",
-          "sources": ["FDA Safety Alert 2019"]
+          "sources": [
+            "FDA Safety Alert 2019"
+          ]
         }
       ],
-      "sideEffects": ["Agitation and anxiety", "Tachycardia", "Drowsiness and sedation", "Severe withdrawal syndrome", "Respiratory depression", "Hallucinations", "Seizures"],
-      "contraindications": ["History of substance abuse", "CNS depressant use", "Alcohol use", "Pregnancy", "Liver disease"],
+      "sideEffects": [
+        "Agitation and anxiety",
+        "Tachycardia",
+        "Drowsiness and sedation",
+        "Severe withdrawal syndrome",
+        "Respiratory depression",
+        "Hallucinations",
+        "Seizures"
+      ],
+      "contraindications": [
+        "History of substance abuse",
+        "CNS depressant use",
+        "Alcohol use",
+        "Pregnancy",
+        "Liver disease"
+      ],
       "overdoseRisk": "high",
       "addictionPotential": "high",
       "description": "Phenibut is a GABA analogue that binds to GABA-B receptors, producing anxiolytic and sedative effects similar to GHB. Marketed as a nootropic/anxiety reliever but has high abuse potential with severe, potentially life-threatening withdrawal syndrome.",
       "mechanism": "Binds to GABA-B receptors, producing anxiolytic and sedative effects similar to GHB. Crosses blood-brain barrier efficiently. Also has some GABA-A activity at higher doses.",
       "history": "Developed in the Soviet Union in the 1960s for cosmonauts to manage stress and anxiety. Never approved for medical use in the USA. Gained popularity as a nootropic/supplement in the 2010s.",
       "whyBanned": "FDA determined risk of severe withdrawal, addiction, and overdose outweighs claimed benefits. Not proven effective for stated uses. Withdrawal can cause seizures and death.",
-      "legalAlternatives": ["l-theanine", "ashwagandha", "magnesium-glycinate"],
+      "legalAlternatives": [
+        "l-theanine",
+        "ashwagandha",
+        "magnesium-glycinate"
+      ],
       "metaTitle": "Phenibut - Why It's Banned, Withdrawal Dangers & Safe Alternatives",
       "metaDescription": "Learn why Phenibut was banned by the FDA, the severe withdrawal syndrome risks, and discover safe legal alternatives for anxiety and relaxation.",
-      "keywords": ["phenibut", "phenibut ban", "phenibut withdrawal", "phenibut alternative", "phenibut dangers", "gaba supplement"],
+      "keywords": [
+        "phenibut",
+        "phenibut ban",
+        "phenibut withdrawal",
+        "phenibut alternative",
+        "phenibut dangers",
+        "gaba supplement"
+      ],
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
     },
@@ -97,11 +170,18 @@
       "id": "banned-kratom",
       "slug": "kratom",
       "name": "Kratom",
-      "alternativeNames": ["Mitragyna speciosa", "Ketum", "Kakuam", "Thang"],
+      "alternativeNames": [
+        "Mitragyna speciosa",
+        "Ketum",
+        "Kakuam",
+        "Thang"
+      ],
       "category": "other",
       "legalStatus": "restricted",
       "legalStatusDetails": "Under FDA Import Alert 54-15. Illegal in 7 states. Age/testing restrictions in others.",
-      "bannedBy": ["FDA (Import Alert)"],
+      "bannedBy": [
+        "FDA (Import Alert)"
+      ],
       "stateRestrictions": {
         "Alabama": "Illegal",
         "Arkansas": "Illegal",
@@ -118,27 +198,53 @@
           "category": "Overdose",
           "description": "91 overdose deaths (2016-2017 alone). Opioid-like toxicity.",
           "severity": "high",
-          "sources": ["CDC MMWR Report"]
+          "sources": [
+            "CDC MMWR Report"
+          ]
         },
         {
           "category": "Contamination",
           "description": "199 people infected in 2018 Salmonella outbreak. Products often contaminated with bacteria, heavy metals.",
           "severity": "moderate",
-          "sources": ["CDC Outbreak Report 2018"]
+          "sources": [
+            "CDC Outbreak Report 2018"
+          ]
         }
       ],
-      "sideEffects": ["Opioid-like toxicity and overdose", "Withdrawal symptoms", "Liver toxicity", "Constipation", "Nausea and vomiting", "Tolerance and rapid escalation"],
-      "contraindications": ["Opioid use disorder history", "Liver disease", "Pregnancy", "CNS depressant use"],
+      "sideEffects": [
+        "Opioid-like toxicity and overdose",
+        "Withdrawal symptoms",
+        "Liver toxicity",
+        "Constipation",
+        "Nausea and vomiting",
+        "Tolerance and rapid escalation"
+      ],
+      "contraindications": [
+        "Opioid use disorder history",
+        "Liver disease",
+        "Pregnancy",
+        "CNS depressant use"
+      ],
       "overdoseRisk": "high",
       "addictionPotential": "high",
       "description": "Kratom is a plant from Southeast Asia containing alkaloids that act on opioid receptors. Marketed as a 'natural herbal supplement' but has opioid-like effects with overdose risk, withdrawal syndrome, and significant contamination issues.",
       "mechanism": "Mitragynine and 7-hydroxymitragynine act on mu-opioid receptors (similar to opioids). Also has NMDA antagonism. Effects are dose-dependent: stimulant at low doses, sedative at high doses.",
       "history": "Traditional use in Southeast Asia for centuries. Gained popularity in the US in the 2010s as an alternative to opioids. Multiple contamination outbreaks and deaths led to increased regulation.",
       "whyBanned": "Opioid-like effects with overdose risk, contamination issues, withdrawal syndrome, and lack of quality control. FDA cannot ensure safety of kratom products.",
-      "legalAlternatives": ["ashwagandha", "rhodiola-rosea"],
+      "legalAlternatives": [
+        "ashwagandha",
+        "rhodiola-rosea"
+      ],
       "metaTitle": "Kratom - Legal Status, Overdose Risks & Safe Alternatives",
       "metaDescription": "Learn about Kratom's legal status (banned in 7 states), opioid-like risks, 91 deaths, and discover safe legal alternatives for energy and relaxation.",
-      "keywords": ["kratom", "kratom legal", "kratom ban", "kratom deaths", "kratom alternative", "mitragyna speciosa"],
+      "keywords": [
+        "kratom",
+        "kratom legal",
+        "kratom ban",
+        "kratom deaths",
+        "kratom alternative",
+        "mitragyna speciosa"
+      ],
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
     },
@@ -146,11 +252,21 @@
       "id": "banned-sarms",
       "slug": "sarms",
       "name": "SARMs (Selective Androgen Receptor Modulators)",
-      "alternativeNames": ["Ostarine", "Ligandrol", "RAD-140", "Andarine", "MK-677"],
+      "alternativeNames": [
+        "Ostarine",
+        "Ligandrol",
+        "RAD-140",
+        "Andarine",
+        "MK-677"
+      ],
       "category": "sarm",
       "legalStatus": "banned_usa",
       "legalStatusDetails": "Unapproved drugs - cannot be sold as dietary supplements. Felony charges for distribution.",
-      "bannedBy": ["FDA", "WADA", "DOD"],
+      "bannedBy": [
+        "FDA",
+        "WADA",
+        "DOD"
+      ],
       "stateRestrictions": {
         "US": "Federal - Unapproved drug",
         "Military": "ALL SARMs on DOD Prohibited List"
@@ -160,27 +276,52 @@
           "category": "Legal",
           "description": "Multiple felony convictions for SARM distribution (2024-2025). Criminal risk to suppliers AND users.",
           "severity": "high",
-          "sources": ["DOJ Press Releases 2024"]
+          "sources": [
+            "DOJ Press Releases 2024"
+          ]
         },
         {
           "category": "Hormonal",
           "description": "Testosterone suppression requiring Post-Cycle Therapy. Unknown long-term effects.",
           "severity": "moderate",
-          "sources": ["Clinical case reports"]
+          "sources": [
+            "Clinical case reports"
+          ]
         }
       ],
-      "sideEffects": ["Liver toxicity", "Cardiovascular events", "Testosterone suppression", "Cancer risk (animal studies)", "Mood changes"],
-      "contraindications": ["Hormone-sensitive cancers", "Liver disease", "Heart disease", "Women (virilization risk)"],
+      "sideEffects": [
+        "Liver toxicity",
+        "Cardiovascular events",
+        "Testosterone suppression",
+        "Cancer risk (animal studies)",
+        "Mood changes"
+      ],
+      "contraindications": [
+        "Hormone-sensitive cancers",
+        "Liver disease",
+        "Heart disease",
+        "Women (virilization risk)"
+      ],
       "overdoseRisk": "moderate",
       "addictionPotential": "moderate",
       "description": "SARMs are synthetic drugs that bind to androgen receptors, claiming to build muscle selectively. They are unapproved drugs with unknown long-term risks, often contaminated or mislabeled, and carry serious legal consequences.",
       "mechanism": "Bind to androgen receptors in muscle tissue, stimulating anabolic (muscle-building) effects. Claimed to be selective for muscle vs. prostate, but this selectivity is not proven in humans.",
       "history": "Developed by pharmaceutical companies in the 1990s for muscle wasting diseases. None have been FDA approved. Proliferated in the supplement industry as 'research chemicals' to skirt regulations.",
       "whyBanned": "Unapproved drugs with unknown long-term risks. FDA cannot ensure safety. Products often contaminated or mislabeled. Active criminal enforcement.",
-      "legalAlternatives": ["creatine-monohydrate"],
+      "legalAlternatives": [
+        "creatine-monohydrate"
+      ],
       "metaTitle": "SARMs - Why They're Illegal, Health Risks & Legal Alternatives",
       "metaDescription": "Learn why SARMs are illegal unapproved drugs, the criminal penalties, health risks, and discover safe legal alternatives for muscle building.",
-      "keywords": ["sarms", "ostarine", "ligandrol", "rad-140", "sarms legal", "sarms ban", "sarms alternative"],
+      "keywords": [
+        "sarms",
+        "ostarine",
+        "ligandrol",
+        "rad-140",
+        "sarms legal",
+        "sarms ban",
+        "sarms alternative"
+      ],
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
     },
@@ -188,12 +329,19 @@
       "id": "banned-ephedrine",
       "slug": "ephedrine",
       "name": "Ephedrine",
-      "alternativeNames": ["Ephedra", "Ma Huang", "Ephedra sinica alkaloid"],
+      "alternativeNames": [
+        "Ephedra",
+        "Ma Huang",
+        "Ephedra sinica alkaloid"
+      ],
       "category": "stimulant",
       "legalStatus": "banned_usa",
       "legalStatusDetails": "Banned as dietary supplement ingredient since 2004. Landmark FDA ban case.",
       "bannedDate": "2004-04-12",
-      "bannedBy": ["FDA", "WADA"],
+      "bannedBy": [
+        "FDA",
+        "WADA"
+      ],
       "stateRestrictions": {
         "US": "Federal ban since 2004"
       },
@@ -202,27 +350,53 @@
           "category": "Mortality",
           "description": "155 deaths attributed to ephedra products (FDA count, 1995-2004). 10,000+ adverse event reports.",
           "severity": "high",
-          "sources": ["FDA Final Rule 2004"]
+          "sources": [
+            "FDA Final Rule 2004"
+          ]
         },
         {
           "category": "Cardiovascular",
           "description": "Heart attacks, strokes, arrhythmias, hypertensive crisis documented.",
           "severity": "high",
-          "sources": ["RAND Corporation Analysis"]
+          "sources": [
+            "RAND Corporation Analysis"
+          ]
         }
       ],
-      "sideEffects": ["Heart attack", "Stroke", "Arrhythmia", "Hypertensive crisis", "Seizures", "Myocardial infarction"],
-      "contraindications": ["Heart disease", "High blood pressure", "Diabetes", "Thyroid disease", "MAO inhibitor use"],
+      "sideEffects": [
+        "Heart attack",
+        "Stroke",
+        "Arrhythmia",
+        "Hypertensive crisis",
+        "Seizures",
+        "Myocardial infarction"
+      ],
+      "contraindications": [
+        "Heart disease",
+        "High blood pressure",
+        "Diabetes",
+        "Thyroid disease",
+        "MAO inhibitor use"
+      ],
       "overdoseRisk": "high",
       "addictionPotential": "moderate",
       "description": "Ephedrine is a sympathomimetic alkaloid that was widely used in weight loss and energy supplements until banned in 2004 after causing 155 deaths. This landmark case established modern FDA supplement oversight.",
       "mechanism": "Alpha and beta-adrenergic agonist. Stimulates heart rate, blood pressure, and thermogenesis. Similar to adrenaline in effects.",
       "history": "Used in traditional Chinese medicine for thousands of years. Became popular in US supplements in the 1990s. FDA banned after documenting 155 deaths. This case drove development of modern supplement regulations.",
       "whyBanned": "Unacceptable cardiovascular risk. Risk-benefit analysis showed benefits do not justify mortality risk. 155 deaths documented before ban.",
-      "legalAlternatives": ["caffeine"],
+      "legalAlternatives": [
+        "caffeine"
+      ],
       "metaTitle": "Ephedrine (Ephedra) - Why It's Banned, 155 Deaths & Safe Alternatives",
       "metaDescription": "Learn why Ephedrine was banned after 155 deaths, its dangerous cardiovascular effects, and discover safe legal alternatives for weight loss and energy.",
-      "keywords": ["ephedrine", "ephedra", "ma huang", "ephedra ban", "ephedrine deaths", "ephedrine alternative"],
+      "keywords": [
+        "ephedrine",
+        "ephedra",
+        "ma huang",
+        "ephedra ban",
+        "ephedrine deaths",
+        "ephedrine alternative"
+      ],
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
     },
@@ -230,11 +404,18 @@
       "id": "banned-clenbuterol",
       "slug": "clenbuterol",
       "name": "Clenbuterol",
-      "alternativeNames": ["Clen", "Spiropent", "Beta-2 agonist"],
+      "alternativeNames": [
+        "Clen",
+        "Spiropent",
+        "Beta-2 agonist"
+      ],
       "category": "stimulant",
       "legalStatus": "banned_usa",
       "legalStatusDetails": "NOT approved for human use in USA. Approved only for veterinary use (horses).",
-      "bannedBy": ["FDA", "WADA"],
+      "bannedBy": [
+        "FDA",
+        "WADA"
+      ],
       "stateRestrictions": {
         "US": "Not approved for human use"
       },
@@ -243,21 +424,43 @@
           "category": "Cardiovascular",
           "description": "Cardiac hypertrophy, arrhythmia, electrolyte imbalances. Limited human safety data.",
           "severity": "high",
-          "sources": ["Clinical case reports"]
+          "sources": [
+            "Clinical case reports"
+          ]
         }
       ],
-      "sideEffects": ["Cardiac hypertrophy", "Arrhythmia", "Tremors", "Muscle cramps", "Electrolyte imbalance", "Insomnia"],
-      "contraindications": ["Heart disease", "Arrhythmias", "Hypertension", "Hyperthyroidism"],
+      "sideEffects": [
+        "Cardiac hypertrophy",
+        "Arrhythmia",
+        "Tremors",
+        "Muscle cramps",
+        "Electrolyte imbalance",
+        "Insomnia"
+      ],
+      "contraindications": [
+        "Heart disease",
+        "Arrhythmias",
+        "Hypertension",
+        "Hyperthyroidism"
+      ],
       "overdoseRisk": "moderate",
       "addictionPotential": "low",
       "description": "Clenbuterol is a beta-2 agonist approved only for veterinary use in horses. It is used illegally in bodybuilding for fat loss and muscle preservation. Not studied extensively in humans.",
       "mechanism": "Beta-2 agonist - increases metabolism and fat mobilization. Also increases muscle protein synthesis. Causes cardiac hypertrophy with chronic use.",
       "history": "Developed as a bronchodilator. Approved for veterinary use in some countries. Used in bodybuilding communities since the 1980s. Food contamination incidents in Europe (2013).",
       "whyBanned": "Not approved for human use. Veterinary drug only. Cardiovascular risks exceed any potential benefits. No human safety data.",
-      "legalAlternatives": ["caffeine"],
+      "legalAlternatives": [
+        "caffeine"
+      ],
       "metaTitle": "Clenbuterol - Why It's Illegal for Humans & Safe Alternatives",
       "metaDescription": "Learn why Clenbuterol is only approved for horses, the cardiovascular dangers, and discover safe legal alternatives for fat loss.",
-      "keywords": ["clenbuterol", "clen", "clenbuterol legal", "clenbuterol ban", "clenbuterol alternative"],
+      "keywords": [
+        "clenbuterol",
+        "clen",
+        "clenbuterol legal",
+        "clenbuterol ban",
+        "clenbuterol alternative"
+      ],
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
     },
@@ -265,31 +468,58 @@
       "id": "banned-gw501516",
       "slug": "gw501516",
       "name": "Cardarine (GW501516)",
-      "alternativeNames": ["GW501516", "Endurobol", "GSX-R"],
+      "alternativeNames": [
+        "GW501516",
+        "Endurobol",
+        "GSX-R"
+      ],
       "category": "other",
       "legalStatus": "banned_usa",
       "legalStatusDetails": "Never FDA approved. Development abandoned due to cancer risk at ALL tested doses.",
-      "bannedBy": ["FDA (never approved)", "WADA"],
+      "bannedBy": [
+        "FDA (never approved)",
+        "WADA"
+      ],
       "healthRisks": [
         {
           "category": "Cancer",
           "description": "CANCER RISK - Caused multiple cancer types in animal studies at ALL tested doses. Development abandoned by GSK.",
           "severity": "high",
-          "sources": ["GlaxoSmithKline internal studies"]
+          "sources": [
+            "GlaxoSmithKline internal studies"
+          ]
         }
       ],
-      "sideEffects": ["Multiple cancer types (animal studies)", "Liver toxicity", "Bladder cancer risk"],
-      "contraindications": ["Everyone - not safe for human use", "Any cancer history", "Liver disease"],
+      "sideEffects": [
+        "Multiple cancer types (animal studies)",
+        "Liver toxicity",
+        "Bladder cancer risk"
+      ],
+      "contraindications": [
+        "Everyone - not safe for human use",
+        "Any cancer history",
+        "Liver disease"
+      ],
       "overdoseRisk": "high",
       "addictionPotential": "low",
       "description": "Cardarine (GW501516) is a PPAR delta agonist that was abandoned during drug development after causing cancer in animal studies at ALL tested doses. One of the most dangerous compounds still sold online.",
       "mechanism": "Activates PPAR delta, increases fatty acid oxidation and endurance capacity. Also promotes cancer cell growth in multiple organ systems.",
       "history": "Developed by GlaxoSmithKline for metabolic diseases. Development abandoned after 2-year animal studies showed cancer at all doses. Still sold illegally online as 'research chemical'.",
       "whyBanned": "Cancer risk at ALL tested doses in animal models. Development abandoned by manufacturer due to unacceptable cancer risk. Never safe for human use.",
-      "legalAlternatives": ["beta-alanine", "citrulline-malate"],
+      "legalAlternatives": [
+        "beta-alanine",
+        "citrulline-malate"
+      ],
       "metaTitle": "Cardarine (GW501516) - Cancer Risk Warning & Safe Alternatives",
       "metaDescription": "CRITICAL WARNING: Cardarine caused cancer at ALL doses in studies. Learn why GSK abandoned it and discover safe legal alternatives for endurance.",
-      "keywords": ["cardarine", "gw501516", "cardarine cancer", "cardarine danger", "cardarine alternative", "endurobol"],
+      "keywords": [
+        "cardarine",
+        "gw501516",
+        "cardarine cancer",
+        "cardarine danger",
+        "cardarine alternative",
+        "endurobol"
+      ],
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
     },
@@ -297,11 +527,20 @@
       "id": "banned-nandrolone",
       "slug": "nandrolone",
       "name": "Nandrolone (Deca-Durabolin)",
-      "alternativeNames": ["Deca", "NPP", "Nandrolone Phenylpropionate", "19-nortestosterone"],
+      "alternativeNames": [
+        "Deca",
+        "NPP",
+        "Nandrolone Phenylpropionate",
+        "19-nortestosterone"
+      ],
       "category": "prohormone",
       "legalStatus": "controlled",
       "legalStatusDetails": "Schedule III controlled substance. Illegal without prescription. Felony possession.",
-      "bannedBy": ["DEA", "WADA", "FDA (without Rx)"],
+      "bannedBy": [
+        "DEA",
+        "WADA",
+        "FDA (without Rx)"
+      ],
       "stateRestrictions": {
         "US": "Schedule III Controlled Substance - Felony"
       },
@@ -310,28 +549,1637 @@
           "category": "Legal",
           "description": "Illegal possession is a felony. Most supply is from black market/counterfeits.",
           "severity": "high",
-          "sources": ["DEA Scheduling"]
+          "sources": [
+            "DEA Scheduling"
+          ]
         },
         {
           "category": "Hormonal",
           "description": "Testosterone suppression, testicular atrophy, requires PCT. Virilization in women.",
           "severity": "high",
-          "sources": ["Clinical studies"]
+          "sources": [
+            "Clinical studies"
+          ]
         }
       ],
-      "sideEffects": ["Liver toxicity", "Cardiovascular effects", "Testicular atrophy", "Gynecomastia", "Virilization in women", "Mood effects"],
-      "contraindications": ["Prostate cancer", "Breast cancer", "Heart disease", "Liver disease", "Pregnancy"],
+      "sideEffects": [
+        "Liver toxicity",
+        "Cardiovascular effects",
+        "Testicular atrophy",
+        "Gynecomastia",
+        "Virilization in women",
+        "Mood effects"
+      ],
+      "contraindications": [
+        "Prostate cancer",
+        "Breast cancer",
+        "Heart disease",
+        "Liver disease",
+        "Pregnancy"
+      ],
       "overdoseRisk": "moderate",
       "addictionPotential": "high",
       "description": "Nandrolone is an anabolic androgenic steroid classified as a Schedule III controlled substance. Illegal possession is a felony. Most gym supply is from black market with unknown purity.",
       "mechanism": "Synthetic androgen. Binds to androgen receptors, stimulating protein synthesis and muscle growth. Suppresses natural testosterone production.",
       "history": "Developed in the 1950s for medical use. Classified as Schedule III controlled substance under the Anabolic Steroid Control Act. Still prescribed rarely for anemia and wasting diseases.",
       "whyBanned": "Controlled substance with abuse potential and significant health risks. Illegal without prescription. Black market products often contaminated.",
-      "legalAlternatives": ["creatine-monohydrate"],
+      "legalAlternatives": [
+        "creatine-monohydrate"
+      ],
       "metaTitle": "Nandrolone (Deca) - Schedule III Controlled Substance & Alternatives",
       "metaDescription": "Learn why Nandrolone is a Schedule III controlled substance (felony possession), health risks, and discover safe legal alternatives for muscle building.",
-      "keywords": ["nandrolone", "deca durabolin", "deca", "npp", "anabolic steroids", "nandrolone alternative"],
+      "keywords": [
+        "nandrolone",
+        "deca durabolin",
+        "deca",
+        "npp",
+        "anabolic steroids",
+        "nandrolone alternative"
+      ],
       "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-dmha",
+      "slug": "dmha",
+      "name": "DMHA (Octodrine)",
+      "alternativeNames": [
+        "2-Aminoisoheptane",
+        "Octodrine",
+        "2-amino-6-methylheptane",
+        "1,5-Dimethylhexylamine"
+      ],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA issued 12 warning letters in April 2019. Products containing DMHA are adulterated.",
+      "bannedBy": [
+        "FDA",
+        "WADA"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Warning Letters",
+        "Australia": "Banned"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "Supplements contained 72±7.5 mg per serving, more than twice historical pharmaceutical doses. Causes hypertension, tachycardia, hyperthermia.",
+          "severity": "high",
+          "sources": [
+            "FDA Warning Letters 2019"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Hypertension",
+        "Tachycardia",
+        "Hyperthermia",
+        "Anxiety",
+        "Jitters",
+        "Insomnia"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "High blood pressure",
+        "Anxiety disorders",
+        "Stimulant sensitivity"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "DMHA (2-aminoisoheptane) is a synthetic stimulant originally developed in the 1950s as an inhaled nasal decongestant—never approved for oral use. It emerged as a DMAA alternative in pre-workout supplements after the 2013 DMAA ban.",
+      "mechanism": "Sympathomimetic amine that stimulates norepinephrine release, causing increased heart rate, blood pressure, and thermogenesis.",
+      "history": "Originally patented in the 1950s as a nasal decongestant. Resurfaced in supplements around 2016 as 'DMAA alternative'. FDA cracked down in 2019 with 12 warning letters to companies including Hi-Tech Pharmaceuticals.",
+      "whyBanned": "FDA determined DMHA is an unsafe food additive. Never tested for oral human use at supplement doses. Products are adulterated under DSHEA.",
+      "legalAlternatives": [
+        "caffeine",
+        "citrulline-malate",
+        "beta-alanine"
+      ],
+      "metaTitle": "DMHA (Octodrine) - FDA Banned Stimulant & Safe Alternatives",
+      "metaDescription": "Learn why DMHA (2-aminoisoheptane, Octodrine) was banned by FDA in 2019, its dangerous cardiovascular effects, and discover safe legal pre-workout alternatives.",
+      "keywords": [
+        "dmha",
+        "octodrine",
+        "2-aminoisoheptane",
+        "dmha pre workout",
+        "dmha banned",
+        "dmha alternative",
+        "dmha side effects",
+        "dmha dangers"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-bmpea",
+      "slug": "bmpea",
+      "name": "BMPEA",
+      "alternativeNames": [
+        "β-methylphenylethylamine",
+        "Beta-methylphenethylamine",
+        "2-Phenylpropan-1-amine"
+      ],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA issued 5 warning letters in April 2015. BMPEA is a synthetic adulterant, NOT naturally present in Acacia rigidula despite label claims.",
+      "bannedBy": [
+        "FDA"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Warning Letters 2015"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "Swedish case report documented cerebral hemorrhage in female athlete after consuming supplement with 290 mg BMPEA (unlabeled).",
+          "severity": "high",
+          "sources": [
+            "FDA Research 2013",
+            "Swedish Medical Case Report"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Cerebral hemorrhage",
+        "Hypertension",
+        "Tachycardia",
+        "Anxiety",
+        "Palpitations",
+        "Stroke"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "Stroke history",
+        "High blood pressure",
+        "Use of other stimulants"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "BMPEA (β-methylphenylethylamine) is a positional isomer of amphetamine. FDA research in 2013 established it is NOT naturally present in Acacia rigidula—despite label claims, it is a synthetic adulterant with approximately 1/10th amphetamine potency.",
+      "mechanism": "Substrate-type releaser at norepinephrine transporters. Structural isomer of amphetamine with similar but less potent stimulant effects on the central nervous system.",
+      "history": "Marketed as 'natural' Acacia rigidula extract in numerous supplements. FDA scientifically proved it was a synthetic adulterant in 2013. Warning letters issued to 5 companies in April 2015.",
+      "whyBanned": "Synthetic stimulant fraudulently labeled as natural plant extract. Never approved for human consumption. Amphetamine-like cardiovascular effects.",
+      "legalAlternatives": [
+        "caffeine",
+        "l-tyrosine"
+      ],
+      "metaTitle": "BMPEA - Amphetamine Analog Banned by FDA & Safe Alternatives",
+      "metaDescription": "BMPEA is an amphetamine isomer found as synthetic adulterant in 'Acacia rigidula' supplements. Learn why FDA banned it and find safe legal alternatives.",
+      "keywords": [
+        "bmpea",
+        "beta-methylphenethylamine",
+        "acacia rigidula",
+        "bmpea supplement",
+        "bmpea banned",
+        "bmpea dangers",
+        "bmpea amphetamine"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-tianeptine",
+      "slug": "tianeptine",
+      "name": "Tianeptine",
+      "alternativeNames": [
+        "Zaza",
+        "Tianaa",
+        "Neptune's Fix",
+        "Gas Station Heroin",
+        "Stablon",
+        "Coaxil",
+        "TD Red",
+        "Zaza Red"
+      ],
+      "category": "other",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "Scheduled in 12+ states including Alabama (Schedule I), Florida (Schedule I), Michigan (Schedule II), Ohio (Schedule I). FDA consumer warnings issued 2022-2025.",
+      "bannedBy": [
+        "FDA (warnings)",
+        "Multiple states"
+      ],
+      "stateRestrictions": {
+        "Alabama": "Schedule I",
+        "Florida": "Schedule I",
+        "Michigan": "Schedule II",
+        "Ohio": "Schedule I",
+        "Tennessee": "Schedule II",
+        "Indiana": "Controlled",
+        "Kentucky": "Controlled",
+        "Georgia": "Controlled",
+        "Mississippi": "Controlled"
+      },
+      "healthRisks": [
+        {
+          "category": "Opioid Toxicity",
+          "description": "CDC documented poison center calls increasing from 11 total (2000-2013) to 391 in 2023. Effects mimic opioid toxicity and withdrawal. Users ingesting 1.3 to 250 times typical pharmaceutical doses.",
+          "severity": "high",
+          "sources": [
+            "CDC MMWR August 2018",
+            "CDC 2023 Report",
+            "DEA Reports"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Opioid-like euphoria",
+        "Respiratory depression",
+        "Severe withdrawal syndrome",
+        "Seizures",
+        "Coma",
+        "Death",
+        "Nausea",
+        "Constipation"
+      ],
+      "contraindications": [
+        "Opioid use disorder",
+        "CNS depressant use",
+        "Respiratory conditions",
+        "Pregnancy",
+        "Alcohol use"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "high",
+      "description": "Tianeptine is an atypical tricyclic antidepressant that acts as a mu-opioid receptor agonist. Known as 'gas station heroin' due to its availability at convenience stores and gas stations, and its severe opioid-like effects at high doses. Commonly sold as Zaza, Tianaa, Neptune's Fix, and TD Red.",
+      "mechanism": "Mu-opioid receptor agonist causing euphoria and analgesia similar to traditional opioids. At high doses (commonly seen in abuse), produces full opioid toxicity including respiratory depression and severe physical dependence with life-threatening withdrawal.",
+      "history": "Prescription drug in Europe, Asia, and Latin America since the 1980s for depression. Never FDA approved. Emerged in US as 'dietary supplement' around 2010. Multiple states scheduled after documented deaths and an addiction epidemic. Known as 'gas station heroin' crisis.",
+      "whyBanned": "Opioid-like effects causing severe addiction, overdose, and death. Products sold at doses up to 250 times therapeutic levels. 'Gas station heroin' epidemic with opioid withdrawal syndrome.",
+      "legalAlternatives": [
+        "l-theanine",
+        "ashwagandha",
+        "rhodiola-rosea",
+        "magnesium-glycinate"
+      ],
+      "metaTitle": "Tianeptine (Zaza, Gas Station Heroin) - Dangers, Deaths & Safer Alternatives",
+      "metaDescription": "Tianeptine (Zaza, Tianaa, Neptune's Fix) is 'gas station heroin' causing severe opioid addiction and deaths. Learn the dangers, withdrawal symptoms, and find safe legal alternatives.",
+      "keywords": [
+        "tianeptine",
+        "zaza",
+        "tianaa",
+        "neptunes fix",
+        "gas station heroin",
+        "tianeptine withdrawal",
+        "tianeptine addiction",
+        "tianeptine banned",
+        "tianeptine deaths",
+        "zaza red",
+        "td red"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-adrafinil",
+      "slug": "adrafinil",
+      "name": "Adrafinil",
+      "alternativeNames": [
+        "CRL-40028",
+        "Olmifon"
+      ],
+      "category": "nootropic",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA classified as unapproved new drug. Criminal prosecutions with prison sentences for sellers. In 2023, Nootropics Depot CEO was sentenced to prison and ordered to forfeit $2.4 million.",
+      "bannedBy": [
+        "FDA",
+        "WADA"
+      ],
+      "stateRestrictions": {
+        "US": "Unapproved Drug - Criminal Prosecution Active"
+      },
+      "healthRisks": [
+        {
+          "category": "Hepatotoxicity",
+          "description": "Liver enzyme elevations with prolonged use. The prodrug form was voluntarily discontinued in France in 2011 due to 'unfavorable risk-benefit ratio' from liver concerns.",
+          "severity": "moderate",
+          "sources": [
+            "French Health Authority 2011",
+            "Clinical Reports"
+          ]
+        },
+        {
+          "category": "Legal",
+          "description": "2023: Nootropics Depot CEO sentenced to prison, $2.4 million forfeiture for selling adrafinil, tianeptine, and phenibut.",
+          "severity": "high",
+          "sources": [
+            "DOJ Press Release 2023"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Liver toxicity",
+        "Elevated liver enzymes",
+        "Insomnia",
+        "Anxiety",
+        "Headache",
+        "Nausea",
+        "Skin reactions"
+      ],
+      "contraindications": [
+        "Liver disease",
+        "Heart conditions",
+        "Seizure disorders",
+        "Pregnancy",
+        "Other hepatotoxic drugs"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "low",
+      "description": "Adrafinil is a prodrug of modafinil, a DEA Schedule IV controlled substance. It requires hepatic metabolism to produce the active drug, placing significant strain on the liver. Selling adrafinil has resulted in criminal prosecution and prison time for supplement sellers.",
+      "mechanism": "Metabolized by the liver into modafinil (Schedule IV). Increases dopamine and norepinephrine neurotransmission, promoting wakefulness. Hepatotoxic due to extensive first-pass metabolism required for activation.",
+      "history": "Developed in France in the 1970s by Lafon Laboratories for narcolepsy treatment. Voluntarily discontinued in France in 2011 due to liver risks and availability of modafinil. US supplement sellers prosecuted criminally in 2023.",
+      "whyBanned": "Prodrug of DEA Schedule IV controlled substance (modafinil). Classified as unapproved new drug by FDA. Hepatotoxic. Active criminal enforcement with prison sentences.",
+      "legalAlternatives": [
+        "caffeine",
+        "l-theanine",
+        "alpha-gpc",
+        "lions-mane"
+      ],
+      "metaTitle": "Adrafinil - Modafinil Prodrug, Liver Damage, Prison Sentences & Safe Alternatives",
+      "metaDescription": "Adrafinil is a prodrug of modafinil that causes liver damage. Learn why sellers are going to prison and find safe legal nootropic alternatives for focus and wakefulness.",
+      "keywords": [
+        "adrafinil",
+        "olmifon",
+        "adrafinil liver",
+        "adrafinil modafinil",
+        "adrafinil legal",
+        "adrafinil banned",
+        "adrafinil alternative",
+        "adrafinil side effects",
+        "adrafinil hepatotoxicity"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-phenylpiracetam",
+      "slug": "phenylpiracetam",
+      "name": "Phenylpiracetam",
+      "alternativeNames": [
+        "Carphedon",
+        "Phenotropil",
+        "4-Phenylpiracetam",
+        "Fonturacetam"
+      ],
+      "category": "nootropic",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA classifies as unapproved new drug. WADA prohibited since 1998—the ONLY racetam on WADA's banned list. Named in 2022-2023 criminal enforcement actions.",
+      "bannedBy": [
+        "FDA",
+        "WADA"
+      ],
+      "stateRestrictions": {
+        "US": "Unapproved Drug - Criminal Enforcement",
+        "Russia": "Prescription Only (Phenotropil)"
+      },
+      "healthRisks": [
+        {
+          "category": "Sports/Legal",
+          "description": "Multiple doping cases including Russian Olympic biathlete Olga Pyleva (2006 silver medal stripped). Named in 2022-2023 US criminal enforcement actions against supplement sellers.",
+          "severity": "high",
+          "sources": [
+            "WADA Doping Cases",
+            "DOJ Enforcement 2023"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Insomnia",
+        "Irritability",
+        "Headache",
+        "Overstimulation",
+        "Anxiety",
+        "Increased blood pressure"
+      ],
+      "contraindications": [
+        "Competitive athletes (career-ending)",
+        "Anxiety disorders",
+        "Insomnia",
+        "Hypertension"
+      ],
+      "overdoseRisk": "low",
+      "addictionPotential": "low",
+      "description": "Phenylpiracetam (Carphedon) is the ONLY racetam on WADA's prohibited list, banned in-competition since 1998. It's a prescription drug in Russia for cerebrovascular deficiency and depression. FDA classifies it as an unapproved drug in the US, and it has been named in criminal enforcement actions.",
+      "mechanism": "Racetam nootropic with an added phenyl group that significantly increases potency and adds stimulant-like effects. Enhances dopamine and norepinephrine activity beyond other racetams.",
+      "history": "Developed in Russia in 1983 for Soviet cosmonauts to combat stress and cold tolerance. Approved in Russia as prescription drug Phenotropil in 2003. Multiple Olympic doping scandals. US criminal enforcement 2022-2023.",
+      "whyBanned": "Unapproved drug with significant stimulant properties. The ONLY WADA-banned racetam due to performance enhancing effects. Career-ending for competitive athletes.",
+      "legalAlternatives": [
+        "caffeine",
+        "alpha-gpc",
+        "lions-mane",
+        "bacopa-monnieri"
+      ],
+      "metaTitle": "Phenylpiracetam (Carphedon) - WADA Banned, Only Banned Racetam & Legal Alternatives",
+      "metaDescription": "Phenylpiracetam is the ONLY racetam banned by WADA since 1998. Learn why athletes lose Olympic medals and careers, and find safe legal nootropic alternatives.",
+      "keywords": [
+        "phenylpiracetam",
+        "carphedon",
+        "phenotropil",
+        "phenylpiracetam banned",
+        "phenylpiracetam wada",
+        "phenylpiracetam legal",
+        "phenylpiracetam alternative",
+        "phenylpiracetam doping"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-ostarine",
+      "slug": "ostarine",
+      "name": "Ostarine (MK-2866)",
+      "alternativeNames": [
+        "MK-2866",
+        "Enobosarm",
+        "GTx-024",
+        "S-22"
+      ],
+      "category": "sarm",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "Unapproved drug—cannot legally be sold as supplement or for human consumption. 20+ drug-induced liver injury cases documented in medical literature since 2020. Active criminal enforcement.",
+      "bannedBy": [
+        "FDA",
+        "WADA",
+        "DEA (enforcement)"
+      ],
+      "stateRestrictions": {
+        "US": "Unapproved Drug - Criminal Enforcement Active"
+      },
+      "healthRisks": [
+        {
+          "category": "Hepatotoxicity",
+          "description": "Over 20 drug-induced liver injury (DILI) cases documented in NIH PubMed medical literature since 2020. Cholestatic liver injury pattern.",
+          "severity": "high",
+          "sources": [
+            "NIH PubMed Case Reports",
+            "Hepatology Journals"
+          ]
+        },
+        {
+          "category": "Hormonal",
+          "description": "Significant testosterone suppression requiring Post-Cycle Therapy. Development discontinued after failing to improve muscle strength in cancer patient trials.",
+          "severity": "moderate",
+          "sources": [
+            "GTx Clinical Trials"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Liver injury",
+        "Testosterone suppression",
+        "Acne",
+        "Hair loss",
+        "Mood changes",
+        "Gynecomastia",
+        "Cholestatic jaundice"
+      ],
+      "contraindications": [
+        "Liver disease",
+        "Hormone-sensitive conditions",
+        "Women (virilization risk)",
+        "Competitive athletes"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "moderate",
+      "description": "Ostarine (MK-2866/Enobosarm) is the most commonly detected SARM in both doping tests and supplement adulteration testing. Development by GTx was discontinued after failing Phase 3 clinical trials to improve muscle strength in cancer patients. Over 20 documented liver injury cases.",
+      "mechanism": "Selective Androgen Receptor Modulator that binds to androgen receptors primarily in muscle and bone tissue. Despite claimed selectivity, causes significant testosterone suppression requiring PCT.",
+      "history": "Developed by GTx Inc. for cancer-related muscle wasting. Failed Phase 3 clinical trials. Most detected SARM globally with over 230 positive doping tests since 2012. Frequently found as undeclared adulterant in supplements.",
+      "whyBanned": "Unapproved drug causing documented liver injury cases. Development abandoned after failing efficacy trials. Most common SARM in doping violations and supplement adulteration.",
+      "legalAlternatives": [
+        "creatine-monohydrate"
+      ],
+      "metaTitle": "Ostarine (MK-2866) - Liver Injury Risk, Failed Trials & Legal Alternatives",
+      "metaDescription": "Ostarine (MK-2866) causes liver damage with 20+ documented cases. Learn why this SARM failed clinical trials and find safe legal muscle-building alternatives.",
+      "keywords": [
+        "ostarine",
+        "mk-2866",
+        "enobosarm",
+        "ostarine side effects",
+        "ostarine liver",
+        "ostarine legal",
+        "ostarine alternative",
+        "ostarine banned",
+        "ostarine liver damage"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-andarine",
+      "slug": "andarine",
+      "name": "Andarine (S-4)",
+      "alternativeNames": [
+        "S-4",
+        "GTx-007",
+        "Acetamidoxolutamide"
+      ],
+      "category": "sarm",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "Unapproved drug. Development discontinued in favor of ostarine due to unique and concerning vision side effects.",
+      "bannedBy": [
+        "FDA",
+        "WADA"
+      ],
+      "stateRestrictions": {
+        "US": "Unapproved Drug"
+      },
+      "healthRisks": [
+        {
+          "category": "Vision",
+          "description": "Unique and concerning side effect: visual disturbances including yellow-tinted vision (everything appears yellow) and significant difficulty adjusting to darkness/night blindness.",
+          "severity": "moderate",
+          "sources": [
+            "User Reports",
+            "Clinical Observations",
+            "Pharmacology Studies"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Yellow vision tint",
+        "Night vision problems/blindness",
+        "Difficulty adjusting to light changes",
+        "Testosterone suppression",
+        "Liver stress",
+        "Hair loss"
+      ],
+      "contraindications": [
+        "Vision problems",
+        "Driving at night",
+        "Liver disease",
+        "Hormone-sensitive conditions",
+        "Pilots/drivers"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "moderate",
+      "description": "Andarine (S-4) is a SARM with a unique and particularly concerning side effect: vision disturbances including yellow-tinted vision and significant difficulty adjusting to darkness. Development was discontinued in favor of ostarine due to these vision problems.",
+      "mechanism": "Binds to androgen receptors in muscle tissue but ALSO binds to receptors in the eye's retina, causing the characteristic yellow vision and night blindness. Less selective than originally claimed.",
+      "history": "Early SARM developed by GTx Inc. Discontinued during development due to the unexpected and concerning vision side effects. Development efforts shifted to ostarine instead.",
+      "whyBanned": "Unapproved drug with unique vision impairment side effects that could endanger users (driving, operating machinery). Never completed clinical development due to safety concerns.",
+      "legalAlternatives": [
+        "creatine-monohydrate"
+      ],
+      "metaTitle": "Andarine (S-4) - Yellow Vision, Night Blindness & Safer Alternatives",
+      "metaDescription": "Andarine (S-4) causes yellow-tinted vision and night blindness. Learn why this SARM was abandoned and find safe legal muscle-building alternatives.",
+      "keywords": [
+        "andarine",
+        "s-4",
+        "andarine vision",
+        "andarine side effects",
+        "andarine yellow vision",
+        "andarine night blindness",
+        "andarine legal",
+        "andarine alternative"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-yohimbine",
+      "slug": "yohimbine",
+      "name": "Yohimbine/Yohimbe",
+      "alternativeNames": [
+        "Yohimbe bark",
+        "Pausinystalia yohimbe",
+        "Yohimbine HCl",
+        "Quebrachine"
+      ],
+      "category": "other",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "Yohimbine HCl is an FDA-approved PRESCRIPTION drug. Yohimbe bark extract sold as supplement but with 5.81x higher serious outcome rate than average poisonings.",
+      "bannedBy": [
+        "FDA (prescription requirement for pure form)"
+      ],
+      "stateRestrictions": {
+        "US": "Yohimbine HCl = Prescription Only; Yohimbe bark = High-risk supplement"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "California Poison Control System study (2000-2006): 238 yohimbine cases with 5.81x higher odds of serious outcomes than average poison exposures. Documented cardiac arrhythmias, myocardial infarction, seizures, and acute renal failure.",
+          "severity": "high",
+          "sources": [
+            "California Poison Control System 2000-2006",
+            "Clinical Case Reports"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Cardiac arrhythmias",
+        "Hypertension",
+        "Myocardial infarction",
+        "Anxiety",
+        "Panic attacks",
+        "Seizures",
+        "Acute renal failure",
+        "Tremor"
+      ],
+      "contraindications": [
+        "Heart disease",
+        "Anxiety disorders",
+        "Hypertension",
+        "Kidney disease",
+        "MAO inhibitor use",
+        "SSRI use"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "low",
+      "description": "Yohimbine is an α2-adrenergic receptor antagonist from yohimbe bark. The pure compound (yohimbine HCl) is an FDA-approved prescription drug for erectile dysfunction. Bark extracts sold as supplements have highly variable yohimbine content (up to 154% variation) with inadequate safety labeling and 5.81x higher serious outcome rate.",
+      "mechanism": "Blocks α2-adrenergic receptors, causing increased norepinephrine release throughout the body. Results in elevated blood pressure, heart rate, and anxiety. Also affects fat mobilization.",
+      "history": "Traditional use in West Africa as aphrodisiac. Yohimbine HCl approved as prescription drug for ED. Bark supplements are poorly regulated with a 2015 analysis of 49 supplements showing highly variable and often undisclosed yohimbine content.",
+      "whyBanned": "Pure yohimbine requires prescription. Bark supplements have dangerous content variability and 5.81x higher odds of serious poisoning outcomes including cardiac events and seizures.",
+      "legalAlternatives": [
+        "caffeine",
+        "l-carnitine"
+      ],
+      "metaTitle": "Yohimbine/Yohimbe - 5.81x More Dangerous, Heart Risks & Safer Alternatives",
+      "metaDescription": "Yohimbine causes cardiac arrhythmias with 5.81x more serious poisonings than average. Learn the risks of yohimbe supplements and find safe legal fat loss alternatives.",
+      "keywords": [
+        "yohimbine",
+        "yohimbe",
+        "yohimbine side effects",
+        "yohimbe dangers",
+        "yohimbine heart",
+        "yohimbe legal",
+        "yohimbine alternative",
+        "yohimbe bark"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-higenamine",
+      "slug": "higenamine",
+      "name": "Higenamine",
+      "alternativeNames": [
+        "Norcoclaurine",
+        "Demethylcoclaurine",
+        "1-[(4-hydroxyphenyl)methyl]-1,2,3,4-tetrahydroisoquinoline-6,7-diol"
+      ],
+      "category": "stimulant",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "FDA warning letters May 2022—determined to be a New Dietary Ingredient requiring premarket notification (none submitted). WADA prohibited at ALL times since 2017.",
+      "bannedBy": [
+        "FDA (NDI requirement)",
+        "WADA"
+      ],
+      "stateRestrictions": {
+        "US": "NDI Required - Products Adulterated",
+        "Sports": "WADA Prohibited - All Competition Times"
+      },
+      "healthRisks": [
+        {
+          "category": "Sports/Career",
+          "description": "WADA prohibited since 2017 under S3 Beta-2 Agonists. Reporting threshold: 10 ng/mL in urine. Caused UEFA footballer Mamadou Sakho's suspension in 2016. Multiple athlete career-ending suspensions.",
+          "severity": "high",
+          "sources": [
+            "WADA Prohibited List",
+            "Doping Cases"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Tachycardia",
+        "Palpitations",
+        "Tremor",
+        "Anxiety",
+        "Headache",
+        "Arrhythmias"
+      ],
+      "contraindications": [
+        "Competitive athletes (career-ending)",
+        "Heart conditions",
+        "Arrhythmias",
+        "Asthma medication use (β2 agonists)"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "low",
+      "description": "Higenamine is a β2-adrenergic agonist found naturally in lotus seeds, Nandina domestica, aconite root, and beetroot. FDA determined it requires New Dietary Ingredient notification (none submitted). WADA banned since 2017—has ended athletic careers including UEFA footballer Mamadou Sakho.",
+      "mechanism": "Activates β2-adrenergic receptors causing bronchodilation, increased heart rate, and thermogenesis. Effects similar to ephedrine and other banned β2 agonists.",
+      "history": "Traditional use in Chinese medicine (lotus seeds). Emerged in pre-workout supplements around 2015. WADA added to prohibited list effective January 2017. FDA issued warning letters May 2022 for missing NDI notifications.",
+      "whyBanned": "New Dietary Ingredient without required FDA premarket notification. WADA prohibited as β2-agonist at all times. Career-ending for competitive athletes in any sport.",
+      "legalAlternatives": [
+        "caffeine",
+        "citrulline-malate",
+        "beta-alanine"
+      ],
+      "metaTitle": "Higenamine - WADA Banned, Career-Ending for Athletes & Safe Alternatives",
+      "metaDescription": "Higenamine is banned by WADA and flagged by FDA. Learn why athletes lose careers over this ingredient and find safe legal pre-workout alternatives.",
+      "keywords": [
+        "higenamine",
+        "higenamine banned",
+        "higenamine wada",
+        "higenamine fda",
+        "higenamine legal",
+        "higenamine supplement",
+        "higenamine alternative",
+        "higenamine doping"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-vinpocetine",
+      "slug": "vinpocetine",
+      "name": "Vinpocetine",
+      "alternativeNames": [
+        "Ethyl apovincaminate",
+        "Cavinton",
+        "Intelectol"
+      ],
+      "category": "nootropic",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "FDA June 2019 critical pregnancy warning—NIH found clear evidence it causes miscarriages and fetal harm. FDA tentatively ruled vinpocetine ineligible for dietary supplement status.",
+      "bannedBy": [
+        "FDA (pregnancy warning, tentative ineligibility ruling)"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Pregnancy Warning - Tentatively Ineligible for Supplements"
+      },
+      "healthRisks": [
+        {
+          "category": "Reproductive",
+          "description": "NIH National Toxicology Program found clear evidence vinpocetine triggers miscarriages and causes fetal harm in animal studies at blood levels similar to humans after taking a SINGLE dose.",
+          "severity": "high",
+          "sources": [
+            "NIH National Toxicology Program Study",
+            "FDA Safety Alert June 2019"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Miscarriage",
+        "Fetal harm/developmental toxicity",
+        "Headache",
+        "Dizziness",
+        "Nausea",
+        "Sleep disturbances",
+        "Facial flushing"
+      ],
+      "contraindications": [
+        "Pregnancy",
+        "Women of childbearing age",
+        "Women trying to conceive",
+        "Bleeding disorders",
+        "Surgery patients"
+      ],
+      "overdoseRisk": "low",
+      "addictionPotential": "low",
+      "description": "Vinpocetine is a synthetic derivative of vincamine used for cognitive enhancement. FDA issued a CRITICAL pregnancy warning in June 2019: 'Women who are pregnant or who could become pregnant should not take vinpocetine' due to NIH evidence of miscarriage and fetal harm at normal supplement doses.",
+      "mechanism": "Phosphodiesterase inhibitor that increases cerebral blood flow. Also affects fetal development, causing pregnancy loss and developmental abnormalities in offspring.",
+      "history": "Synthesized from periwinkle plant (vinca) alkaloids. Prescription drug in Europe and Japan for cerebrovascular disorders. FDA issued critical pregnancy warning June 2019 after NIH National Toxicology Program findings. Tentatively ruled ineligible for supplement status.",
+      "whyBanned": "Causes miscarriages and fetal harm at NORMAL supplement doses—effects seen at blood levels achieved after a single dose. FDA explicitly warns ALL women of childbearing age to avoid. Tentatively ruled ineligible for dietary supplements.",
+      "legalAlternatives": [
+        "alpha-gpc",
+        "lions-mane",
+        "bacopa-monnieri"
+      ],
+      "metaTitle": "Vinpocetine - CAUSES MISCARRIAGE, FDA Pregnancy Warning & Safe Alternatives",
+      "metaDescription": "CRITICAL: FDA warns vinpocetine causes miscarriages and fetal harm. Women of childbearing age should NOT take it. Find safe legal cognitive enhancement alternatives.",
+      "keywords": [
+        "vinpocetine",
+        "vinpocetine pregnancy",
+        "vinpocetine miscarriage",
+        "vinpocetine fda warning",
+        "vinpocetine safe",
+        "vinpocetine alternative",
+        "vinpocetine dangers"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-picamilon",
+      "slug": "picamilon",
+      "name": "Picamilon",
+      "alternativeNames": [
+        "Nicotinoyl-GABA",
+        "Pikamilon",
+        "N-nicotinoyl-GABA",
+        "Nicotinoyl-gamma-aminobutyric acid"
+      ],
+      "category": "nootropic",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA issued 5 warning letters in November 2015 determining picamilon does NOT meet the dietary ingredient definition—it is a 'unique chemical entity synthesized from dietary ingredients' that crosses the blood-brain barrier.",
+      "bannedBy": [
+        "FDA"
+      ],
+      "stateRestrictions": {
+        "US": "Not a Dietary Ingredient - Products Adulterated",
+        "Russia": "Prescription Drug"
+      },
+      "healthRisks": [
+        {
+          "category": "Dosage Variability",
+          "description": "Testing found supplements containing 2.7 to 721.5 mg per daily serving—compared to Russian prescription doses of only 50-100 mg. Extreme and dangerous variability.",
+          "severity": "moderate",
+          "sources": [
+            "FDA Product Testing 2015",
+            "Analytical Chemistry Studies"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Hypotension",
+        "Dizziness",
+        "Headache",
+        "Nausea",
+        "Flushing",
+        "Allergic reactions"
+      ],
+      "contraindications": [
+        "Low blood pressure",
+        "Kidney disease",
+        "Pregnancy",
+        "Chronic hypotension"
+      ],
+      "overdoseRisk": "low",
+      "addictionPotential": "low",
+      "description": "Picamilon is a synthetic niacin-GABA prodrug that crosses the blood-brain barrier intact and accumulates in the brain as a separate chemical entity. FDA ruled it is NOT a dietary ingredient because it's a 'unique chemical entity synthesized from dietary ingredients'—not the same as taking GABA and niacin separately.",
+      "mechanism": "Crosses the blood-brain barrier intact, then is cleaved by brain enzymes into niacin and GABA. This provides GABA effects in the brain that are NOT achievable from oral GABA supplements (which don't cross the BBB).",
+      "history": "Developed in the Soviet Union in 1969. Prescription drug in Russia for anxiety, cerebrovascular disease, and depression. FDA banned as a supplement ingredient in November 2015. Despite ruling, continued appearing in supplements through 2020.",
+      "whyBanned": "Not a dietary ingredient—synthetic prodrug designed to cross the BBB. Extreme dosage variability in supplements (2.7-721.5 mg vs 50-100 mg prescription). Chemical manipulation to bypass normal GABA limitations.",
+      "legalAlternatives": [
+        "l-theanine",
+        "magnesium-glycinate",
+        "ashwagandha"
+      ],
+      "metaTitle": "Picamilon - FDA Banned Synthetic GABA Prodrug & Legal Alternatives",
+      "metaDescription": "Picamilon is a synthetic GABA prodrug banned by FDA in 2015—not a legal supplement. Learn why it's not the same as GABA and find safe legal relaxation alternatives.",
+      "keywords": [
+        "picamilon",
+        "pikamilon",
+        "picamilon banned",
+        "picamilon fda",
+        "picamilon legal",
+        "picamilon alternative",
+        "picamilon gaba",
+        "nicotinoyl gaba"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-amp-citrate",
+      "slug": "amp-citrate",
+      "name": "AMP Citrate (DMBA)",
+      "alternativeNames": [
+        "DMBA",
+        "4-amino-2-methylpentane citrate",
+        "1,3-Dimethylbutylamine",
+        "4-AMP"
+      ],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA issued 14 warning letters in April 2015. Never tested in human clinical trials—health effects entirely unknown.",
+      "bannedBy": [
+        "FDA"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Warning Letters 2015"
+      },
+      "healthRisks": [
+        {
+          "category": "Unknown",
+          "description": "NEVER evaluated in human clinical trials. Supplements contained 13-120 mg per serving—health effects are entirely unknown. This is a completely untested synthetic stimulant.",
+          "severity": "high",
+          "sources": [
+            "FDA Warning Letters 2015"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Unknown - never clinically tested",
+        "Presumed cardiovascular effects",
+        "Hypertension",
+        "Tachycardia",
+        "Anxiety"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "High blood pressure",
+        "Unknown drug interactions"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "AMP Citrate (DMBA/1,3-Dimethylbutylamine) is a synthetic stimulant that was NEVER tested in human clinical trials. FDA issued 14 warning letters in April 2015 to companies including VPX Sports. The health effects are entirely unknown—this is essentially an untested experimental drug.",
+      "mechanism": "Presumed sympathomimetic amine similar to DMAA, but actual mechanism unknown due to lack of any clinical research.",
+      "history": "Emerged as DMAA alternative around 2013-2014. FDA cracked down in April 2015 with 14 warning letters. Never underwent any human safety testing.",
+      "whyBanned": "Untested synthetic stimulant with completely unknown safety profile. Zero human clinical data. Products are adulterated under DSHEA.",
+      "legalAlternatives": [
+        "caffeine",
+        "citrulline-malate"
+      ],
+      "metaTitle": "AMP Citrate (DMBA) - Untested Stimulant Banned by FDA & Alternatives",
+      "metaDescription": "AMP Citrate (DMBA) was NEVER tested on humans. Learn why FDA banned this dangerous untested stimulant and find safe legal pre-workout alternatives.",
+      "keywords": [
+        "amp citrate",
+        "dmba",
+        "dmba pre workout",
+        "amp citrate banned",
+        "1,3-dimethylbutylamine",
+        "amp citrate side effects"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-methylsynephrine",
+      "slug": "methylsynephrine",
+      "name": "Methylsynephrine (Oxilofrine)",
+      "alternativeNames": [
+        "Oxilofrine",
+        "Oxyephrine",
+        "4-HMP",
+        "p-Hydroxyephedrine"
+      ],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA issued 7 warning letters in March 2016. WADA prohibited. Caused doping suspensions for Olympic sprinters.",
+      "bannedBy": [
+        "FDA",
+        "WADA"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Warning Letters 2016",
+        "Sports": "WADA Prohibited"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "FDA received 47 adverse event reports including vomiting, chest pain, and cardiac arrest. Supplements contained up to 250 mg/day vs pharmaceutical doses of 16-40 mg.",
+          "severity": "high",
+          "sources": [
+            "FDA Adverse Events",
+            "FDA Warning Letters 2016"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Cardiac arrest",
+        "Chest pain",
+        "Vomiting",
+        "Hypertension",
+        "Tachycardia",
+        "Palpitations"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "High blood pressure",
+        "Competitive athletes",
+        "Arrhythmias"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "Methylsynephrine (Oxilofrine) is a stimulant banned by both FDA and WADA. FDA received 47 adverse event reports including cardiac arrest. Supplements contained doses up to 6x higher than pharmaceutical levels. Caused doping suspensions for Olympic sprinters Asafa Powell and Sherone Simpson in 2013.",
+      "mechanism": "Sympathomimetic amine that stimulates alpha and beta adrenergic receptors, causing vasoconstriction, increased heart rate, and blood pressure elevation.",
+      "history": "Pharmaceutical drug in some countries at 16-40 mg doses. Found in supplements at up to 250 mg/day. Olympic sprinters Powell and Simpson suspended in 2013. FDA warning letters March 2016.",
+      "whyBanned": "Dangerous cardiovascular effects including cardiac arrest. Supplements contain 6x pharmaceutical doses. Career-ending for athletes due to WADA ban.",
+      "legalAlternatives": [
+        "caffeine",
+        "citrulline-malate"
+      ],
+      "metaTitle": "Methylsynephrine (Oxilofrine) - Cardiac Arrest Risk & Safe Alternatives",
+      "metaDescription": "Methylsynephrine caused Olympic sprinter suspensions and 47 FDA adverse events including cardiac arrest. Learn the dangers and find safe alternatives.",
+      "keywords": [
+        "methylsynephrine",
+        "oxilofrine",
+        "methylsynephrine banned",
+        "oxilofrine side effects",
+        "methylsynephrine wada"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-hordenine",
+      "slug": "hordenine",
+      "name": "Hordenine",
+      "alternativeNames": [
+        "N,N-dimethyltyramine",
+        "Anhaline",
+        "Peyocactin"
+      ],
+      "category": "stimulant",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "FDA Dietary Supplement Ingredient Advisory List. WADA prohibited stimulant. DoD Prohibited Dietary Supplement Ingredients List.",
+      "bannedBy": [
+        "WADA",
+        "DoD"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Advisory List",
+        "Sports": "WADA Prohibited",
+        "Military": "DoD Prohibited"
+      },
+      "healthRisks": [
+        {
+          "category": "Regulatory",
+          "description": "FDA states there is NO established safety evidence—even if an NDI notification were submitted, 'there is no history of use or other evidence of safety.'",
+          "severity": "moderate",
+          "sources": [
+            "FDA Ingredient Advisory List"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Increased heart rate",
+        "Elevated blood pressure",
+        "Anxiety",
+        "Insomnia",
+        "Jitters"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "Competitive athletes",
+        "Military personnel",
+        "MAO inhibitors"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "low",
+      "description": "Hordenine is a phenethylamine derivative found in bitter orange and barley. FDA added it to the Dietary Supplement Ingredient Advisory List stating there is NO established safety evidence. WADA prohibited and on DoD banned list for military personnel.",
+      "mechanism": "MAO-B inhibitor and norepinephrine reuptake inhibitor. Prolongs effects of other stimulants and catecholamines.",
+      "history": "Natural occurrence in barley and bitter orange. Added to FDA Advisory List. WADA and DoD prohibited.",
+      "whyBanned": "No established safety evidence per FDA. WADA prohibited stimulant. DoD banned for military. Career-ending for athletes and military.",
+      "legalAlternatives": [
+        "caffeine",
+        "l-tyrosine"
+      ],
+      "metaTitle": "Hordenine - WADA Banned, DoD Prohibited & Safe Alternatives",
+      "metaDescription": "Hordenine has no established safety evidence per FDA. Banned by WADA and DoD. Find safe legal stimulant alternatives.",
+      "keywords": [
+        "hordenine",
+        "hordenine banned",
+        "hordenine wada",
+        "hordenine dod",
+        "hordenine side effects",
+        "hordenine supplement"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-octopamine",
+      "slug": "octopamine",
+      "name": "Octopamine",
+      "alternativeNames": [
+        "Norsynephrine",
+        "para-Octopamine",
+        "β,4-dihydroxyphenethylamine"
+      ],
+      "category": "stimulant",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "WADA prohibited stimulant. DoD Prohibited Dietary Supplement Ingredients List. FDA Dietary Supplement Ingredient Advisory List.",
+      "bannedBy": [
+        "WADA",
+        "DoD",
+        "FDA (advisory)"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Advisory List",
+        "Sports": "WADA Prohibited",
+        "Military": "DoD Prohibited"
+      },
+      "healthRisks": [
+        {
+          "category": "Regulatory",
+          "description": "Listed on FDA Dietary Supplement Ingredient Advisory List. WADA prohibited. DoD banned. No established human safety data.",
+          "severity": "moderate",
+          "sources": [
+            "FDA Advisory List",
+            "WADA",
+            "DoD OPSS"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Increased heart rate",
+        "Elevated blood pressure",
+        "Anxiety",
+        "Insomnia"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "Competitive athletes",
+        "Military personnel",
+        "MAO inhibitors"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "low",
+      "description": "Octopamine is a trace amine found in bitter orange. Despite natural occurrence, it's prohibited by WADA, DoD, and on FDA's Advisory List. Career-ending for competitive athletes and disqualifying for military personnel.",
+      "mechanism": "Trace amine-associated receptor agonist and weak adrenergic agonist. Increases norepinephrine release.",
+      "history": "Found naturally in bitter orange and invertebrates. Added to multiple prohibited lists due to stimulant effects and lack of safety data.",
+      "whyBanned": "No established safety evidence. WADA prohibited. DoD banned. Career-ending for athletes and military personnel.",
+      "legalAlternatives": [
+        "caffeine"
+      ],
+      "metaTitle": "Octopamine - WADA & DoD Banned Stimulant & Safe Alternatives",
+      "metaDescription": "Octopamine is banned by WADA and DoD despite being natural. Learn why it ends careers and find safe legal alternatives.",
+      "keywords": [
+        "octopamine",
+        "octopamine banned",
+        "octopamine wada",
+        "octopamine supplement",
+        "norsynephrine"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-n-methyltyramine",
+      "slug": "n-methyltyramine",
+      "name": "N-Methyltyramine",
+      "alternativeNames": [
+        "NMT",
+        "4-hydroxy-N-methylphenethylamine"
+      ],
+      "category": "stimulant",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "WADA prohibited stimulant. DoD Prohibited Dietary Supplement Ingredients List.",
+      "bannedBy": [
+        "WADA",
+        "DoD"
+      ],
+      "stateRestrictions": {
+        "Sports": "WADA Prohibited",
+        "Military": "DoD Prohibited"
+      },
+      "healthRisks": [
+        {
+          "category": "Regulatory",
+          "description": "WADA prohibited stimulant. DoD banned. Part of the bitter orange alkaloid complex with no established human safety.",
+          "severity": "moderate",
+          "sources": [
+            "WADA",
+            "DoD OPSS"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Increased heart rate",
+        "Elevated blood pressure",
+        "Anxiety"
+      ],
+      "contraindications": [
+        "Competitive athletes",
+        "Military personnel",
+        "Heart conditions"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "low",
+      "description": "N-Methyltyramine (NMT) is a phenethylamine found in bitter orange and barley. Prohibited by WADA and DoD. Part of the bitter orange alkaloid complex along with synephrine, octopamine, and hordenine.",
+      "mechanism": "Trace amine that releases norepinephrine. Weak adrenergic effects.",
+      "history": "Natural alkaloid in bitter orange. Prohibited by WADA and DoD due to stimulant classification.",
+      "whyBanned": "WADA prohibited stimulant. DoD banned. Career-ending for athletes and military.",
+      "legalAlternatives": [
+        "caffeine"
+      ],
+      "metaTitle": "N-Methyltyramine - WADA & DoD Banned & Safe Alternatives",
+      "metaDescription": "N-Methyltyramine is banned by WADA and DoD. Learn why this bitter orange alkaloid ends careers and find safe alternatives.",
+      "keywords": [
+        "n-methyltyramine",
+        "nmt",
+        "n-methyltyramine banned",
+        "n-methyltyramine wada"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-cyclazodone",
+      "slug": "cyclazodone",
+      "name": "Cyclazodone",
+      "alternativeNames": [
+        "N-cyclopropylpemoline"
+      ],
+      "category": "nootropic",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "Structural analog of pemoline (Schedule IV, withdrawn for hepatotoxicity). NEVER evaluated by FDA. WADA prohibited. Only appeared on market in 2017.",
+      "bannedBy": [
+        "FDA (unapproved)",
+        "WADA"
+      ],
+      "stateRestrictions": {
+        "US": "Unapproved Drug - Pemoline Analog",
+        "Sports": "WADA Prohibited"
+      },
+      "healthRisks": [
+        {
+          "category": "Hepatotoxicity",
+          "description": "Structural analog of pemoline, which was withdrawn in many countries due to liver failure and deaths. Cyclazodone has NEVER been evaluated for human use—safety is entirely unknown.",
+          "severity": "high",
+          "sources": [
+            "Pemoline withdrawal data",
+            "Research chemical emergence 2017"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Presumed liver toxicity (pemoline analog)",
+        "Insomnia",
+        "Appetite suppression",
+        "Anxiety",
+        "Unknown long-term effects"
+      ],
+      "contraindications": [
+        "Liver disease",
+        "Anyone - completely untested"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "Cyclazodone is a structural analog of pemoline—a Schedule IV drug WITHDRAWN in many countries due to fatal liver failure. Cyclazodone has NEVER been evaluated by FDA for human use. Safety information is entirely lacking. Only appeared on the research chemical market in 2017.",
+      "mechanism": "Presumed dopamine reuptake inhibitor similar to pemoline. May share pemoline's hepatotoxicity mechanism.",
+      "history": "Analog of pemoline (withdrawn for liver deaths). Appeared on research chemical market 2017. Zero human safety data.",
+      "whyBanned": "Analog of hepatotoxic Schedule IV drug (pemoline). NEVER tested in humans. WADA prohibited. Zero safety data—essentially an experimental drug.",
+      "legalAlternatives": [
+        "caffeine",
+        "l-theanine",
+        "alpha-gpc"
+      ],
+      "metaTitle": "Cyclazodone - Untested Pemoline Analog & Why It's Dangerous",
+      "metaDescription": "Cyclazodone is an analog of pemoline (withdrawn for liver deaths). NEVER tested in humans. Learn why it's dangerous and find safe alternatives.",
+      "keywords": [
+        "cyclazodone",
+        "cyclazodone side effects",
+        "cyclazodone liver",
+        "cyclazodone pemoline",
+        "cyclazodone reddit",
+        "cyclazodone buy"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-hydrafinil",
+      "slug": "hydrafinil",
+      "name": "Hydrafinil (Fluorenol)",
+      "alternativeNames": [
+        "9-Fluorenol",
+        "9-Hydroxyfluorene"
+      ],
+      "category": "nootropic",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "Unscheduled but unregulated 'grey area' compound. WADA added as non-specified stimulant under S6.A effective January 1, 2025.",
+      "bannedBy": [
+        "WADA (effective 2025)"
+      ],
+      "stateRestrictions": {
+        "Sports": "WADA Prohibited effective Jan 2025"
+      },
+      "healthRisks": [
+        {
+          "category": "Unknown",
+          "description": "Unregulated research chemical with no human clinical trials. Added to WADA prohibited list effective 2025 under S6.A non-specified stimulants.",
+          "severity": "moderate",
+          "sources": [
+            "WADA 2025 Prohibited List"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Unknown - no clinical data",
+        "Presumed eugeroic effects",
+        "Insomnia",
+        "Anxiety"
+      ],
+      "contraindications": [
+        "Competitive athletes",
+        "Unknown - no safety data"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "low",
+      "description": "Hydrafinil (9-Fluorenol) is an unregulated 'grey area' eugeroic compound related to modafinil. Zero human clinical data. WADA added it to the prohibited list effective January 1, 2025 as a non-specified stimulant.",
+      "mechanism": "Eugeroic presumed to work similarly to modafinil. Actual mechanism unknown due to lack of research.",
+      "history": "Research chemical with modafinil-like claims. Added to WADA prohibited list for 2025.",
+      "whyBanned": "WADA prohibited effective 2025. No human safety data. Unregulated research chemical.",
+      "legalAlternatives": [
+        "caffeine",
+        "l-theanine"
+      ],
+      "metaTitle": "Hydrafinil (Fluorenol) - WADA Banned 2025 & Safe Alternatives",
+      "metaDescription": "Hydrafinil (9-Fluorenol) is now WADA prohibited as of 2025. Learn about this untested modafinil alternative and find safe legal options.",
+      "keywords": [
+        "hydrafinil",
+        "9-fluorenol",
+        "hydrafinil wada",
+        "hydrafinil banned",
+        "hydrafinil modafinil",
+        "fluorenol"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-sulbutiamine",
+      "slug": "sulbutiamine",
+      "name": "Sulbutiamine",
+      "alternativeNames": [
+        "Arcalion",
+        "Bisibuthiamine"
+      ],
+      "category": "nootropic",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "FDA Dietary Supplement Ingredient Advisory List (December 2019). DoD Prohibited List. Prescription drug in France since 1973.",
+      "bannedBy": [
+        "FDA (advisory)",
+        "DoD"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Advisory List",
+        "Military": "DoD Prohibited",
+        "France": "Prescription Only"
+      },
+      "healthRisks": [
+        {
+          "category": "Regulatory",
+          "description": "Added to FDA's Dietary Supplement Ingredient Advisory List December 2019. DoD Prohibited. Not a legal dietary supplement in US.",
+          "severity": "low",
+          "sources": [
+            "FDA Advisory List 2019",
+            "DoD OPSS"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Insomnia",
+        "Anxiety",
+        "Irritability",
+        "Headache",
+        "Nausea"
+      ],
+      "contraindications": [
+        "Military personnel",
+        "Bipolar disorder",
+        "Anxiety disorders"
+      ],
+      "overdoseRisk": "low",
+      "addictionPotential": "low",
+      "description": "Sulbutiamine is a synthetic derivative of thiamine (vitamin B1) that crosses the blood-brain barrier. Prescription drug in France (Arcalion) since 1973 for asthenia. FDA added to Advisory List in 2019; DoD prohibited for military.",
+      "mechanism": "Synthetic thiamine that crosses BBB. Increases thiamine and thiamine phosphate esters in the brain. May affect dopaminergic transmission.",
+      "history": "Developed in Japan. Prescription drug in France since 1973 as Arcalion. FDA Advisory List 2019. DoD prohibited.",
+      "whyBanned": "Not a legal dietary supplement per FDA Advisory List. DoD prohibited. Prescription drug status in other countries.",
+      "legalAlternatives": [
+        "alpha-gpc",
+        "lions-mane"
+      ],
+      "metaTitle": "Sulbutiamine (Arcalion) - FDA Advisory & DoD Banned, Alternatives",
+      "metaDescription": "Sulbutiamine is on FDA's Advisory List and DoD prohibited list. Learn about this prescription nootropic and find legal alternatives.",
+      "keywords": [
+        "sulbutiamine",
+        "arcalion",
+        "sulbutiamine banned",
+        "sulbutiamine fda",
+        "sulbutiamine dod",
+        "sulbutiamine side effects"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-dendrobium",
+      "slug": "dendrobium",
+      "name": "Dendrobium Extract",
+      "alternativeNames": [
+        "Dendrobium nobile",
+        "Shi Hu"
+      ],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA April 2014 warning letter established products labeled as dendrobium actually contained undeclared synthetic stimulants including DMAA and methamphetamine-like DEPEA.",
+      "bannedBy": [
+        "FDA"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Warning - Adulteration Cover"
+      },
+      "healthRisks": [
+        {
+          "category": "Adulteration",
+          "description": "FDA investigation found products claiming 'dendrobium extract' actually contained UNDECLARED SYNTHETIC STIMULANTS including DMAA and N,α-diethylphenethylamine (DEPEA)—a methamphetamine-like compound.",
+          "severity": "high",
+          "sources": [
+            "FDA Warning Letter to Driven Sports April 2014"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Unknown - used as cover for synthetic stimulants",
+        "Products may contain DMAA",
+        "Products may contain methamphetamine analogs"
+      ],
+      "contraindications": [
+        "Everyone - products are adulterated"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "Dendrobium is an orchid extract used as a COVER for undeclared synthetic stimulants. FDA's April 2014 warning letter to Driven Sports found products labeled 'dendrobium' actually contained UNDECLARED DMAA and DEPEA (a methamphetamine-like compound). This demonstrated systematic supplement fraud.",
+      "mechanism": "The orchid extract itself has minimal effects. Products labeled 'dendrobium' are used to hide illegal synthetic stimulants.",
+      "history": "Traditional Chinese medicine orchid. Co-opted by supplement industry as cover for synthetic stimulants. FDA exposed fraud in 2014.",
+      "whyBanned": "Used as fraudulent cover for undeclared synthetic stimulants including DMAA and methamphetamine analogs. Systematic supplement fraud.",
+      "legalAlternatives": [
+        "caffeine"
+      ],
+      "metaTitle": "Dendrobium Extract - FDA Exposed Stimulant Fraud & What to Know",
+      "metaDescription": "FDA found 'dendrobium' supplements actually contained hidden DMAA and methamphetamine analogs. Learn about this supplement fraud.",
+      "keywords": [
+        "dendrobium",
+        "dendrobium extract",
+        "dendrobium pre workout",
+        "dendrobium banned",
+        "dendrobium dmaa"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-acacia-rigidula",
+      "slug": "acacia-rigidula",
+      "name": "Acacia Rigidula",
+      "alternativeNames": [
+        "Blackbrush Acacia",
+        "Vachellia rigidula"
+      ],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "FDA March 2016 warning letters determined Acacia rigidula is a New Dietary Ingredient. Products labeled as containing it actually contained synthetic stimulants like BMPEA and DEPEA.",
+      "bannedBy": [
+        "FDA"
+      ],
+      "stateRestrictions": {
+        "US": "NDI Required - Products Adulterated"
+      },
+      "healthRisks": [
+        {
+          "category": "Adulteration",
+          "description": "FDA established products labeled 'Acacia rigidula' actually contained SYNTHETIC STIMULANTS (BMPEA, DEPEA) that are NOT naturally present in the plant—systematic supplement adulteration.",
+          "severity": "high",
+          "sources": [
+            "FDA Warning Letters March 2016",
+            "FDA Research 2013"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Unknown - used as cover for synthetic stimulants",
+        "Products contain BMPEA (amphetamine analog)",
+        "Products contain DEPEA (methamphetamine-like)"
+      ],
+      "contraindications": [
+        "Everyone - products are adulterated"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "Acacia rigidula is a Texas shrub used as FRAUDULENT COVER for synthetic stimulants. FDA scientifically proved that BMPEA and DEPEA are NOT naturally present in Acacia rigidula—they are synthetic adulterants with amphetamine-like effects. Systematic industry fraud.",
+      "mechanism": "The plant itself has minimal pharmacological effects. Products labeled 'Acacia rigidula' are covers for illegal synthetic stimulants.",
+      "history": "Native Texas shrub. Co-opted by supplement industry. FDA proved synthetic adulterants (BMPEA, DEPEA) are not naturally present in 2013-2016.",
+      "whyBanned": "New Dietary Ingredient without notification. Used as fraudulent cover for synthetic amphetamine analogs. Industry-wide adulteration.",
+      "legalAlternatives": [
+        "caffeine"
+      ],
+      "metaTitle": "Acacia Rigidula - FDA Proved Synthetic Stimulant Fraud",
+      "metaDescription": "FDA proved 'Acacia rigidula' supplements contain hidden synthetic amphetamine analogs, not natural plant extracts. Learn about this fraud.",
+      "keywords": [
+        "acacia rigidula",
+        "acacia rigidula banned",
+        "acacia rigidula bmpea",
+        "acacia rigidula extract",
+        "acacia rigidula side effects"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-arecoline",
+      "slug": "arecoline",
+      "name": "Arecoline (Betel Nut)",
+      "alternativeNames": [
+        "Betel nut",
+        "Areca nut",
+        "Areca catechu",
+        "Paan",
+        "Supari"
+      ],
+      "category": "other",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "FDA Import Alert 23-15 detains all betel nut shipments. IARC/WHO classifies areca nut as Group 1 CARCINOGEN. California Proposition 65 listed.",
+      "bannedBy": [
+        "FDA (import alert)",
+        "IARC/WHO (carcinogen)"
+      ],
+      "stateRestrictions": {
+        "US": "FDA Import Alert",
+        "California": "Proposition 65 Carcinogen"
+      },
+      "healthRisks": [
+        {
+          "category": "Cancer",
+          "description": "IARC/WHO classifies areca nut as GROUP 1 CARCINOGEN (proven carcinogenic to humans). Pooled relative risk for oral cancer: 7.9x among chewers. One of the most carcinogenic substances known.",
+          "severity": "high",
+          "sources": [
+            "IARC Monographs",
+            "WHO",
+            "California Prop 65"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Oral cancer (7.9x risk)",
+        "Oral submucous fibrosis",
+        "Esophageal cancer",
+        "Addiction",
+        "Teeth staining",
+        "Gum disease"
+      ],
+      "contraindications": [
+        "Everyone - Group 1 carcinogen",
+        "Pregnant women",
+        "Children"
+      ],
+      "overdoseRisk": "low",
+      "addictionPotential": "high",
+      "description": "Arecoline from betel/areca nut is classified as a GROUP 1 CARCINOGEN by IARC/WHO—proven to cause cancer in humans. Chewing betel nut increases oral cancer risk by 7.9x. FDA detains all betel nut imports. One of the most carcinogenic substances with documented human evidence.",
+      "mechanism": "Muscarinic acetylcholine agonist with stimulant and carcinogenic effects. Causes oral submucous fibrosis leading to cancer.",
+      "history": "Traditional use in South/Southeast Asia. IARC classified as Group 1 carcinogen. FDA Import Alert active.",
+      "whyBanned": "GROUP 1 CARCINOGEN—proven to cause cancer in humans. 7.9x oral cancer risk. FDA detains imports.",
+      "legalAlternatives": [
+        "caffeine"
+      ],
+      "metaTitle": "Arecoline (Betel Nut) - Group 1 Carcinogen, 7.9x Cancer Risk",
+      "metaDescription": "Betel nut is a WHO Group 1 CARCINOGEN with 7.9x oral cancer risk. Learn why FDA detains all imports and find safe alternatives.",
+      "keywords": [
+        "arecoline",
+        "betel nut",
+        "areca nut",
+        "betel nut cancer",
+        "paan cancer",
+        "supari cancer",
+        "betel nut banned"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
+      "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-synephrine",
+      "slug": "synephrine",
+      "name": "Synephrine",
+      "alternativeNames": [
+        "p-Synephrine",
+        "Bitter orange extract",
+        "Citrus aurantium"
+      ],
+      "category": "stimulant",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "Complex status: Natural p-synephrine from bitter orange IS permitted. Synthetic p-synephrine HCl is NOT. WADA Monitoring Program (under surveillance). Note: Methylsynephrine (oxilofrine) is completely banned.",
+      "bannedBy": [
+        "WADA (monitoring)",
+        "FDA (synthetic form)"
+      ],
+      "stateRestrictions": {
+        "US": "Natural permitted, Synthetic banned",
+        "Sports": "WADA Monitoring Program"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "Stimulant effects on heart rate and blood pressure. Natural form permitted but synthetic form banned. WADA monitoring for potential future prohibition.",
+          "severity": "moderate",
+          "sources": [
+            "WADA Monitoring Program",
+            "FDA"
+          ]
+        }
+      ],
+      "sideEffects": [
+        "Increased heart rate",
+        "Elevated blood pressure",
+        "Headache",
+        "Anxiety"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "Hypertension",
+        "MAO inhibitors",
+        "Other stimulants"
+      ],
+      "overdoseRisk": "moderate",
+      "addictionPotential": "low",
+      "description": "Synephrine has COMPLEX regulatory status: Natural p-synephrine from bitter orange fruit IS permitted in supplements. However, synthetic p-synephrine HCl is NOT permitted. WADA has synephrine in its Monitoring Program—under surveillance for potential future prohibition. Do NOT confuse with methylsynephrine (oxilofrine) which is completely banned.",
+      "mechanism": "Alpha-adrenergic receptor agonist causing vasoconstriction and modest increases in metabolic rate and blood pressure.",
+      "history": "Natural component of bitter orange. Complex regulatory status emerged. WADA monitoring. Distinct from banned methylsynephrine.",
+      "whyBanned": "Synthetic form not permitted. WADA monitoring for potential ban. Athletes should avoid due to regulatory uncertainty.",
+      "legalAlternatives": [
+        "caffeine"
+      ],
+      "metaTitle": "Synephrine - Complex Legal Status, WADA Monitoring & What to Know",
+      "metaDescription": "Synephrine has complex legal status: natural OK, synthetic banned, WADA monitoring. Learn the nuances and avoid career-ending mistakes.",
+      "keywords": [
+        "synephrine",
+        "p-synephrine",
+        "bitter orange",
+        "synephrine banned",
+        "synephrine wada",
+        "synephrine legal",
+        "citrus aurantium"
+      ],
+      "createdAt": "2025-01-27T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
     }
   ]

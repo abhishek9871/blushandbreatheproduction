@@ -44,13 +44,29 @@ blushandbreatheproduction/
 ├── wrangler.backend.toml      # Backend worker config
 ├── cloudflare-worker/         # hb-reader (Mozilla Readability)
 │   └── src/index.ts           # Article extraction worker
+├── data/                      # Local databases
+│   ├── indian-medicines.json  # 254K Indian medicines (85MB optimized)
+│   └── indian-medicines-sample.json  # 50 popular medicines for static import
+├── scripts/                   # Data processing scripts
+│   ├── setup-indian-medicines.js    # CSV → JSON conversion
+│   ├── merge-medicine-data.js       # Merge price + usage data
+│   └── optimize-medicine-data.js    # Compress for Vercel limits
 ├── pages/                     # Next.js pages (SSR/ISR)
 │   ├── api/                   # API routes
 │   │   ├── contact.ts         # Contact form → Resend email
+│   │   ├── indian-medicine/   # Indian medicines API
+│   │   │   └── [name].ts      # Search 254K medicines
+│   │   ├── medicine/          # FDA medicine API
+│   │   │   └── [slug].ts      # OpenFDA integration
 │   │   ├── nutrition/         # Vercel Edge Functions for AI
 │   │   │   ├── generate-diet-plan.ts  # Gemini diet plan generation
 │   │   │   └── regenerate-meal.ts     # Gemini meal regeneration
 │   │   └── youtube/videos.ts  # YouTube API proxy
+│   ├── medicine/              # Medicine detail pages
+│   │   └── [slug].tsx         # Dynamic medicine page (ISR)
+│   ├── medicines/             # MediVault section
+│   │   ├── index.tsx          # Medicine encyclopedia home
+│   │   └── search.tsx         # Intelligent search (Indian + FDA)
 │   ├── info/                  # Footer info pages (SEO optimized)
 │   │   ├── about.tsx          # Our Story
 │   │   ├── careers.tsx        # Careers page
@@ -72,6 +88,8 @@ blushandbreatheproduction/
 │   └── fullArticle.ts         # Article fetching via hb-reader
 ├── hooks/                     # Custom React hooks
 │   └── useUserProfile.tsx     # Diet plan state & AI calls
+├── types/                     # TypeScript types
+│   └── substance.ts           # MedicineInfo, DrugInteraction types
 ├── styles/globals.css         # Tailwind CSS styles
 ├── public/                    # Static assets
 ├── vercel.json                # Vercel config (Edge Function timeouts)
@@ -302,6 +320,155 @@ WeeklyPlanView.tsx displays the plan with dark mode support
   - Results re-sorted by match score after filtering
 - **File**: `services/apiService.ts` - `searchArticles()` function
 
+### 13. Indian Medicines Database Integration (Nov 27, 2025)
+
+**Overview**: Integrated 254K Indian medicines with brand names, prices (₹), manufacturers, uses, side effects, and substitutes.
+
+#### Data Sources & Architecture
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    MEDICINE DATA FLOW                                │
+├─────────────────────────────────────────────────────────────────────┤
+│  Search Query                                                        │
+│       │                                                              │
+│       ▼                                                              │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ STEP 1: Local Indian DB (254K medicines)                    │    │
+│  │ • data/indian-medicines.json (85MB optimized)               │    │
+│  │ • Searched via searchIndianMedicineFullDB()                 │    │
+│  │ • Returns: brand name, ₹price, manufacturer, composition    │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│       │ Not found?                                                   │
+│       ▼                                                              │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ STEP 2: OpenFDA API (FDA-approved drugs)                    │    │
+│  │ • api.fda.gov/drug/label.json                               │    │
+│  │ • Returns: FDA labels, indications, warnings                │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│       │ Not found?                                                   │
+│       ▼                                                              │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ STEP 3: MyChem.info/DrugCentral (International drugs)       │    │
+│  │ • mychem.info/v1/chem/query                                 │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│       │ Not found?                                                   │
+│       ▼                                                              │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ STEP 4: PubChem (NIH - 100M+ compounds)                     │    │
+│  │ • pubchem.ncbi.nlm.nih.gov/rest/pug                         │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│       │                                                              │
+│       ▼                                                              │
+│  Wikipedia Enrichment (added to any source)                          │
+│  • en.wikipedia.org/api/rest_v1/page/summary                        │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+#### Kaggle Datasets Used
+| Dataset | Records | Data |
+|---------|---------|------|
+| [A-Z Medicine Dataset of India](https://kaggle.com/datasets/shudhanshusingh/az-medicine-dataset-of-india) | 254K | name, price, manufacturer, composition, pack size |
+| [250K Medicines Usage & Side Effects](https://kaggle.com/datasets/shudhanshusingh/250k-medicines-usage-side-effects-and-substitutes) | 248K | uses, side effects, substitutes, therapeutic class |
+
+#### Data Processing Pipeline
+```bash
+# 1. Convert CSV to JSON with normalized structure
+node scripts/setup-indian-medicines.js
+# Output: data/indian-medicines.json (64MB)
+
+# 2. Merge with usage/side effects dataset  
+node scripts/merge-medicine-data.js
+# Output: 168MB enriched JSON (100% match rate)
+
+# 3. Optimize to stay under Vercel's 100MB limit
+node scripts/optimize-medicine-data.js
+# Output: 85MB (limited to top 2 uses, 3 side effects, 2 substitutes)
+```
+
+#### Optimized JSON Format (Compressed)
+```typescript
+interface IndianMedicineOptimized {
+  i: string;      // id
+  n: string;      // name (e.g., "Crocin 650 Tablet")
+  b: string;      // baseName (e.g., "Crocin")
+  p: number;      // price in ₹
+  m: string;      // manufacturer
+  t: string;      // type (allopathy/ayurvedic)
+  k: string;      // packSize
+  c1: string;     // composition1 (e.g., "Paracetamol (650mg)")
+  c2?: string;    // composition2
+  u?: string[];   // uses (top 2)
+  se?: string[];  // sideEffects (top 3)
+  su?: string[];  // substitutes (top 2)
+  tc?: string;    // therapeuticClass
+  hf?: boolean;   // habitForming
+}
+```
+
+#### Key Files Created/Modified
+| File | Purpose |
+|------|---------|
+| `scripts/setup-indian-medicines.js` | Converts Kaggle CSV to JSON |
+| `scripts/merge-medicine-data.js` | Merges price data with usage data |
+| `scripts/optimize-medicine-data.js` | Compresses to stay under 100MB |
+| `data/indian-medicines.json` | Main database (85MB, 254K medicines) |
+| `data/indian-medicines-sample.json` | Popular medicines for static import (50) |
+| `pages/api/indian-medicine/[name].ts` | API for searching full DB |
+| `pages/medicine/[slug].tsx` | Medicine detail page with Indian data |
+| `pages/medicines/search.tsx` | Intelligent search with Indian results |
+| `types/substance.ts` | Added `indianPrice`, `indianPackSize` fields |
+
+#### Search Intelligence
+```typescript
+// Generic compound search (modafinil, paracetamol)
+// → FDA info FIRST, then Indian brand options with prices
+
+// Brand name search (waklert, crocin, dolo)
+// → Indian brands FIRST with ₹ prices
+
+function isLikelyGenericName(term: string): boolean {
+  // Detects patterns like: /afinil$/, /racetam$/, /statin$/, etc.
+}
+```
+
+#### UI Enhancements
+- **🇮🇳 India badge** (orange) for Indian medicines
+- **₹ Price badge** (green) showing MRP
+- **Manufacturer & Composition** in search results
+- **Uses** displayed as bullet points
+- **Side Effects** in Adverse Reactions section
+- **Substitutes** in Drug Interactions section
+
+#### Example: Searching "modafinil"
+```
+Results (24 total):
+1. Modafinil - Generic/FDA (compound info)
+2. Provigil - US brand
+3. Armod 50 Tablet - 🇮🇳 ₹177.6 - Emcure - Armodafinil
+4. Modalert 100 - 🇮🇳 ₹204 - Sun Pharma - Modafinil
+5. Modatec 100mg - 🇮🇳 ₹60 - Cipla - Modafinil (cheapest!)
+...20 more Indian brands
+```
+
+#### Example: Searching "waklert" (brand)
+```
+Results (5 total):
+1. Waklert 50 Tablet - 🇮🇳 ₹158 - Sun Pharma
+2. Waklert 150 Tablet - 🇮🇳 ₹324 - Sun Pharma
+3. Waklert 100mg Tablet - 🇮🇳 ₹143.75 - Sun Pharma
+```
+
+#### API Endpoint
+```
+GET /api/indian-medicine/[name]          # Single best match
+GET /api/indian-medicine/[name]?list=true # Multiple results (up to 20)
+```
+
+#### Deployment Notes
+- CSV files (A_Z_medicines_dataset_of_India.csv, medicine_dataset.csv) are NOT deployed
+- Only the optimized JSON is deployed to keep under Vercel's 100MB limit
+- API route caches parsed JSON in memory after first request
+
 ## Data Flow
 
 ```
@@ -352,4 +519,4 @@ Full article HTML replaces loading state
 3. Check `pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 26, 2025 (Added Swap Meal AI feature, fixed Gemini API key leak, article search relevance)*
+*Last updated: November 27, 2025 (Indian Medicines Database - 254K medicines with prices, uses, side effects, substitutes; Intelligent search)*

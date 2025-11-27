@@ -126,9 +126,6 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
       </Head>
 
       <main className="max-w-4xl mx-auto px-4 py-8">
-        {/* Legal Disclaimers */}
-        <LegalDisclaimerBanner pageType="medicine" className="mb-6" />
-
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-text-subtle-light dark:text-text-subtle-dark mb-6">
           <Link href="/" className="hover:text-primary">Home</Link>
@@ -167,9 +164,11 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
                     ? 'bg-blue-500 text-white' 
                     : medicine.marketStatus === 'otc'
                     ? 'bg-green-500 text-white'
+                    : medicine.marketStatus === 'research'
+                    ? 'bg-purple-500 text-white'
                     : 'bg-gray-500 text-white'
                 }`}>
-                  {medicine.marketStatus === 'prescription' ? 'Rx' : 'OTC'}
+                  {medicine.marketStatus === 'prescription' ? 'Rx' : medicine.marketStatus === 'otc' ? 'OTC' : medicine.marketStatus === 'research' ? 'Research' : medicine.marketStatus}
                 </span>
                 {medicine.scheduleClass && (
                   <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded text-xs">
@@ -191,6 +190,24 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
                 <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 rounded text-xs flex items-center gap-1">
                   <span className="material-symbols-outlined text-xs">verified</span>
                   RxNorm
+                </span>
+              )}
+              {medicine.sources.pubChem && (
+                <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded text-xs flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">science</span>
+                  PubChem (NIH)
+                </span>
+              )}
+              {medicine.sources.drugCentral && (
+                <span className="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded text-xs flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">local_hospital</span>
+                  DrugCentral
+                </span>
+              )}
+              {medicine.sources.wikipedia && (
+                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 rounded text-xs flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">menu_book</span>
+                  Wikipedia
                 </span>
               )}
             </div>
@@ -543,6 +560,9 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
             </div>
           </section>
         </article>
+
+        {/* Legal Disclaimers - Moved to bottom */}
+        <LegalDisclaimerBanner pageType="medicine" className="mt-8" />
       </main>
     </>
   );
@@ -554,6 +574,509 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: 'blocking',
   };
 };
+
+// ═══════════════════════════════════════════════════════════════════
+// BRAND NAME MAPPING - Maps regional brand names to generic INN names
+// ═══════════════════════════════════════════════════════════════════
+const brandNameMappings: Record<string, string> = {
+  // Modafinil brands
+  'r-mod': 'modafinil',
+  'r mod': 'modafinil',
+  'provigil': 'modafinil',
+  'modiodal': 'modafinil',
+  'modalert': 'modafinil',
+  'modvigil': 'modafinil',
+  'alertec': 'modafinil',
+  'modapro': 'modafinil',
+  // Piracetam brands
+  'nootropil': 'piracetam',
+  'nootropyl': 'piracetam',
+  'noopreman': 'piracetam',
+  // Phenylpiracetam brands
+  'phenotropil': 'phenylpiracetam',
+  'carphedon': 'phenylpiracetam',
+  'fonturacetam': 'phenylpiracetam',
+  // Aniracetam brands
+  'draganon': 'aniracetam',
+  'sarpul': 'aniracetam',
+  'ampamet': 'aniracetam',
+  // Vinpocetine brands
+  'cavinton': 'vinpocetine',
+  'intelectol': 'vinpocetine',
+  // Other common mappings
+  'nuvigil': 'armodafinil',
+  'waklert': 'armodafinil',
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// MyChem.info API (DrugCentral wrapper) - International drugs & nootropics
+// ═══════════════════════════════════════════════════════════════════
+async function fetchFromMyChem(drugName: string): Promise<MedicineInfo | null> {
+  try {
+    // First check if this is a brand name that needs mapping
+    const normalizedName = drugName.toLowerCase().trim();
+    const genericName = brandNameMappings[normalizedName] || drugName;
+    
+    const encodedName = encodeURIComponent(genericName);
+    const url = `https://mychem.info/v1/query?q=${encodedName}&fields=drugcentral,drugbank,chembl,pubchem`;
+    
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'MediVault/1.0 (HealthBeauty Hub Medicine Encyclopedia)'
+      }
+    });
+    
+    if (!response.ok) {
+      return null;
+    }
+    
+    const data = await response.json();
+    
+    if (!data.hits || data.hits.length === 0) {
+      return null;
+    }
+    
+    const hit = data.hits[0];
+    const dc = hit.drugcentral || {};
+    const drugbank = hit.drugbank || {};
+    const chembl = hit.chembl || {};
+    const pubchem = hit.pubchem || {};
+    
+    // Check if we have meaningful data
+    if (!dc.name && !drugbank.name && !chembl.pref_name) {
+      return null;
+    }
+    
+    // Build synonyms list
+    const synonyms: string[] = [];
+    if (dc.synonyms) synonyms.push(...(Array.isArray(dc.synonyms) ? dc.synonyms : [dc.synonyms]));
+    if (drugbank.synonyms) synonyms.push(...(Array.isArray(drugbank.synonyms) ? drugbank.synonyms : [drugbank.synonyms]));
+    const uniqueSynonyms = [...new Set(synonyms)].slice(0, 15);
+    
+    // Determine approval status
+    const approvalCountries = dc.approval_country || [];
+    const fdaApproved = approvalCountries.some((c: string) => c?.includes('FDA') || c?.includes('US'));
+    const emaApproved = approvalCountries.some((c: string) => c?.includes('EMA') || c?.includes('Europe'));
+    const russiaApproved = approvalCountries.some((c: string) => c?.includes('Russia'));
+    
+    // Get mechanism of action
+    const mechanism = dc.mechanism_of_action || drugbank.mechanism_of_action || '';
+    
+    // Get indications
+    const indications = dc.indication || [];
+    const indicationText = Array.isArray(indications) 
+      ? indications.map((ind: any) => ind.indication_class || ind.indication || ind).filter(Boolean).join('. ')
+      : (indications || '');
+    
+    // Get pharmacology class
+    const pharmaClass = dc.pharmacology_class || drugbank.pharmacology_class || [];
+    const pharmaClassArray = Array.isArray(pharmaClass) ? pharmaClass : [pharmaClass].filter(Boolean);
+    
+    // Build drug interactions text
+    const ddiList = dc.ddi || [];
+    const interactionsText = Array.isArray(ddiList) && ddiList.length > 0
+      ? ddiList.slice(0, 10).map((ddi: any) => 
+          `• ${ddi.drug_name || 'Unknown'}: ${ddi.description || ddi.interaction_description || 'Interaction reported'}`
+        ).join('\n')
+      : 'Drug interaction data available via DrugCentral. Consult a healthcare professional.';
+    
+    // Get adverse events summary
+    const faers = dc.faers_adverse_events || {};
+    const adverseText = faers.total_count 
+      ? `Based on FDA FAERS data: ${faers.total_count} adverse event reports, including ${faers.serious_count || 0} serious reports.`
+      : 'Adverse event data available. Consult prescribing information.';
+    
+    // Determine market status
+    let marketStatus: 'prescription' | 'otc' | 'discontinued' | 'recalled' | 'research' = 'research';
+    if (fdaApproved) marketStatus = 'prescription';
+    else if (emaApproved || russiaApproved) marketStatus = 'prescription';
+    
+    const mychemMedicine: MedicineInfo = {
+      id: `mychem-${hit._id || genericName}`,
+      slug: genericName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      
+      brandName: uniqueSynonyms[0] || '',
+      genericName: dc.name || drugbank.name || chembl.pref_name || genericName,
+      alternativeNames: uniqueSynonyms,
+      
+      drugClass: pharmaClassArray.length > 0 ? pharmaClassArray : ['Drug (DrugCentral)'],
+      pharmacologicClass: pharmaClassArray,
+      
+      activeIngredients: [{
+        name: dc.name || drugbank.name || genericName,
+        strength: '',
+        unit: ''
+      }],
+      inactiveIngredients: [],
+      
+      dosageForms: drugbank.dosages ? [drugbank.dosages] : [],
+      routesOfAdministration: drugbank.route ? [drugbank.route] : ['Oral'],
+      
+      manufacturer: {
+        name: 'Various manufacturers',
+      },
+      ndcCodes: [],
+      
+      label: {
+        indicationsAndUsage: indicationText || `${genericName} is a pharmaceutical compound. ${mechanism ? `Mechanism: ${mechanism}` : ''}`,
+        dosageAndAdministration: drugbank.dosages || 'Dosage varies by indication. Consult prescribing information or healthcare provider.',
+        warnings: `${!fdaApproved ? 'Note: This drug may not be FDA-approved in the United States. ' : ''}Always consult a qualified healthcare provider before use.`,
+        adverseReactions: adverseText,
+        drugInteractions: interactionsText,
+        contraindications: drugbank.contraindications || 'Consult prescribing information for contraindications.',
+        overdosage: '',
+        clinicalPharmacology: mechanism || 'Pharmacology data available via DrugCentral database.',
+      },
+      
+      pillImages: [],
+      
+      fdaApplicationNumber: undefined,
+      approvalDate: undefined,
+      marketStatus,
+      
+      rxcui: undefined,
+      rxnormSynonyms: uniqueSynonyms,
+      
+      metaTitle: `${dc.name || genericName} - Drug Information | MediVault`,
+      metaDescription: `${dc.name || genericName} drug information including mechanism, indications, side effects. ${fdaApproved ? 'FDA approved.' : emaApproved ? 'EMA approved.' : russiaApproved ? 'Approved in Russia.' : ''}`,
+      keywords: [genericName.toLowerCase(), 'drug', 'medicine', ...(pharmaClassArray.map((c: string) => c.toLowerCase()))],
+      
+      sources: {
+        openFDA: false,
+        rxNorm: false,
+        dailyMed: false,
+        pubChem: false,
+        drugCentral: true,
+      },
+      
+      lastUpdated: new Date().toISOString(),
+      fetchedAt: new Date().toISOString(),
+    };
+    
+    return mychemMedicine;
+  } catch (error) {
+    console.error('MyChem.info fetch error:', error);
+    return null;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Wikipedia API - Rich descriptions and pharmacology details
+// ═══════════════════════════════════════════════════════════════════
+async function fetchWikipediaData(drugName: string): Promise<{
+  extract: string;
+  infobox: Record<string, string>;
+} | null> {
+  try {
+    // First check brand name mapping
+    const normalizedName = drugName.toLowerCase().trim();
+    const genericName = brandNameMappings[normalizedName] || drugName;
+    
+    const encodedName = encodeURIComponent(genericName);
+    
+    // Fetch article extract (introduction)
+    const extractUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${encodedName}&prop=extracts&explaintext=1&exintro=1&exchars=1500&redirects=1&origin=*`;
+    
+    const extractResponse = await fetch(extractUrl, {
+      headers: {
+        'User-Agent': 'MediVault/1.0 (HealthBeauty Hub Medicine Encyclopedia)'
+      }
+    });
+    
+    if (!extractResponse.ok) {
+      return null;
+    }
+    
+    const extractData = await extractResponse.json();
+    const pages = extractData.query?.pages || {};
+    const pageId = Object.keys(pages)[0];
+    
+    if (!pageId || pages[pageId].missing) {
+      return null;
+    }
+    
+    const extract = pages[pageId].extract || '';
+    
+    // Fetch wikitext to parse infobox
+    const wikitextUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${encodedName}&prop=revisions&rvprop=content&rvsection=0&redirects=1&origin=*`;
+    
+    const wikitextResponse = await fetch(wikitextUrl, {
+      headers: {
+        'User-Agent': 'MediVault/1.0 (HealthBeauty Hub Medicine Encyclopedia)'
+      }
+    });
+    
+    let infobox: Record<string, string> = {};
+    
+    if (wikitextResponse.ok) {
+      const wikitextData = await wikitextResponse.json();
+      const wikiPages = wikitextData.query?.pages || {};
+      const wikiPageId = Object.keys(wikiPages)[0];
+      const wikitext = wikiPages[wikiPageId]?.revisions?.[0]?.['*'] || '';
+      
+      // Parse infobox parameters
+      const paramRegex = /\|\s*(\w+)\s*=\s*([^\n|]+?)(?=\n\s*\||\n\}|\}\})/g;
+      let match;
+      
+      while ((match = paramRegex.exec(wikitext)) !== null) {
+        const key = match[1].trim().toLowerCase();
+        let value = match[2].trim()
+          .replace(/\[\[([^\]|]+)\|?([^\]]*)\]\]/g, '$2$1') // Handle wiki links
+          .replace(/\{\{[^}]+\}\}/g, '') // Remove templates
+          .replace(/<[^>]+>/g, '') // Remove HTML tags
+          .trim();
+        
+        if (value) {
+          infobox[key] = value;
+        }
+      }
+    }
+    
+    return { extract, infobox };
+  } catch (error) {
+    console.error('Wikipedia fetch error:', error);
+    return null;
+  }
+}
+
+// Helper to enrich medicine data with Wikipedia content
+function enrichWithWikipedia(medicine: MedicineInfo, wikiData: { extract: string; infobox: Record<string, string> }): MedicineInfo {
+  const { extract, infobox } = wikiData;
+  
+  // Enrich indications with Wikipedia extract if sparse
+  if (medicine.label.indicationsAndUsage.length < 100 && extract.length > 50) {
+    medicine.label.indicationsAndUsage = extract;
+  }
+  
+  // Add pharmacokinetics from infobox
+  const pkDetails: string[] = [];
+  if (infobox.bioavailability) pkDetails.push(`Bioavailability: ${infobox.bioavailability}`);
+  if (infobox.protein_bound) pkDetails.push(`Protein binding: ${infobox.protein_bound}`);
+  if (infobox.metabolism) pkDetails.push(`Metabolism: ${infobox.metabolism}`);
+  if (infobox.elimination_half_life) pkDetails.push(`Half-life: ${infobox.elimination_half_life}`);
+  if (infobox.excretion) pkDetails.push(`Excretion: ${infobox.excretion}`);
+  
+  if (pkDetails.length > 0) {
+    medicine.label.clinicalPharmacology = `${medicine.label.clinicalPharmacology}\n\nPharmacokinetics:\n• ${pkDetails.join('\n• ')}`;
+  }
+  
+  // Add route of administration if available
+  if (infobox.routes_of_administration && medicine.routesOfAdministration.length === 0) {
+    medicine.routesOfAdministration = [infobox.routes_of_administration];
+  }
+  
+  // Update meta description with Wikipedia extract
+  if (extract.length > 50) {
+    medicine.metaDescription = extract.substring(0, 155) + '...';
+  }
+  
+  return medicine;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Wikipedia-only fallback (when MyChem also fails)
+// ═══════════════════════════════════════════════════════════════════
+async function fetchFromWikipediaOnly(drugName: string): Promise<MedicineInfo | null> {
+  const wikiData = await fetchWikipediaData(drugName);
+  
+  if (!wikiData || !wikiData.extract || wikiData.extract.length < 50) {
+    return null;
+  }
+  
+  const { extract, infobox } = wikiData;
+  const normalizedName = drugName.toLowerCase().trim();
+  const genericName = brandNameMappings[normalizedName] || drugName;
+  
+  // Build synonyms from infobox trade names
+  const synonyms: string[] = [];
+  if (infobox.tradename) synonyms.push(...infobox.tradename.split(',').map(s => s.trim()));
+  if (infobox.trade_name) synonyms.push(...infobox.trade_name.split(',').map(s => s.trim()));
+  
+  const wikiMedicine: MedicineInfo = {
+    id: `wiki-${genericName.replace(/\s+/g, '-')}`,
+    slug: genericName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    
+    brandName: synonyms[0] || '',
+    genericName: infobox.drug_name || infobox.inn || genericName,
+    alternativeNames: synonyms.slice(0, 10),
+    
+    drugClass: infobox.type ? [infobox.type] : ['Drug (Wikipedia)'],
+    pharmacologicClass: [],
+    
+    activeIngredients: [{
+      name: infobox.iupac_name || genericName,
+      strength: '',
+      unit: ''
+    }],
+    inactiveIngredients: [],
+    
+    dosageForms: [],
+    routesOfAdministration: infobox.routes_of_administration ? [infobox.routes_of_administration] : [],
+    
+    manufacturer: {
+      name: 'Various manufacturers',
+    },
+    ndcCodes: [],
+    
+    label: {
+      indicationsAndUsage: extract,
+      dosageAndAdministration: 'Consult prescribing information or healthcare provider for dosage.',
+      warnings: 'Information from Wikipedia. Always verify with official sources and consult a healthcare professional.',
+      adverseReactions: 'See Wikipedia article for reported adverse reactions.',
+      drugInteractions: 'Consult prescribing information for drug interactions.',
+      contraindications: 'Consult prescribing information for contraindications.',
+      overdosage: '',
+      clinicalPharmacology: [
+        infobox.bioavailability ? `Bioavailability: ${infobox.bioavailability}` : '',
+        infobox.protein_bound ? `Protein binding: ${infobox.protein_bound}` : '',
+        infobox.metabolism ? `Metabolism: ${infobox.metabolism}` : '',
+        infobox.elimination_half_life ? `Half-life: ${infobox.elimination_half_life}` : '',
+        infobox.excretion ? `Excretion: ${infobox.excretion}` : '',
+      ].filter(Boolean).join('\n') || 'See Wikipedia article for pharmacology details.',
+    },
+    
+    pillImages: [],
+    
+    fdaApplicationNumber: undefined,
+    approvalDate: undefined,
+    marketStatus: infobox.legal_us?.toLowerCase().includes('rx') ? 'prescription' : 'research',
+    
+    rxcui: undefined,
+    rxnormSynonyms: synonyms,
+    
+    metaTitle: `${infobox.drug_name || genericName} - Drug Information | MediVault`,
+    metaDescription: extract.substring(0, 155) + '...',
+    keywords: [genericName.toLowerCase(), 'drug', 'medicine', 'wikipedia'],
+    
+    sources: {
+      openFDA: false,
+      rxNorm: false,
+      dailyMed: false,
+      pubChem: false,
+      wikipedia: true,
+    },
+    
+    lastUpdated: new Date().toISOString(),
+    fetchedAt: new Date().toISOString(),
+  };
+  
+  return wikiMedicine;
+}
+
+// Helper function to fetch compound data from PubChem (NIH database)
+// This is used as a fallback for drugs not in OpenFDA (nootropics, international drugs, etc.)
+async function fetchFromPubChem(drugName: string): Promise<MedicineInfo | null> {
+  try {
+    const encodedName = encodeURIComponent(drugName);
+    
+    // Fetch description, properties, and synonyms in parallel
+    const [descResponse, propsResponse, synResponse] = await Promise.all([
+      fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodedName}/description/JSON`),
+      fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodedName}/property/MolecularFormula,MolecularWeight,IUPACName,XLogP,HBondDonorCount,HBondAcceptorCount/JSON`),
+      fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodedName}/synonyms/JSON`),
+    ]);
+
+    // Check if compound exists in PubChem
+    if (!propsResponse.ok) {
+      return null;
+    }
+
+    const propsData = await propsResponse.json();
+    const properties = propsData?.PropertyTable?.Properties?.[0];
+    
+    if (!properties) {
+      return null;
+    }
+
+    // Get description if available
+    let description = '';
+    if (descResponse.ok) {
+      const descData = await descResponse.json();
+      const descriptions = descData?.InformationList?.Information || [];
+      // Find the first useful description
+      for (const info of descriptions) {
+        if (info.Description && info.Description.length > 50) {
+          description = info.Description;
+          break;
+        }
+      }
+    }
+
+    // Get synonyms if available
+    let synonyms: string[] = [];
+    if (synResponse.ok) {
+      const synData = await synResponse.json();
+      synonyms = synData?.InformationList?.Information?.[0]?.Synonym?.slice(0, 10) || [];
+    }
+
+    // Build MedicineInfo object from PubChem data
+    const pubchemMedicine: MedicineInfo = {
+      id: `pubchem-${properties.CID}`,
+      slug: drugName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      
+      brandName: '',
+      genericName: drugName,
+      alternativeNames: synonyms,
+      
+      drugClass: ['Compound (PubChem)'],
+      pharmacologicClass: [],
+      
+      activeIngredients: [{
+        name: properties.IUPACName || drugName,
+        strength: '',
+        unit: ''
+      }],
+      inactiveIngredients: [],
+      
+      dosageForms: [],
+      routesOfAdministration: [],
+      
+      manufacturer: {
+        name: 'Various (Research Chemical)',
+      },
+      ndcCodes: [],
+      
+      label: {
+        indicationsAndUsage: description || `${drugName} is a chemical compound found in the PubChem database. Molecular Formula: ${properties.MolecularFormula}. Molecular Weight: ${properties.MolecularWeight} g/mol.`,
+        dosageAndAdministration: 'Dosage information not available from PubChem. This compound may not be approved for human use. Consult a healthcare professional.',
+        warnings: 'WARNING: This compound information is from PubChem (NIH chemical database) and may not be approved by the FDA for human consumption. Use at your own risk. Always consult a qualified healthcare provider.',
+        adverseReactions: 'Adverse reaction data not available from PubChem database.',
+        drugInteractions: 'Drug interaction data not available from PubChem database.',
+        contraindications: 'Contraindication data not available from PubChem database.',
+        overdosage: '',
+        clinicalPharmacology: `Chemical Properties:\n• Molecular Formula: ${properties.MolecularFormula}\n• Molecular Weight: ${properties.MolecularWeight} g/mol\n• IUPAC Name: ${properties.IUPACName || 'N/A'}\n• XLogP (Lipophilicity): ${properties.XLogP || 'N/A'}\n• H-Bond Donors: ${properties.HBondDonorCount || 'N/A'}\n• H-Bond Acceptors: ${properties.HBondAcceptorCount || 'N/A'}`,
+      },
+      
+      pillImages: [],
+      
+      fdaApplicationNumber: undefined,
+      approvalDate: undefined,
+      marketStatus: 'research', // Not FDA approved
+      
+      rxcui: undefined,
+      rxnormSynonyms: synonyms,
+      
+      metaTitle: `${drugName} - Compound Information | MediVault`,
+      metaDescription: `${drugName} compound information from PubChem. Molecular formula: ${properties.MolecularFormula}. Learn about this chemical compound.`,
+      keywords: [drugName.toLowerCase(), 'pubchem', 'compound', 'nootropic', properties.MolecularFormula],
+      
+      sources: {
+        openFDA: false,
+        rxNorm: false,
+        dailyMed: false,
+        pubChem: true,
+      },
+      
+      lastUpdated: new Date().toISOString(),
+      fetchedAt: new Date().toISOString(),
+    };
+
+    return pubchemMedicine;
+  } catch (error) {
+    console.error('PubChem fetch error:', error);
+    return null;
+  }
+}
 
 export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params }) => {
   const slug = params?.slug as string;
@@ -569,26 +1092,92 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
     // Convert slug to drug name (replace hyphens with spaces)
     const drugName = slug.replace(/-/g, ' ');
     
-    const response = await fetch(`${API_BASE_URL}/api/medicine/${encodeURIComponent(drugName)}`);
-    const result = await response.json();
+    // Check if this is a known brand name and get the generic name
+    const normalizedName = drugName.toLowerCase().trim();
+    const resolvedName = brandNameMappings[normalizedName] || drugName;
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // STEP 1: Try OpenFDA (FDA-approved drugs) - most authoritative source
+    // ═══════════════════════════════════════════════════════════════════
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/medicine/${encodeURIComponent(resolvedName)}`);
+      const result = await response.json();
 
-    if (!result.success || !result.data) {
+      if (result.success && result.data) {
+        // Enrich with Wikipedia data for better descriptions
+        const wikiData = await fetchWikipediaData(resolvedName);
+        let medicine = result.data;
+        
+        if (wikiData) {
+          medicine = enrichWithWikipedia(medicine, wikiData);
+          medicine.sources.wikipedia = true;
+        }
+        
+        return {
+          props: { medicine },
+          revalidate: 86400, // Revalidate daily
+        };
+      }
+    } catch (fdaError) {
+      console.log('OpenFDA lookup failed, trying other sources:', fdaError);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // STEP 2: Try MyChem.info/DrugCentral (international drugs & nootropics)
+    // ═══════════════════════════════════════════════════════════════════
+    const mychemMedicine = await fetchFromMyChem(resolvedName);
+    
+    if (mychemMedicine) {
+      // Enrich with Wikipedia data
+      const wikiData = await fetchWikipediaData(resolvedName);
+      let medicine = mychemMedicine;
+      
+      if (wikiData) {
+        medicine = enrichWithWikipedia(medicine, wikiData);
+        medicine.sources.wikipedia = true;
+      }
+      
       return {
-        props: { medicine: null, error: 'Medicine not found in FDA database' },
-        revalidate: 60,
+        props: { medicine },
+        revalidate: 86400, // Revalidate daily
       };
     }
 
+    // ═══════════════════════════════════════════════════════════════════
+    // STEP 3: Try Wikipedia only (for drugs with Wikipedia articles)
+    // ═══════════════════════════════════════════════════════════════════
+    const wikiMedicine = await fetchFromWikipediaOnly(resolvedName);
+    
+    if (wikiMedicine) {
+      return {
+        props: { medicine: wikiMedicine },
+        revalidate: 86400, // Revalidate daily
+      };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // STEP 4: Fallback to PubChem (chemical properties only)
+    // ═══════════════════════════════════════════════════════════════════
+    const pubchemMedicine = await fetchFromPubChem(resolvedName);
+    
+    if (pubchemMedicine) {
+      return {
+        props: { medicine: pubchemMedicine },
+        revalidate: 86400, // Revalidate daily
+      };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // No data found in any source
+    // ═══════════════════════════════════════════════════════════════════
     return {
-      props: {
-        medicine: result.data,
-      },
-      revalidate: 86400, // Revalidate daily (medicine data changes less frequently)
+      props: { medicine: null, error: `"${drugName}" not found in OpenFDA, DrugCentral, Wikipedia, or PubChem databases. Try searching with a different name or spelling.` },
+      revalidate: 60,
     };
   } catch (error) {
     console.error('Failed to fetch medicine:', error);
     return {
-      props: { medicine: null, error: 'Failed to load medicine data' },
+      props: { medicine: null, error: 'Failed to load medicine data. Please try again later.' },
       revalidate: 60,
     };
   }

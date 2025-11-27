@@ -39,7 +39,7 @@ export default function MedicineSearchPage() {
     }
   }, [q]);
 
-  // Debounced search function
+  // Debounced search function - queries OpenFDA directly (free public API)
   const performSearch = useCallback(async (query: string) => {
     if (!query.trim() || query.length < 2) {
       setResults([]);
@@ -50,51 +50,148 @@ export default function MedicineSearchPage() {
     setError(null);
     setSearched(true);
 
+    const createSlug = (name: string) => 
+      name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
     try {
-      // Search RxNorm for drug names
-      const rxNormResponse = await fetch(
-        `https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name=${encodeURIComponent(query)}`
-      );
+      // Search OpenFDA directly - this is the actual FDA drug database (free, no API key required)
+      // This will find all drugs including nootropics, supplements registered as drugs, etc.
+      const searchTerm = encodeURIComponent(query);
+      const openFDAUrl = `https://api.fda.gov/drug/label.json?search=(openfda.brand_name:${searchTerm}+openfda.generic_name:${searchTerm}+openfda.substance_name:${searchTerm})&limit=15`;
       
-      if (rxNormResponse.ok) {
-        const rxNormData = await rxNormResponse.json();
-        const suggestions = rxNormData?.suggestionGroup?.suggestionList?.suggestion || [];
+      const openFDAResponse = await fetch(openFDAUrl);
+      
+      let fdaResults: SearchResult[] = [];
+      
+      if (openFDAResponse.ok) {
+        const fdaData = await openFDAResponse.json();
+        const results = fdaData?.results || [];
         
-        // Also search for exact and approximate matches
-        const approxResponse = await fetch(
-          `https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${encodeURIComponent(query)}&maxEntries=10`
+        // Extract unique drug names from FDA results
+        const seenNames = new Set<string>();
+        
+        for (const result of results) {
+          const openfda = result.openfda || {};
+          
+          // Get brand names
+          const brandNames = openfda.brand_name || [];
+          for (const name of brandNames) {
+            const normalizedName = name.trim();
+            if (normalizedName && !seenNames.has(normalizedName.toLowerCase())) {
+              seenNames.add(normalizedName.toLowerCase());
+              fdaResults.push({
+                name: normalizedName,
+                slug: createSlug(normalizedName),
+                type: 'brand',
+              });
+            }
+          }
+          
+          // Get generic names
+          const genericNames = openfda.generic_name || [];
+          for (const name of genericNames) {
+            const normalizedName = name.trim();
+            if (normalizedName && !seenNames.has(normalizedName.toLowerCase())) {
+              seenNames.add(normalizedName.toLowerCase());
+              fdaResults.push({
+                name: normalizedName,
+                slug: createSlug(normalizedName),
+                type: 'generic',
+              });
+            }
+          }
+        }
+      }
+
+      // Also try RxNorm for additional suggestions (especially for common drug names)
+      try {
+        const rxNormResponse = await fetch(
+          `https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${encodeURIComponent(query)}&maxEntries=5`
         );
         
-        let approxResults: string[] = [];
-        if (approxResponse.ok) {
-          const approxData = await approxResponse.json();
-          approxResults = approxData?.approximateGroup?.candidate?.map((c: any) => c.name) || [];
+        if (rxNormResponse.ok) {
+          const rxNormData = await rxNormResponse.json();
+          const candidates = rxNormData?.approximateGroup?.candidate || [];
+          
+          for (const candidate of candidates) {
+            const name = candidate.name;
+            if (name && !fdaResults.some(r => r.name.toLowerCase() === name.toLowerCase())) {
+              fdaResults.push({
+                name,
+                slug: createSlug(name),
+                rxcui: candidate.rxcui,
+                type: 'generic',
+              });
+            }
+          }
         }
-
-        // Combine and deduplicate results
-        const allNames = [...new Set([...suggestions, ...approxResults])].slice(0, 20);
-        
-        const formattedResults: SearchResult[] = allNames.map((name: string) => ({
-          name,
-          slug: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-          type: 'generic' as const,
-        }));
-
-        setResults(formattedResults);
-      } else {
-        // Fallback: just create a direct search result
-        setResults([{
-          name: query,
-          slug: query.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-          type: 'generic',
-        }]);
+      } catch (rxErr) {
+        // RxNorm is supplementary, don't fail if it errors
+        console.log('RxNorm supplementary search failed:', rxErr);
       }
+
+      // Search PubChem for non-FDA compounds (nootropics, international drugs, research chemicals)
+      // PubChem is a free NIH database with millions of compounds
+      try {
+        const pubchemUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(query)}/synonyms/JSON`;
+        const pubchemResponse = await fetch(pubchemUrl);
+        
+        if (pubchemResponse.ok) {
+          const pubchemData = await pubchemResponse.json();
+          const synonyms = pubchemData?.InformationList?.Information?.[0]?.Synonym || [];
+          
+          // Add the primary compound name if found
+          if (synonyms.length > 0) {
+            // Get the first synonym as the primary name (usually the most common)
+            const primaryName = synonyms[0];
+            if (!fdaResults.some(r => r.name.toLowerCase() === primaryName.toLowerCase())) {
+              fdaResults.push({
+                name: primaryName,
+                slug: createSlug(primaryName),
+                type: 'generic',
+              });
+            }
+            
+            // Add a few more relevant synonyms (limit to avoid clutter)
+            const additionalSynonyms = synonyms.slice(1, 4);
+            for (const synonym of additionalSynonyms) {
+              // Only add if it's a readable name (not a chemical formula or ID)
+              if (synonym.length < 50 && !synonym.match(/^\d+$/) && !synonym.match(/^[A-Z]{2,}-/)) {
+                if (!fdaResults.some(r => r.name.toLowerCase() === synonym.toLowerCase())) {
+                  fdaResults.push({
+                    name: synonym,
+                    slug: createSlug(synonym),
+                    type: 'generic',
+                  });
+                }
+              }
+            }
+          }
+        }
+      } catch (pubchemErr) {
+        // PubChem is supplementary, don't fail if it errors
+        console.log('PubChem supplementary search failed:', pubchemErr);
+      }
+
+      // Always add the user's exact query as an option (in case they know the exact drug name)
+      // This allows users to navigate directly to drugs that might not appear in search results
+      const userQuery = query.trim();
+      if (!fdaResults.some(r => r.name.toLowerCase() === userQuery.toLowerCase())) {
+        fdaResults.unshift({
+          name: userQuery,
+          slug: createSlug(userQuery),
+          type: 'generic',
+        });
+      }
+
+      // Limit results
+      setResults(fdaResults.slice(0, 20));
+      
     } catch (err) {
       console.error('Search error:', err);
-      setError('Search temporarily unavailable. Please try again.');
-      // Still allow direct navigation
+      // On error, still allow direct navigation with user's query
       setResults([{
-        name: query,
+        name: query.trim(),
         slug: query.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
         type: 'generic',
       }]);
@@ -185,7 +282,7 @@ export default function MedicineSearchPage() {
             {loading && (
               <div className="flex items-center justify-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                <span className="ml-3 text-gray-600 dark:text-gray-400">Searching RxNorm database...</span>
+                <span className="ml-3 text-gray-600 dark:text-gray-400">Searching FDA database...</span>
               </div>
             )}
 
@@ -286,8 +383,10 @@ export default function MedicineSearchPage() {
                 <div>
                   <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-1">About MediVault Search</h4>
                   <p className="text-sm text-blue-700 dark:text-blue-400">
-                    MediVault uses the RxNorm database from the National Library of Medicine and OpenFDA for comprehensive drug information. 
-                    Results are cached for fast access. If a medicine page doesn&apos;t exist yet, it will be generated automatically from FDA data.
+                    MediVault searches multiple databases: <strong>OpenFDA</strong> (FDA-approved drugs), 
+                    <strong>RxNorm</strong> (US prescription drugs), and <strong>PubChem</strong> (NIH database with 100M+ compounds including nootropics, 
+                    international drugs, and research chemicals). This comprehensive search covers both FDA-approved medications 
+                    and substances like Phenylpiracetam, Piracetam, and other nootropics.
                   </p>
                 </div>
               </div>

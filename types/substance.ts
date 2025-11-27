@@ -207,7 +207,7 @@ export interface MedicineInfo {
   // Regulatory
   fdaApplicationNumber?: string;
   approvalDate?: string;
-  marketStatus: 'prescription' | 'otc' | 'discontinued' | 'recalled';
+  marketStatus: 'prescription' | 'otc' | 'discontinued' | 'recalled' | 'research';
   
   // RxNorm Data
   rxcui?: string; // RxNorm Concept Unique Identifier
@@ -223,6 +223,9 @@ export interface MedicineInfo {
     openFDA?: boolean;
     rxNorm?: boolean;
     dailyMed?: boolean;
+    pubChem?: boolean; // NIH chemical compound database
+    drugCentral?: boolean; // DrugCentral via MyChem.info
+    wikipedia?: boolean; // Wikipedia drug articles
   };
   
   // Timestamps

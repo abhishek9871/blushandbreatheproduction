@@ -10,6 +10,26 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import path from 'path';
 
+// Optimized format (stored in JSON)
+interface IndianMedicineOpt {
+  i: string;      // id
+  n: string;      // name
+  b: string;      // baseName
+  p: number;      // price
+  m: string;      // manufacturer
+  t: string;      // type
+  k: string;      // packSize
+  c1: string;     // composition1
+  c2?: string;    // composition2
+  d?: boolean;    // isDiscontinued
+  u?: string[];   // uses
+  se?: string[];  // sideEffects
+  su?: string[];  // substitutes
+  tc?: string;    // therapeuticClass
+  hf?: boolean;   // habitForming
+}
+
+// Expanded format for API response
 interface IndianMedicine {
   id: string;
   name: string;
@@ -21,6 +41,27 @@ interface IndianMedicine {
   composition1: string;
   composition2: string;
   isDiscontinued: boolean;
+  uses?: string[];
+  sideEffects?: string[];
+  substitutes?: string[];
+}
+
+function expandMedicine(opt: IndianMedicineOpt): IndianMedicine {
+  return {
+    id: opt.i,
+    name: opt.n,
+    baseName: opt.b,
+    price: opt.p,
+    manufacturer: opt.m,
+    type: opt.t,
+    packSize: opt.k,
+    composition1: opt.c1,
+    composition2: opt.c2 || '',
+    isDiscontinued: opt.d || false,
+    uses: opt.u,
+    sideEffects: opt.se,
+    substitutes: opt.su,
+  };
 }
 
 // Cache the medicines data in memory after first load
@@ -33,7 +74,9 @@ function loadMedicines(): IndianMedicine[] {
   try {
     const filePath = path.join(process.cwd(), 'data', 'indian-medicines.json');
     const data = fs.readFileSync(filePath, 'utf-8');
-    medicinesCache = JSON.parse(data);
+    const optimizedData: IndianMedicineOpt[] = JSON.parse(data);
+    // Expand optimized format to full format
+    medicinesCache = optimizedData.map(expandMedicine);
     return medicinesCache!;
   } catch (error) {
     console.error('Failed to load medicines:', error);

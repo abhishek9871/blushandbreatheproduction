@@ -18,7 +18,51 @@ interface SearchResult {
   name: string;
   slug: string;
   rxcui?: string;
-  type: 'brand' | 'generic' | 'ingredient';
+  type: 'brand' | 'generic' | 'ingredient' | 'indian-brand';
+  source?: 'fda' | 'rxnorm' | 'pubchem' | 'indian';
+  manufacturer?: string;
+  price?: number;
+  composition?: string;
+}
+
+// Search Indian medicines database via API
+async function searchIndianMedicines(query: string): Promise<SearchResult[]> {
+  try {
+    const response = await fetch(`/api/indian-medicine/${encodeURIComponent(query)}?list=true`);
+    if (!response.ok) return [];
+    
+    const data = await response.json();
+    if (!data.success || !data.data) return [];
+    
+    return data.data.map((med: any) => ({
+      name: med.n || med.name,
+      slug: (med.b || med.baseName || med.n || med.name).toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      type: 'indian-brand' as const,
+      source: 'indian' as const,
+      manufacturer: med.m || med.manufacturer,
+      price: med.p || med.price,
+      composition: med.c1 || med.composition1,
+    }));
+  } catch (error) {
+    console.error('Indian medicine search error:', error);
+    return [];
+  }
+}
+
+// Check if a term is likely a generic/compound name vs brand name
+function isLikelyGenericName(term: string): boolean {
+  const genericIndicators = [
+    // Common generic suffixes
+    /fil$/, /pam$/, /lol$/, /pril$/, /sartan$/, /statin$/, /azole$/, /mycin$/,
+    /cillin$/, /cycline$/, /dronate$/, /prazole$/, /tidine$/, /triptan$/,
+    // Common compound patterns
+    /^para/, /^aceta/, /^ibu/, /^aspir/, /^metfor/, /^omepra/, /^amox/,
+    // Nootropics and research compounds
+    /racetam$/, /afinil$/, /etam$/, /piracetam/, /modafinil/, /armodafinil/,
+  ];
+  
+  const lowerTerm = term.toLowerCase();
+  return genericIndicators.some(pattern => pattern.test(lowerTerm));
 }
 
 export default function MedicineSearchPage() {
@@ -103,6 +147,9 @@ export default function MedicineSearchPage() {
         }
       }
 
+      // Search Indian medicines database (254K medicines)
+      const indianResults = await searchIndianMedicines(query);
+      
       // Also try RxNorm for additional suggestions (especially for common drug names)
       try {
         const rxNormResponse = await fetch(
@@ -121,6 +168,7 @@ export default function MedicineSearchPage() {
                 slug: createSlug(name),
                 rxcui: candidate.rxcui,
                 type: 'generic',
+                source: 'rxnorm',
               });
             }
           }
@@ -173,19 +221,52 @@ export default function MedicineSearchPage() {
         console.log('PubChem supplementary search failed:', pubchemErr);
       }
 
-      // Always add the user's exact query as an option (in case they know the exact drug name)
-      // This allows users to navigate directly to drugs that might not appear in search results
+      // Combine all results intelligently
       const userQuery = query.trim();
-      if (!fdaResults.some(r => r.name.toLowerCase() === userQuery.toLowerCase())) {
-        fdaResults.unshift({
+      const isGenericSearch = isLikelyGenericName(userQuery);
+      
+      let combinedResults: SearchResult[] = [];
+      
+      if (isGenericSearch) {
+        // For generic/compound searches: Show generic info first, then Indian brands
+        // This helps users understand the compound before seeing brand options
+        
+        // Add FDA/generic results first
+        combinedResults.push(...fdaResults);
+        
+        // Add Indian brand options (medicines containing this compound)
+        for (const indian of indianResults) {
+          if (!combinedResults.some(r => r.name.toLowerCase() === indian.name.toLowerCase())) {
+            combinedResults.push(indian);
+          }
+        }
+      } else {
+        // For brand name searches: Show Indian brands first (likely what user wants)
+        // Then show generic/FDA options for more info
+        
+        // Add Indian brands first
+        combinedResults.push(...indianResults);
+        
+        // Add FDA results
+        for (const fda of fdaResults) {
+          if (!combinedResults.some(r => r.name.toLowerCase() === fda.name.toLowerCase())) {
+            combinedResults.push(fda);
+          }
+        }
+      }
+      
+      // Always add user's exact query as fallback option
+      if (!combinedResults.some(r => r.name.toLowerCase() === userQuery.toLowerCase())) {
+        combinedResults.push({
           name: userQuery,
           slug: createSlug(userQuery),
           type: 'generic',
+          source: 'fda',
         });
       }
 
       // Limit results
-      setResults(fdaResults.slice(0, 20));
+      setResults(combinedResults.slice(0, 25));
       
     } catch (err) {
       console.error('Search error:', err);
@@ -246,7 +327,7 @@ export default function MedicineSearchPage() {
               Search Medicines
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Search any FDA-approved drug by name, brand, or active ingredient.
+              Search 254K+ Indian medicines and FDA-approved drugs. Find brand names, generics, prices, and alternatives.
             </p>
 
             {/* Search Form */}
@@ -259,7 +340,7 @@ export default function MedicineSearchPage() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Type a medicine name (e.g., Modafinil, Lisinopril, Metformin...)"
+                  placeholder="Search: Crocin, Modafinil, Paracetamol, Wakelert..."
                   className="w-full pl-12 pr-28 py-4 text-lg rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   autoFocus
                 />
@@ -282,7 +363,7 @@ export default function MedicineSearchPage() {
             {loading && (
               <div className="flex items-center justify-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                <span className="ml-3 text-gray-600 dark:text-gray-400">Searching FDA database...</span>
+                <span className="ml-3 text-gray-600 dark:text-gray-400">Searching Indian & FDA databases...</span>
               </div>
             )}
 
@@ -307,17 +388,49 @@ export default function MedicineSearchPage() {
                       className="block bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all group"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
-                          <span className="material-symbols-outlined text-blue-600 dark:text-blue-400 text-2xl">
-                            medication
+                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                          result.source === 'indian' 
+                            ? 'bg-orange-100 dark:bg-orange-900/30' 
+                            : 'bg-blue-100 dark:bg-blue-900/30'
+                        }`}>
+                          <span className={`material-symbols-outlined text-2xl ${
+                            result.source === 'indian'
+                              ? 'text-orange-600 dark:text-orange-400'
+                              : 'text-blue-600 dark:text-blue-400'
+                          }`}>
+                            {result.source === 'indian' ? 'flag' : 'medication'}
                           </span>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            {result.name}
-                          </h3>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Click to view full drug information
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                              {result.name}
+                            </h3>
+                            {result.source === 'indian' && (
+                              <span className="px-2 py-0.5 text-xs bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded">
+                                🇮🇳 India
+                              </span>
+                            )}
+                            {result.price && (
+                              <span className="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded">
+                                ₹{result.price}
+                              </span>
+                            )}
+                            {result.type === 'generic' && result.source !== 'indian' && (
+                              <span className="px-2 py-0.5 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
+                                Generic/FDA
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            {result.source === 'indian' ? (
+                              <>
+                                {result.manufacturer && <span>{result.manufacturer}</span>}
+                                {result.composition && <span> • {result.composition}</span>}
+                              </>
+                            ) : (
+                              'Click to view full drug information'
+                            )}
                           </p>
                         </div>
                         <span className="material-symbols-outlined text-gray-400 group-hover:text-blue-500 transition-colors">

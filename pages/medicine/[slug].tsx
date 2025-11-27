@@ -8,7 +8,7 @@
  * Example: /medicine/modafinil, /medicine/acetaminophen
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -25,14 +25,52 @@ interface MedicinePageProps {
   error?: string;
 }
 
+// FAQ data generator based on medicine info
+const generateFAQs = (medicine: MedicineInfo) => {
+  const displayName = medicine.brandName || medicine.genericName;
+  return [
+    {
+      question: `What is ${displayName} used for?`,
+      answer: medicine.label?.indicationsAndUsage 
+        ? `${displayName} is ${medicine.label.indicationsAndUsage.substring(0, 300)}...`
+        : `${displayName} is a medication in the ${medicine.drugClass?.[0] || 'pharmaceutical'} class. Please consult your healthcare provider for specific uses.`
+    },
+    {
+      question: `Is ${displayName} safe?`,
+      answer: `${displayName} is FDA-approved when used as directed. Like all medications, it may have side effects. Always follow your healthcare provider's instructions and report any adverse reactions.`
+    },
+    {
+      question: `Can I buy ${displayName} without a prescription?`,
+      answer: medicine.marketStatus === 'otc' 
+        ? `${displayName} is available over-the-counter (OTC) and does not require a prescription in the United States.`
+        : `${displayName} requires a valid prescription from a licensed healthcare provider in the United States.`
+    },
+    {
+      question: `What are the side effects of ${displayName}?`,
+      answer: medicine.label?.adverseReactions 
+        ? `Common side effects may include those listed in the Adverse Reactions section above. If you experience severe side effects, seek medical attention immediately.`
+        : `Side effects vary by individual. Consult the full prescribing information or ask your pharmacist about potential side effects.`
+    },
+    {
+      question: `Can I take ${displayName} with other medications?`,
+      answer: `Drug interactions are possible. Always inform your healthcare provider about all medications, supplements, and vitamins you are taking. Check the Drug Interactions section above for known interactions.`
+    }
+  ];
+};
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 export default function MedicinePage({ medicine, error }: MedicinePageProps) {
+  const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
+  
   // Fetch interactions client-side if RxCUI is available
   const { data: interactions, loading: interactionsLoading } = useDrugInteractions(
     medicine?.genericName || medicine?.brandName,
     undefined // Second drug - not provided for single drug lookup
   );
+
+  // Generate FAQs for this medicine (only if medicine exists)
+  const faqs = medicine ? generateFAQs(medicine) : [];
 
   if (error || !medicine) {
     return (
@@ -95,9 +133,10 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
         <nav className="flex items-center gap-2 text-sm text-text-subtle-light dark:text-text-subtle-dark mb-6">
           <Link href="/" className="hover:text-primary">Home</Link>
           <span>/</span>
-          <Link href="/health" className="hover:text-primary">Health</Link>
-          <span>/</span>
-          <span className="text-text-light dark:text-text-dark">Medicines</span>
+          <Link href="/medicines" className="hover:text-primary flex items-center gap-1">
+            <span className="material-symbols-outlined text-sm">local_pharmacy</span>
+            MediVault
+          </Link>
           <span>/</span>
           <span className="text-text-light dark:text-text-dark">{displayName}</span>
         </nav>
@@ -334,6 +373,141 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
             </section>
           )}
 
+          {/* Legal Status by Country */}
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold text-text-light dark:text-text-dark mb-3 flex items-center gap-2">
+              <span className="material-symbols-outlined text-indigo-500">gavel</span>
+              Legal Status by Country
+            </h2>
+            <div className="bg-white dark:bg-card-dark rounded-lg border border-border-light dark:border-border-dark overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[500px]">
+                  <thead className="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-text-light dark:text-text-dark">Country</th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-text-light dark:text-text-dark">Legal Status</th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-text-light dark:text-text-dark">Prescription</th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-text-light dark:text-text-dark">Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border-light dark:divide-border-dark">
+                    <tr>
+                      <td className="px-4 py-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">United States</td>
+                      <td className="px-4 py-3">
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${
+                          medicine.marketStatus === 'otc' 
+                            ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                            : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                        }`}>
+                          {medicine.marketStatus === 'otc' ? 'OTC' : 'Varies'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                        {medicine.marketStatus === 'otc' ? 'No' : 'Check FDA'}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                        Consult healthcare provider
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border-t border-border-light dark:border-border-dark">
+                <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark flex items-center gap-1">
+                  <span className="material-symbols-outlined text-sm">info</span>
+                  Legal status may change. Always verify with local authorities before traveling internationally with medication.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Scientific References */}
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold text-text-light dark:text-text-dark mb-3 flex items-center gap-2">
+              <span className="material-symbols-outlined text-purple-500">science</span>
+              Scientific References
+            </h2>
+            <div className="bg-white dark:bg-card-dark rounded-lg p-4 border border-border-light dark:border-border-dark">
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-blue-500 text-lg flex-shrink-0">verified</span>
+                  <div>
+                    <p className="font-medium text-text-light dark:text-text-dark">FDA Drug Label</p>
+                    <a
+                      href={`https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=${encodeURIComponent(displayName)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-medical-blue dark:text-cyan-400 hover:underline flex items-center gap-1"
+                    >
+                      View on DailyMed
+                      <span className="material-symbols-outlined text-xs">open_in_new</span>
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-green-500 text-lg flex-shrink-0">article</span>
+                  <div>
+                    <p className="font-medium text-text-light dark:text-text-dark">PubMed Research</p>
+                    <a
+                      href={`https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(medicine.genericName || displayName)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-medical-blue dark:text-cyan-400 hover:underline flex items-center gap-1"
+                    >
+                      Search PubMed for studies
+                      <span className="material-symbols-outlined text-xs">open_in_new</span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* FAQ Section with Schema.org markup */}
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold text-text-light dark:text-text-dark mb-3 flex items-center gap-2">
+              <span className="material-symbols-outlined text-blue-500">help</span>
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-3" itemScope itemType="https://schema.org/FAQPage">
+              {faqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className="bg-white dark:bg-card-dark rounded-lg border border-border-light dark:border-border-dark overflow-hidden"
+                  itemScope
+                  itemProp="mainEntity"
+                  itemType="https://schema.org/Question"
+                >
+                  <button
+                    onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
+                    className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  >
+                    <span className="font-medium text-text-light dark:text-text-dark pr-4" itemProp="name">
+                      {faq.question}
+                    </span>
+                    <span className={`material-symbols-outlined text-gray-400 transition-transform ${
+                      expandedFAQ === index ? 'rotate-180' : ''
+                    }`}>
+                      expand_more
+                    </span>
+                  </button>
+                  {expandedFAQ === index && (
+                    <div 
+                      className="px-4 pb-4 border-t border-border-light dark:border-border-dark"
+                      itemScope
+                      itemProp="acceptedAnswer"
+                      itemType="https://schema.org/Answer"
+                    >
+                      <p className="pt-3 text-text-subtle-light dark:text-text-subtle-dark" itemProp="text">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* Data Source Info */}
           <section className="mb-8">
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
@@ -350,15 +524,25 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
               )}
             </div>
           </section>
-        </article>
 
-        {/* Bottom Disclaimers */}
-        <LegalDisclaimerBanner
-          type="medical"
-          collapsible
-          defaultExpanded={false}
-          className="mt-8"
-        />
+          {/* FDA Disclaimer */}
+          <section className="mb-8">
+            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+              <div className="flex items-start gap-3">
+                <span className="material-symbols-outlined text-blue-500 flex-shrink-0">info</span>
+                <div>
+                  <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-1">FDA Disclaimer</h4>
+                  <p className="text-sm text-blue-700 dark:text-blue-400">
+                    This information is for educational purposes only and is not intended as medical advice. 
+                    Always consult a healthcare professional before starting, stopping, or changing any medication. 
+                    The information provided may not cover all possible uses, actions, precautions, side effects, 
+                    or interactions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </article>
       </main>
     </>
   );

@@ -23,6 +23,10 @@ import {
   VerdictBanner,
   SafeSwapBox,
   RelatedArticles,
+  FAQAccordion,
+  TableOfContents,
+  IngredientsTable,
+  RelatedPagesSection,
 } from '@/components';
 import { LoadingSpinner } from '@/components';
 import { useLegalAlternatives, useAffiliateProducts } from '@/hooks';
@@ -159,10 +163,79 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
                 )}
               </div>
               <span className="px-3 py-1.5 bg-alert-red text-white rounded-full text-sm font-bold shadow-md">
-                {substance.category.toUpperCase()}
+                {(substance as any).isProduct ? 'PRODUCT' : substance.category.toUpperCase()}
               </span>
             </div>
+            
+            {/* Product Brand Badge */}
+            {(substance as any).isProduct && (substance as any).productBrand && (
+              <div className="flex items-center gap-2 mt-2">
+                <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                  Brand: <strong>{(substance as any).productBrand}</strong>
+                </span>
+              </div>
+            )}
           </header>
+
+          {/* Table of Contents - Pillar Pages Only */}
+          {(substance as any).isPillarPage && (substance as any).pillarSections && (
+            <TableOfContents
+              items={(substance as any).pillarSections.map((s: any) => ({ id: s.id, title: s.title }))}
+              className="mb-8 lg:sticky lg:top-4 lg:float-right lg:w-72 lg:ml-6 lg:mb-0"
+            />
+          )}
+
+          {/* Product Ingredients Table */}
+          {(substance as any).isProduct && (substance as any).ingredients && (
+            <IngredientsTable
+              ingredients={(substance as any).ingredients}
+              productName={substance.name}
+              className="mb-8"
+            />
+          )}
+
+          {/* Counterfeit Warnings - Product Pages */}
+          {(substance as any).counterfeitWarnings && (substance as any).counterfeitWarnings.length > 0 && (
+            <section className="mb-8">
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-xl p-5">
+                <h2 className="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-3 flex items-center gap-2">
+                  <span className="material-symbols-outlined">warning</span>
+                  How to Spot Counterfeit {substance.name}
+                </h2>
+                <ul className="space-y-2">
+                  {(substance as any).counterfeitWarnings.map((warning: string, i: number) => (
+                    <li key={i} className="flex items-start gap-2 text-yellow-700 dark:text-yellow-300">
+                      <span className="material-symbols-outlined text-sm mt-0.5">report_problem</span>
+                      {warning}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )}
+
+          {/* Authorized Retailers - Product Pages */}
+          {(substance as any).authorizedRetailers && (substance as any).authorizedRetailers.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-xl font-semibold text-text-light dark:text-text-dark mb-3 flex items-center gap-2">
+                <span className="material-symbols-outlined text-green-500">verified</span>
+                Authorized Retailers
+              </h2>
+              <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mb-3">
+                Only purchase from official authorized retailers to avoid counterfeits:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {(substance as any).authorizedRetailers.map((retailer: string, i: number) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1.5 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg text-sm border border-green-200 dark:border-green-800"
+                  >
+                    {retailer}
+                  </span>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Description */}
           <section className="mb-8">
@@ -317,6 +390,51 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
               </div>
             )}
           </section>
+
+          {/* Pillar Page Sections - Detailed Content */}
+          {(substance as any).isPillarPage && (substance as any).pillarSections && (
+            <div className="pillar-sections mb-8 clear-both">
+              {(substance as any).pillarSections.map((section: any) => (
+                <section 
+                  key={section.id} 
+                  id={section.id}
+                  className="mb-10 scroll-mt-20"
+                >
+                  <h2 className="text-2xl font-bold text-text-light dark:text-text-dark mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-primary">article</span>
+                    {section.title}
+                  </h2>
+                  <div 
+                    className="prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
+                      prose-headings:text-text-light dark:prose-headings:text-text-dark
+                      prose-strong:text-text-light dark:prose-strong:text-text-dark
+                      prose-table:bg-white dark:prose-table:bg-card-dark
+                      prose-th:bg-gray-100 dark:prose-th:bg-gray-800
+                      prose-td:border-border-light dark:prose-td:border-border-dark
+                      prose-ul:list-disc prose-ol:list-decimal"
+                    dangerouslySetInnerHTML={{ __html: section.content }}
+                  />
+                </section>
+              ))}
+            </div>
+          )}
+
+          {/* FAQ Accordion */}
+          {(substance as any).faqs && (substance as any).faqs.length > 0 && (
+            <FAQAccordion 
+              faqs={(substance as any).faqs} 
+              className="mb-8"
+            />
+          )}
+
+          {/* Related Pages - Internal Linking */}
+          {(substance as any).relatedPages && (substance as any).relatedPages.length > 0 && (
+            <RelatedPagesSection
+              relatedPages={(substance as any).relatedPages}
+              currentPageTitle={substance.name}
+              className="mb-8"
+            />
+          )}
 
           {/* Related Articles - Wikipedia, PubMed, Images */}
           {articles && (

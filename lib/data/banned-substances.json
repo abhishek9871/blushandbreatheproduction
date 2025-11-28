@@ -8,81 +8,243 @@
         "1,3-Dimethylamylamine",
         "Methylhexanamine",
         "Geranamine",
-        "Pentylamine derivative"
+        "4-Methylhexan-2-amine",
+        "1,3-Dimethylpentylamine",
+        "Floradrene",
+        "Forthane"
       ],
       "category": "stimulant",
       "legalStatus": "banned_usa",
-      "legalStatusDetails": "Banned as unsafe food additive (April 2013). Prohibited by WADA since 2010.",
+      "legalStatusDetails": "FDA banned DMAA as an unsafe food additive (April 2013). Classified as illegal dietary supplement ingredient. WADA prohibited since 2010. Multiple court challenges (Hi-Tech vs FDA) rejected through Supreme Court (2020).",
       "bannedDate": "2013-04-11",
       "bannedBy": [
         "FDA",
-        "WADA"
+        "WADA",
+        "NCAA",
+        "NFL",
+        "MLB",
+        "DoD"
       ],
       "stateRestrictions": {
-        "US": "Federal ban",
-        "Australia": "Banned",
-        "UK": "Banned",
-        "Canada": "Banned",
-        "New Zealand": "Banned"
+        "US": "Federal ban - illegal in all dietary supplements",
+        "Australia": "Banned - TGA Appendix C (June 2012)",
+        "UK": "Banned - MHRA unlicensed medicinal product (August 2012)",
+        "Canada": "Banned - classified as drug (2011)",
+        "New Zealand": "Banned - Psychoactive Substances Act 2013",
+        "Sweden": "Banned",
+        "Denmark": "Banned",
+        "Finland": "Banned",
+        "EU": "Not authorized for food supplements"
       },
       "healthRisks": [
         {
-          "category": "Cardiovascular",
-          "description": "86 reports of illnesses and deaths (FDA database), including at least 5 fatalities directly attributed.",
-          "severity": "high",
-          "sources": [
-            "FDA Adverse Event Database"
-          ]
+          "category": "Cardiovascular Death",
+          "description": "At least 5 documented deaths directly attributed to DMAA, including Claire Squires (London Marathon 2012), PFC Michael Sparling (Fort Bliss 2011), and Sgt Demekia Cola (Fort Bliss 2011).",
+          "severity": "severe",
+          "sources": ["FDA Adverse Event Database", "UK Coroner Inquest 2013"]
         },
         {
-          "category": "Neurological",
-          "description": "Case reports of hemorrhagic stroke in young athletes.",
+          "category": "Hemorrhagic Stroke",
+          "description": "5+ documented cases of intracerebral hemorrhage in users aged 21-41, often within hours of DMAA consumption. BP readings as high as 240/120 mmHg recorded.",
+          "severity": "severe",
+          "sources": ["PubMed Case Reports", "FDA Warning Letters 2013"]
+        },
+        {
+          "category": "Cardiac Events",
+          "description": "Multiple case reports of myocardial infarction, cardiac arrest, and arrhythmias in young, previously healthy individuals.",
           "severity": "high",
-          "sources": [
-            "FDA Warning Letters 2013"
-          ]
+          "sources": ["FDA AER Database"]
+        },
+        {
+          "category": "Hypertensive Crisis",
+          "description": "Systolic BP increases of 8-16 mmHg at normal doses; case reports show BP as high as 240/120 mmHg in overdose situations.",
+          "severity": "high",
+          "sources": ["Pharmacokinetic Studies 2013"]
         }
       ],
       "sideEffects": [
         "Hemorrhagic stroke",
         "Cardiac arrest",
-        "Myocardial infarction",
+        "Myocardial infarction (heart attack)",
         "Hypertensive crisis",
         "Pulmonary edema",
-        "Elevated blood pressure",
-        "Rapid heartbeat"
+        "Elevated blood pressure (8-16 mmHg increase)",
+        "Rapid heartbeat/tachycardia",
+        "Seizures",
+        "Severe headaches",
+        "Tremors and involuntary twitching",
+        "Confusion and altered mental status",
+        "Liver failure (OxyElite Pro outbreak)",
+        "Anxiety and agitation"
       ],
       "contraindications": [
-        "Heart conditions",
-        "High blood pressure",
-        "Use of other stimulants",
-        "Pregnancy",
-        "History of stroke"
+        "Any heart condition or cardiovascular disease",
+        "High blood pressure (hypertension)",
+        "History of stroke or TIA",
+        "Use of other stimulants (caffeine, ephedrine)",
+        "Pregnancy or breastfeeding",
+        "History of seizures",
+        "Liver disease",
+        "Use of MAO inhibitors",
+        "Alcohol consumption",
+        "Physical exertion (especially extreme exercise)",
+        "Sexual activity (documented stroke trigger)"
       ],
       "overdoseRisk": "high",
       "addictionPotential": "moderate",
-      "description": "DMAA (1,3-dimethylamylamine) is a synthetic stimulant originally developed as a nasal decongestant. It gained popularity in pre-workout supplements and weight loss products between 2005-2013 but has been banned due to serious cardiovascular risks including deaths.",
-      "mechanism": "Norepinephrine releasing agent causing vasoconstriction, elevated blood pressure and heart rate. Increases CNS stimulation and peripheral vasoconstriction.",
-      "history": "Originally patented by Eli Lilly in 1944 as a nasal decongestant. Resurfaced in supplements around 2006 marketed as 'geranium extract' despite being synthetic. Found in pre-workout supplements until FDA ban.",
-      "whyBanned": "Unacceptable risk of serious cardiovascular events even at recommended doses. Benefits do not outweigh risks. 5 deaths directly attributed to DMAA use.",
+      "description": "DMAA (1,3-dimethylamylamine) is a synthetic sympathomimetic amine originally developed by Eli Lilly in 1944 as a nasal decongestant (Forthane). It gained widespread popularity in pre-workout supplements like Jack3d and OxyElite Pro between 2006-2013, often marketed falsely as 'geranium extract.' Despite manufacturer claims of natural origin, extensive laboratory analysis confirmed DMAA is entirely synthetic. The FDA banned DMAA in 2013 after receiving 86 adverse event reports including at least 5 deaths. Court challenges by Hi-Tech Pharmaceuticals were rejected through the Supreme Court in 2020, definitively establishing DMAA's illegal status.",
+      "mechanism": "DMAA is a sympathomimetic amine that primarily functions as a norepinephrine reuptake inhibitor/releasing agent (Ki ~649 nM at NET). It also competitively inhibits the dopamine transporter (DAT) with IC50 ~29.4 µM—approximately 60x less potent than amphetamine. DMAA causes vasoconstriction, elevated blood pressure, and increased heart rate through sympathetic nervous system activation. Unlike amphetamine, DMAA lacks a phenyl ring, which reduces DAT potency but maintains sympathomimetic activity. Terminal half-life is 8.45 hours with minimal hepatic metabolism (>90% excreted unchanged in urine).",
+      "history": "1944: Synthesized by Eli Lilly as nasal decongestant. 1948-1983: Marketed as Forthane/Forthan. 1983: Voluntarily withdrawn due to side effects. 2006: Re-emerged in supplements falsely claimed as 'geranium extract.' 2010: WADA prohibition. 2011: Fort Bliss soldier deaths prompt Army investigation. 2012: FDA warning letters to 10+ companies; UK/Australia bans. 2013: FDA declares illegal; USPlabs destroys $8M inventory. 2017-2020: Hi-Tech vs FDA lawsuit rejected through Supreme Court.",
+      "whyBanned": "FDA determined DMAA poses unacceptable cardiovascular risks even at recommended doses. Key factors: (1) 5+ documented deaths including young athletes; (2) 86 serious adverse event reports including strokes, heart attacks, and seizures; (3) Synthetic origin despite natural marketing claims; (4) 92.3% of military false positive amphetamine tests caused by DMAA; (5) Hi-Tech vs FDA litigation confirmed DMAA is not a dietary ingredient and lacks safety evidence.",
       "legalAlternatives": [
         "caffeine",
         "citrulline-malate",
-        "beta-alanine"
+        "beta-alanine",
+        "l-theanine",
+        "alpha-gpc"
       ],
-      "metaTitle": "DMAA (1,3-DMAA) - Why It's Banned & Safe Alternatives | Blush & Breathe",
-      "metaDescription": "Learn why DMAA was banned by the FDA after 5 deaths, its health risks including stroke and heart attack, and discover safe legal alternatives for pre-workout energy.",
+      "metaTitle": "DMAA (1,3-Dimethylamylamine): Complete Guide to the Banned Stimulant [2025]",
+      "metaDescription": "Comprehensive guide to DMAA: why it was banned after 5 deaths, how long it stays in your system (8.45 hour half-life, 4-7 day detection), drug test false positives, and safe legal alternatives.",
       "keywords": [
-        "dmaa",
+        "what is dmaa",
+        "why was dmaa banned",
+        "dmaa pre workout",
+        "dmaa side effects long term",
+        "how long does dmaa stay in your system",
+        "dmaa drug test",
+        "dmaa false positive",
+        "dmaa deaths",
         "1,3-dmaa",
         "methylhexanamine",
-        "banned pre workout",
+        "jack3d banned",
         "dmaa alternative",
-        "dmaa dangers",
-        "dmaa deaths"
+        "dmaa legal status 2025"
+      ],
+      "isPillarPage": true,
+      "pillarSections": [
+        {
+          "id": "what-is-dmaa",
+          "title": "What is DMAA?",
+          "content": "<p><strong>DMAA (1,3-Dimethylamylamine)</strong> is a synthetic sympathomimetic amine with the chemical formula C₇H₁₇N (molecular weight 115.22 g/mol). Originally developed by Eli Lilly in 1944 as a nasal decongestant under the brand name Forthane, DMAA was voluntarily withdrawn from the pharmaceutical market in 1983 due to side effects.</p><p>In 2006, DMAA re-emerged in dietary supplements marketed as a 'natural' extract from geranium plants. However, extensive scientific analysis by NSF International, the University of Milan, and the FDA definitively established that <strong>DMAA is entirely synthetic</strong>—not derived from any botanical source. The 'geranium extract' claim was fraudulent marketing used to circumvent dietary supplement regulations.</p><p>DMAA gained massive popularity in pre-workout supplements like <strong>Jack3d</strong> and <strong>OxyElite Pro</strong> between 2006-2013 due to its potent stimulant effects, including increased energy, focus, and euphoria. At peak popularity, DMAA-containing products generated hundreds of millions in sales.</p>",
+          "keywordTarget": "what is dmaa"
+        },
+        {
+          "id": "why-banned",
+          "title": "Why Was DMAA Banned?",
+          "content": "<p>The FDA banned DMAA in April 2013 after receiving <strong>86 reports of serious adverse events</strong>, including at least <strong>5 confirmed deaths</strong>. Key reasons for the ban include:</p><ul><li><strong>Deaths:</strong> Claire Squires (30) died during the 2012 London Marathon; PFC Michael Sparling (22) and Sgt Demekia Cola (32) died during training at Fort Bliss in 2011</li><li><strong>Cardiovascular Events:</strong> Multiple heart attacks, strokes, and cardiac arrests in young, healthy individuals</li><li><strong>Hemorrhagic Strokes:</strong> 5+ documented cases of brain hemorrhages in users aged 21-41</li><li><strong>Synthetic Origin:</strong> Laboratory analysis proved DMAA is not a natural botanical ingredient, making it illegal under DSHEA</li><li><strong>Court Confirmation:</strong> Hi-Tech Pharmaceuticals challenged the ban through the Supreme Court (2020)—all appeals were denied, confirming DMAA's illegal status</li></ul><p>In 2013, USPlabs voluntarily destroyed approximately <strong>$8 million</strong> in Jack3d and OxyElite Pro inventory containing DMAA.</p>",
+          "keywordTarget": "why was dmaa banned"
+        },
+        {
+          "id": "side-effects-long-term",
+          "title": "DMAA Side Effects: Short-Term & Long-Term Risks",
+          "content": "<p><strong>Acute (Short-Term) Side Effects:</strong></p><ul><li>Blood pressure elevation: 8-16 mmHg increase (up to 240/120 mmHg in overdose)</li><li>Rapid heartbeat and heart palpitations</li><li>Severe headaches (often prodromal to stroke)</li><li>Tremors and involuntary muscle twitching</li><li>Anxiety, agitation, and restlessness</li><li>Nausea and stomach discomfort</li><li>Excessive sweating</li></ul><p><strong>Severe/Life-Threatening Effects:</strong></p><ul><li><strong>Hemorrhagic stroke:</strong> 5+ documented cases in young users</li><li><strong>Heart attack (myocardial infarction)</strong></li><li><strong>Cardiac arrest</strong></li><li><strong>Seizures</strong></li><li><strong>Acute liver failure</strong> (documented in OxyElite Pro outbreak)</li></ul><p><strong>Long-Term Risks:</strong></p><p>Due to DMAA's ban, long-term studies are limited. However, repeated cardiovascular stress from stimulant abuse can contribute to:</p><ul><li>Chronic hypertension</li><li>Heart muscle damage</li><li>Increased stroke risk</li><li>Potential CYP2D6 enzyme inhibition affecting other medications</li></ul>",
+          "keywordTarget": "dmaa pre workout side effects long term"
+        },
+        {
+          "id": "how-long-in-system",
+          "title": "How Long Does DMAA Stay in Your System?",
+          "content": "<p>DMAA has a <strong>terminal half-life of 8.45 ± 1.9 hours</strong>—meaning it takes about 8.5 hours for half the dose to be eliminated. Key pharmacokinetic data:</p><table><tr><th>Parameter</th><th>Value</th></tr><tr><td>Half-Life</td><td>8.45 hours (range: 6.57-11.79 hours)</td></tr><tr><td>Peak Concentration</td><td>3-5 hours after ingestion</td></tr><tr><td>Volume of Distribution</td><td>236 L (extensive tissue distribution)</td></tr><tr><td>Metabolism</td><td>Minimal—90%+ excreted unchanged in urine</td></tr></table><p><strong>Detection Windows by Test Type:</strong></p><ul><li><strong>Urine:</strong> 4-7 days (up to 105 hours documented)</li><li><strong>Blood:</strong> 24-48 hours</li><li><strong>Hair:</strong> Up to 90 days</li><li><strong>Saliva:</strong> 1-3 days (limited data)</li></ul><p>DMAA's large volume of distribution (236 L) means it accumulates extensively in tissues, contributing to the extended detection window despite moderate clearance rates.</p>",
+          "keywordTarget": "how long does dmaa stay in your system"
+        },
+        {
+          "id": "drug-testing",
+          "title": "DMAA Drug Testing: False Positives & Detection",
+          "content": "<p><strong>Critical Warning:</strong> DMAA causes <strong>false positive results for amphetamines</strong> on standard immunoassay drug tests.</p><p>Military research revealed that <strong>92.3% of false-positive amphetamine samples</strong> in Department of Defense testing contained DMAA. Of 134 false-positive samples analyzed, 124 were caused by DMAA at ~6.0 mg/L concentration.</p><p><strong>Why False Positives Occur:</strong></p><p>Immunoassay screening tests (EMIT) lack specificity and cross-react with DMAA's sympathomimetic structure, flagging it as amphetamine. However, <strong>confirmatory GC-MS testing correctly identifies DMAA</strong> and distinguishes it from actual amphetamines.</p><p><strong>How to Handle a False Positive:</strong></p><ol><li>Request GC-MS confirmatory testing immediately</li><li>Disclose any supplements containing DMAA (or contaminated products)</li><li>Provide supplement labels/receipts as documentation</li><li>Request Medical Review Officer (MRO) evaluation</li></ol><p>The Air Force Drug Testing Laboratory confirms: under GC-MS testing, DMAA will <strong>never</strong> produce a positive result for amphetamines.</p>",
+          "keywordTarget": "dmaa drug test false positive"
+        },
+        {
+          "id": "legal-status",
+          "title": "DMAA Legal Status by Country (2025)",
+          "content": "<table><tr><th>Country</th><th>Status</th><th>Details</th></tr><tr><td>United States</td><td><strong>ILLEGAL</strong></td><td>FDA banned (2013); all court challenges rejected through Supreme Court (2020)</td></tr><tr><td>United Kingdom</td><td><strong>BANNED</strong></td><td>MHRA ruling (August 2012) - unlicensed medicinal product</td></tr><tr><td>Australia</td><td><strong>BANNED</strong></td><td>TGA Appendix C Poisons Standard (June 2012)</td></tr><tr><td>Canada</td><td><strong>BANNED</strong></td><td>Health Canada classified as drug (2011)</td></tr><tr><td>New Zealand</td><td><strong>BANNED</strong></td><td>Psychoactive Substances Act 2013</td></tr><tr><td>European Union</td><td><strong>NOT AUTHORIZED</strong></td><td>Banned in Ireland, Sweden, Denmark, Finland; not approved EU-wide</td></tr><tr><td>WADA</td><td><strong>PROHIBITED</strong></td><td>Banned in all sports since 2010</td></tr><tr><td>U.S. Military</td><td><strong>PROHIBITED</strong></td><td>DoD ban (2012); on Prohibited Dietary Supplement list</td></tr></table>",
+          "keywordTarget": "dmaa legal status 2025"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Is DMAA legal in 2025?",
+          "answer": "No. DMAA is illegal in the United States and banned in most countries including the UK, Australia, Canada, and throughout the EU. The FDA's ban was upheld through the Supreme Court in 2020. Any product containing DMAA is considered an adulterated dietary supplement under federal law."
+        },
+        {
+          "question": "How long does DMAA stay in your system?",
+          "answer": "DMAA has a half-life of 8.45 hours. It's detectable in urine for 4-7 days (up to 105 hours with sensitive testing), in blood for 24-48 hours, and in hair for up to 90 days. Over 90% is excreted unchanged in urine."
+        },
+        {
+          "question": "Does DMAA cause false positive drug tests?",
+          "answer": "Yes. DMAA causes false positives for amphetamines on immunoassay screening tests. Military data shows 92.3% of false-positive amphetamine samples contained DMAA. However, confirmatory GC-MS testing correctly distinguishes DMAA from amphetamines."
+        },
+        {
+          "question": "Why was DMAA banned?",
+          "answer": "The FDA banned DMAA after 86 adverse event reports including at least 5 deaths. Key reasons include documented fatalities in young athletes, hemorrhagic strokes, heart attacks, and proof that DMAA is synthetic (not natural geranium extract as marketed)."
+        },
+        {
+          "question": "What are safe legal alternatives to DMAA?",
+          "answer": "Legal alternatives include caffeine (for energy), citrulline malate (for pumps and performance), beta-alanine (for endurance), and L-theanine combined with caffeine (for focused energy without jitters). These ingredients are FDA-compliant with established safety profiles."
+        },
+        {
+          "question": "Can DMAA cause a stroke?",
+          "answer": "Yes. There are at least 5 documented cases of hemorrhagic stroke (brain bleeding) in DMAA users aged 21-41. DMAA causes severe blood pressure elevation—readings as high as 240/120 mmHg have been documented in overdose cases."
+        }
+      ],
+      "citations": [
+        {
+          "title": "Pharmacokinetics of 1,3-dimethylamylamine and caffeine after administration of the dietary supplement",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24090077/",
+          "source": "PubMed",
+          "year": "2013"
+        },
+        {
+          "title": "FDA Information on DMAA",
+          "url": "https://www.fda.gov/food/dietary-supplement-ingredient-directory/dmaa-products-marketed-dietary-supplements",
+          "source": "FDA",
+          "year": "2013"
+        },
+        {
+          "title": "DMAA in Products Marketed as Dietary Supplements",
+          "url": "https://www.fda.gov/food/information-select-dietary-supplement-ingredients-and-other-substances/dmaa-products-marketed-dietary-supplements",
+          "source": "FDA",
+          "year": "2013"
+        },
+        {
+          "title": "OPSS DMAA Fact Sheet",
+          "url": "https://www.opss.org/article/dmaa-prohibited-stimulant",
+          "source": "DoD OPSS",
+          "year": "2023"
+        }
+      ],
+      "relatedPages": [
+        {
+          "slug": "banned-pre-workouts-2025",
+          "title": "Complete List of Banned Pre Workouts 2025",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "dmaa-drug-testing-guide",
+          "title": "DMAA Drug Testing: False Positives & How to Dispute",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "dark-labs-crack-gold",
+          "title": "Dark Labs Crack Gold 2025 Review",
+          "type": "banned",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "skull-labs-angel-dust",
+          "title": "Skull Labs Angel Dust Ingredients",
+          "type": "banned",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "dmha",
+          "title": "DMHA (Octodrine)",
+          "type": "banned",
+          "relationship": "related"
+        }
       ],
       "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-27T00:00:00Z"
+      "updatedAt": "2025-11-28T00:00:00Z"
     },
     {
       "id": "banned-phenibut",
@@ -2181,6 +2343,252 @@
       ],
       "createdAt": "2025-01-27T00:00:00Z",
       "updatedAt": "2025-01-27T00:00:00Z"
+    },
+    {
+      "id": "banned-dark-labs-crack-gold",
+      "slug": "dark-labs-crack-gold",
+      "name": "Dark Labs Crack Gold",
+      "alternativeNames": [
+        "Crack Gold Limited Edition",
+        "Crack Gold 2025"
+      ],
+      "category": "stimulant",
+      "legalStatus": "restricted",
+      "legalStatusDetails": "2025 formula contains DMHA (FDA banned ingredient) but no longer contains DMAA. Gray market product sold primarily in Europe through authorized retailers. Not FDA-approved for sale in USA.",
+      "bannedBy": [
+        "FDA (DMHA ingredient)"
+      ],
+      "stateRestrictions": {
+        "US": "Not legal - contains DMHA",
+        "EU": "Gray market - varies by country"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "High-stimulant formula with 500mg total caffeine (300mg anhydrous + 200mg citrate) plus 250mg DMHA. Significant cardiovascular stress potential.",
+          "severity": "high",
+          "sources": ["Product Label Analysis"]
+        },
+        {
+          "category": "Counterfeit Risk",
+          "description": "Widespread counterfeiting reported, especially from unauthorized European distributors. Counterfeits may contain undisclosed or dangerous ingredients.",
+          "severity": "moderate",
+          "sources": ["Dark Labs Official", "Reddit User Reports"]
+        }
+      ],
+      "sideEffects": [
+        "Elevated blood pressure",
+        "Rapid heart rate",
+        "Extreme jitters",
+        "Anxiety",
+        "Insomnia",
+        "Crash after effects wear off"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "Hypertension",
+        "Stimulant sensitivity",
+        "Under 18 years old",
+        "Pregnancy"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "Dark Labs Crack Gold is a high-stimulant pre-workout sold primarily in European gray markets. The 2025 formula contains DMHA (250mg), which is FDA-banned in the USA, along with approximately 500mg total caffeine. Unlike previous versions, the 2025 batch does NOT contain DMAA. Users report strong energy and focus but less 'euphoric hit' compared to older DMAA-containing formulas. Widespread counterfeiting is a major concern—only purchase from authorized retailers.",
+      "mechanism": "Multi-stimulant blend: DMHA (250mg) acts as a sympathomimetic amine; caffeine anhydrous (300mg) + caffeine citrate (200mg) provide ~500mg total caffeine; Eria Jarensis (300mg) provides mood enhancement; Alpha Yohimbine (1.5mg) for fat mobilization.",
+      "history": "Dark Labs is a European supplement brand known for aggressive stimulant products. Earlier Crack Gold versions contained DMAA until 2024. 2025 reformulation removed DMAA but retained DMHA. High counterfeit risk from unauthorized sellers.",
+      "whyBanned": "Contains DMHA which FDA banned in 2019 as an unsafe food additive. Not legal for sale in USA. Gray market status in Europe.",
+      "legalAlternatives": [
+        "caffeine",
+        "citrulline-malate",
+        "beta-alanine",
+        "alpha-gpc"
+      ],
+      "metaTitle": "Dark Labs Crack Gold 2025: Real vs Fake, Ingredients & Verification Guide",
+      "metaDescription": "Complete guide to Dark Labs Crack Gold 2025: DMHA 250mg + 500mg caffeine formula, batch verification, counterfeit warnings, and safe legal alternatives.",
+      "keywords": [
+        "dark labs crack gold",
+        "dark labs crack gold 2025",
+        "dark labs crack gold review",
+        "dark labs crack gold fake",
+        "dark labs crack gold ingredients",
+        "crack gold pre workout",
+        "dark labs crack gold vs fake"
+      ],
+      "isProduct": true,
+      "productBrand": "Dark Labs",
+      "ingredients": [
+        {"name": "L-Citrulline", "amount": "5000", "unit": "mg"},
+        {"name": "Beta Alanine", "amount": "2000", "unit": "mg"},
+        {"name": "Agmatine Sulfate", "amount": "1000", "unit": "mg"},
+        {"name": "L-Tyrosine", "amount": "750", "unit": "mg"},
+        {"name": "Alpha GPC 50%", "amount": "500", "unit": "mg"},
+        {"name": "Caffeine Anhydrous", "amount": "300", "unit": "mg"},
+        {"name": "Eria Jarensis Extract", "amount": "300", "unit": "mg"},
+        {"name": "DMHA (Juglans Regia)", "amount": "250", "unit": "mg"},
+        {"name": "Caffeine Citrate", "amount": "200", "unit": "mg"},
+        {"name": "Halostachine", "amount": "50", "unit": "mg"},
+        {"name": "Alpha Yohimbine", "amount": "1.5", "unit": "mg"}
+      ],
+      "authorizedRetailers": [
+        "Official Dark Labs Store",
+        "Predator Nutrition (UK)",
+        "Cross The Limits (GB)",
+        "Stay Focused (Germany)",
+        "AmericanMuscleFit (Spain)",
+        "Supplementhane (Turkey)"
+      ],
+      "counterfeitWarnings": [
+        "Different lid/cap color than authentic product",
+        "Blurry or faded labels with misaligned print",
+        "Missing security seals or authentication codes",
+        "Price significantly below €60",
+        "Purchased from unauthorized dealers",
+        "Batch code stickered rather than printed"
+      ],
+      "relatedPages": [
+        {
+          "slug": "dmaa",
+          "title": "DMAA Complete Guide",
+          "type": "banned",
+          "relationship": "pillar"
+        },
+        {
+          "slug": "dmha",
+          "title": "DMHA (Octodrine)",
+          "type": "banned",
+          "relationship": "related"
+        },
+        {
+          "slug": "banned-pre-workouts-2025",
+          "title": "Banned Pre Workouts List 2025",
+          "type": "article",
+          "relationship": "related"
+        }
+      ],
+      "createdAt": "2025-11-28T00:00:00Z",
+      "updatedAt": "2025-11-28T00:00:00Z"
+    },
+    {
+      "id": "banned-skull-labs-angel-dust",
+      "slug": "skull-labs-angel-dust",
+      "name": "Skull Labs Angel Dust",
+      "alternativeNames": [
+        "Angel Dust Pre-Workout",
+        "Angel Dust V1",
+        "Angel Dust V2"
+      ],
+      "category": "stimulant",
+      "legalStatus": "banned_usa",
+      "legalStatusDetails": "US version contains DMAA (100mg) and DMHA (100mg), both banned by FDA. Product is illegal for sale in the United States. EU version uses different formula without DMAA.",
+      "bannedBy": [
+        "FDA"
+      ],
+      "stateRestrictions": {
+        "US": "Illegal - contains DMAA and DMHA",
+        "EU": "Legal (EU version without DMAA)",
+        "Germany": "Restricted"
+      },
+      "healthRisks": [
+        {
+          "category": "Cardiovascular",
+          "description": "Extreme stimulant load: DMAA 100mg + DMHA 100mg + 300mg caffeine creates significant cardiovascular stress. Heart palpitations, rapid heart rate, and chest tightness commonly reported.",
+          "severity": "high",
+          "sources": ["FDA DMAA/DMHA Warnings", "User Reports"]
+        },
+        {
+          "category": "Neurological",
+          "description": "Users report extreme jitters, tremors, anxiety, and panic-like symptoms. Severe energy crashes after effects wear off.",
+          "severity": "moderate",
+          "sources": ["User Experience Reports"]
+        }
+      ],
+      "sideEffects": [
+        "Extreme jitters and tremors",
+        "Rapid heart rate and palpitations",
+        "Anxiety and panic feelings",
+        "Dry mouth",
+        "Niacin flush (skin redness)",
+        "Beta-alanine paresthesia (tingling)",
+        "Severe energy crash",
+        "Insomnia",
+        "Chest tightness"
+      ],
+      "contraindications": [
+        "Heart conditions",
+        "Hypertension",
+        "Anxiety disorders",
+        "Stimulant sensitivity",
+        "Under 18 years old",
+        "Pregnancy"
+      ],
+      "overdoseRisk": "high",
+      "addictionPotential": "moderate",
+      "description": "Skull Labs Angel Dust is an extreme high-stimulant pre-workout with two distinct versions: the US version containing DMAA (100mg) + DMHA (100mg) + Caffeine (300mg), and the milder EU version without DMAA. The US version represents one of the strongest pre-workouts available but is illegal in the United States due to banned DMAA/DMHA content. The V2 reformulation is reportedly weaker than the original V1, with user complaints about reduced potency and 'bunk' batches.",
+      "mechanism": "Triple stimulant stack: DMAA (100mg) as norepinephrine releasing agent; DMHA (100mg) as sympathomimetic amine; Caffeine (300mg) as adenosine antagonist. Combined with pump agents (Agmatine 1500mg, Citrulline 1000mg) and mood enhancers (Eria Jarensis 200mg, Beta-phenylethylamine 700mg).",
+      "history": "Skull Labs is a US-based brand with European distribution. Original V1 formula was extremely potent with high DMAA content. V2 reformulation drew user complaints about reduced efficacy. EU version uses different formula to comply with regulations.",
+      "whyBanned": "Contains DMAA (100mg) and DMHA (100mg)—both FDA-banned dietary supplement ingredients. Illegal for sale in USA. Products sold online are not FDA-compliant.",
+      "legalAlternatives": [
+        "caffeine",
+        "citrulline-malate",
+        "beta-alanine",
+        "alpha-gpc",
+        "l-theanine"
+      ],
+      "metaTitle": "Skull Labs Angel Dust: US vs EU Ingredients, V1 vs V2 & Side Effects [2025]",
+      "metaDescription": "Complete guide to Skull Labs Angel Dust: US version (DMAA 100mg + DMHA 100mg), EU version differences, V1 vs V2 changes, side effects, and legal alternatives.",
+      "keywords": [
+        "skull labs angel dust",
+        "skull labs angel dust ingredients",
+        "skull labs angel dust review",
+        "angel dust pre workout",
+        "skull labs angel dust dmaa",
+        "skull labs angel dust v2",
+        "skull labs angel dust us vs eu"
+      ],
+      "isProduct": true,
+      "productBrand": "Skull Labs",
+      "ingredients": [
+        {"name": "Beta-Alanine", "amount": "2500", "unit": "mg"},
+        {"name": "Agmatine Sulfate", "amount": "1500", "unit": "mg"},
+        {"name": "Citrulline Malate", "amount": "1000", "unit": "mg"},
+        {"name": "Creatine Nitrate", "amount": "1000", "unit": "mg"},
+        {"name": "Arginine AKG", "amount": "1000", "unit": "mg"},
+        {"name": "Beta-Phenylethylamine", "amount": "700", "unit": "mg"},
+        {"name": "Choline Bitartrate", "amount": "500", "unit": "mg"},
+        {"name": "Caffeine Anhydrous", "amount": "300", "unit": "mg"},
+        {"name": "Eria Jarensis Extract", "amount": "200", "unit": "mg"},
+        {"name": "DMHA", "amount": "100", "unit": "mg"},
+        {"name": "DMAA", "amount": "100", "unit": "mg"},
+        {"name": "Higenamine HCL", "amount": "50", "unit": "mg"},
+        {"name": "Hordenine HCL", "amount": "50", "unit": "mg"},
+        {"name": "N-Methyl L-Tyramine", "amount": "50", "unit": "mg"},
+        {"name": "Niacin", "amount": "25", "unit": "mg"},
+        {"name": "GABA", "amount": "25", "unit": "mg"},
+        {"name": "Yohimbe Extract", "amount": "2", "unit": "mg"},
+        {"name": "Alpha Yohimbine", "amount": "2", "unit": "mg"}
+      ],
+      "relatedPages": [
+        {
+          "slug": "dmaa",
+          "title": "DMAA Complete Guide",
+          "type": "banned",
+          "relationship": "pillar"
+        },
+        {
+          "slug": "dmha",
+          "title": "DMHA (Octodrine)",
+          "type": "banned",
+          "relationship": "related"
+        },
+        {
+          "slug": "banned-pre-workouts-2025",
+          "title": "Banned Pre Workouts List 2025",
+          "type": "article",
+          "relationship": "related"
+        }
+      ],
+      "createdAt": "2025-11-28T00:00:00Z",
+      "updatedAt": "2025-11-28T00:00:00Z"
     }
   ]
 }

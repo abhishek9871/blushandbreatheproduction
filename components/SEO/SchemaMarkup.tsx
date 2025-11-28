@@ -446,9 +446,29 @@ export function SchemaMarkup(props: SchemaMarkupProps) {
           (medicalSchema as any).citation = generateCitationSchema(citations);
         }
         
+        // Add substance-level citations if available
+        if ((bannedSubstance as any).citations && (bannedSubstance as any).citations.length > 0) {
+          const substanceCitations = (bannedSubstance as any).citations.map((c: any) => ({
+            '@type': 'CreativeWork',
+            name: c.title,
+            url: c.url,
+            publisher: { '@type': 'Organization', name: c.source },
+            ...(c.year && { datePublished: c.year }),
+          }));
+          (medicalSchema as any).citation = [
+            ...((medicalSchema as any).citation || []),
+            ...substanceCitations,
+          ];
+        }
+        
         schemas.push(medicalSchema);
-        // Auto-generate FAQ
-        schemas.push(generateFAQSchema(generateFAQFromBannedSubstance(bannedSubstance)));
+        
+        // Use custom FAQs if available (pillar pages), otherwise auto-generate
+        const faqsToUse = (bannedSubstance as any).faqs && (bannedSubstance as any).faqs.length > 0
+          ? (bannedSubstance as any).faqs
+          : generateFAQFromBannedSubstance(bannedSubstance);
+        schemas.push(generateFAQSchema(faqsToUse));
+        
         // Add breadcrumbs
         schemas.push(generateBreadcrumbSchema([
           { name: 'Home', url: SITE_URL },

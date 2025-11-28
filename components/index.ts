@@ -51,3 +51,9 @@ export * from './legal';
 
 // Article Components (Wikipedia, PubMed, Wikimedia Commons)
 export * from './articles';
+
+// Content Hub Components (Pillar Pages, FAQs, Products)
+export { default as FAQAccordion } from './FAQAccordion';
+export { default as TableOfContents } from './TableOfContents';
+export { default as IngredientsTable } from './IngredientsTable';
+export { default as RelatedPagesSection } from './RelatedPagesSection';

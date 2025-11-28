@@ -27,6 +27,9 @@ import bannedSubstancesData from './banned-substances.json';
 import legalSupplementsData from './legal-supplements.json';
 import affiliateProductsData from './affiliate-products.json';
 import substanceArticlesData from './substance-articles.json';
+import contentHubArticlesData from './articles.json';
+
+import type { ContentHubArticle, ArticlesData } from '@/types';
 
 // ═══════════════════════════════════════════════════════════════════
 // DATA ACCESS FUNCTIONS
@@ -256,4 +259,29 @@ export function getArticleDataMetadata(): { version: string; generatedAt: string
     version: data.version,
     generatedAt: data.generatedAt,
   };
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CONTENT HUB ARTICLE DATA ACCESS FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════
+
+/**
+ * Get all content hub articles
+ */
+export function getContentHubArticles(): ContentHubArticle[] {
+  return (contentHubArticlesData as ArticlesData).articles as ContentHubArticle[];
+}
+
+/**
+ * Get a specific content hub article by slug
+ */
+export function getContentHubArticleBySlug(slug: string): ContentHubArticle | undefined {
+  return getContentHubArticles().find(a => a.slug === slug);
+}
+
+/**
+ * Get all content hub article slugs (for static path generation)
+ */
+export function getContentHubArticleSlugs(): string[] {
+  return getContentHubArticles().map(a => a.slug);
 }

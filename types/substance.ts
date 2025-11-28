@@ -27,6 +27,37 @@ export interface HealthRisk {
   sources: string[];
 }
 
+// Pillar page section for deep-linked content
+export interface PillarSection {
+  id: string; // anchor ID e.g., "what-is-dmaa"
+  title: string;
+  content: string; // HTML content
+  keywordTarget?: string; // SEO keyword this section targets
+}
+
+// FAQ item for FAQPage schema
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+// Citation for E-E-A-T schema
+export interface Citation {
+  title: string;
+  url: string;
+  source: string; // e.g., "PubMed", "FDA", "WADA"
+  year?: string;
+  authors?: string;
+}
+
+// Related page for internal linking
+export interface RelatedPage {
+  slug: string;
+  title: string;
+  type: 'banned' | 'supplement' | 'article' | 'comparison';
+  relationship: 'cluster' | 'pillar' | 'related';
+}
+
 export interface BannedSubstance {
   id: string;
   slug: string;
@@ -61,6 +92,20 @@ export interface BannedSubstance {
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
+  
+  // Pillar Page Enhancement (optional)
+  isPillarPage?: boolean;
+  pillarSections?: PillarSection[];
+  faqs?: FAQItem[];
+  citations?: Citation[];
+  relatedPages?: RelatedPage[];
+  
+  // Product-specific fields (for product pages like Dark Labs Crack Gold)
+  isProduct?: boolean;
+  productBrand?: string;
+  ingredients?: { name: string; amount: string; unit: string }[];
+  authorizedRetailers?: string[];
+  counterfeitWarnings?: string[];
   
   // Timestamps
   createdAt: string;

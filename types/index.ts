@@ -306,3 +306,12 @@ export interface NutritionTargets {
 // SUBSTANCE EDUCATION TYPES (Re-exported)
 // ═══════════════════════════════════════════════════════════════════
 export * from './substance';
+
+// ═══════════════════════════════════════════════════════════════════
+// CONTENT HUB ARTICLE TYPES (Re-exported)
+// ═══════════════════════════════════════════════════════════════════
+export type { 
+  Article as ContentHubArticle, 
+  ArticleSection, 
+  ArticlesData 
+} from './article';

@@ -482,22 +482,60 @@ GET /api/indian-medicine/[name]?list=true # Multiple results (up to 20)
 #### Data Files (`lib/data/`)
 | File | Content | Records |
 |------|---------|---------|
-| `banned-substances.json` | Banned/dangerous substances | 8 substances |
-| `legal-supplements.json` | Safe legal alternatives | Multiple supplements |
+| `banned-substances.json` | Banned/dangerous substances | 31 substances |
+| `legal-supplements.json` | Safe legal alternatives | 10 supplements |
 | `affiliate-products.json` | Affiliate product recommendations | 19 products |
+| `substance-articles.json` | Wikipedia, PubMed, images data | 41 articles |
 | `index.ts` | Data access & search functions | - |
 
-#### Banned Substances Covered
-| Substance | Category | Status | Why Banned |
-|-----------|----------|--------|------------|
-| **DMAA** | Stimulant | FDA Banned (2013) | 5 deaths, cardiovascular risks |
-| **Phenibut** | Nootropic | FDA Banned (2019) | 1,320 poison cases, severe withdrawal |
-| **Kratom** | Other | Restricted (7 states) | 91 overdose deaths, opioid-like |
-| **SARMs** | SARM | Unapproved drug | Felony charges, liver toxicity |
-| **Ephedrine** | Stimulant | FDA Banned (2004) | 155 deaths, cardiac events |
-| **Clenbuterol** | Stimulant | Not for humans | Veterinary only, cardiac hypertrophy |
-| **Cardarine** | Other | Never approved | Cancer at ALL doses in studies |
-| **Nandrolone** | Prohormone | Schedule III | Controlled substance, felony |
+#### Banned Substances Covered (31 total)
+| # | Substance | Category | Status |
+|---|-----------|----------|--------|
+| 1 | **DMAA** | Stimulant | FDA Banned (2013) |
+| 2 | **Phenibut** | Nootropic | FDA Banned (2019) |
+| 3 | **Kratom** | Other | Restricted (7 states) |
+| 4 | **SARMs** | SARM | Unapproved drug |
+| 5 | **Ephedrine** | Stimulant | FDA Banned (2004) |
+| 6 | **Clenbuterol** | Stimulant | Not for humans |
+| 7 | **Cardarine** | Other | Never approved |
+| 8 | **Nandrolone** | Prohormone | Schedule III |
+| 9 | **DMHA (Octodrine)** | Stimulant | FDA Warning |
+| 10 | **BMPEA** | Stimulant | FDA Banned |
+| 11 | **Tianeptine** | Other | Restricted (multiple states) |
+| 12 | **Adrafinil** | Nootropic | Unscheduled but risky |
+| 13 | **Phenylpiracetam** | Nootropic | WADA Banned |
+| 14 | **Ostarine (MK-2866)** | SARM | Unapproved drug |
+| 15 | **Andarine (S-4)** | SARM | Unapproved drug |
+| 16 | **Yohimbine** | Other | FDA Warning |
+| 17 | **Higenamine** | Stimulant | WADA Banned |
+| 18 | **Vinpocetine** | Nootropic | FDA Warning |
+| 19 | **Picamilon** | Nootropic | FDA Banned (2015) |
+| 20 | **AMP Citrate (DMBA)** | Stimulant | FDA Warning |
+| 21 | **Methylsynephrine** | Stimulant | FDA Banned |
+| 22 | **Hordenine** | Stimulant | WADA Banned |
+| 23 | **Octopamine** | Stimulant | WADA Banned |
+| 24 | **N-Methyltyramine** | Stimulant | WADA Banned |
+| 25 | **Cyclazodone** | Nootropic | Unscheduled research chemical |
+| 26 | **Hydrafinil** | Nootropic | Unscheduled research chemical |
+| 27 | **Sulbutiamine** | Nootropic | Prescription in some countries |
+| 28 | **Dendrobium Extract** | Stimulant | FDA Warning |
+| 29 | **Acacia Rigidula** | Stimulant | FDA Warning |
+| 30 | **Arecoline (Betel Nut)** | Other | Carcinogenic |
+| 31 | **Synephrine** | Stimulant | Restricted in sports |
+
+#### Legal Supplements Covered (10 total)
+| # | Supplement | Category | FDA Status |
+|---|------------|----------|------------|
+| 1 | **Caffeine** | Nootropic | GRAS |
+| 2 | **L-Theanine** | Amino Acid | GRAS |
+| 3 | **Creatine Monohydrate** | Amino Acid | GRAS |
+| 4 | **Beta-Alanine** | Amino Acid | Dietary Ingredient |
+| 5 | **Citrulline Malate** | Amino Acid | Dietary Ingredient |
+| 6 | **Ashwagandha** | Adaptogen | NDI |
+| 7 | **Rhodiola Rosea** | Adaptogen | Dietary Ingredient |
+| 8 | **Magnesium Glycinate** | Mineral | GRAS |
+| 9 | **Lion's Mane Mushroom** | Nootropic | Dietary Ingredient |
+| 10 | **Alpha-GPC** | Nootropic | GRAS |
 
 #### Data Structure (Banned Substance)
 ```typescript
@@ -589,6 +627,338 @@ User clicks affiliate link → Commission earned
 - `components/substances/AffiliateProductCTA.tsx` - Product recommendation cards
 - `pages/compare/[slug].tsx` - Substance comparison pages
 
+---
+
+## 📋 COMPLETE LIST OF IMPLEMENTED SUBSTANCE PAGES
+
+> **Important**: This section lists ALL substance pages that have been implemented for SEO ranking. Use this as a reference to know what has already been built.
+
+### Banned Substance Pages (`/banned/[slug]`)
+**Route**: `pages/banned/[slug].tsx` | **Total**: 31 pages
+
+| # | Slug | Name | Category |
+|---|------|------|----------|
+| 1 | `dmaa` | DMAA | Stimulant |
+| 2 | `phenibut` | Phenibut | Nootropic |
+| 3 | `kratom` | Kratom | Other |
+| 4 | `sarms` | SARMs (Selective Androgen Receptor Modulators) | SARM |
+| 5 | `ephedrine` | Ephedrine | Stimulant |
+| 6 | `clenbuterol` | Clenbuterol | Stimulant |
+| 7 | `cardarine` | Cardarine (GW501516) | Other |
+| 8 | `nandrolone` | Nandrolone (Deca-Durabolin) | Prohormone |
+| 9 | `dmha` | DMHA (Octodrine) | Stimulant |
+| 10 | `bmpea` | BMPEA | Stimulant |
+| 11 | `tianeptine` | Tianeptine | Other |
+| 12 | `adrafinil` | Adrafinil | Nootropic |
+| 13 | `phenylpiracetam` | Phenylpiracetam | Nootropic |
+| 14 | `ostarine` | Ostarine (MK-2866) | SARM |
+| 15 | `andarine` | Andarine (S-4) | SARM |
+| 16 | `yohimbine` | Yohimbine/Yohimbe | Other |
+| 17 | `higenamine` | Higenamine | Stimulant |
+| 18 | `vinpocetine` | Vinpocetine | Nootropic |
+| 19 | `picamilon` | Picamilon | Nootropic |
+| 20 | `amp-citrate` | AMP Citrate (DMBA) | Stimulant |
+| 21 | `methylsynephrine` | Methylsynephrine (Oxilofrine) | Stimulant |
+| 22 | `hordenine` | Hordenine | Stimulant |
+| 23 | `octopamine` | Octopamine | Stimulant |
+| 24 | `n-methyltyramine` | N-Methyltyramine | Stimulant |
+| 25 | `cyclazodone` | Cyclazodone | Nootropic |
+| 26 | `hydrafinil` | Hydrafinil (Fluorenol) | Nootropic |
+| 27 | `sulbutiamine` | Sulbutiamine | Nootropic |
+| 28 | `dendrobium` | Dendrobium Extract | Stimulant |
+| 29 | `acacia-rigidula` | Acacia Rigidula | Stimulant |
+| 30 | `arecoline` | Arecoline (Betel Nut) | Other |
+| 31 | `synephrine` | Synephrine | Stimulant |
+
+**Features per page**:
+- ✅ Full SEO meta tags (title, description, keywords)
+- ✅ Schema.org MedicalWebPage structured data
+- ✅ Why banned section with regulatory bodies
+- ✅ Health risks & side effects
+- ✅ Mechanism of action
+- ✅ Safe legal alternatives with affiliate CTAs
+- ✅ Wikipedia full article content (expandable)
+- ✅ PubMed research citations
+- ✅ Related images from Wikimedia
+- ✅ Comparison page links
+
+### Legal Supplement Pages (`/supplement/[slug]`)
+**Route**: `pages/supplement/[slug].tsx` | **Total**: 10 pages
+
+| # | Slug | Name | Category |
+|---|------|------|----------|
+| 1 | `caffeine` | Caffeine | Nootropic |
+| 2 | `l-theanine` | L-Theanine | Amino Acid |
+| 3 | `creatine-monohydrate` | Creatine Monohydrate | Amino Acid |
+| 4 | `beta-alanine` | Beta-Alanine | Amino Acid |
+| 5 | `citrulline-malate` | Citrulline Malate | Amino Acid |
+| 6 | `ashwagandha` | Ashwagandha | Adaptogen |
+| 7 | `rhodiola-rosea` | Rhodiola Rosea | Adaptogen |
+| 8 | `magnesium-glycinate` | Magnesium Glycinate | Mineral |
+| 9 | `lions-mane` | Lion's Mane Mushroom | Nootropic |
+| 10 | `alpha-gpc` | Alpha-GPC | Nootropic |
+
+**Features per page**:
+- ✅ Full SEO meta tags
+- ✅ Schema.org DietarySupplement structured data
+- ✅ Benefits list
+- ✅ Dosage guidelines (recommended, min, max)
+- ✅ Side effects & contraindications
+- ✅ Drug interactions warning
+- ✅ Scientific evidence with study counts
+- ✅ "Where to Buy" affiliate products
+- ✅ "Legal Alternative To" banned substance links
+- ✅ Wikipedia full article content
+- ✅ PubMed research citations
+
+### Comparison Pages (`/compare/[slug]`)
+**Route**: `pages/compare/[slug].tsx` | **Total**: 63 auto-generated pages
+
+Format: `/compare/[banned-slug]-vs-[supplement-slug]`
+
+Examples:
+- `/compare/dmaa-vs-caffeine`
+- `/compare/phenibut-vs-l-theanine`
+- `/compare/kratom-vs-ashwagandha`
+- `/compare/sarms-vs-creatine-monohydrate`
+
+**Features per page**:
+- ✅ Side-by-side comparison table
+- ✅ Safety comparison (risks vs benefits)
+- ✅ Recommended products for the legal alternative
+- ✅ Links to both substance detail pages
+- ✅ Medical disclaimer
+
+### Affiliate Products (19 total)
+**Data file**: `lib/data/affiliate-products.json`
+
+| # | Brand | Product | Related Supplements |
+|---|-------|---------|---------------------|
+| 1 | Transparent Labs | BULK Pre-Workout | caffeine, beta-alanine, citrulline-malate |
+| 2 | Gorilla Mind | Gorilla Mode Pre-Workout | caffeine, l-theanine |
+| 3 | Transparent Labs | Creatine HMB | creatine-monohydrate |
+| 4 | BulkSupplements | Creatine Monohydrate Powder | creatine-monohydrate |
+| 5 | Nootropics Depot | Alpha-GPC 50% Powder | alpha-gpc |
+| 6 | Thorne Research | Alpha-GPC Capsules | alpha-gpc |
+| 7 | Jarrow Formulas | Alpha-GPC | alpha-gpc |
+| 8 | Transparent Labs | SLEEP Supplement | l-theanine, magnesium-glycinate |
+| 9 | Nootropics Depot | L-Theanine Powder | l-theanine |
+| 10 | BulkSupplements | Beta-Alanine Powder | beta-alanine |
+| 11 | BulkSupplements | Citrulline Malate 2:1 | citrulline-malate |
+| 12 | Nootropics Depot | Ashwagandha KSM-66 | ashwagandha |
+| 13 | NOW Foods | Ashwagandha | ashwagandha |
+| 14 | Nootropics Depot | Rhodiola Rosea 3% | rhodiola-rosea |
+| 15 | NOW Foods | Rhodiola | rhodiola-rosea |
+| 16 | Nootropics Depot | Magnesium Glycinate | magnesium-glycinate |
+| 17 | NOW Foods | Magnesium Glycinate | magnesium-glycinate |
+| 18 | Nootropics Depot | Lion's Mane 8:1 Extract | lions-mane |
+| 19 | Host Defense | Lion's Mane | lions-mane |
+
+**Affiliate Networks**:
+- Transparent Labs: 10% commission (direct)
+- Nootropics Depot: 15% commission (direct)
+- Amazon Associates: 3% commission
+- Gorilla Mind: Direct partnership
+
+---
+
+### 15. Wikipedia Article Integration for Substance Pages (Nov 28, 2025)
+
+**Overview**: Integrated full Wikipedia article content into banned substance and legal supplement pages with proper HTML cleaning, internal link preservation, and citation handling.
+
+#### Architecture
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    WIKIPEDIA CONTENT FLOW                            │
+├─────────────────────────────────────────────────────────────────────┤
+│  scripts/refresh-article-data.js                                     │
+│       │                                                              │
+│       ▼                                                              │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ STEP 1: Try hb-reader worker (Mozilla Readability)          │    │
+│  │ • URL: hb-reader.sparshrajput088.workers.dev/read           │    │
+│  │ • Returns clean HTML via Readability.js                     │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│       │ Failed? (503/timeout)                                        │
+│       ▼                                                              │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ STEP 2: Fallback to Wikipedia REST API                      │    │
+│  │ • en.wikipedia.org/api/rest_v1/page/html/{title}            │    │
+│  │ • Extracts body content via indexOf (not regex)             │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│       │                                                              │
+│       ▼                                                              │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │ STEP 3: cleanWikipediaHtml() - Comprehensive HTML cleaning  │    │
+│  │ • Removes: scripts, styles, [edit] links, navboxes          │    │
+│  │ • Removes: empty brackets [], citation markers               │    │
+│  │ • Preserves: internal Wikipedia links, tables, images        │    │
+│  │ • Converts: relative URLs to absolute Wikipedia URLs         │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│       │                                                              │
+│       ▼                                                              │
+│  lib/data/substance-articles.json                                    │
+│  • Stores: fullContent (cleaned HTML), readingTime, summary          │
+│  • Structure: { articles: { [slug]: { wikipedia: {...} } } }        │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+#### Key Files
+| File | Purpose |
+|------|---------|
+| `scripts/refresh-article-data.js` | Fetches Wikipedia, PubMed, images; cleans HTML |
+| `lib/data/substance-articles.json` | Generated JSON with all article data (2-4 MB) |
+| `components/articles/RelatedArticles.tsx` | WikipediaSection component renders fullContent |
+| `styles/globals.css` | `.wikipedia-content` styles for dark mode, tables, links |
+| `types/substance.ts` | `WikipediaArticle` interface with fullContent field |
+
+#### HTML Cleaning Features (`cleanWikipediaHtml`)
+```javascript
+// Removed:
+- <script>, <style>, <iframe>, <noscript> tags
+- [edit] section links and mw-editsection spans
+- Citation superscripts with numbers like [1], [2]
+- Empty brackets [] and () after citation removal
+- Nested span brackets: <span><span>[</span><span>]</span></span>
+- Navigation boxes (navbox tables/divs)
+- "What is this?" / "Verify" verification rows
+- Infobox chemical identifiers (SMILES, InChI, InChIKey)
+- Empty paragraphs <p></p>
+
+// Preserved:
+- Internal Wikipedia links (converted to target="_blank")
+- External citation links
+- Tables (wikitable, infobox)
+- Images with proper styling
+- Headings structure
+
+// Converted:
+- Relative URLs (/wiki/...) → absolute (https://en.wikipedia.org/wiki/...)
+- href="#cite_..." → removed (in-page citation links)
+```
+
+#### CSS Styling (`styles/globals.css`)
+```css
+.wikipedia-content {
+  /* Dark mode support for all elements */
+  /* Table styling with borders */
+  /* Link styling (blue, external indicators) */
+  /* Image handling (max-width, background for dark mode) */
+  /* Heading hierarchy */
+  /* List styling */
+}
+```
+
+#### Data Structure
+```typescript
+interface SubstanceArticles {
+  articles: {
+    [slug: string]: {
+      wikipedia?: {
+        title: string;
+        extract: string;           // Short summary
+        fullContent: string;       // Full cleaned HTML
+        readingTime: number;       // Minutes (wordCount / 200)
+        url: string;               // Wikipedia article URL
+        thumbnail?: { source, width, height };
+      };
+      pubmed?: PubMedArticle[];
+      images?: WikimediaImage[];
+    };
+  };
+  lastUpdated: string;
+}
+```
+
+#### Current Coverage (as of Nov 28, 2025)
+- **Total substances**: 41 (31 banned + 10 supplements)
+- **With full Wikipedia content**: 32/41 (78%)
+- **Without content**: 9 (either no Wikipedia article exists or rate limited)
+- **Articles with no Wikipedia page**: AMP Citrate, Citrulline Malate, Magnesium Glycinate, Hydrafinil
+
+---
+
+## 🔧 PROCEDURE: Adding New Articles with Wikipedia Content
+
+When adding new banned substances or legal supplements that need Wikipedia content:
+
+### Step 1: Add Substance Data
+
+**For Banned Substances** - Edit `lib/data/banned-substances.json`:
+```json
+{
+  "id": "unique-id",
+  "slug": "substance-slug",
+  "name": "Substance Name",
+  "alternativeNames": ["Alt Name 1"],
+  "category": "stimulant|nootropic|sarm|prohormone|other",
+  "legalStatus": "banned_usa|restricted|controlled",
+  "wikipediaSearchTerms": ["Exact Wikipedia Title", "Alternative Title"],
+  // ... rest of required fields
+}
+```
+
+**For Legal Supplements** - Edit `lib/data/legal-supplements.json`:
+```json
+{
+  "id": "unique-id", 
+  "slug": "supplement-slug",
+  "name": "Supplement Name",
+  "wikipediaSearchTerms": ["Exact Wikipedia Title"],
+  // ... rest of required fields
+}
+```
+
+### Step 2: Verify Wikipedia Article Exists
+```bash
+# Check if Wikipedia has an article (should return 200)
+curl -I "https://en.wikipedia.org/api/rest_v1/page/summary/YOUR_TITLE"
+```
+
+### Step 3: Regenerate Article Data
+```bash
+# From project root
+node scripts/refresh-article-data.js
+```
+
+This script will:
+1. Read all substances from `banned-substances.json` and `legal-supplements.json`
+2. For each substance, try to fetch Wikipedia content using `wikipediaSearchTerms`
+3. Clean the HTML and calculate reading time
+4. Fetch related PubMed research articles
+5. Fetch related Wikimedia images
+6. Save everything to `lib/data/substance-articles.json`
+
+### Step 4: Verify Content
+```bash
+# Check if new article has content
+node -e "const d = require('./lib/data/substance-articles.json'); 
+const a = d.articles['your-slug']; 
+console.log('Content:', a?.wikipedia?.fullContent?.length, 'chars');"
+```
+
+### Step 5: Build and Deploy
+```bash
+npm run build && npx vercel --prod
+```
+
+### Troubleshooting
+
+**Article has no fullContent:**
+1. Check `wikipediaSearchTerms` matches exact Wikipedia article title
+2. The hb-reader service may have rate-limited - run script again later
+3. Check Wikipedia article actually exists
+
+**Empty brackets `[]` appearing:**
+- The `cleanWikipediaHtml` function should handle this
+- If new pattern appears, add regex to the final cleanup pass in `refresh-article-data.js`
+
+**Content too long / page data warning:**
+- Normal for large Wikipedia articles (e.g., Tianeptine = 236KB)
+- Consider truncating or lazy-loading if performance issues
+
+---
+
 ## Data Flow
 
 ```
@@ -639,4 +1009,4 @@ Full article HTML replaces loading state
 3. Check `pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 27, 2025 (Indian Medicines Database 254K, Intelligent Search, Banned Substances Encyclopedia with Affiliate Products)*
+*Last updated: November 28, 2025 (Complete Substance Pages List: 31 Banned, 10 Supplements, 63 Comparisons, 19 Affiliate Products + Wikipedia Integration)*

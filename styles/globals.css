@@ -368,6 +368,13 @@ html {
   line-height: 1.75;
 }
 
+/* Hide empty brackets and citation markers that slip through cleaning */
+.wikipedia-content sup:empty,
+.wikipedia-content sup:has(a:empty),
+.wikipedia-content a[href^="#cite"]:empty {
+  display: none !important;
+}
+
 /* Wikipedia Images - White background for dark mode visibility */
 .wikipedia-content img {
   max-width: 100%;

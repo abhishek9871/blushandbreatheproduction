@@ -97,6 +97,24 @@ function cleanWikipediaHtml(html, articleUrl) {
     .replace(/\[\d+\]/g, '')
     .replace(/\[citation needed\]/gi, '')
     .replace(/\[verify\]/gi, '')
+    // Remove empty brackets [] that remain after citation removal (multiple patterns)
+    .replace(/\[\s*\]/g, '')
+    .replace(/\(\s*\)/g, '')
+    // Remove nested span brackets: <span><span>[</span><span>]</span></span>
+    .replace(/<span><span>\[<\/span><span>\]<\/span><\/span>/gi, '')
+    .replace(/<span[^>]*><span[^>]*>\[<\/span><span[^>]*>\]<\/span><\/span>/gi, '')
+    .replace(/<span[^>]*>\[<\/span>\s*<span[^>]*>\]<\/span>/gi, '')
+    // Remove paragraphs containing only empty bracket spans (specific pattern)
+    .replace(/<p[^>]*>\s*<span[^>]*><span[^>]*>\[<\/span><span[^>]*>\]<\/span><\/span>\s*<\/p>/gi, '')
+    // Remove standalone brackets on their own line or paragraph
+    .replace(/<p[^>]*>\s*\[\s*\]\s*<\/p>/gi, '')
+    .replace(/<span[^>]*>\s*\[\s*\]\s*<\/span>/gi, '')
+    .replace(/<div[^>]*>\s*\[\s*\]\s*<\/div>/gi, '')
+    // Remove brackets surrounded by whitespace
+    .replace(/>\s*\[\s*\]\s*</g, '><')
+    .replace(/\s+\[\s*\]\s+/g, ' ')
+    .replace(/\s+\[\s*\]/g, '')
+    .replace(/\[\s*\]\s+/g, '')
     
     // Remove chembox verification row (☒ N ☑ Y what is this? verify)
     .replace(/<tr[^>]*>[\s\S]*?what is this[\s\S]*?verify[\s\S]*?<\/tr>/gi, '')
@@ -197,6 +215,13 @@ function cleanWikipediaHtml(html, articleUrl) {
     .replace(/<table[^>]*>[\s\S]*?See also:[\s\S]*?<\/table>/gi, '') // Remove "See also" navboxes
     .replace(/<table[^>]*>[\s\S]*?Receptor\/signaling[\s\S]*?<\/table>/gi, ''); // Remove receptor navboxes
   
+  // Final pass: Remove any remaining empty bracket patterns (after whitespace normalization)
+  cleaned = cleaned
+    .replace(/<span>\s*<span>\s*\[\s*<\/span>\s*<span>\s*\]\s*<\/span>\s*<\/span>/gi, '')
+    .replace(/<span>\s*\[\s*<\/span>\s*<span>\s*\]\s*<\/span>/gi, '')
+    .replace(/<p>\s*<\/p>/gi, '')
+    .replace(/\[\s*\]/g, '');
+  
   return cleaned;
 }
 
@@ -204,42 +229,107 @@ function cleanWikipediaHtml(html, articleUrl) {
 const READER_ENDPOINT = 'https://hb-reader.sparshrajput088.workers.dev';
 
 /**
- * Fetch full Wikipedia article content using Mozilla Readability worker
+ * Fallback: Fetch Wikipedia article HTML directly from Wikipedia REST API
  */
-async function fetchWikipediaFullContent(articleUrl) {
+async function fetchWikipediaHtmlDirect(articleTitle) {
+  try {
+    const encodedTitle = encodeURIComponent(articleTitle);
+    const restUrl = `https://en.wikipedia.org/api/rest_v1/page/html/${encodedTitle}`;
+    
+    const response = await fetch(restUrl, {
+      headers: { 
+        'Accept': 'text/html',
+        'User-Agent': CONFIG.userAgent
+      }
+    });
+    
+    if (!response.ok) {
+      return null;
+    }
+    
+    const rawHtml = await response.text();
+    
+    // Extract just the body content (REST API returns full HTML document)
+    // Use indexOf for better performance with large HTML
+    const bodyStartTag = rawHtml.indexOf('<body');
+    const bodyEndTag = rawHtml.indexOf('</body>');
+    
+    if (bodyStartTag !== -1 && bodyEndTag !== -1) {
+      // Find the end of the opening body tag
+      const bodyContentStart = rawHtml.indexOf('>', bodyStartTag) + 1;
+      const bodyContent = rawHtml.substring(bodyContentStart, bodyEndTag);
+      if (bodyContent.length > 100) {
+        return bodyContent;
+      }
+    }
+    
+    // Fallback: remove doctype, html, head tags manually
+    return rawHtml
+      .replace(/<!DOCTYPE[^>]*>/gi, '')
+      .replace(/<html[^>]*>/gi, '')
+      .replace(/<\/html>/gi, '')
+      .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
+      .replace(/<body[^>]*>/gi, '')
+      .replace(/<\/body>/gi, '')
+      .trim();
+  } catch (error) {
+    console.warn('Wikipedia REST API fallback failed:', error.message);
+    return null;
+  }
+}
+
+/**
+ * Fetch full Wikipedia article content using Mozilla Readability worker
+ * Falls back to Wikipedia REST API if reader service fails
+ */
+async function fetchWikipediaFullContent(articleUrl, articleTitle) {
+  let html = null;
+  
+  // Try 1: Use hb-reader worker (Mozilla Readability)
   try {
     const endpoint = `${READER_ENDPOINT}/read?url=${encodeURIComponent(articleUrl)}`;
     const response = await fetch(endpoint, {
       headers: { 'Accept': 'application/json' }
     });
     
-    if (!response.ok) {
-      console.warn('Reader fetch failed:', response.status);
-      return null;
+    if (response.ok) {
+      const data = await response.json();
+      if (!data.error && !data.blocked && data.html) {
+        html = data.html;
+      }
     }
     
-    const data = await response.json();
-    
-    if (data.error || data.blocked || !data.html) {
-      return null;
+    if (!html) {
+      console.warn('Reader service failed, trying Wikipedia REST API fallback...');
     }
-    
-    // Clean the HTML content using our comprehensive cleaner
-    const cleanHtml = cleanWikipediaHtml(data.html, articleUrl);
-    
-    // Estimate reading time (average 200 words per minute)
-    const textContent = cleanHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
-    const wordCount = textContent.split(/\s+/).length;
-    const readingTime = Math.ceil(wordCount / 200);
-    
-    return {
-      html: cleanHtml,
-      readingTime: readingTime > 0 ? readingTime : data.readingTime,
-    };
   } catch (error) {
-    console.warn('Failed to fetch full Wikipedia content:', error.message);
+    console.warn('Reader service error:', error.message);
+  }
+  
+  // Try 2: Fallback to Wikipedia REST API directly
+  if (!html && articleTitle) {
+    html = await fetchWikipediaHtmlDirect(articleTitle);
+    if (html) {
+      console.log('    ✓ Used Wikipedia REST API fallback');
+    }
+  }
+  
+  if (!html) {
     return null;
   }
+  
+  // Clean the HTML content using our comprehensive cleaner
+  const cleanHtml = cleanWikipediaHtml(html, articleUrl);
+  
+  // Estimate reading time (average 200 words per minute)
+  const textContent = cleanHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  const wordCount = textContent.split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / 200);
+  
+  return {
+    html: cleanHtml,
+    readingTime: readingTime > 0 ? readingTime : 5,
+  };
 }
 
 async function fetchWikipedia(searchTerms) {
@@ -254,9 +344,9 @@ async function fetchWikipedia(searchTerms) {
     if (data && data.type !== 'disambiguation' && data.extract) {
       const articleUrl = data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodedTerm}`;
       
-      // Fetch full article content using Mozilla Readability worker
+      // Fetch full article content (with fallback to Wikipedia REST API)
       console.log('    - Fetching full Wikipedia article content...');
-      const fullContent = await fetchWikipediaFullContent(articleUrl);
+      const fullContent = await fetchWikipediaFullContent(articleUrl, data.title);
       
       return {
         title: data.title,

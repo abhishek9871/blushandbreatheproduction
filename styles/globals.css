@@ -361,3 +361,240 @@ html {
   border-color: var(--border-dark);
   color: var(--text-subtle-dark);
 }
+
+/* ===== Wikipedia Article Content Styles ===== */
+.wikipedia-content {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+/* Wikipedia Images - White background for dark mode visibility */
+.wikipedia-content img {
+  max-width: 100%;
+  height: auto;
+  background-color: white;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin: 1rem auto;
+  display: block;
+}
+
+.dark .wikipedia-content img {
+  border-color: #475569;
+}
+
+/* Wikipedia Infobox Tables */
+.wikipedia-content table,
+.wikipedia-content .wiki-infobox,
+.wikipedia-content .wiki-table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dark .wikipedia-content table,
+.dark .wikipedia-content .wiki-infobox,
+.dark .wikipedia-content .wiki-table {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.wikipedia-content th,
+.wikipedia-content td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.dark .wikipedia-content th,
+.dark .wikipedia-content td {
+  border-color: #334155;
+}
+
+.wikipedia-content th {
+  font-weight: 600;
+  background: #f1f5f9;
+  color: #1e293b;
+  white-space: nowrap;
+  width: 35%;
+}
+
+.dark .wikipedia-content th {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.wikipedia-content caption {
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  text-align: center;
+  background: #f1f5f9;
+  border-bottom: 2px solid #e2e8f0;
+  color: #0f172a;
+}
+
+.dark .wikipedia-content caption {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+/* Wikipedia Links */
+.wikipedia-content a {
+  color: #2563eb;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.wikipedia-content a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.dark .wikipedia-content a {
+  color: #60a5fa;
+}
+
+.dark .wikipedia-content a:hover {
+  color: #93c5fd;
+}
+
+/* Wikipedia Section Headings */
+.wikipedia-content h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  color: #0f172a;
+}
+
+.dark .wikipedia-content h2 {
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+.wikipedia-content h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #1e293b;
+}
+
+.dark .wikipedia-content h3 {
+  color: #e2e8f0;
+}
+
+.wikipedia-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+.dark .wikipedia-content h4 {
+  color: #cbd5e1;
+}
+
+/* Wikipedia Paragraphs */
+.wikipedia-content p {
+  margin-bottom: 1rem;
+  color: #374151;
+}
+
+.dark .wikipedia-content p {
+  color: #d1d5db;
+}
+
+/* Wikipedia Lists */
+.wikipedia-content ul,
+.wikipedia-content ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.wikipedia-content li {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.dark .wikipedia-content li {
+  color: #d1d5db;
+}
+
+/* Wikipedia Blockquotes */
+.wikipedia-content blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #2563eb;
+  background: #f8fafc;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.dark .wikipedia-content blockquote {
+  background: #1e293b;
+  border-color: #60a5fa;
+  color: #9ca3af;
+}
+
+/* Wikipedia Figure/Figcaption */
+.wikipedia-content figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.wikipedia-content figcaption {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.dark .wikipedia-content figcaption {
+  color: #9ca3af;
+}
+
+/* Hide certain Wikipedia elements */
+.wikipedia-content .navbox,
+.wikipedia-content .sistersitebox,
+.wikipedia-content .noprint,
+.wikipedia-content .mw-editsection,
+.wikipedia-content .reference,
+.wikipedia-content .error {
+  display: none !important;
+}
+
+/* Wikipedia References Section */
+.wikipedia-content .reflist,
+.wikipedia-content .references {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  columns: 1;
+  column-gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .wikipedia-content .reflist,
+  .wikipedia-content .references {
+    columns: 2;
+  }
+}
+
+.wikipedia-content .reflist li,
+.wikipedia-content .references li {
+  margin-bottom: 0.75rem;
+  break-inside: avoid;
+}

@@ -71,15 +71,144 @@ async function fetchWithRetry(url, options = {}, retries = 3) {
 // WIKIPEDIA API
 // ═══════════════════════════════════════════════════════════════════
 
+/**
+ * Clean Wikipedia HTML content for display
+ * Handles: [edit] links, images, internal links, citations, chemical data, navboxes
+ */
+function cleanWikipediaHtml(html, articleUrl) {
+  if (!html) return '';
+  
+  const wikiBase = 'https://en.wikipedia.org';
+  
+  let cleaned = html
+    // Remove script/style/iframe/noscript tags
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<iframe[^>]*>[\s\S]*?<\/iframe>/gi, '')
+    .replace(/<noscript[^>]*>[\s\S]*?<\/noscript>/gi, '')
+    
+    // Remove [edit] section links and brackets completely
+    .replace(/\[\s*edit\s*\]/gi, '')
+    .replace(/<span[^>]*mw-editsection[^>]*>[\s\S]*?<\/span>/gi, '')
+    
+    // Remove citation superscripts and reference markers
+    .replace(/<sup[^>]*reference[^>]*>[\s\S]*?<\/sup>/gi, '')
+    .replace(/<sup[^>]*>[\s\S]*?\[\d+\][\s\S]*?<\/sup>/gi, '')
+    .replace(/\[\d+\]/g, '')
+    .replace(/\[citation needed\]/gi, '')
+    .replace(/\[verify\]/gi, '')
+    
+    // Remove chembox verification row (☒ N ☑ Y what is this? verify)
+    .replace(/<tr[^>]*>[\s\S]*?what is this[\s\S]*?verify[\s\S]*?<\/tr>/gi, '')
+    .replace(/☒\s*N[\s\S]*?☑\s*Y/gi, '')
+    .replace(/\(what is this\?\)\s*\(verify\)/gi, '')
+    .replace(/<a[^>]*>[\s\S]*?\(what is this\?\)[\s\S]*?<\/a>/gi, '')
+    .replace(/<a[^>]*>[\s\S]*?\(verify\)[\s\S]*?<\/a>/gi, '')
+    
+    // Remove navigation boxes (these are huge template sections at the bottom)
+    .replace(/<table[^>]*navbox[^>]*>[\s\S]*?<\/table>/gi, '')
+    .replace(/<div[^>]*navbox[^>]*>[\s\S]*?<\/div>/gi, '')
+    .replace(/<section[^>]*>[\s\S]*?navbox[\s\S]*?<\/section>/gi, '')
+    
+    // Remove category links, metadata, and other Wikipedia-specific sections
+    .replace(/<div[^>]*catlinks[^>]*>[\s\S]*?<\/div>/gi, '')
+    .replace(/<div[^>]*metadata[^>]*>[\s\S]*?<\/div>/gi, '')
+    .replace(/<div[^>]*sistersitebox[^>]*>[\s\S]*?<\/div>/gi, '')
+    .replace(/<div[^>]*noprint[^>]*>[\s\S]*?<\/div>/gi, '')
+    
+    // Remove SMILES, InChI rows (chemical notation - displays poorly)
+    .replace(/<tr[^>]*>[\s\S]{0,200}SMILES[\s\S]*?<\/tr>/gi, '')
+    .replace(/<tr[^>]*>[\s\S]{0,200}InChI[\s\S]*?<\/tr>/gi, '')
+    .replace(/<tr[^>]*>[\s\S]{0,200}3D model[\s\S]*?<\/tr>/gi, '')
+    
+    // Remove "show/hide" toggle text and collapsible elements
+    .replace(/<span[^>]*>show<\/span>/gi, '')
+    .replace(/<span[^>]*>hide<\/span>/gi, '')
+    
+    // Fix images - convert all URL formats to absolute HTTPS
+    .replace(/<img([^>]*)src="\.\/([^"]+)"([^>]*)>/gi, (match, before, path, after) => {
+      return `<img${before}src="https://en.wikipedia.org/wiki/${path}"${after}>`;
+    })
+    .replace(/<img([^>]*)src="\/([^"]+)"([^>]*)>/gi, (match, before, path, after) => {
+      if (path.startsWith('/')) path = path.substring(1);
+      return `<img${before}src="https://en.wikipedia.org/${path}"${after}>`;
+    })
+    .replace(/<img([^>]*)src="\/\/([^"]+)"([^>]*)>/gi, (match, before, url, after) => {
+      return `<img${before}src="https://${url}"${after}>`;
+    })
+    
+    // Convert relative Wikipedia links (./PageName format from REST API)
+    .replace(/<a([^>]*)href="\.\/([^"#]+)([^"]*)"([^>]*)>/gi, (match, before, page, hash, after) => {
+      const absoluteUrl = `${wikiBase}/wiki/${page}${hash}`;
+      return `<a${before}href="${absoluteUrl}" target="_blank" rel="noopener noreferrer"${after}>`;
+    })
+    
+    // Convert /wiki/ links to absolute
+    .replace(/<a([^>]*)href="\/wiki\/([^"#]+)([^"]*)"([^>]*)>/gi, (match, before, page, hash, after) => {
+      const absoluteUrl = `${wikiBase}/wiki/${page}${hash}`;
+      return `<a${before}href="${absoluteUrl}" target="_blank" rel="noopener noreferrer"${after}>`;
+    })
+    
+    // Convert other relative URLs to absolute
+    .replace(/<a([^>]*)href="\/([^"]+)"([^>]*)>/gi, (match, before, path, after) => {
+      if (path.startsWith('/')) return match;
+      return `<a${before}href="${wikiBase}/${path}" target="_blank" rel="noopener noreferrer"${after}>`;
+    })
+    
+    // Ensure all external links open in new tab
+    .replace(/<a([^>]*)href="(https?:\/\/[^"]+)"([^>]*)>/gi, (match, before, url, after) => {
+      if (match.includes('target=')) return match;
+      return `<a${before}href="${url}" target="_blank" rel="noopener noreferrer"${after}>`;
+    })
+    
+    // Remove broken/edit links
+    .replace(/<a[^>]*action=edit[^>]*>[\s\S]*?<\/a>/gi, '')
+    .replace(/<a[^>]*redlink=1[^>]*>([^<]*)<\/a>/gi, '$1')
+    
+    // Clean Wikipedia-specific classes
+    .replace(/class="[^"]*mw-[^"]*"/gi, '')
+    .replace(/class="[^"]*infobox[^"]*"/gi, 'class="wiki-infobox"')
+    .replace(/class="[^"]*wikitable[^"]*"/gi, 'class="wiki-table"')
+    
+    // Remove problematic attributes
+    .replace(/typeof="[^"]*"/gi, '')
+    .replace(/about="[^"]*"/gi, '')
+    .replace(/data-mw[^=]*="[^"]*"/gi, '')
+    .replace(/id="[^"]*cite[^"]*"/gi, '')
+    
+    // Remove inline styles that hide content
+    .replace(/style="[^"]*display:\s*none[^"]*"/gi, '')
+    
+    // Clean up whitespace
+    .replace(/\s+/g, ' ')
+    .replace(/>\s+</g, '> <')
+    
+    // Remove empty elements (run multiple times for nested empties)
+    .replace(/<span>\s*<\/span>/gi, '')
+    .replace(/<div>\s*<\/div>/gi, '')
+    .replace(/<p>\s*<\/p>/gi, '')
+    .replace(/<td>\s*<\/td>/gi, '<td>-</td>')
+    
+    .trim();
+  
+  // Second pass: Remove any remaining navigation sections (they can be nested)
+  cleaned = cleaned
+    .replace(/<table[^>]*>[\s\S]*?VMATs[\s\S]*?<\/table>/gi, '') // Remove transporter navboxes
+    .replace(/<table[^>]*>[\s\S]*?See also:[\s\S]*?<\/table>/gi, '') // Remove "See also" navboxes
+    .replace(/<table[^>]*>[\s\S]*?Receptor\/signaling[\s\S]*?<\/table>/gi, ''); // Remove receptor navboxes
+  
+  return cleaned;
+}
+
 // hb-reader worker for clean article extraction using Mozilla Readability
 const READER_ENDPOINT = 'https://hb-reader.sparshrajput088.workers.dev';
 
 /**
- * Fetch full Wikipedia article content using Mozilla Readability
+ * Fetch full Wikipedia article content using Mozilla Readability worker
  */
-async function fetchWikipediaFullContent(url) {
+async function fetchWikipediaFullContent(articleUrl) {
   try {
-    const endpoint = `${READER_ENDPOINT}/read?url=${encodeURIComponent(url)}`;
+    const endpoint = `${READER_ENDPOINT}/read?url=${encodeURIComponent(articleUrl)}`;
     const response = await fetch(endpoint, {
       headers: { 'Accept': 'application/json' }
     });
@@ -95,31 +224,17 @@ async function fetchWikipediaFullContent(url) {
       return null;
     }
     
-    // Clean the HTML content
-    let cleanHtml = data.html
-      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-      .replace(/<iframe[^>]*>[\s\S]*?<\/iframe>/gi, '')
-      .replace(/class="[^"]*"/gi, '') // Remove Wikipedia classes
-      .replace(/id="[^"]*"/gi, '') // Remove Wikipedia IDs
-      .replace(/style="[^"]*"/gi, '') // Remove inline styles
-      .replace(/<a[^>]*href="\/wiki\/[^"]*"[^>]*>([^<]*)<\/a>/gi, '$1') // Remove internal wiki links, keep text
-      .replace(/<sup[^>]*>[\s\S]*?<\/sup>/gi, '') // Remove citation superscripts
-      .replace(/\[\d+\]/g, '') // Remove [1], [2] etc citation numbers
-      .replace(/\[citation needed\]/gi, '') // Remove citation needed
-      .replace(/\[edit\]/gi, '') // Remove edit links
-      .replace(/<span[^>]*>[\s\S]*?<\/span>/gi, (match) => {
-        // Keep span content but remove the span tags
-        const content = match.replace(/<\/?span[^>]*>/gi, '');
-        return content;
-      })
-      .replace(/\s+/g, ' ') // Normalize whitespace
-      .trim();
+    // Clean the HTML content using our comprehensive cleaner
+    const cleanHtml = cleanWikipediaHtml(data.html, articleUrl);
+    
+    // Estimate reading time (average 200 words per minute)
+    const textContent = cleanHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    const wordCount = textContent.split(/\s+/).length;
+    const readingTime = Math.ceil(wordCount / 200);
     
     return {
       html: cleanHtml,
-      markdown: data.markdown,
-      readingTime: data.readingTime,
+      readingTime: readingTime > 0 ? readingTime : data.readingTime,
     };
   } catch (error) {
     console.warn('Failed to fetch full Wikipedia content:', error.message);
@@ -139,7 +254,7 @@ async function fetchWikipedia(searchTerms) {
     if (data && data.type !== 'disambiguation' && data.extract) {
       const articleUrl = data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodedTerm}`;
       
-      // Fetch full article content using Mozilla Readability
+      // Fetch full article content using Mozilla Readability worker
       console.log('    - Fetching full Wikipedia article content...');
       const fullContent = await fetchWikipediaFullContent(articleUrl);
       
@@ -147,9 +262,8 @@ async function fetchWikipedia(searchTerms) {
         title: data.title,
         extract: data.extract,
         extractHtml: data.extract_html,
-        // Full article content from Mozilla Readability
+        // Full article content from Wikipedia REST API (cleaned)
         fullContent: fullContent?.html || null,
-        fullContentMarkdown: fullContent?.markdown || null,
         readingTime: fullContent?.readingTime || null,
         thumbnail: data.thumbnail ? {
           source: data.thumbnail.source,

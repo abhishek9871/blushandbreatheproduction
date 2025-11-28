@@ -549,9 +549,8 @@ export interface WikipediaArticle {
   title: string;
   extract: string; // Summary text
   extractHtml?: string; // HTML formatted extract
-  // Full article content from Mozilla Readability
+  // Full article content from Wikipedia REST API (cleaned HTML)
   fullContent?: string | null; // Clean HTML of full article
-  fullContentMarkdown?: string | null; // Markdown version
   readingTime?: number | null; // Estimated reading time in minutes
   thumbnail?: {
     source: string;

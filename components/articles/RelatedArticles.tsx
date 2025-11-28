@@ -109,17 +109,7 @@ function WikipediaSection({ article, substanceName }: WikipediaSectionProps) {
         {/* Full Article Content (when expanded) */}
         {isExpanded && hasFullContent && (
           <div 
-            className="wikipedia-content prose prose-sm sm:prose-base dark:prose-invert max-w-none
-              prose-headings:text-gray-900 dark:prose-headings:text-white
-              prose-headings:font-semibold prose-headings:mt-6 prose-headings:mb-3
-              prose-h2:text-lg prose-h3:text-base prose-h4:text-sm
-              prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-              prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-              prose-strong:text-gray-900 dark:prose-strong:text-white
-              prose-ul:my-3 prose-ul:pl-5 prose-li:text-gray-600 dark:prose-li:text-gray-300
-              prose-ol:my-3 prose-ol:pl-5
-              prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:pl-4 prose-blockquote:italic
-              prose-img:rounded-lg prose-img:my-4"
+            className="wikipedia-content mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
             dangerouslySetInnerHTML={{ __html: article.fullContent as string }}
           />
         )}

@@ -61,17 +61,22 @@ blushandbreatheproduction/
 │   │   ├── nutrition/         # Vercel Edge Functions for AI
 │   │   │   ├── generate-diet-plan.ts  # Gemini diet plan generation
 │   │   │   └── regenerate-meal.ts     # Gemini meal regeneration
+│   │   ├── substances/        # Substance-related APIs
+│   │   │   ├── openfda-interactions.ts # Drug interaction checker (Nov 28)
+│   │   │   └── ...            # Other substance APIs
 │   │   └── youtube/videos.ts  # YouTube API proxy
 │   ├── medicine/              # Medicine detail pages
 │   │   └── [slug].tsx         # Dynamic medicine page (ISR)
 │   ├── medicines/             # MediVault section
 │   │   ├── index.tsx          # Medicine encyclopedia home
+│   │   ├── interactions.tsx   # Drug Interaction Checker (rebuilt Nov 28)
 │   │   └── search.tsx         # Intelligent search (Indian + FDA)
 │   ├── info/                  # Footer info pages (SEO optimized)
 │   │   ├── about.tsx          # Our Story
 │   │   ├── careers.tsx        # Careers page
 │   │   ├── press.tsx          # Press & Media
 │   │   ├── contact.tsx        # Contact form
+│   │   ├── emergency.tsx      # Emergency info (created Nov 28)
 │   │   ├── faq.tsx            # FAQ with category filters
 │   │   ├── shipping.tsx       # Shipping info (eBay disclaimer)
 │   │   ├── returns.tsx        # Returns info (eBay disclaimer)
@@ -1009,4 +1014,446 @@ Full article HTML replaces loading state
 3. Check `pages/article/[id].tsx` for display logic
 
 ---
-*Last updated: November 28, 2025 (Complete Substance Pages List: 31 Banned, 10 Supplements, 63 Comparisons, 19 Affiliate Products + Wikipedia Integration)*
+
+### 16. Drug Interaction Checker - Complete Rebuild (Nov 28, 2025)
+
+**Overview**: Rebuilt the Drug Interaction Checker with a comprehensive curated database and OpenFDA fallback, replacing the non-functional old implementation.
+
+#### Problem Statement
+- Original implementation at `/medicines/interactions` pointed to a non-existent backend API
+- "Check Interactions" button on `/medicines` linked to `/health` (wrong page)
+- "Emergency Info" button linked to `/info/emergency` which was a 404
+
+#### Solutions Implemented
+
+##### 1. Emergency Info Page Created
+**File**: `pages/info/emergency.tsx`
+- Comprehensive emergency information page with:
+  - Poison Control Center: 1-800-222-1222
+  - 911 Emergency guidance
+  - Overdose signs and symptoms
+  - Naloxone (Narcan) information
+  - What to tell emergency responders
+
+##### 2. Navigation Buttons Fixed
+**File**: `pages/medicines/index.tsx`
+- Changed "Check Interactions" link from `/health` to `/medicines/interactions`
+- Emergency Info link now works with the new page
+
+##### 3. New Drug Interaction API
+**File**: `pages/api/substances/openfda-interactions.ts`
+
+**Architecture**:
+```
+User enters Drug A + Drug B
+        │
+        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ STEP 1: Check Curated Database (40+ known interactions)         │
+│ • Warfarin + Aspirin, Sertraline + Tramadol, etc.              │
+│ • Includes: severity, mechanism, management                     │
+│ • Drug class recognition (SSRIs+NSAIDs, Benzos+Opioids, etc.)  │
+└─────────────────────────────────────────────────────────────────┘
+        │ Not found?
+        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ STEP 2: Check Drug Aliases (Brand → Generic mapping)            │
+│ • Tylenol → Acetaminophen, Coumadin → Warfarin                 │
+│ • Xanax → Alprazolam, Zoloft → Sertraline                      │
+│ • 25+ common brand name mappings                                │
+└─────────────────────────────────────────────────────────────────┘
+        │ Not found?
+        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ STEP 3: Query OpenFDA Drug Labels API                           │
+│ • api.fda.gov/drug/label.json                                  │
+│ • Searches drug_interactions field                              │
+│ • Returns FDA label text with severity analysis                 │
+└─────────────────────────────────────────────────────────────────┘
+        │
+        ▼
+cleanFDAText() → Remove FDA label formatting
+        │
+        ▼
+Return formatted interaction result
+```
+
+**Curated Interactions Include**:
+| Drug A | Drug B | Severity | Reason |
+|--------|--------|----------|--------|
+| Warfarin | Aspirin/NSAIDs | Severe | Bleeding risk |
+| SSRIs | Tramadol/MAOIs | Severe | Serotonin syndrome |
+| Metformin | Alcohol | Moderate | Lactic acidosis |
+| Statins | Grapefruit | Moderate | CYP3A4 inhibition |
+| Levothyroxine | Calcium/Iron | Mild | Absorption reduction |
+| ACE Inhibitors | Potassium | Moderate | Hyperkalemia |
+| Benzos | Opioids | Severe | Respiratory depression |
+
+**FDA Text Cleaning** (`cleanRawFDAText` function):
+```javascript
+// Removes:
+- Section headers: "7 DRUG INTERACTIONS"
+- Subsection headers: "Effects of X on Y Substrates"
+- Reference citations: "[see Clinical Pharmacology (12.3)]"
+- Section numbers: "(12.3)"
+- Extra whitespace
+
+// Extracts:
+- Management recommendations
+- Dosage adjustment advice
+```
+
+##### 4. Rebuilt Frontend UI
+**File**: `pages/medicines/interactions.tsx`
+
+**Features**:
+- Two medication input fields with autocomplete (80+ common drugs)
+- Swap button to reverse drug order
+- Recent searches (localStorage)
+- Quick-try examples (Warfarin+Aspirin, Sertraline+Tramadol, etc.)
+- Severity color coding:
+  - 🔴 Severe - Red badge, avoid combination
+  - 🟠 Moderate - Orange badge, use caution
+  - 🟡 Mild - Yellow badge, monitor
+  - 🔵 Unknown - Blue badge, consult provider
+
+**Results Display Cards**:
+```
+┌─────────────────────────────────────────┐
+│ ⚠️ Moderate - Use Caution              │
+│    piracetam + modafinil               │
+│                          Source: FDA    │
+├─────────────────────────────────────────┤
+│ 📋 Description                          │
+│ The clearance of drugs that are...     │
+├─────────────────────────────────────────┤
+│ 🔬 Mechanism of Interaction            │
+│ This interaction involves drug...       │
+├─────────────────────────────────────────┤
+│ 🏥 Clinical Recommendation             │
+│ Dosage adjustment should be...          │
+├─────────────────────────────────────────┤
+│ Source: FDA Drug Label (OpenFDA)        │
+└─────────────────────────────────────────┘
+```
+
+**Information Cards**:
+- "Tips for Safe Medication Use" - Keep medication list, use one pharmacy, etc.
+- "When to Seek Immediate Help" - Bleeding, dizziness, breathing issues
+- Link to Emergency Info page
+- Severity level legend
+
+#### Key Files Created/Modified
+| File | Change |
+|------|--------|
+| `pages/info/emergency.tsx` | **Created** - Emergency info page |
+| `pages/api/substances/openfda-interactions.ts` | **Created** - New comprehensive API |
+| `pages/medicines/interactions.tsx` | **Rebuilt** - Complete UI overhaul |
+| `pages/medicines/index.tsx` | Fixed button links |
+
+#### API Response Format
+```typescript
+interface InteractionResponse {
+  success: boolean;
+  data: [{
+    severity: 'severe' | 'moderate' | 'mild' | 'unknown';
+    description: string;      // Cleaned FDA text or curated description
+    mechanism?: string;       // How the interaction occurs
+    management?: string;      // Clinical recommendations
+    source: string;          // "Clinical Database" or "FDA Drug Label (OpenFDA)"
+  }];
+  drugA: string;
+  drugB: string;
+  sources?: string[];
+}
+```
+
+#### Testing Examples
+| Drug A | Drug B | Expected Result |
+|--------|--------|-----------------|
+| Warfarin | Aspirin | Severe - Bleeding risk (Curated) |
+| Sertraline | Tramadol | Severe - Serotonin syndrome (Curated) |
+| Coumadin | Advil | Severe - Recognizes brand names |
+| Piracetam | Modafinil | Moderate - CYP3A4 induction (OpenFDA) |
+| Caffeine | Water | Unknown - No interaction documented |
+
+---
+
+### 17. Phenibut Content Hub - Blue Ocean SEO Strategy (Nov 29, 2025)
+
+**Overview**: Implemented a comprehensive Phenibut content hub following the Blue Ocean SEO strategy (pillar + cluster pages) that was successfully used for DMAA.
+
+#### Blue Ocean SEO Strategy Explained
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    PILLAR + CLUSTER MODEL                            │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│              ┌──────────────────────────┐                           │
+│              │    PILLAR PAGE           │                           │
+│              │    /banned/phenibut      │                           │
+│              │    (Comprehensive)       │                           │
+│              └───────────┬──────────────┘                           │
+│                          │                                           │
+│     ┌────────────────────┼────────────────────┐                     │
+│     │          │         │         │          │                     │
+│     ▼          ▼         ▼         ▼          ▼                     │
+│ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐                  │
+│ │Cluster│ │Cluster│ │Cluster│ │Cluster│ │Cluster│                  │
+│ │ Page  │ │ Page  │ │ Page  │ │ Page  │ │ Page  │                  │
+│ │  #1   │ │  #2   │ │  #3   │ │  #4   │ │  #5   │                  │
+│ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘                  │
+│     │         │         │         │         │                       │
+│     └─────────┴─────────┴─────────┴─────────┘                       │
+│                         │                                            │
+│              (All link back to pillar)                               │
+│                                                                      │
+│  Benefits:                                                           │
+│  • Pillar page ranks for competitive head terms                     │
+│  • Cluster pages rank for long-tail keywords                        │
+│  • Internal links pass authority both directions                    │
+│  • Covers topic comprehensively (topical authority)                 │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+#### Research Files Created
+Located in `research/` folder:
+| File | Content |
+|------|---------|
+| `phenibut-comprehensive-research.md` | Scientific mechanisms, pharmacology, clinical data |
+| `phenibut-keywords.md` | Blue Ocean keyword opportunities (low KD, high value) |
+| `phenibut-legal-status.md` | US federal, state, international legal status |
+| `phenibut-products-alternatives.md` | Safe alternatives with clinical evidence |
+| `phenibut-withdrawal-protocol.md` | Medical taper protocols, PAWS timeline |
+
+#### Implementation Details
+
+##### Pillar Page: `/banned/phenibut`
+**Data file**: `lib/data/banned-substances.json` (updated phenibut entry)
+
+**New Fields Added**:
+```typescript
+{
+  isPillarPage: true,
+  pillarSections: [
+    {
+      id: "what-is-phenibut",
+      title: "What is Phenibut? Soviet Origins & How It Works",
+      content: "<p>...</p><h3>...</h3><table>...</table>",  // Rich HTML
+      keywords: ["phenibut mechanism of action", "how phenibut works"]
+    },
+    // ... 5 more sections
+  ],
+  faqs: [
+    {
+      question: "How long does phenibut withdrawal last?",
+      answer: "Acute phenibut withdrawal typically peaks...",
+      keywords: ["phenibut withdrawal duration", "phenibut withdrawal timeline"]
+    },
+    // ... 9 more FAQs
+  ],
+  citations: [
+    {
+      id: 1,
+      authors: "Lapin I.",
+      title: "Phenibut (β-Phenyl-GABA): A Tranquilizer and Nootropic Drug",
+      journal: "CNS Drug Reviews",
+      year: 2001,
+      doi: "10.1111/j.1527-3458.2001.tb00211.x"
+    },
+    // ... 14 more citations
+  ],
+  relatedPages: [
+    { type: "guide", slug: "phenibut-taper-schedule", title: "Safe Phenibut Tapering Schedule Guide" },
+    { type: "guide", slug: "phenibut-paws-recovery-timeline", title: "Phenibut Withdrawal Timeline & PAWS Recovery" },
+    { type: "guide", slug: "phenibut-withdrawal-warning-signs", title: "Phenibut Withdrawal Warning Signs: When to Seek Help" },
+    { type: "guide", slug: "phenibut-baclofen-taper", title: "Phenibut to Baclofen Taper Protocol" },
+    { type: "guide", slug: "phenibut-natural-withdrawal-support", title: "Natural Phenibut Withdrawal Support" },
+    { type: "supplement", slug: "l-theanine", title: "L-Theanine: Safe Anxiety Alternative" },
+    { type: "supplement", slug: "ashwagandha", title: "Ashwagandha: Natural Stress Support" },
+    { type: "supplement", slug: "magnesium-glycinate", title: "Magnesium Glycinate: Sleep & Relaxation" }
+  ]
+}
+```
+
+**6 Pillar Sections**:
+| # | Section ID | Title | Keywords Targeted |
+|---|------------|-------|-------------------|
+| 1 | `what-is-phenibut` | What is Phenibut? Soviet Origins & How It Works | phenibut mechanism, how phenibut works |
+| 2 | `why-banned` | Why FDA Banned Phenibut (2019 Warning Letters) | phenibut FDA ban, phenibut warning letters |
+| 3 | `withdrawal-syndrome` | Phenibut Withdrawal Syndrome: Symptoms & Severity | phenibut withdrawal symptoms, phenibut withdrawal timeline |
+| 4 | `detection-testing` | Phenibut Drug Testing & Detection Windows | phenibut drug test, does phenibut show up on drug test |
+| 5 | `legal-status-2025` | Phenibut Legal Status 2025: US & International | is phenibut legal, phenibut legal status |
+| 6 | `safe-alternatives` | Safe Legal Alternatives to Phenibut | phenibut alternative, legal phenibut alternative |
+
+**10 FAQs** (Schema.org FAQ structured data ready):
+1. How long does phenibut withdrawal last?
+2. Can phenibut withdrawal cause seizures?
+3. Is phenibut legal in the United States?
+4. Does phenibut show up on a drug test?
+5. How do you safely taper off phenibut?
+6. What does phenibut withdrawal feel like?
+7. Can you die from phenibut withdrawal?
+8. Why is phenibut so addictive?
+9. What is the best natural alternative to phenibut?
+10. How quickly can you become dependent on phenibut?
+
+##### Cluster Pages (5 Guide Articles)
+**Data file**: `lib/data/articles.json` (5 new entries added)
+
+| # | Slug | Title | Target Keywords |
+|---|------|-------|-----------------|
+| 1 | `phenibut-taper-schedule` | Safe Phenibut Tapering Schedule: 50mg Daily Step-by-Step Guide [2025] | phenibut taper schedule, phenibut tapering protocol |
+| 2 | `phenibut-paws-recovery-timeline` | Phenibut Withdrawal Timeline & PAWS Recovery: Week-by-Week Guide | phenibut PAWS, phenibut protracted withdrawal |
+| 3 | `phenibut-withdrawal-warning-signs` | Phenibut Withdrawal Warning Signs: When to Seek Emergency Help | phenibut withdrawal symptoms, phenibut emergency |
+| 4 | `phenibut-baclofen-taper` | Phenibut to Baclofen Taper Protocol: Conversion Guide [2025] | phenibut baclofen substitution, phenibut to baclofen ratio |
+| 5 | `phenibut-natural-withdrawal-support` | Natural Phenibut Withdrawal Support: Supplements & Lifestyle [2025] | phenibut withdrawal supplements, natural phenibut alternatives |
+
+**Article Structure** (ContentHubArticle type):
+```typescript
+{
+  slug: "phenibut-taper-schedule",
+  title: "Safe Phenibut Tapering Schedule: 50mg Daily Step-by-Step Guide [2025]",
+  category: "guide",
+  readingTime: "12 min read",
+  lastUpdated: "2025-11-28",
+  sections: [
+    { id: "why-taper", title: "Why You Must Taper Phenibut (Never Quit Cold Turkey)", content: "..." },
+    { id: "50mg-protocol", title: "The 50mg Daily Reduction Protocol", content: "..." },
+    { id: "sample-schedules", title: "Sample Taper Schedules by Starting Dose", content: "..." },
+    { id: "taper-too-fast", title: "Signs Your Taper is Too Fast", content: "..." }
+  ],
+  faqs: [...],
+  citations: [...],
+  relatedPages: [
+    { type: "pillar", slug: "phenibut", title: "Complete Phenibut Guide" },
+    // ... other related pages
+  ]
+}
+```
+
+#### Internal Linking Structure
+```
+                    ┌─────────────────────────┐
+                    │    /banned/phenibut     │
+                    │      (Pillar Page)      │
+                    └───────────┬─────────────┘
+                                │
+           ┌────────────────────┼────────────────────┐
+           │                    │                    │
+           ▼                    ▼                    ▼
+    Guide Articles       Supplement Pages      Comparison Pages
+    ───────────────      ─────────────────     ─────────────────
+    • /guide/phenibut-   • /supplement/        • /compare/
+      taper-schedule       l-theanine            phenibut-vs-
+    • /guide/phenibut-   • /supplement/          l-theanine
+      paws-recovery        ashwagandha
+    • /guide/phenibut-   • /supplement/
+      withdrawal-          magnesium-
+      warning-signs        glycinate
+    • /guide/phenibut-
+      baclofen-taper
+    • /guide/phenibut-
+      natural-support
+           │
+           └────────────────────┬────────────────────┘
+                                │
+                    (All link back to pillar via
+                     relatedPages[type="pillar"])
+```
+
+#### SEO Features Implemented
+- ✅ **Schema.org structured data**: MedicalWebPage for pillar, Article for guides
+- ✅ **FAQ Schema**: 10 FAQs with expandable accordions
+- ✅ **Table of Contents**: Auto-generated from sections + FAQs link
+- ✅ **Citations**: 15 peer-reviewed sources for E-E-A-T signals
+- ✅ **Year in title**: "[2025]" for freshness signals
+- ✅ **Meta tags**: Custom title, description, keywords per page
+- ✅ **Internal linking**: Bidirectional pillar ↔ cluster links
+- ✅ **Age gate**: Phenibut is in AGE_RESTRICTED_SUBSTANCES array
+
+#### Files Modified
+| File | Changes |
+|------|---------|
+| `lib/data/banned-substances.json` | Expanded phenibut entry with `isPillarPage`, `pillarSections`, `faqs`, `citations`, `relatedPages` |
+| `lib/data/articles.json` | Added 5 new guide articles for phenibut cluster pages |
+
+#### Production URLs
+- **Pillar**: https://blushandbreathproduction.vercel.app/banned/phenibut
+- **Cluster 1**: https://blushandbreathproduction.vercel.app/guide/phenibut-taper-schedule
+- **Cluster 2**: https://blushandbreathproduction.vercel.app/guide/phenibut-paws-recovery-timeline
+- **Cluster 3**: https://blushandbreathproduction.vercel.app/guide/phenibut-withdrawal-warning-signs
+- **Cluster 4**: https://blushandbreathproduction.vercel.app/guide/phenibut-baclofen-taper
+- **Cluster 5**: https://blushandbreathproduction.vercel.app/guide/phenibut-natural-withdrawal-support
+
+#### Build Stats
+- Total static pages: 146
+- New pages added: 6 (1 pillar update + 5 cluster articles)
+- Build time: ~90 seconds
+
+---
+
+## 🔧 PROCEDURE: Adding New Content Hub (Blue Ocean SEO)
+
+When creating a new pillar + cluster content hub like Phenibut/DMAA:
+
+### Step 1: Research Phase
+Create research files in `research/` folder:
+```
+research/
+├── [substance]-comprehensive-research.md   # Scientific data
+├── [substance]-keywords.md                 # Blue Ocean keyword analysis
+├── [substance]-legal-status.md             # Legal/regulatory info
+├── [substance]-products-alternatives.md    # Safe alternatives
+└── [substance]-withdrawal-protocol.md      # Medical protocols (if applicable)
+```
+
+### Step 2: Update Pillar Page Data
+Edit `lib/data/banned-substances.json`:
+```json
+{
+  "slug": "substance-name",
+  "isPillarPage": true,
+  "pillarSections": [
+    { "id": "section-1", "title": "...", "content": "<HTML>", "keywords": [] }
+  ],
+  "faqs": [
+    { "question": "...", "answer": "...", "keywords": [] }
+  ],
+  "citations": [
+    { "id": 1, "authors": "...", "title": "...", "journal": "...", "year": 2024, "doi": "..." }
+  ],
+  "relatedPages": [
+    { "type": "guide", "slug": "...", "title": "..." },
+    { "type": "supplement", "slug": "...", "title": "..." }
+  ]
+}
+```
+
+### Step 3: Create Cluster Articles
+Edit `lib/data/articles.json` and add new entries:
+```json
+{
+  "slug": "substance-topic-keyword",
+  "title": "Title with [2025] for Freshness",
+  "category": "guide",
+  "sections": [...],
+  "faqs": [...],
+  "citations": [...],
+  "relatedPages": [
+    { "type": "pillar", "slug": "substance-name", "title": "Complete Guide" }
+  ]
+}
+```
+
+### Step 4: Build and Deploy
+```bash
+npm run build && npx vercel --prod
+```
+
+### Step 5: Verify Production
+Test all URLs load correctly and internal links work.
+
+---
+
+*Last updated: November 29, 2025 (Added Phenibut Content Hub with Blue Ocean SEO pillar + cluster model)*

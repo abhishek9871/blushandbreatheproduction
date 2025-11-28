@@ -253,27 +253,31 @@
       "alternativeNames": [
         "4-Amino-3-phenylbutanoic acid",
         "Phenyl-GABA",
-        "β-Phenyl-γ-aminobutyric acid"
+        "β-Phenyl-γ-aminobutyric acid",
+        "Fenibut",
+        "Noofen",
+        "Citrocard"
       ],
       "category": "nootropic",
       "legalStatus": "banned_usa",
-      "legalStatusDetails": "Banned as dietary supplement ingredient (April 2019). Schedule II in Alabama.",
+      "legalStatusDetails": "Banned as dietary supplement ingredient (April 2019). Schedule II in Alabama. Sold only as 'research chemical' online.",
       "bannedDate": "2019-04-01",
       "bannedBy": [
         "FDA"
       ],
       "stateRestrictions": {
         "Alabama": "Schedule II controlled substance",
-        "Australia": "Banned",
+        "Kentucky": "Controlled substance restrictions",
+        "Australia": "Schedule 9 prohibited substance (Feb 2018)",
         "France": "Banned",
         "Germany": "Banned",
-        "UK": "Banned",
+        "UK": "Unlicensed - cannot be sold",
         "Italy": "Banned"
       },
       "healthRisks": [
         {
           "category": "Overdose/Poisoning",
-          "description": "1,320 poison center cases reported (2009-2019), sharp increase 2015-2019. 3 deaths, 80 comas.",
+          "description": "1,320 poison center cases reported (2009-2019), sharp increase 2015-2019. 3 deaths, 80 comas documented.",
           "severity": "high",
           "sources": [
             "American Association of Poison Control Centers"
@@ -281,52 +285,296 @@
         },
         {
           "category": "Withdrawal",
-          "description": "Severe withdrawal syndrome similar to alcohol withdrawal - can be life-threatening.",
+          "description": "Severe withdrawal syndrome similar to alcohol/benzodiazepine withdrawal - can cause seizures, psychosis, and death.",
           "severity": "high",
           "sources": [
-            "FDA Safety Alert 2019"
+            "FDA Safety Alert 2019",
+            "2024 Systematic Review (15 cases)"
+          ]
+        },
+        {
+          "category": "Dependence",
+          "description": "Physical dependence can develop in as little as 2-3 weeks of daily use at doses over 1g/day.",
+          "severity": "high",
+          "sources": [
+            "PubMed Case Reports"
           ]
         }
       ],
       "sideEffects": [
-        "Agitation and anxiety",
-        "Tachycardia",
+        "Agitation and severe anxiety",
+        "Tachycardia and hypertension",
         "Drowsiness and sedation",
         "Severe withdrawal syndrome",
         "Respiratory depression",
-        "Hallucinations",
-        "Seizures"
+        "Visual and auditory hallucinations",
+        "Seizures",
+        "Psychosis and delusions",
+        "Tremor and myoclonus",
+        "Insomnia (rebound)"
       ],
       "contraindications": [
         "History of substance abuse",
-        "CNS depressant use",
-        "Alcohol use",
-        "Pregnancy",
-        "Liver disease"
+        "CNS depressant use (alcohol, benzodiazepines, opioids)",
+        "Pregnancy and breastfeeding",
+        "Kidney disease (renally excreted)",
+        "Psychiatric conditions",
+        "Seizure history"
       ],
       "overdoseRisk": "high",
       "addictionPotential": "high",
-      "description": "Phenibut is a GABA analogue that binds to GABA-B receptors, producing anxiolytic and sedative effects similar to GHB. Marketed as a nootropic/anxiety reliever but has high abuse potential with severe, potentially life-threatening withdrawal syndrome.",
-      "mechanism": "Binds to GABA-B receptors, producing anxiolytic and sedative effects similar to GHB. Crosses blood-brain barrier efficiently. Also has some GABA-A activity at higher doses.",
-      "history": "Developed in the Soviet Union in the 1960s for cosmonauts to manage stress and anxiety. Never approved for medical use in the USA. Gained popularity as a nootropic/supplement in the 2010s.",
-      "whyBanned": "FDA determined risk of severe withdrawal, addiction, and overdose outweighs claimed benefits. Not proven effective for stated uses. Withdrawal can cause seizures and death.",
+      "description": "Phenibut (β-Phenyl-γ-aminobutyric acid) is a synthetic GABA analogue developed in the Soviet Union that acts primarily as a GABA-B receptor agonist. It produces anxiolytic and sedative effects but carries extremely high risks of dependence and a severe, potentially life-threatening withdrawal syndrome similar to alcohol or benzodiazepine withdrawal.",
+      "mechanism": "Acts as a GABA-B receptor agonist and α2δ voltage-gated calcium channel ligand. The phenyl ring allows it to cross the blood-brain barrier more efficiently than GABA itself. Also binds α2δ subunit similar to gabapentin. Plasma half-life approximately 5.3 hours, but effects last 15-24 hours.",
+      "history": "Developed in the Soviet Union (Leningrad) in the 1960s as a neuropsychotropic agent for cosmonauts to manage stress and anxiety without impairing cognitive function. Still used as a prescription medicine in Russia, Ukraine, and Latvia under names like Noofen and Citrocard. Never approved for medical use in Western countries.",
+      "whyBanned": "FDA issued warning letters in April 2019 determining phenibut does not meet the statutory definition of a dietary ingredient. The severe risk of dependence, potentially fatal withdrawal syndrome (with seizures and psychosis), and lack of proven efficacy led to its effective ban from dietary supplements. It's now only sold illegally as a 'research chemical.'",
       "legalAlternatives": [
         "l-theanine",
         "ashwagandha",
         "magnesium-glycinate"
       ],
-      "metaTitle": "Phenibut - Why It's Banned, Withdrawal Dangers & Safe Alternatives",
-      "metaDescription": "Learn why Phenibut was banned by the FDA, the severe withdrawal syndrome risks, and discover safe legal alternatives for anxiety and relaxation.",
+      "isPillarPage": true,
+      "pillarSections": [
+        {
+          "id": "what-is-phenibut",
+          "title": "What is Phenibut? Soviet Origins & How It Works",
+          "content": "<p><strong>Phenibut (β-Phenyl-γ-aminobutyric acid)</strong> is a synthetic derivative of the inhibitory neurotransmitter GABA, developed in the Soviet Union in the 1960s. Unlike GABA itself, phenibut's phenyl ring allows it to cross the blood-brain barrier efficiently.</p><h3>How Phenibut Works in the Brain</h3><p>Phenibut acts through two primary mechanisms:</p><ul><li><strong>GABA-B Receptor Agonism:</strong> Produces anxiolytic (anti-anxiety) and sedative effects similar to baclofen and GHB</li><li><strong>α2δ Calcium Channel Binding:</strong> Similar to gabapentin/pregabalin, contributing to its calming effects</li></ul><p>The R-isomer of phenibut has approximately <strong>5-fold higher affinity for α2δ</strong> than for GABA-B receptors, making its mechanism more complex than simple GABA enhancement.</p><h3>Pharmacokinetics</h3><table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody><tr><td>Plasma Half-Life</td><td>~5.3 hours</td></tr><tr><td>Duration of Effects</td><td>15-24 hours (subjective)</td></tr><tr><td>Brain Penetration</td><td>~0.1% of dose reaches brain</td></tr><tr><td>Excretion</td><td>63-65% unchanged in urine</td></tr></tbody></table><p><strong>Warning:</strong> Despite the relatively short half-life, phenibut's effects persist much longer than plasma levels suggest, and dependence develops rapidly with daily use.</p>",
+          "keywordTarget": "what is phenibut"
+        },
+        {
+          "id": "why-banned",
+          "title": "Why FDA Banned Phenibut (2019 Warning Letters)",
+          "content": "<p>On <strong>April 10-16, 2019</strong>, the FDA issued warning letters to multiple companies marketing products containing phenibut as dietary supplements, effectively banning it from the legitimate supplement market.</p><h3>FDA's Legal Determination</h3><p>The FDA determined that phenibut:</p><ul><li><strong>Does not meet the statutory definition</strong> of a dietary ingredient under the Federal Food, Drug, and Cosmetic Act</li><li>Products containing phenibut are <strong>adulterated and misbranded</strong></li><li>Has <strong>no recognized medical use</strong> in the United States</li><li>Poses serious safety risks including <strong>dependence and life-threatening withdrawal</strong></li></ul><h3>Enforcement Actions</h3><p>FDA warning letters were sent to companies including:</p><ul><li>American Made Nutrition LLC</li><li>Bulk Stimulants</li><li>SL Nutrition, Inc.</li><li>Various online retailers</li></ul><p>Following FDA action, major retailers removed phenibut products. However, it remains available from 'research chemical' vendors operating in a legal gray area.</p><h3>State-Level Actions</h3><table><thead><tr><th>State</th><th>Status</th></tr></thead><tbody><tr><td>Alabama</td><td>Schedule II Controlled Substance</td></tr><tr><td>Kentucky</td><td>Controlled substance restrictions</td></tr></tbody></table><p>More states are expected to schedule phenibut as awareness of its dangers grows.</p>",
+          "keywordTarget": "phenibut FDA ban 2019"
+        },
+        {
+          "id": "withdrawal-syndrome",
+          "title": "Phenibut Withdrawal Syndrome: Symptoms & Severity",
+          "content": "<p><strong>Phenibut withdrawal is a medical emergency</strong> that can be life-threatening. The syndrome resembles severe alcohol or benzodiazepine withdrawal, with documented cases of seizures, psychosis, and deaths.</p><h3>Withdrawal Timeline</h3><table><thead><tr><th>Phase</th><th>Timeline</th><th>Key Symptoms</th></tr></thead><tbody><tr><td>Early</td><td>2-24 hours</td><td>Anxiety, tremor, palpitations, insomnia, sweating</td></tr><tr><td>Acute Peak</td><td>Days 1-3</td><td>Severe anxiety, psychosis, hallucinations, seizures, autonomic instability</td></tr><tr><td>Subacute</td><td>Days 4-14</td><td>Persistent insomnia, anxiety waves, depression, cognitive fog</td></tr><tr><td>Protracted (PAWS)</td><td>Weeks to months</td><td>Intermittent anxiety, sleep disruption, mood instability</td></tr></tbody></table><h3>Most Dangerous Symptoms</h3><ul><li><strong>Seizures:</strong> Generalized tonic-clonic seizures can occur, especially with abrupt cessation</li><li><strong>Psychosis:</strong> Visual/auditory hallucinations, paranoid delusions, inability to recognize reality</li><li><strong>Autonomic Instability:</strong> Severe tachycardia, hypertension, fever, diaphoresis</li><li><strong>Suicidal Ideation:</strong> Profound dysphoria and hopelessness</li></ul><h3>2024 Systematic Review Findings</h3><p>A comprehensive review of 15 documented phenibut withdrawal cases found:</p><ul><li>Doses ranged from 1g/day to over 30g/day</li><li>Duration of use from 2 weeks to several years</li><li>Most required hospitalization, some in ICU</li><li><strong>92.3% presented with psychomotor agitation</strong></li></ul><p><strong>Never stop phenibut cold turkey.</strong> Abrupt cessation from daily use can trigger life-threatening withdrawal.</p>",
+          "keywordTarget": "phenibut withdrawal symptoms"
+        },
+        {
+          "id": "detection-testing",
+          "title": "Phenibut Drug Testing & Detection Windows",
+          "content": "<p>Phenibut is <strong>not detected on standard drug tests</strong> including typical employment and clinical screening panels. However, specialized testing can identify it.</p><h3>Detection Methods</h3><table><thead><tr><th>Test Type</th><th>Detects Phenibut?</th><th>Notes</th></tr></thead><tbody><tr><td>Standard Urine Panel (5/10/12)</td><td>No</td><td>Tests for opioids, benzos, THC, cocaine, etc.</td></tr><tr><td>Immunoassay Screening</td><td>No</td><td>No cross-reactivity with tested substances</td></tr><tr><td>LC-MS/MS (specialized)</td><td>Yes</td><td>Requires specific order, forensic/toxicology labs</td></tr><tr><td>GC-MS (specialized)</td><td>Yes</td><td>Gold standard confirmation method</td></tr></tbody></table><h3>Detection Windows</h3><p>Based on phenibut's pharmacokinetics (5.3-hour half-life, renal excretion):</p><ul><li><strong>Blood:</strong> 24-48 hours after typical doses</li><li><strong>Urine:</strong> 1-2 days after therapeutic doses; potentially longer with chronic heavy use</li><li><strong>Hair:</strong> Theoretically detectable but rarely tested</li></ul><h3>When Testing May Occur</h3><p>Specialized phenibut testing may be ordered in:</p><ul><li>Emergency departments when phenibut use is suspected</li><li>Addiction treatment intake assessments</li><li>Forensic toxicology investigations</li><li>Research studies on GABAergic substances</li></ul><p><strong>Important:</strong> Even though phenibut won't trigger a standard drug test, its withdrawal can be medically dangerous. Be honest with healthcare providers about use.</p>",
+          "keywordTarget": "phenibut drug test detection"
+        },
+        {
+          "id": "legal-status-2025",
+          "title": "Phenibut Legal Status 2025: US & International",
+          "content": "<h3>United States Federal Status (2025)</h3><p>Phenibut occupies a <strong>legal gray area</strong> at the federal level:</p><ul><li><strong>Not FDA-approved</strong> as a drug or dietary supplement ingredient</li><li><strong>Not scheduled</strong> under the Controlled Substances Act (possession is not federally criminal)</li><li><strong>Cannot be legally sold</strong> as a dietary supplement (per 2019 FDA determination)</li><li>Available only as a 'research chemical' from specialty vendors</li></ul><h3>State-Level Restrictions</h3><table><thead><tr><th>State</th><th>Status</th><th>Details</th></tr></thead><tbody><tr><td>Alabama</td><td>Schedule II</td><td>Controlled substance since 2021; possession without prescription is illegal</td></tr><tr><td>Kentucky</td><td>Restricted</td><td>Controlled substance restrictions apply</td></tr><tr><td>Other States</td><td>Legal but unregulated</td><td>No specific state laws, but FDA rules still apply to sellers</td></tr></tbody></table><h3>International Legal Status</h3><table><thead><tr><th>Country/Region</th><th>Status</th></tr></thead><tbody><tr><td>Russia/Ukraine/Latvia</td><td>Prescription medicine (Noofen, Citrocard)</td></tr><tr><td>Australia</td><td>Schedule 9 Prohibited Substance (Feb 2018)</td></tr><tr><td>United Kingdom</td><td>Unlicensed; cannot be legally sold as supplement</td></tr><tr><td>France/Germany/Italy</td><td>Banned from sale</td></tr><tr><td>Canada</td><td>Unscheduled but not approved as natural health product</td></tr></tbody></table><p><strong>2025 Outlook:</strong> More US states are expected to schedule phenibut as awareness of its dangers increases. Federal scheduling remains possible if abuse cases continue to rise.</p>",
+          "keywordTarget": "is phenibut legal 2025"
+        },
+        {
+          "id": "safe-alternatives",
+          "title": "Safe Legal Alternatives to Phenibut",
+          "content": "<p>If you're seeking anxiety relief or better sleep without phenibut's dangerous dependency risks, these <strong>evidence-based alternatives</strong> are legal and much safer:</p><h3>For Anxiety</h3><h4>1. L-Theanine</h4><ul><li><strong>Mechanism:</strong> Amino acid from tea that increases alpha-wave activity and modulates glutamate/GABA</li><li><strong>Evidence:</strong> Clinical trials show reduced physiological and subjective stress; 400mg/day effective for anxiety</li><li><strong>Safety:</strong> Well-tolerated up to 900mg/day with minimal side effects</li><li><strong>Dosage:</strong> 100-400mg daily</li></ul><h4>2. Ashwagandha (Withania somnifera)</h4><ul><li><strong>Mechanism:</strong> Adaptogenic herb that modulates cortisol and HPA-axis activity</li><li><strong>Evidence:</strong> Multiple RCTs show significant anxiety and stress reduction at 300-600mg/day</li><li><strong>Safety:</strong> Generally well-tolerated; avoid in pregnancy and autoimmune conditions</li><li><strong>Dosage:</strong> 300-600mg standardized extract daily</li></ul><h3>For Sleep</h3><h4>3. Magnesium Glycinate</h4><ul><li><strong>Mechanism:</strong> Essential mineral that modulates GABA signaling and is required for serotonin synthesis</li><li><strong>Evidence:</strong> 2025 RCT showed improved insomnia scores within 2 weeks at 250mg elemental magnesium</li><li><strong>Safety:</strong> Safe for most; avoid high doses with kidney disease</li><li><strong>Dosage:</strong> 200-400mg elemental magnesium before bed</li></ul><h4>4. Glycine</h4><ul><li><strong>Mechanism:</strong> Inhibitory amino acid that lowers core body temperature and promotes sleep</li><li><strong>Evidence:</strong> RCTs show 3g before bed improves sleep quality and reduces next-day fatigue</li><li><strong>Safety:</strong> Well-tolerated with no dependence risk</li></ul><h3>When to Seek Medical Help</h3><p>If you have persistent anxiety lasting weeks, significant daily impairment, or history of substance use, consult a physician. Prescription options like SSRIs/SNRIs may be more appropriate than supplements.</p>",
+          "keywordTarget": "phenibut legal alternatives"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "How long does phenibut withdrawal last?",
+          "answer": "Acute phenibut withdrawal typically peaks within 1-3 days and improves over 1-2 weeks with treatment. However, protracted withdrawal symptoms (PAWS) including anxiety, insomnia, and mood instability can persist for weeks to months, especially after heavy or prolonged use. The 2024 systematic review found most cases resolved within 5-14 days with medical management."
+        },
+        {
+          "question": "Can phenibut withdrawal cause seizures?",
+          "answer": "Yes, phenibut withdrawal can cause life-threatening seizures, especially with abrupt cessation after daily use. The mechanism is similar to alcohol or benzodiazepine withdrawal - sudden removal of GABAergic activity leads to CNS hyperexcitability. This is why medical supervision and gradual tapering are essential. Never stop phenibut cold turkey."
+        },
+        {
+          "question": "Is phenibut legal in the United States?",
+          "answer": "Phenibut is in a legal gray area in the US. It's not federally scheduled (possession isn't criminal), but the FDA determined in 2019 that it cannot be legally sold as a dietary supplement. It's only available as a 'research chemical.' Alabama has scheduled it as a controlled substance, and other states may follow."
+        },
+        {
+          "question": "Does phenibut show up on a drug test?",
+          "answer": "No, phenibut is not detected on standard drug tests including 5-panel, 10-panel, and 12-panel urine screens. It requires specialized testing (LC-MS/MS or GC-MS) that is only available at forensic or specialized toxicology laboratories and must be specifically ordered."
+        },
+        {
+          "question": "How do you safely taper off phenibut?",
+          "answer": "Safe phenibut tapering typically involves reducing doses by 50-100mg (5-10%) every 1-2 weeks, with slower reductions as doses get lower. Many clinicians prefer cross-tapering to baclofen (approximately 10mg baclofen per 1g phenibut) which can then be tapered more controllably. Always consult a physician experienced with GABAergic withdrawal."
+        },
+        {
+          "question": "What does phenibut withdrawal feel like?",
+          "answer": "Phenibut withdrawal typically causes severe anxiety, insomnia, tremor, rapid heartbeat, sweating, and agitation. In severe cases, it can cause visual and auditory hallucinations, psychosis, paranoid delusions, and seizures. Many describe it as one of the worst withdrawal experiences, comparable to severe alcohol or benzodiazepine withdrawal."
+        },
+        {
+          "question": "Can you die from phenibut withdrawal?",
+          "answer": "Yes, phenibut withdrawal can be fatal. Deaths have occurred from seizures, aspiration during psychosis, self-harm during severe dysphoria, and cardiovascular complications from autonomic instability. This is why phenibut withdrawal should be treated as a medical emergency and never attempted without professional supervision."
+        },
+        {
+          "question": "Why is phenibut so addictive?",
+          "answer": "Phenibut is highly addictive because it acts on GABA-B receptors (similar to alcohol and GHB) and tolerance develops rapidly - often within 2-3 weeks of daily use. Users need increasing doses to achieve the same effect, and the brain becomes dependent on phenibut to maintain normal GABAergic function. Stopping triggers severe rebound anxiety and physical withdrawal."
+        },
+        {
+          "question": "What is the best natural alternative to phenibut?",
+          "answer": "The best evidence-based alternatives are L-theanine (100-400mg) for daytime anxiety, ashwagandha (300-600mg) for stress reduction, and magnesium glycinate (200-400mg) for sleep. These have clinical evidence for efficacy without the severe dependence and withdrawal risks of phenibut. For significant anxiety, consult a physician about prescription options."
+        },
+        {
+          "question": "How quickly can you become dependent on phenibut?",
+          "answer": "Physical dependence on phenibut can develop in as little as 2-3 weeks of daily use, especially at doses above 1g/day. Tolerance often develops within the first week, leading to dose escalation. Case reports document severe withdrawal in users who took phenibut for only 2 weeks. The dependence liability is significantly higher than most OTC supplements."
+        }
+      ],
+      "citations": [
+        {
+          "title": "Phenibut (β-phenyl-γ-aminobutyric acid): A Review of Clinical Efficacy and Safety",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6535394/",
+          "source": "PMC",
+          "year": "2019"
+        },
+        {
+          "title": "Systematic Review of Phenibut Withdrawal Cases",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38112312/",
+          "source": "PubMed",
+          "year": "2024"
+        },
+        {
+          "title": "Phenibut Dependence and Management of Withdrawal",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5662439/",
+          "source": "PMC",
+          "year": "2017"
+        },
+        {
+          "title": "FDA Warning Letters: Products Containing Phenibut",
+          "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/american-made-nutrition-llc-575469-04102019",
+          "source": "FDA",
+          "year": "2019"
+        },
+        {
+          "title": "Phenibut Withdrawal: A Systematic Review of Case Reports",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10323501/",
+          "source": "PMC",
+          "year": "2023"
+        },
+        {
+          "title": "Phenibut-Related Deaths: A Case Series",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8647977/",
+          "source": "PMC",
+          "year": "2021"
+        },
+        {
+          "title": "Baclofen for Phenibut Withdrawal: Case Reports",
+          "url": "https://casereports.bmj.com/content/casereports/2013/bcr-2012-008381.full.pdf",
+          "source": "BMJ Case Reports",
+          "year": "2013"
+        },
+        {
+          "title": "Phenibut Psychosis and Withdrawal",
+          "url": "https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2021.688147/full",
+          "source": "Frontiers in Psychiatry",
+          "year": "2021"
+        },
+        {
+          "title": "GABA-B Receptor Pharmacology of Phenibut",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/11830761/",
+          "source": "PubMed",
+          "year": "2002"
+        },
+        {
+          "title": "American Association of Poison Control Centers: Phenibut Exposures",
+          "url": "https://aapcc.org/",
+          "source": "AAPCC",
+          "year": "2019"
+        },
+        {
+          "title": "Australian Scheduling of Phenibut (Schedule 9)",
+          "url": "https://www.tga.gov.au/scheduling-decision-final/phenibut",
+          "source": "TGA",
+          "year": "2018"
+        },
+        {
+          "title": "Noofen (Phenibut) Product Information - Latvia",
+          "url": "https://www.olainfarm.com/products/noofen/",
+          "source": "Olainfarm",
+          "year": "2023"
+        },
+        {
+          "title": "L-Theanine for Anxiety: Systematic Review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31758301/",
+          "source": "PubMed",
+          "year": "2019"
+        },
+        {
+          "title": "Ashwagandha for Stress and Anxiety: Meta-Analysis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32818573/",
+          "source": "PubMed",
+          "year": "2020"
+        },
+        {
+          "title": "Magnesium Supplementation for Insomnia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/35184264/",
+          "source": "PubMed",
+          "year": "2022"
+        }
+      ],
+      "relatedPages": [
+        {
+          "slug": "phenibut-taper-schedule",
+          "title": "Safe Phenibut Tapering Schedule Guide",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "phenibut-paws-recovery-timeline",
+          "title": "Phenibut Withdrawal Timeline & PAWS Recovery",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "phenibut-withdrawal-warning-signs",
+          "title": "Phenibut Withdrawal Warning Signs: When to Seek Help",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "phenibut-baclofen-taper",
+          "title": "Phenibut to Baclofen Taper Protocol",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "phenibut-natural-withdrawal-support",
+          "title": "Natural Phenibut Withdrawal Support",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "l-theanine",
+          "title": "L-Theanine: Safe Anxiety Alternative",
+          "type": "supplement",
+          "relationship": "related"
+        },
+        {
+          "slug": "ashwagandha",
+          "title": "Ashwagandha: Natural Stress Support",
+          "type": "supplement",
+          "relationship": "related"
+        },
+        {
+          "slug": "magnesium-glycinate",
+          "title": "Magnesium Glycinate: Sleep & Relaxation",
+          "type": "supplement",
+          "relationship": "related"
+        }
+      ],
+      "metaTitle": "Phenibut: Complete Guide to the Banned Nootropic - Withdrawal, Legal Status & Alternatives [2025]",
+      "metaDescription": "Comprehensive guide to Phenibut: why FDA banned it, severe withdrawal risks (seizures, psychosis), state-by-state legal status, and safe legal alternatives.",
       "keywords": [
         "phenibut",
         "phenibut ban",
         "phenibut withdrawal",
+        "phenibut withdrawal symptoms",
+        "phenibut taper",
+        "phenibut legal status",
+        "is phenibut legal",
         "phenibut alternative",
         "phenibut dangers",
+        "phenibut seizure",
+        "phenibut psychosis",
+        "phenibut dependence",
+        "phenibut detox",
         "gaba supplement"
       ],
       "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-27T00:00:00Z"
+      "updatedAt": "2025-11-28T00:00:00Z"
     },
     {
       "id": "banned-kratom",

@@ -36,6 +36,9 @@ interface WikipediaSectionProps {
 
 function WikipediaSection({ article, substanceName }: WikipediaSectionProps) {
   const [imageError, setImageError] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  const hasFullContent = article.fullContent && article.fullContent.length > 0;
   
   return (
     <section 
@@ -53,15 +56,25 @@ function WikipediaSection({ article, substanceName }: WikipediaSectionProps) {
           <h3 id="wikipedia-heading" className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white truncate">
             Overview
           </h3>
-          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-            From Wikipedia, the free encyclopedia
-          </p>
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            <span>From Wikipedia, the free encyclopedia</span>
+            {article.readingTime && (
+              <>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">schedule</span>
+                  {article.readingTime} min read
+                </span>
+              </>
+            )}
+          </div>
         </div>
       </div>
       
       {/* Content */}
       <div className="p-4 sm:p-5">
-        <div className="flex flex-col sm:flex-row gap-4">
+        {/* Title with Thumbnail */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-4">
           {/* Thumbnail */}
           {article.thumbnail && !imageError && (
             <div className="flex-shrink-0 mx-auto sm:mx-0">
@@ -79,26 +92,62 @@ function WikipediaSection({ article, substanceName }: WikipediaSectionProps) {
             </div>
           )}
           
-          {/* Extract */}
+          {/* Title and Summary */}
           <div className="flex-1 min-w-0">
             <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2">
               {article.title}
             </h4>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-5 sm:line-clamp-4">
-              {article.extract}
-            </p>
+            {/* Show summary when collapsed */}
+            {!isExpanded && (
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                {article.extract}
+              </p>
+            )}
           </div>
         </div>
         
-        {/* Read More Link */}
-        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+        {/* Full Article Content (when expanded) */}
+        {isExpanded && hasFullContent && (
+          <div 
+            className="wikipedia-content prose prose-sm sm:prose-base dark:prose-invert max-w-none
+              prose-headings:text-gray-900 dark:prose-headings:text-white
+              prose-headings:font-semibold prose-headings:mt-6 prose-headings:mb-3
+              prose-h2:text-lg prose-h3:text-base prose-h4:text-sm
+              prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
+              prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+              prose-strong:text-gray-900 dark:prose-strong:text-white
+              prose-ul:my-3 prose-ul:pl-5 prose-li:text-gray-600 dark:prose-li:text-gray-300
+              prose-ol:my-3 prose-ol:pl-5
+              prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:pl-4 prose-blockquote:italic
+              prose-img:rounded-lg prose-img:my-4"
+            dangerouslySetInnerHTML={{ __html: article.fullContent as string }}
+          />
+        )}
+        
+        {/* Expand/Collapse Button */}
+        {hasFullContent && (
+          <div className="mt-4">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+            >
+              <span className="material-symbols-outlined text-base">
+                {isExpanded ? 'expand_less' : 'expand_more'}
+              </span>
+              {isExpanded ? 'Show Less' : 'Read Full Article'}
+            </button>
+          </div>
+        )}
+        
+        {/* External Link */}
+        <div className={`${hasFullContent ? 'mt-4' : 'mt-4'} pt-4 border-t border-gray-200 dark:border-gray-700`}>
           <a
             href={article.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
-            Read full article on Wikipedia
+            View on Wikipedia
             <span className="material-symbols-outlined text-base">open_in_new</span>
           </a>
         </div>

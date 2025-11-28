@@ -71,6 +71,62 @@ async function fetchWithRetry(url, options = {}, retries = 3) {
 // WIKIPEDIA API
 // ═══════════════════════════════════════════════════════════════════
 
+// hb-reader worker for clean article extraction using Mozilla Readability
+const READER_ENDPOINT = 'https://hb-reader.sparshrajput088.workers.dev';
+
+/**
+ * Fetch full Wikipedia article content using Mozilla Readability
+ */
+async function fetchWikipediaFullContent(url) {
+  try {
+    const endpoint = `${READER_ENDPOINT}/read?url=${encodeURIComponent(url)}`;
+    const response = await fetch(endpoint, {
+      headers: { 'Accept': 'application/json' }
+    });
+    
+    if (!response.ok) {
+      console.warn('Reader fetch failed:', response.status);
+      return null;
+    }
+    
+    const data = await response.json();
+    
+    if (data.error || data.blocked || !data.html) {
+      return null;
+    }
+    
+    // Clean the HTML content
+    let cleanHtml = data.html
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+      .replace(/<iframe[^>]*>[\s\S]*?<\/iframe>/gi, '')
+      .replace(/class="[^"]*"/gi, '') // Remove Wikipedia classes
+      .replace(/id="[^"]*"/gi, '') // Remove Wikipedia IDs
+      .replace(/style="[^"]*"/gi, '') // Remove inline styles
+      .replace(/<a[^>]*href="\/wiki\/[^"]*"[^>]*>([^<]*)<\/a>/gi, '$1') // Remove internal wiki links, keep text
+      .replace(/<sup[^>]*>[\s\S]*?<\/sup>/gi, '') // Remove citation superscripts
+      .replace(/\[\d+\]/g, '') // Remove [1], [2] etc citation numbers
+      .replace(/\[citation needed\]/gi, '') // Remove citation needed
+      .replace(/\[edit\]/gi, '') // Remove edit links
+      .replace(/<span[^>]*>[\s\S]*?<\/span>/gi, (match) => {
+        // Keep span content but remove the span tags
+        const content = match.replace(/<\/?span[^>]*>/gi, '');
+        return content;
+      })
+      .replace(/\s+/g, ' ') // Normalize whitespace
+      .trim();
+    
+    return {
+      html: cleanHtml,
+      markdown: data.markdown,
+      readingTime: data.readingTime,
+    };
+  } catch (error) {
+    console.warn('Failed to fetch full Wikipedia content:', error.message);
+    return null;
+  }
+}
+
 async function fetchWikipedia(searchTerms) {
   // Try each search term until we find a match
   for (const term of searchTerms) {
@@ -81,10 +137,20 @@ async function fetchWikipedia(searchTerms) {
     const data = await fetchWithRetry(summaryUrl);
     
     if (data && data.type !== 'disambiguation' && data.extract) {
+      const articleUrl = data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodedTerm}`;
+      
+      // Fetch full article content using Mozilla Readability
+      console.log('    - Fetching full Wikipedia article content...');
+      const fullContent = await fetchWikipediaFullContent(articleUrl);
+      
       return {
         title: data.title,
         extract: data.extract,
         extractHtml: data.extract_html,
+        // Full article content from Mozilla Readability
+        fullContent: fullContent?.html || null,
+        fullContentMarkdown: fullContent?.markdown || null,
+        readingTime: fullContent?.readingTime || null,
         thumbnail: data.thumbnail ? {
           source: data.thumbnail.source,
           width: data.thumbnail.width,
@@ -95,7 +161,7 @@ async function fetchWikipedia(searchTerms) {
           width: data.originalimage.width,
           height: data.originalimage.height,
         } : undefined,
-        url: data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodedTerm}`,
+        url: articleUrl,
         pageid: data.pageid,
         lastModified: data.timestamp,
       };

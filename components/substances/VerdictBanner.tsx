@@ -130,13 +130,13 @@ export function VerdictBanner({
           </p>
 
           {/* Subtitle */}
-          <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">
+          <p className="text-sm md:text-base text-gray-600">
             {getSubtitle()}
           </p>
 
           {/* Primary Risk Warning (for banned) */}
           {primaryRisk && (type === 'banned' || type === 'restricted') && (
-            <div className="mt-3 flex items-center gap-2 text-red-700 dark:text-red-400">
+            <div className="mt-3 flex items-center gap-2 text-red-700">
               <span className="material-symbols-outlined text-lg">warning</span>
               <span className="font-medium">{primaryRisk}</span>
             </div>
@@ -145,11 +145,11 @@ export function VerdictBanner({
           {/* Safety Rating Pills (for safe) */}
           {type === 'safe' && safetyRating && (
             <div className="mt-3 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm font-medium">
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
                 <span className="material-symbols-outlined text-sm">check_circle</span>
                 Legal in all 50 states
               </span>
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium">
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
                 <span className="material-symbols-outlined text-sm">science</span>
                 Research-backed
               </span>

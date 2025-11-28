@@ -13,13 +13,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {
-  LegalDisclaimerBanner,
   SafetyWarningAlert,
   AffiliateProductList,
   MetaHead,
   SchemaMarkup,
-  FDADisclaimer,
-  AffiliateDisclosure,
   VerdictBanner,
 } from '@/components';
 import { LoadingSpinner } from '@/components';
@@ -102,12 +99,6 @@ export default function SupplementPage({ supplement, error }: SupplementPageProp
       />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
-        {/* Legal Disclaimers */}
-        <LegalDisclaimerBanner pageType="supplement" className="mb-6" />
-        
-        {/* Affiliate Disclosure - FTC Required */}
-        <AffiliateDisclosure variant="inline" className="mb-6" />
-
         {/* VERDICT BANNER - Clear SAFE status */}
         <VerdictBanner
           type="safe"
@@ -396,14 +387,6 @@ export default function SupplementPage({ supplement, error }: SupplementPageProp
             </section>
           )}
         </article>
-
-        {/* Bottom Disclaimers */}
-        <LegalDisclaimerBanner
-          pageType="supplement"
-          collapsible
-          defaultExpanded={false}
-          className="mt-8"
-        />
       </main>
     </>
   );

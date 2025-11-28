@@ -159,13 +159,9 @@ export default function GuidePage({ article, error }: GuidePageProps) {
                   {section.title}
                 </h2>
                 <div 
-                  className="prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
+                  className="pillar-content prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
                     prose-headings:text-text-light dark:prose-headings:text-text-dark
                     prose-strong:text-text-light dark:prose-strong:text-text-dark
-                    prose-table:bg-white dark:prose-table:bg-card-dark
-                    prose-th:bg-gray-100 dark:prose-th:bg-gray-800
-                    prose-th:px-4 prose-th:py-2 prose-td:px-4 prose-td:py-2
-                    prose-td:border-border-light dark:prose-td:border-border-dark
                     prose-ul:list-disc prose-ol:list-decimal
                     prose-a:text-primary"
                   dangerouslySetInnerHTML={{ __html: section.content }}

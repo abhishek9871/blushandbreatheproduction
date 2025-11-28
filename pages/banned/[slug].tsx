@@ -291,10 +291,10 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
                   <span className="material-symbols-outlined text-orange-500">warning</span>
                   Common Side Effects
                 </h4>
-                <ul className="space-y-1">
+                <ul className="space-y-1.5">
                   {substance.sideEffects.slice(0, 6).map((effect, i) => (
                     <li key={i} className="text-sm text-text-subtle-light dark:text-text-subtle-dark flex items-start gap-2">
-                      <span className="material-symbols-outlined text-xs mt-1">arrow_right</span>
+                      <span className="material-symbols-outlined text-base text-orange-400 flex-shrink-0" style={{ fontSize: '16px' }}>arrow_right</span>
                       {effect}
                     </li>
                   ))}
@@ -306,10 +306,10 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
                   <span className="material-symbols-outlined text-red-500">block</span>
                   Contraindications
                 </h4>
-                <ul className="space-y-1">
+                <ul className="space-y-1.5">
                   {substance.contraindications.slice(0, 6).map((contra, i) => (
                     <li key={i} className="text-sm text-text-subtle-light dark:text-text-subtle-dark flex items-start gap-2">
-                      <span className="material-symbols-outlined text-xs mt-1">arrow_right</span>
+                      <span className="material-symbols-outlined text-base text-red-400 flex-shrink-0" style={{ fontSize: '16px' }}>arrow_right</span>
                       {contra}
                     </li>
                   ))}
@@ -407,12 +407,9 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
                     {section.title}
                   </h2>
                   <div 
-                    className="prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
+                    className="pillar-content prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
                       prose-headings:text-text-light dark:prose-headings:text-text-dark
                       prose-strong:text-text-light dark:prose-strong:text-text-dark
-                      prose-table:bg-white dark:prose-table:bg-card-dark
-                      prose-th:bg-gray-100 dark:prose-th:bg-gray-800
-                      prose-td:border-border-light dark:prose-td:border-border-dark
                       prose-ul:list-disc prose-ol:list-decimal"
                     dangerouslySetInnerHTML={{ __html: section.content }}
                   />

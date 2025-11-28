@@ -48,3 +48,6 @@ export * from './SEO';
 
 // Legal Compliance Components
 export * from './legal';
+
+// Article Components (Wikipedia, PubMed, Wikimedia Commons)
+export * from './articles';

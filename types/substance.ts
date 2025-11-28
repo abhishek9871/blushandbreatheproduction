@@ -540,3 +540,76 @@ export interface SubstanceSitemapEntry {
   changeFrequency: 'daily' | 'weekly' | 'monthly';
   priority: number;
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// RELATED ARTICLES (Wikipedia, PubMed, Wikimedia Commons)
+// ═══════════════════════════════════════════════════════════════════
+
+export interface WikipediaArticle {
+  title: string;
+  extract: string; // Summary text
+  extractHtml?: string; // HTML formatted extract
+  thumbnail?: {
+    source: string;
+    width: number;
+    height: number;
+  };
+  originalImage?: {
+    source: string;
+    width: number;
+    height: number;
+  };
+  url: string;
+  pageid: number;
+  lastModified?: string;
+}
+
+export interface PubMedArticle {
+  pmid: string;
+  title: string;
+  abstract: string;
+  authors: string[];
+  journal: string;
+  pubDate: string;
+  year: number;
+  doi?: string;
+  url: string;
+  keywords?: string[];
+  meshTerms?: string[];
+}
+
+export interface WikimediaImage {
+  title: string;
+  url: string;
+  thumbUrl: string;
+  width: number;
+  height: number;
+  description?: string;
+  license?: string;
+  artist?: string;
+}
+
+export interface SubstanceArticles {
+  substanceSlug: string;
+  substanceName: string;
+  substanceType: 'banned' | 'supplement';
+  
+  // Wikipedia data (null if not found)
+  wikipedia: WikipediaArticle | null;
+  
+  // PubMed research articles
+  pubmed: PubMedArticle[];
+  
+  // Wikimedia Commons images
+  images: WikimediaImage[];
+  
+  // Metadata
+  fetchedAt: string;
+  lastUpdated: string;
+}
+
+export interface SubstanceArticlesData {
+  version: string;
+  generatedAt: string;
+  articles: Record<string, SubstanceArticles>; // keyed by slug
+}

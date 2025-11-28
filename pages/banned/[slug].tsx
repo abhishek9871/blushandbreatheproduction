@@ -22,24 +22,26 @@ import {
   AgeGate,
   VerdictBanner,
   SafeSwapBox,
+  RelatedArticles,
 } from '@/components';
 import { LoadingSpinner } from '@/components';
 import { useLegalAlternatives, useAffiliateProducts } from '@/hooks';
 import { trackPageView, trackWarningViewed } from '@/lib/analytics';
-import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs } from '@/lib/data';
-import type { BannedSubstance, LegalSupplement, AffiliateProduct } from '@/types';
+import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles } from '@/lib/data';
+import type { BannedSubstance, LegalSupplement, AffiliateProduct, SubstanceArticles } from '@/types';
 
 // Substances that require age verification
 const AGE_RESTRICTED_SUBSTANCES = ['kratom', 'phenibut'];
 
 interface BannedSubstancePageProps {
   substance: BannedSubstance | null;
+  articles: SubstanceArticles | null;
   error?: string;
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
-export default function BannedSubstancePage({ substance, error }: BannedSubstancePageProps) {
+export default function BannedSubstancePage({ substance, articles, error }: BannedSubstancePageProps) {
   // Fetch legal alternatives client-side for freshness
   const { data: alternatives, loading: altLoading } = useLegalAlternatives(substance?.slug);
 
@@ -99,10 +101,11 @@ export default function BannedSubstancePage({ substance, error }: BannedSubstanc
         bannedSubstance={substance}
       />
       
-      {/* Schema.org Structured Data */}
+      {/* Schema.org Structured Data with Citations for E-E-A-T SEO */}
       <SchemaMarkup
         type="MedicalWebPage"
         bannedSubstance={substance}
+        citations={articles?.pubmed}
         pageUrl={`https://blushandbreathe.com/banned/${substance.slug}`}
         pageTitle={substance.metaTitle}
         pageDescription={substance.metaDescription}
@@ -315,6 +318,16 @@ export default function BannedSubstancePage({ substance, error }: BannedSubstanc
             )}
           </section>
 
+          {/* Related Articles - Wikipedia, PubMed, Images */}
+          {articles && (
+            <section className="mb-8">
+              <RelatedArticles
+                articles={articles}
+                substanceType="banned"
+              />
+            </section>
+          )}
+
           {/* Sticky Mobile CTA */}
           {alternatives && alternatives.length > 0 && (
             <div className="sticky-cta md:hidden">
@@ -357,7 +370,7 @@ export const getStaticProps: GetStaticProps<BannedSubstancePageProps> = async ({
 
   if (!slug) {
     return {
-      props: { substance: null, error: 'Invalid slug' },
+      props: { substance: null, articles: null, error: 'Invalid slug' },
       revalidate: 60,
     };
   }
@@ -368,21 +381,25 @@ export const getStaticProps: GetStaticProps<BannedSubstancePageProps> = async ({
 
     if (!substance) {
       return {
-        props: { substance: null, error: 'Substance not found' },
+        props: { substance: null, articles: null, error: 'Substance not found' },
         revalidate: 60,
       };
     }
 
+    // Get related articles (Wikipedia, PubMed, images)
+    const articles = getSubstanceArticles(slug) || null;
+
     return {
       props: {
         substance,
+        articles,
       },
       revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
     console.error('Failed to fetch banned substance:', error);
     return {
-      props: { substance: null, error: 'Failed to load substance data' },
+      props: { substance: null, articles: null, error: 'Failed to load substance data' },
       revalidate: 60,
     };
   }

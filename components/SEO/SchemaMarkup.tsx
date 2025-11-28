@@ -6,7 +6,7 @@
  */
 
 import Head from 'next/head';
-import type { BannedSubstance, LegalSupplement, MedicineInfo, AffiliateProduct } from '@/types';
+import type { BannedSubstance, LegalSupplement, MedicineInfo, AffiliateProduct, PubMedArticle } from '@/types';
 
 // ═══════════════════════════════════════════════════════════════════
 // TYPES
@@ -27,6 +27,8 @@ interface SchemaMarkupProps {
   medicine?: MedicineInfo;
   product?: AffiliateProduct;
   faqItems?: FAQItem[];
+  // Citation support for research articles
+  citations?: PubMedArticle[];
   // Page metadata
   pageUrl: string;
   pageTitle: string;
@@ -320,6 +322,45 @@ function generateBreadcrumbSchema(
   };
 }
 
+/**
+ * Generate ScholarlyArticle citations from PubMed articles
+ * This adds scientific credibility signals for E-E-A-T SEO
+ */
+function generateCitationSchema(articles: PubMedArticle[]) {
+  return articles.map(article => ({
+    '@type': 'ScholarlyArticle',
+    '@id': article.url,
+    name: article.title,
+    headline: article.title,
+    abstract: article.abstract,
+    datePublished: article.pubDate,
+    url: article.url,
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'PMID',
+      value: article.pmid,
+    },
+    ...(article.doi && {
+      sameAs: `https://doi.org/${article.doi}`,
+    }),
+    author: article.authors.map(author => ({
+      '@type': 'Person',
+      name: author,
+    })),
+    publisher: {
+      '@type': 'Organization',
+      name: article.journal,
+    },
+    isPartOf: {
+      '@type': 'PublicationIssue',
+      isPartOf: {
+        '@type': 'Periodical',
+        name: article.journal,
+      },
+    },
+  }));
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // AUTO-GENERATE FAQ FROM CONTENT
 // ═══════════════════════════════════════════════════════════════════
@@ -378,6 +419,7 @@ export function SchemaMarkup(props: SchemaMarkupProps) {
     medicine,
     product,
     faqItems,
+    citations,
     pageUrl,
     pageTitle,
     pageDescription,
@@ -391,12 +433,20 @@ export function SchemaMarkup(props: SchemaMarkupProps) {
   switch (type) {
     case 'MedicalWebPage':
       if (bannedSubstance) {
-        schemas.push(generateMedicalWebPageSchema(
+        // Generate main schema with citation support
+        const medicalSchema = generateMedicalWebPageSchema(
           bannedSubstance,
           pageUrl,
           datePublished,
           dateModified
-        ));
+        );
+        
+        // Add citations if provided (for E-E-A-T SEO)
+        if (citations && citations.length > 0) {
+          (medicalSchema as any).citation = generateCitationSchema(citations);
+        }
+        
+        schemas.push(medicalSchema);
         // Auto-generate FAQ
         schemas.push(generateFAQSchema(generateFAQFromBannedSubstance(bannedSubstance)));
         // Add breadcrumbs
@@ -411,12 +461,20 @@ export function SchemaMarkup(props: SchemaMarkupProps) {
 
     case 'DietarySupplement':
       if (supplement) {
-        schemas.push(generateDietarySupplementSchema(
+        // Generate main schema with citation support
+        const supplementSchema = generateDietarySupplementSchema(
           supplement,
           pageUrl,
           datePublished,
           dateModified
-        ));
+        );
+        
+        // Add citations if provided (for E-E-A-T SEO)
+        if (citations && citations.length > 0) {
+          (supplementSchema as any).citation = generateCitationSchema(citations);
+        }
+        
+        schemas.push(supplementSchema);
         // Auto-generate FAQ
         schemas.push(generateFAQSchema(generateFAQFromSupplement(supplement)));
         // Add breadcrumbs
@@ -499,4 +557,5 @@ export {
   generateProductSchema,
   generateFAQSchema,
   generateBreadcrumbSchema,
+  generateCitationSchema,
 };

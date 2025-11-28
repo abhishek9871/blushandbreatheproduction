@@ -18,21 +18,23 @@ import {
   MetaHead,
   SchemaMarkup,
   VerdictBanner,
+  RelatedArticles,
 } from '@/components';
 import { LoadingSpinner } from '@/components';
 import { useAffiliateProducts } from '@/hooks';
 import { trackPageView, trackAffiliateClick } from '@/lib/analytics';
-import { getLegalSupplementBySlug, getLegalSupplementSlugs } from '@/lib/data';
-import type { LegalSupplement, AffiliateProduct } from '@/types';
+import { getLegalSupplementBySlug, getLegalSupplementSlugs, getSubstanceArticles } from '@/lib/data';
+import type { LegalSupplement, AffiliateProduct, SubstanceArticles } from '@/types';
 
 interface SupplementPageProps {
   supplement: LegalSupplement | null;
+  articles: SubstanceArticles | null;
   error?: string;
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
-export default function SupplementPage({ supplement, error }: SupplementPageProps) {
+export default function SupplementPage({ supplement, articles, error }: SupplementPageProps) {
   // Fetch affiliate products client-side for freshness
   const { data: products, loading: productsLoading } = useAffiliateProducts(supplement?.slug);
 
@@ -88,10 +90,11 @@ export default function SupplementPage({ supplement, error }: SupplementPageProp
         supplement={supplement}
       />
       
-      {/* Schema.org Structured Data */}
+      {/* Schema.org Structured Data with Citations for E-E-A-T SEO */}
       <SchemaMarkup
         type="DietarySupplement"
         supplement={supplement}
+        citations={articles?.pubmed}
         pageUrl={`https://blushandbreathe.com/supplement/${supplement.slug}`}
         pageTitle={supplement.metaTitle}
         pageDescription={supplement.metaDescription}
@@ -387,6 +390,16 @@ export default function SupplementPage({ supplement, error }: SupplementPageProp
               </div>
             </section>
           )}
+
+          {/* Related Articles - Wikipedia, PubMed, Images */}
+          {articles && (
+            <section className="mb-8">
+              <RelatedArticles
+                articles={articles}
+                substanceType="supplement"
+              />
+            </section>
+          )}
         </article>
       </main>
     </>
@@ -416,7 +429,7 @@ export const getStaticProps: GetStaticProps<SupplementPageProps> = async ({ para
 
   if (!slug) {
     return {
-      props: { supplement: null, error: 'Invalid slug' },
+      props: { supplement: null, articles: null, error: 'Invalid slug' },
       revalidate: 60,
     };
   }
@@ -427,21 +440,25 @@ export const getStaticProps: GetStaticProps<SupplementPageProps> = async ({ para
 
     if (!supplement) {
       return {
-        props: { supplement: null, error: 'Supplement not found' },
+        props: { supplement: null, articles: null, error: 'Supplement not found' },
         revalidate: 60,
       };
     }
 
+    // Get related articles (Wikipedia, PubMed, images)
+    const articles = getSubstanceArticles(slug) || null;
+
     return {
       props: {
         supplement,
+        articles,
       },
       revalidate: 3600, // ISR: Revalidate every hour
     };
   } catch (error) {
     console.error('Failed to fetch supplement:', error);
     return {
-      props: { supplement: null, error: 'Failed to load supplement data' },
+      props: { supplement: null, articles: null, error: 'Failed to load supplement data' },
       revalidate: 60,
     };
   }

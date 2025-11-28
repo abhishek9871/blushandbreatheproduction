@@ -22,6 +22,7 @@ import {
 import { LoadingSpinner } from '@/components';
 import { useAffiliateProducts } from '@/hooks';
 import { trackPageView, trackAffiliateClick } from '@/lib/analytics';
+import { getLegalSupplementBySlug, getLegalSupplementSlugs } from '@/lib/data';
 import type { LegalSupplement, AffiliateProduct } from '@/types';
 
 interface SupplementPageProps {
@@ -392,13 +393,24 @@ export default function SupplementPage({ supplement, error }: SupplementPageProp
   );
 }
 
+/**
+ * Generate static paths for all supplements (SSG - pre-rendered at build time)
+ * This ensures all pages are immediately available and indexed by search engines
+ */
 export const getStaticPaths: GetStaticPaths = async () => {
+  // Get all supplement slugs from local data for pre-rendering
+  const slugs = getLegalSupplementSlugs();
+  
   return {
-    paths: [],
-    fallback: 'blocking',
+    paths: slugs.map((slug) => ({ params: { slug } })),
+    fallback: 'blocking', // New supplements generated on-demand
   };
 };
 
+/**
+ * Fetch supplement data from local JSON at build time (SSG)
+ * No API calls needed - data is bundled with the build
+ */
 export const getStaticProps: GetStaticProps<SupplementPageProps> = async ({ params }) => {
   const slug = params?.slug as string;
 
@@ -410,10 +422,10 @@ export const getStaticProps: GetStaticProps<SupplementPageProps> = async ({ para
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/supplement/${encodeURIComponent(slug)}`);
-    const result = await response.json();
+    // Get supplement directly from local JSON data (no API call)
+    const supplement = getLegalSupplementBySlug(slug);
 
-    if (!result.success || !result.data) {
+    if (!supplement) {
       return {
         props: { supplement: null, error: 'Supplement not found' },
         revalidate: 60,
@@ -422,9 +434,9 @@ export const getStaticProps: GetStaticProps<SupplementPageProps> = async ({ para
 
     return {
       props: {
-        supplement: result.data,
+        supplement,
       },
-      revalidate: 3600,
+      revalidate: 3600, // ISR: Revalidate every hour
     };
   } catch (error) {
     console.error('Failed to fetch supplement:', error);

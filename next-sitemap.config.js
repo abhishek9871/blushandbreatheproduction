@@ -5,15 +5,16 @@ const bannedSubstancesData = require('./lib/data/banned-substances.json');
 const legalSupplementsData = require('./lib/data/legal-supplements.json');
 
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://blushandbreathe.com',
+  siteUrl: process.env.SITE_URL || 'https://blushandbreathproduction.vercel.app',
   generateRobotsTxt: true,
   generateIndexSitemap: true,
   sitemapSize: 7000,
   changefreq: 'daily',
   priority: 0.7,
+  outDir: 'public', // Output directory for sitemap files
   
   // Exclude specific paths
-  exclude: ['/404', '/500', '/api/*'],
+  exclude: ['/404', '/500', '/api/*', '/_*'],
   
   // Configure robots.txt
   robotsTxtOptions: {
@@ -44,8 +45,11 @@ module.exports = {
     if (path === '/') {
       priority = 1.0;
       changefreq = 'daily';
-    } else if (['/health', '/beauty', '/nutrition', '/videos'].includes(path)) {
+    } else if (['/health', '/beauty', '/nutrition', '/videos', '/medicines'].includes(path)) {
       priority = 0.9;
+      changefreq = 'daily';
+    } else if (path === '/medicines/search') {
+      priority = 0.85;
       changefreq = 'daily';
     } else if (path.startsWith('/article/') || path.startsWith('/product/')) {
       priority = 0.8;

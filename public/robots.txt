@@ -1,0 +1,18 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# *
+User-agent: *
+Allow: /banned/
+Allow: /supplement/
+Allow: /medicine/
+Allow: /compare/
+
+# Host
+Host: https://blushandbreathproduction.vercel.app
+
+# Sitemaps
+Sitemap: https://blushandbreathproduction.vercel.app/sitemap.xml

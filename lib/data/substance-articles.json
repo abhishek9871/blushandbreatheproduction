@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2025-11-28T04:56:02.713Z",
+  "generatedAt": "2025-11-28T05:20:19.123Z",
   "articles": {
     "dmaa": {
       "substanceSlug": "dmaa",
@@ -42,7 +42,7 @@
         {
           "pmid": "27856133",
           "title": "Have prohibition policies made the wrong decision? A critical review of studies investigating the effects of DMAA.",
-          "abstract": "In June 2012 DMAA (1,3-dimethylamylamine), an ephedrine-like vasoconstricting substance which had been included in many popular sports supplements, became a scheduled substance in Australia, following bans in several other countries. The underlying rationale for this ban was that DMAA use is unsafe. This paper aimed to critically review the available evidence on the acute and/or long-term harms of DMAA. Using five research databases (PubMed, Embase, ProQuest Health and Medical Complete, and Web of Science) and the key terms 'methylhexaneamine', 'DMAA', 'dimethylamylamine', '1,3-dimethylpentylamine' and '2-amino-4-methylhexane', 842 articles were identified once duplicates removed. Sixteen studies met the inclusion criteria and were included in the review. Of the included studies, eight were case studies, which reported on eight patients who presented to emergence departments. All were retrospective in their reporting. The patients displayed various outcomes; while the patients were presenting with serious problems, in most patients conditions subsided on cessation of supplement use. The remaining eight experimental studies were low powered, with a number of studies conducted by a single research group with industry ties, and broadly investigated the effects of DMAA on physiological outcomes. Mixed findings were apparent, although escalations of blood pressure were present on acute dosing, as well as decreases in measures of body weight and body fat. There is a shallow evidenc",
+          "abstract": "In June 2012 DMAA (1,3-dimethylamylamine), an ephedrine-like vasoconstricting substance which had been included in many popular sports supplements, became a scheduled substance in Australia, following bans in several other countries. The underlying rationale for this ban was that DMAA use is unsafe. This paper aimed to critically review the available evidence on the acute and/or long-term harms of DMAA. Using five research databases (PubMed, Embase, ProQuest Health and Medical Complete, and Web of Science) and the key terms 'methylhexaneamine', 'DMAA', 'dimethylamylamine', '1,3-dimethylpentylamine' and '2-amino-4-methylhexane', 842 articles were identified once duplicates removed. Sixteen studies met the inclusion criteria and were included in the review. Of the included studies, eight were case studies, which reported on eight patients who presented to emergence departments. All were retrospective in their reporting. The patients displayed various outcomes; while the patients were presenting with serious problems, in most patients conditions subsided on cessation of supplement use. The remaining eight experimental studies were low powered, with a number of studies conducted by a single research group with industry ties, and broadly investigated the effects of DMAA on physiological outcomes. Mixed findings were apparent, although escalations of blood pressure were present on acute dosing, as well as decreases in measures of body weight and body fat. There is a shallow evidence base describing the adverse effects of DMAA and the dose above which such effects may occur. The scheduling of DMAA in many countries may now impede research efforts to determine whether there are safe doses at which DMAA can be consumed.",
           "authors": [
             "Dunn Matthew"
           ],
@@ -100,8 +100,8 @@
           "artist": "Publications Office of the European Union"
         }
       ],
-      "fetchedAt": "2025-11-28T04:51:13.493Z",
-      "lastUpdated": "2025-11-28T04:51:13.493Z"
+      "fetchedAt": "2025-11-28T05:16:15.986Z",
+      "lastUpdated": "2025-11-28T05:16:15.986Z"
     },
     "phenibut": {
       "substanceSlug": "phenibut",
@@ -202,8 +202,8 @@
           "artist": "Jynto (more from this user)"
         }
       ],
-      "fetchedAt": "2025-11-28T04:51:20.592Z",
-      "lastUpdated": "2025-11-28T04:51:20.592Z"
+      "fetchedAt": "2025-11-28T05:16:22.266Z",
+      "lastUpdated": "2025-11-28T05:16:22.266Z"
     },
     "kratom": {
       "substanceSlug": "kratom",
@@ -246,7 +246,7 @@
         {
           "pmid": "32948048",
           "title": "Biased Opioid Ligands.",
-          "abstract": "Achieving effective pain management is one of the major challenges associated with modern day medicine. Opioids, such as morphine, have been the reference treatment for moderate to severe acute pain not excluding chronic pain modalities. Opioids act through the opioid receptors, the family of G-protein coupled receptors (GPCRs) that mediate pain relief through both the central and peripheral nervous systems. Four types of opioid receptors have been described, including the &#x3bc;-opioid receptor (MOR), &#x3ba;-opioid receptor (KOR), &#x3b4;-opioid receptor (DOR), and the nociceptin opioid peptide receptor (NOP receptor). Despite the proven success of opioids in treating pain, there are still some inherent limitations. All clinically approved MOR analgesics are associated with adverse effects, which include tolerance, dependence, addiction, constipation, and respiratory depression. On the other hand, KOR selective analgesics have found limited clinical utility because they cause sedation, anxiety, dysphoria, and hallucinations. DOR agonists have also been investigated but they have a tendency to cause convulsions. Ligands targeting NOP receptor have been reported in the preclinical literature to be useful as spinal analgesics and as entities against substance abuse disorders while mixed MOR/NOP receptor agonists are useful as analgesics. Ultimately, the goal of opioid-related drug development has always been to design and synthesize derivatives that are equally or more potent",
+          "abstract": "Achieving effective pain management is one of the major challenges associated with modern day medicine. Opioids, such as morphine, have been the reference treatment for moderate to severe acute pain not excluding chronic pain modalities. Opioids act through the opioid receptors, the family of G-protein coupled receptors (GPCRs) that mediate pain relief through both the central and peripheral nervous systems. Four types of opioid receptors have been described, including the &#x3bc;-opioid receptor (MOR), &#x3ba;-opioid receptor (KOR), &#x3b4;-opioid receptor (DOR), and the nociceptin opioid peptide receptor (NOP receptor). Despite the proven success of opioids in treating pain, there are still some inherent limitations. All clinically approved MOR analgesics are associated with adverse effects, which include tolerance, dependence, addiction, constipation, and respiratory depression. On the other hand, KOR selective analgesics have found limited clinical utility because they cause sedation, anxiety, dysphoria, and hallucinations. DOR agonists have also been investigated but they have a tendency to cause convulsions. Ligands targeting NOP receptor have been reported in the preclinical literature to be useful as spinal analgesics and as entities against substance abuse disorders while mixed MOR/NOP receptor agonists are useful as analgesics. Ultimately, the goal of opioid-related drug development has always been to design and synthesize derivatives that are equally or more potent than morphine but most importantly are devoid of the dangerous residual side effects and abuse potential. One proposed strategy is to take advantage of biased agonism, in which distinct downstream pathways can be activated by different molecules working through the exact same receptor. It has been proposed that ligands not recruiting &#x3b2;-arrestin 2 or showing a preference for activating a specific G-protein mediated signal transduction pathway will function as safer analgesic across all opioid subtypes. This review will focus on the design and the pharmacological outcomes of biased ligands at the opioid receptors, aiming at achieving functional selectivity.",
           "authors": [
             "Faouzi Abdelfattah",
             "Varga Balazs R",
@@ -261,7 +261,7 @@
         {
           "pmid": "26511390",
           "title": "The pharmacology and toxicology of kratom: from traditional herb to drug of abuse.",
-          "abstract": "Mitragyna speciosa (Rubiaceae), commonly known as kratom, is a tropical tree with a long history of traditional use in parts of Africa and Southeast Asia. In recent years, kratom has gained popularity for use as a recreational drug across the globe. Relatively new to the illicit market and used in a manner different from its traditional applications, preparations of kratom are touted by many as a safe and legal psychoactive product that improves mood, relieves pain, and may provide benefits in opiate addiction. Available literature was reviewed for M. speciosa via PubMed, Google Scholar, CINAHL, and EBSCO to summarize its traditional uses, phytochemical composition, pharmacology and toxicology of proposed active constituents, and potential for misuse and abuse. Research has demonstrated that both stimulant and sedative dose-dependent effects do exist, but a growing concern for the drug's effects and safety of use has resulted in national and international attention primarily due to an increase in hospital visits and deaths in several countries that are said to have been caused by extracts of the plant. The main active alkaloid substances in kratom, mitragynine and 7-hydroxymitragynine, present with a range of CNS stimulant and depressant effects mediated primarily through monoaminergic and opioid receptors. Recently, Palm Beach County, located in the southeastern corridor of Florida, has considered regulating kratom due to public safety concerns following the death of a young",
+          "abstract": "Mitragyna speciosa (Rubiaceae), commonly known as kratom, is a tropical tree with a long history of traditional use in parts of Africa and Southeast Asia. In recent years, kratom has gained popularity for use as a recreational drug across the globe. Relatively new to the illicit market and used in a manner different from its traditional applications, preparations of kratom are touted by many as a safe and legal psychoactive product that improves mood, relieves pain, and may provide benefits in opiate addiction. Available literature was reviewed for M. speciosa via PubMed, Google Scholar, CINAHL, and EBSCO to summarize its traditional uses, phytochemical composition, pharmacology and toxicology of proposed active constituents, and potential for misuse and abuse. Research has demonstrated that both stimulant and sedative dose-dependent effects do exist, but a growing concern for the drug's effects and safety of use has resulted in national and international attention primarily due to an increase in hospital visits and deaths in several countries that are said to have been caused by extracts of the plant. The main active alkaloid substances in kratom, mitragynine and 7-hydroxymitragynine, present with a range of CNS stimulant and depressant effects mediated primarily through monoaminergic and opioid receptors. Recently, Palm Beach County, located in the southeastern corridor of Florida, has considered regulating kratom due to public safety concerns following the death of a young adult. At the local, state, and even federal levels, governments are now being confronted with the task of determining the safety and the possible regulation of kratom extracts. There are currently no standard analytical screening techniques for mitragynine and its metabolites following ingestion limiting its detection to more sophisticated techniques like liquid chromatography-mass spectrometry to determine kratom use. The growing concern of the abuse potential of kratom requires careful evaluation of its benefits and potential toxicities.",
           "authors": [
             "Warner Marcus L",
             "Kaufman Nellie C",
@@ -305,8 +305,8 @@
           "artist": "National Institute on Drug Abuse"
         }
       ],
-      "fetchedAt": "2025-11-28T04:51:27.507Z",
-      "lastUpdated": "2025-11-28T04:51:27.507Z"
+      "fetchedAt": "2025-11-28T05:16:28.483Z",
+      "lastUpdated": "2025-11-28T05:16:28.483Z"
     },
     "sarms": {
       "substanceSlug": "sarms",
@@ -377,8 +377,8 @@
         }
       ],
       "images": [],
-      "fetchedAt": "2025-11-28T04:51:34.948Z",
-      "lastUpdated": "2025-11-28T04:51:34.948Z"
+      "fetchedAt": "2025-11-28T05:16:34.285Z",
+      "lastUpdated": "2025-11-28T05:16:34.285Z"
     },
     "ephedrine": {
       "substanceSlug": "ephedrine",
@@ -434,7 +434,7 @@
         {
           "pmid": "31858422",
           "title": "Effects of Chronic Ephedrine Toxicity on Functional Connections, Cell Apoptosis, and CREB-Related Proteins in the Prefrontal Cortex of Rhesus Monkeys.",
-          "abstract": "Ephedrine abuse has spread in many parts of the world, severely threatening human health. The mechanism of ephedrine toxicity is still unclear. To explore the possible neural mechanisms of ephedrine toxicity, this study established a non-human primate model of ephedrine exposure, analyzed the functional connectivity changes in its prefrontal cortex through resting state BOLD-fMRI, and then inspected the pathophysiological changes as well as the expression of the cyclic adenosine monophosphate response element-binding protein (CREB), phosphorylated CREB (P-CREB), and CREB target proteins (c-fos and fosB) in the prefrontal cortex. After ephedrine toxicity, we found that the prefrontal cortex of monkeys strengthened its functional connectivity with the brain regions that perform motivation, drive, reward, and learning and memory functions and weakened its functional connectivity with the brain regions that perform cognitive control. These results suggest that ephedrine toxicity causes abnormal neural circuits that lead to the amplification and enhancement of drug-related cues and the weakening and damage of cognitive control function. Histology showed that the neurocytotoxicity of ephedrine can cause neuronal degeneration and apoptosis. Real-time PCR and Western blot showed increased expression of CREB mRNA and CREB/P-CREB/c-fos/fosB protein in the prefrontal cortex after ephedrine toxicity. Collectively, the present study indicates that the enhancement of drug-related cues and ",
+          "abstract": "Ephedrine abuse has spread in many parts of the world, severely threatening human health. The mechanism of ephedrine toxicity is still unclear. To explore the possible neural mechanisms of ephedrine toxicity, this study established a non-human primate model of ephedrine exposure, analyzed the functional connectivity changes in its prefrontal cortex through resting state BOLD-fMRI, and then inspected the pathophysiological changes as well as the expression of the cyclic adenosine monophosphate response element-binding protein (CREB), phosphorylated CREB (P-CREB), and CREB target proteins (c-fos and fosB) in the prefrontal cortex. After ephedrine toxicity, we found that the prefrontal cortex of monkeys strengthened its functional connectivity with the brain regions that perform motivation, drive, reward, and learning and memory functions and weakened its functional connectivity with the brain regions that perform cognitive control. These results suggest that ephedrine toxicity causes abnormal neural circuits that lead to the amplification and enhancement of drug-related cues and the weakening and damage of cognitive control function. Histology showed that the neurocytotoxicity of ephedrine can cause neuronal degeneration and apoptosis. Real-time PCR and Western blot showed increased expression of CREB mRNA and CREB/P-CREB/c-fos/fosB protein in the prefrontal cortex after ephedrine toxicity. Collectively, the present study indicates that the enhancement of drug-related cues and the weakening of cognitive control caused by abnormal neural circuits after drug exposure may be a major mechanism of brain function changes caused by ephedrine. These histological and molecular changes may be the pathophysiological basis of brain function changes caused by ephedrine.",
           "authors": [
             "Duan Shouxing",
             "Ma Ye",
@@ -479,8 +479,8 @@
           "artist": "Jynto (talk)"
         }
       ],
-      "fetchedAt": "2025-11-28T04:51:41.552Z",
-      "lastUpdated": "2025-11-28T04:51:41.552Z"
+      "fetchedAt": "2025-11-28T05:16:40.615Z",
+      "lastUpdated": "2025-11-28T05:16:40.615Z"
     },
     "clenbuterol": {
       "substanceSlug": "clenbuterol",
@@ -537,7 +537,7 @@
         {
           "pmid": "37062796",
           "title": "Adverse events of clenbuterol among athletes: a systematic review of case reports and case series.",
-          "abstract": "Clenbuterol is a potent beta-2 agonist widely misused by professional athletes and bodybuilders. Information on clenbuterol associated adverse events is present in case reports and case series, though it may not be readily available. This systematic review aimed to critically evaluate the evidence of adverse events associated with clenbuterol among athletes. The search strategy was in accordance with PRISMA guidelines. Databases such as PubMed, Science Direct, Scopus, and Google Scholar were searched from 1990 to October 2021 to find out the relevant case reports and case series. There were 23 included studies. Using a suitable scale, the included studies' methodological quality analysis was evaluated. In total, 24 athletes experienced adverse events. Oral ingestion of clenbuterol was the most preferred route among them. The daily administered dose of clenbuterol was ranging from 20&#xa0;&#xb5;g to 30&#xa0;mg. Major adverse events experienced by athletes were supraventricular tachycardia, atrial fibrillation, hypotension, chest pain, myocardial injury, myocarditis, myocardial ischemia, myocardial infarction, cardiomyopathy, hepatomegaly, hyperglycemia, and death. The cardiac-related complications were the most commonly occurring adverse events. Clenbuterol is notorious to produce life-threatening adverse events including death. Lack of evidence regarding the performance-enhancing effects of clenbuterol combined with its serious toxicities questions the usefulness of this drug",
+          "abstract": "Clenbuterol is a potent beta-2 agonist widely misused by professional athletes and bodybuilders. Information on clenbuterol associated adverse events is present in case reports and case series, though it may not be readily available. This systematic review aimed to critically evaluate the evidence of adverse events associated with clenbuterol among athletes. The search strategy was in accordance with PRISMA guidelines. Databases such as PubMed, Science Direct, Scopus, and Google Scholar were searched from 1990 to October 2021 to find out the relevant case reports and case series. There were 23 included studies. Using a suitable scale, the included studies' methodological quality analysis was evaluated. In total, 24 athletes experienced adverse events. Oral ingestion of clenbuterol was the most preferred route among them. The daily administered dose of clenbuterol was ranging from 20&#xa0;&#xb5;g to 30&#xa0;mg. Major adverse events experienced by athletes were supraventricular tachycardia, atrial fibrillation, hypotension, chest pain, myocardial injury, myocarditis, myocardial ischemia, myocardial infarction, cardiomyopathy, hepatomegaly, hyperglycemia, and death. The cardiac-related complications were the most commonly occurring adverse events. Clenbuterol is notorious to produce life-threatening adverse events including death. Lack of evidence regarding the performance-enhancing effects of clenbuterol combined with its serious toxicities questions the usefulness of this drug in athletes.",
           "authors": [
             "Kumari Sweta",
             "Pal Biplab",
@@ -582,8 +582,8 @@
           "artist": "Liu, Jia; Hu, Xiaolong; Cao, Fangqi; Zhang, Yurong; Lu, Jianzhong; Zeng, Libo"
         }
       ],
-      "fetchedAt": "2025-11-28T04:51:48.139Z",
-      "lastUpdated": "2025-11-28T04:51:48.139Z"
+      "fetchedAt": "2025-11-28T05:16:45.736Z",
+      "lastUpdated": "2025-11-28T05:16:45.736Z"
     },
     "cardarine": {
       "substanceSlug": "cardarine",
@@ -611,7 +611,7 @@
         {
           "pmid": "30739791",
           "title": "PPAR&#x3b2;/&#x3b4; agonist GW501516 inhibits TNF&#x3b1;-induced repression of adiponectin and insulin receptor in 3T3-L1 adipocytes.",
-          "abstract": "Previous reports have shown that PPAR&#x3b2;/&#x3b4; agonists ameliorate insulin resistance associated with type 2 diabetes mellitus (T2DM). To determine the role of PPAR&#x3b2;/&#x3b4; in tumor necrosis factor &#x3b1; (TNF&#x3b1;)-mediated insulin resistance, we investigated expression levels of adiponectin and insulin receptor (IR) in response to treatment with the PPAR&#x3b2;/&#x3b4; agonist GW501516 with or without TNF&#x3b1;, a proinflammatory cytokine, in differentiated 3T3-L1 adipocytes. GW501516 induced adipocyte differentiation and the expression of adiponectin in a dose-dependent manner in differentiated adipocytes. TNF&#x3b1; treatment reduced adiponectin expression at the end of differentiation. This effect was reversed by GW501516 co-treatment with TNF&#x3b1;. TNF&#x3b1; treatment decreased adipogenic marker genes such as PPAR&#x3b3;, aP2, resistin, and GLUT4, and GW501516 reversed the effects of TNF&#x3b1;. GW501516 treatment increased the expression of insulin receptor and inhibited TNF&#x3b1;-mediated repression of insulin receptor. Our results showed that GW501516 abrogated TNF&#x3b1;-induced insulin resistance. In summary, our study demonstrated that the PPAR&#x3b2;/&#x3b4; agonist, GW501516 reversed TNF&#x3b1;-induced decreases in adipocyte differentiation and adiponectin expression, and improved insulin sensitivity by increasing the expression of insulin receptor. Therefore, PPAR&#x3b4; may be a promising therapeutic target for treatment of insulin resista",
+          "abstract": "Previous reports have shown that PPAR&#x3b2;/&#x3b4; agonists ameliorate insulin resistance associated with type 2 diabetes mellitus (T2DM). To determine the role of PPAR&#x3b2;/&#x3b4; in tumor necrosis factor &#x3b1; (TNF&#x3b1;)-mediated insulin resistance, we investigated expression levels of adiponectin and insulin receptor (IR) in response to treatment with the PPAR&#x3b2;/&#x3b4; agonist GW501516 with or without TNF&#x3b1;, a proinflammatory cytokine, in differentiated 3T3-L1 adipocytes. GW501516 induced adipocyte differentiation and the expression of adiponectin in a dose-dependent manner in differentiated adipocytes. TNF&#x3b1; treatment reduced adiponectin expression at the end of differentiation. This effect was reversed by GW501516 co-treatment with TNF&#x3b1;. TNF&#x3b1; treatment decreased adipogenic marker genes such as PPAR&#x3b3;, aP2, resistin, and GLUT4, and GW501516 reversed the effects of TNF&#x3b1;. GW501516 treatment increased the expression of insulin receptor and inhibited TNF&#x3b1;-mediated repression of insulin receptor. Our results showed that GW501516 abrogated TNF&#x3b1;-induced insulin resistance. In summary, our study demonstrated that the PPAR&#x3b2;/&#x3b4; agonist, GW501516 reversed TNF&#x3b1;-induced decreases in adipocyte differentiation and adiponectin expression, and improved insulin sensitivity by increasing the expression of insulin receptor. Therefore, PPAR&#x3b4; may be a promising therapeutic target for treatment of insulin resistance in patients with T2DM.",
           "authors": [
             "Kim Won Jun",
             "Lee Woojung",
@@ -641,7 +641,7 @@
         {
           "pmid": "18054822",
           "title": "Peroxisome proliferator-activated receptor-beta/delta (PPARbeta/delta) ligands inhibit growth of UACC903 and MCF7 human cancer cell lines.",
-          "abstract": "The development of peroxisome proliferator-activated receptor-beta/delta (PPARbeta/delta) ligands for the treatment of diseases including metabolic syndrome, diabetes and obesity has been hampered due to contradictory findings on their potential safety. For example, while some reports show that ligand activation of PPARbeta/delta promotes the induction of terminal differentiation and inhibition of cell growth, other reports suggest that PPARbeta/delta ligands potentiate tumorigenesis by increasing cell proliferation. Some of the contradictory findings could be due in part to differences in the ligand examined, the presence or absence of serum in cell cultures, differences in cell lines or differences in the method used to quantify cell growth. For these reasons, this study examined the effect of ligand activation of PPARbeta/delta on cell growth of two human cancer cell lines, MCF7 (breast cancer) and UACC903 (melanoma) in the presence or absence of serum using two highly specific PPARbeta/delta ligands, GW0742 or GW501516. Culturing cells in the presence of either GW0742 or GW501516 caused upregulation of the known PPARbeta/delta target gene angiopoietin-like protein 4 (ANGPTL4). Inhibition of cell growth was observed in both cell lines cultured in the presence of either GW0742 or GW501516, and the presence or absence of serum had little influence on this inhibition. Results from the present studies demonstrate that ligand activation of PPARbeta/delta inhibits the growth of ",
+          "abstract": "The development of peroxisome proliferator-activated receptor-beta/delta (PPARbeta/delta) ligands for the treatment of diseases including metabolic syndrome, diabetes and obesity has been hampered due to contradictory findings on their potential safety. For example, while some reports show that ligand activation of PPARbeta/delta promotes the induction of terminal differentiation and inhibition of cell growth, other reports suggest that PPARbeta/delta ligands potentiate tumorigenesis by increasing cell proliferation. Some of the contradictory findings could be due in part to differences in the ligand examined, the presence or absence of serum in cell cultures, differences in cell lines or differences in the method used to quantify cell growth. For these reasons, this study examined the effect of ligand activation of PPARbeta/delta on cell growth of two human cancer cell lines, MCF7 (breast cancer) and UACC903 (melanoma) in the presence or absence of serum using two highly specific PPARbeta/delta ligands, GW0742 or GW501516. Culturing cells in the presence of either GW0742 or GW501516 caused upregulation of the known PPARbeta/delta target gene angiopoietin-like protein 4 (ANGPTL4). Inhibition of cell growth was observed in both cell lines cultured in the presence of either GW0742 or GW501516, and the presence or absence of serum had little influence on this inhibition. Results from the present studies demonstrate that ligand activation of PPARbeta/delta inhibits the growth of both MCF7 and UACC903 cell lines and provide further evidence that PPARbeta/delta ligands are not mitogenic in human cancer cell lines.",
           "authors": [
             "Girroir Elizabeth E",
             "Hollingshead Holly E",
@@ -686,8 +686,8 @@
           "artist": "Boghog"
         }
       ],
-      "fetchedAt": "2025-11-28T04:51:55.830Z",
-      "lastUpdated": "2025-11-28T04:51:55.830Z"
+      "fetchedAt": "2025-11-28T05:16:52.951Z",
+      "lastUpdated": "2025-11-28T05:16:52.951Z"
     },
     "nandrolone": {
       "substanceSlug": "nandrolone",
@@ -713,7 +713,7 @@
         {
           "pmid": "15683830",
           "title": "Effects of nandrolone decanoate on the neuromuscular junction of rats submitted to swimming.",
-          "abstract": "This study addressed the effects of nandrolone decanoate (ND) on contractile properties and muscle fiber characteristics of rats submitted to swimming. Male Wistar rats were grouped in sedentary (S), swimming (Sw), sedentary+ND (SND), and swimming+ND (SwND), six animals per group. ND (3 mg/kg) was injected (subcutaneously) 5 days/week, for 4 weeks. Swimming consisted of 60-min sessions (load 2%), 5 days/week, for 4 weeks. After this period, the sciatic nerve extensor digitorum longus (EDL) muscle was isolated for myographic recordings. Fatigue resistance was assessed by the percent (%) decline of 180 direct tetanic contractions (30 Hz). Safety margin of synaptic transmission was determined from the resistance to the blockade of indirectly evoked twitches (0.5 Hz) induced by pancuronium (5 to 9x10(-7) M). EDL muscles were also submitted to histological and histochemical analysis (haematoxylin-eosin (HE); nicotinamide adenine dinucleotide-tetrazolium reductase (NADH-TR)). Significant differences were detected by two-way ANOVA (p&lt;0.05). ND did not change body mass, fatigue resistance or kinetic properties of indirect twitches in either sedentary or swimming rats. In contrast, ND reduced the safety margin of synaptic transmission in sedentary animals (SND=53.3+/-4.7% vs. S=75.7+/-2.0%), but did not affect the safety margin in the swimming rats (SwND=75.81+/-3.1% vs. Sw=71.0+/-4.0%). No significant difference in fiber type proportions or diameters was observed in EDL muscle of ",
+          "abstract": "This study addressed the effects of nandrolone decanoate (ND) on contractile properties and muscle fiber characteristics of rats submitted to swimming. Male Wistar rats were grouped in sedentary (S), swimming (Sw), sedentary+ND (SND), and swimming+ND (SwND), six animals per group. ND (3 mg/kg) was injected (subcutaneously) 5 days/week, for 4 weeks. Swimming consisted of 60-min sessions (load 2%), 5 days/week, for 4 weeks. After this period, the sciatic nerve extensor digitorum longus (EDL) muscle was isolated for myographic recordings. Fatigue resistance was assessed by the percent (%) decline of 180 direct tetanic contractions (30 Hz). Safety margin of synaptic transmission was determined from the resistance to the blockade of indirectly evoked twitches (0.5 Hz) induced by pancuronium (5 to 9x10(-7) M). EDL muscles were also submitted to histological and histochemical analysis (haematoxylin-eosin (HE); nicotinamide adenine dinucleotide-tetrazolium reductase (NADH-TR)). Significant differences were detected by two-way ANOVA (p&lt;0.05). ND did not change body mass, fatigue resistance or kinetic properties of indirect twitches in either sedentary or swimming rats. In contrast, ND reduced the safety margin of synaptic transmission in sedentary animals (SND=53.3+/-4.7% vs. S=75.7+/-2.0%), but did not affect the safety margin in the swimming rats (SwND=75.81+/-3.1% vs. Sw=71.0+/-4.0%). No significant difference in fiber type proportions or diameters was observed in EDL muscle of any experimental group. These results indicate that ND does not act as an ergogenic reinforcement in rats submitted to 4 weeks of swimming. On the other hand, this study revealed an important toxic effect of ND, that it reduces the safety margin of synaptic transmission in sedentary animals. Such an effect is masked when associated with physical exercise.",
           "authors": [
             "Cavalcante W L G",
             "Dal Pai-Silva M",
@@ -773,8 +773,8 @@
           "artist": "McBiophysics"
         }
       ],
-      "fetchedAt": "2025-11-28T04:52:05.450Z",
-      "lastUpdated": "2025-11-28T04:52:05.450Z"
+      "fetchedAt": "2025-11-28T05:17:00.478Z",
+      "lastUpdated": "2025-11-28T05:17:00.478Z"
     },
     "dmha": {
       "substanceSlug": "dmha",
@@ -816,8 +816,8 @@
         }
       ],
       "images": [],
-      "fetchedAt": "2025-11-28T04:52:12.461Z",
-      "lastUpdated": "2025-11-28T04:52:12.461Z"
+      "fetchedAt": "2025-11-28T05:17:06.418Z",
+      "lastUpdated": "2025-11-28T05:17:06.418Z"
     },
     "bmpea": {
       "substanceSlug": "bmpea",
@@ -845,7 +845,7 @@
         {
           "pmid": "30898867",
           "title": "The Supplement Adulterant &#x3b2;-Methylphenethylamine Increases Blood Pressure by Acting at Peripheral Norepinephrine Transporters.",
-          "abstract": "&#x3b2;-Methylphenethylamine [(BMPEA), 2-phenylpropan-1-amine] is a structural isomer of amphetamine (1-phenylpropan-2-amine) that has been identified in preworkout and weight loss supplements, yet little information is available about its pharmacology. Here, the neurochemical and cardiovascular effects of BMPEA and its analogs, N-methyl-2-phenylpropan-1-amine (MPPA) and N,N-dimethyl-2-phenylpropan-1-amine (DMPPA), were compared with structurally related amphetamines. As expected, amphetamine and methamphetamine were potent substrate-type releasing agents at dopamine transporters (DATs) and norepinephrine transporters (NETs) in rat brain synaptosomes. BMPEA and MPPA were also substrates at DATs and NETs, but they were at least 10-fold less potent than amphetamine. DMPPA was a weak substrate only at NETs. Importantly, the releasing actions of BMPEA and MPPA were more potent at NETs than DATs. Amphetamine produced significant dose-related increases in blood pressure (BP), heart rate (HR), and locomotor activity in conscious rats fitted with surgically implanted biotelemetry transmitters. BMPEA, MPPA, and DMPPA produced increases in BP that were similar to the effects of amphetamine, but the compounds failed to substantially affect HR or activity. The hypertensive effect of BMPEA was reversed by the &#x3b1;-adrenergic antagonist prazosin but not the ganglionic blocker chlorisondamine. Radioligand binding at various G protein-coupled receptors did not identify nontransporter site",
+          "abstract": "&#x3b2;-Methylphenethylamine [(BMPEA), 2-phenylpropan-1-amine] is a structural isomer of amphetamine (1-phenylpropan-2-amine) that has been identified in preworkout and weight loss supplements, yet little information is available about its pharmacology. Here, the neurochemical and cardiovascular effects of BMPEA and its analogs, N-methyl-2-phenylpropan-1-amine (MPPA) and N,N-dimethyl-2-phenylpropan-1-amine (DMPPA), were compared with structurally related amphetamines. As expected, amphetamine and methamphetamine were potent substrate-type releasing agents at dopamine transporters (DATs) and norepinephrine transporters (NETs) in rat brain synaptosomes. BMPEA and MPPA were also substrates at DATs and NETs, but they were at least 10-fold less potent than amphetamine. DMPPA was a weak substrate only at NETs. Importantly, the releasing actions of BMPEA and MPPA were more potent at NETs than DATs. Amphetamine produced significant dose-related increases in blood pressure (BP), heart rate (HR), and locomotor activity in conscious rats fitted with surgically implanted biotelemetry transmitters. BMPEA, MPPA, and DMPPA produced increases in BP that were similar to the effects of amphetamine, but the compounds failed to substantially affect HR or activity. The hypertensive effect of BMPEA was reversed by the &#x3b1;-adrenergic antagonist prazosin but not the ganglionic blocker chlorisondamine. Radioligand binding at various G protein-coupled receptors did not identify nontransporter sites of action that could account for cardiovascular effects of BMPEA or its analogs. Our results show that BMPEA, MPPA, and DMPPA are biologically active. The compounds are unlikely to be abused due to weak effects at DATs, but they could produce adverse cardiovascular effects via substrate activity at peripheral NET sites.",
           "authors": [
             "Schindler Charles W",
             "Thorndike Eric B",
@@ -860,7 +860,7 @@
         {
           "pmid": "24633566",
           "title": "Detection of &#x3b2;-methylphenethylamine, a novel doping substance, by means of UPLC/MS/MS.",
-          "abstract": "Novel substances of expected doping activity are constantly introduced to the market. &#x3b2;-Methylphenethylamine (BMPEA) is classified as a doping agent by the World Anti-Doping Agency as it is a positional isomer of amphetamine. In this work, the development and application of a simple and rapid analytical procedure that enables discrimination between both isomers is described. The analytes of interest were extracted from urine by a two-step liquid-liquid extraction and then analyzed by UPLC/MS/MS under isocratic conditions. The entire analytical procedure was validated by evaluating its selectivity, discrimination capabilities, carry-over, sensitivity, and influence of matrix effects on its performance. Application of the method resulted in detection of BMPEA in eight anti-doping samples, including the first report of adverse analytical finding regarding its use. Further analysis showed that BMPEA may be eliminated unchanged along with its phase II conjugates, the hydrolysis of which may considerably improve detection capabilities of the method. Omission of the hydrolysis step may therefore, produce false-negative results. Testing laboratories should also carefully examine their LC/MS/MS-based amphetamine and BMPEA findings as both isomers fragment yielding comparable collision-induced dissociation spectra and their insufficient chromatographic separation may result in misidentification. This is of great importance in case of forensic analyses as BMPEA is not controlled b",
+          "abstract": "Novel substances of expected doping activity are constantly introduced to the market. &#x3b2;-Methylphenethylamine (BMPEA) is classified as a doping agent by the World Anti-Doping Agency as it is a positional isomer of amphetamine. In this work, the development and application of a simple and rapid analytical procedure that enables discrimination between both isomers is described. The analytes of interest were extracted from urine by a two-step liquid-liquid extraction and then analyzed by UPLC/MS/MS under isocratic conditions. The entire analytical procedure was validated by evaluating its selectivity, discrimination capabilities, carry-over, sensitivity, and influence of matrix effects on its performance. Application of the method resulted in detection of BMPEA in eight anti-doping samples, including the first report of adverse analytical finding regarding its use. Further analysis showed that BMPEA may be eliminated unchanged along with its phase II conjugates, the hydrolysis of which may considerably improve detection capabilities of the method. Omission of the hydrolysis step may therefore, produce false-negative results. Testing laboratories should also carefully examine their LC/MS/MS-based amphetamine and BMPEA findings as both isomers fragment yielding comparable collision-induced dissociation spectra and their insufficient chromatographic separation may result in misidentification. This is of great importance in case of forensic analyses as BMPEA is not controlled by the public law, and its manufacturing, distribution, and use are legal.",
           "authors": [
             "Cho&#x142;bi&#x144;ski Piotr",
             "Wicka Mariola",
@@ -920,8 +920,8 @@
           "artist": "Jynto (talk)"
         }
       ],
-      "fetchedAt": "2025-11-28T04:52:18.927Z",
-      "lastUpdated": "2025-11-28T04:52:18.927Z"
+      "fetchedAt": "2025-11-28T05:17:13.205Z",
+      "lastUpdated": "2025-11-28T05:17:13.205Z"
     },
     "tianeptine": {
       "substanceSlug": "tianeptine",
@@ -949,7 +949,7 @@
         {
           "pmid": "36253442",
           "title": "Antidepressants for the treatment of adults with major depressive disorder in the maintenance phase: a systematic review and network meta-analysis.",
-          "abstract": "A systematic review and random-effects model network meta-analysis were conducted to compare the efficacy, acceptability, tolerability, and safety of antidepressants to treat adults with major depressive disorder (MDD) in the maintenance phase. This study searched the PubMed, Cochrane Library, and Embase databases and included only double-blind, randomized, placebo-controlled trials with an enrichment design: patients were stabilized on the antidepressant of interest during the open-label study and then randomized to receive the same antidepressant or placebo. The outcomes were the 6-month relapse rate (primary outcome, efficacy), all-cause discontinuation (acceptability), discontinuation due to adverse events (tolerability), and the incidence of individual adverse events. The risk ratio with a 95% credible interval was calculated. The meta-analysis comprised 34 studies (n&#x2009;=&#x2009;9384, mean age&#x2009;=&#x2009;43.80 years, and %females&#x2009;=&#x2009;68.10%) on 20 antidepressants (agomelatine, amitriptyline, bupropion, citalopram, desvenlafaxine, duloxetine, escitalopram, fluoxetine, fluvoxamine, levomilnacipran, milnacipran, mirtazapine, nefazodone, paroxetine, reboxetine, sertraline, tianeptine, venlafaxine, vilazodone, and vortioxetine) and a placebo. In terms of the 6-month relapse rate, amitriptyline, citalopram, desvenlafaxine, duloxetine, fluoxetine, fluvoxamine, mirtazapine, nefazodone, paroxetine, reboxetine, sertraline, tianeptine, venlafaxine, and vortiox",
+          "abstract": "A systematic review and random-effects model network meta-analysis were conducted to compare the efficacy, acceptability, tolerability, and safety of antidepressants to treat adults with major depressive disorder (MDD) in the maintenance phase. This study searched the PubMed, Cochrane Library, and Embase databases and included only double-blind, randomized, placebo-controlled trials with an enrichment design: patients were stabilized on the antidepressant of interest during the open-label study and then randomized to receive the same antidepressant or placebo. The outcomes were the 6-month relapse rate (primary outcome, efficacy), all-cause discontinuation (acceptability), discontinuation due to adverse events (tolerability), and the incidence of individual adverse events. The risk ratio with a 95% credible interval was calculated. The meta-analysis comprised 34 studies (n&#x2009;=&#x2009;9384, mean age&#x2009;=&#x2009;43.80 years, and %females&#x2009;=&#x2009;68.10%) on 20 antidepressants (agomelatine, amitriptyline, bupropion, citalopram, desvenlafaxine, duloxetine, escitalopram, fluoxetine, fluvoxamine, levomilnacipran, milnacipran, mirtazapine, nefazodone, paroxetine, reboxetine, sertraline, tianeptine, venlafaxine, vilazodone, and vortioxetine) and a placebo. In terms of the 6-month relapse rate, amitriptyline, citalopram, desvenlafaxine, duloxetine, fluoxetine, fluvoxamine, mirtazapine, nefazodone, paroxetine, reboxetine, sertraline, tianeptine, venlafaxine, and vortioxetine outperformed placebo. Compared to placebo, desvenlafaxine, paroxetine, sertraline, venlafaxine, and vortioxetine had lower all-cause discontinuation; however, sertraline had a higher discontinuation rate due to adverse events. Compared to placebo, venlafaxine was associated with a lower incidence of dizziness, while desvenlafaxine, sertraline, and vortioxetine were associated with a higher incidence of nausea/vomiting. In conclusion, desvenlafaxine, paroxetine, venlafaxine, and vortioxetine had reasonable efficacy, acceptability, and tolerability in the treatment of adults with stable MDD.",
           "authors": [
             "Kishi Taro",
             "Ikuta Toshikazu",
@@ -964,7 +964,7 @@
         {
           "pmid": "32982805",
           "title": "Antidepressants in Children and Adolescents: Meta-Review of Efficacy, Tolerability and Suicidality in Acute Treatment.",
-          "abstract": "Antidepressants are prescribed for the treatment of a number of psychiatric disorders in children and adolescents, however there is still controversy about whether they should be used in this population. This meta-review aimed to assess the effects of antidepressants for the acute treatment of attention-deficit/hyperactivity disorder (ADHD), anxiety disorders (ADs), autistic spectrum disorder (ASD), enuresis, major depressive disorder (MDD), obsessive-compulsive disorder (OCD), and posttraumatic stress disorder (PTSD) in children and adolescents. Efficacy was measured as response to treatment (either as mean overall change in symptoms or as a dichotomous outcome) and tolerability was measured as the proportion of patients discontinuing treatment due to adverse events. Suicidality was measured as suicidal ideation, behavior (including suicide attempts) and completed suicide. PubMed, EMBASE, and Web of Science were systematically searched (until 31 October 2019) for existing systematic reviews and/or meta-analyses of double-blind randomized controlled trials. The quality of the included reviews was appraised using AMSTAR-2. Our meta-review included nine systematic reviews/meta-analyses (2 on ADHD; 1 on AD; 2 on ASD; 1 on enuresis; 1 on MDD, 1 on OCD and 1 on PTSD). In terms of efficacy this review found that, compared to placebo: fluoxetine was more efficacious in the treatment of MDD, fluvoxamine and paroxetine were better in the treatment of AD; fluoxetine and sertraline were",
+          "abstract": "Antidepressants are prescribed for the treatment of a number of psychiatric disorders in children and adolescents, however there is still controversy about whether they should be used in this population. This meta-review aimed to assess the effects of antidepressants for the acute treatment of attention-deficit/hyperactivity disorder (ADHD), anxiety disorders (ADs), autistic spectrum disorder (ASD), enuresis, major depressive disorder (MDD), obsessive-compulsive disorder (OCD), and posttraumatic stress disorder (PTSD) in children and adolescents. Efficacy was measured as response to treatment (either as mean overall change in symptoms or as a dichotomous outcome) and tolerability was measured as the proportion of patients discontinuing treatment due to adverse events. Suicidality was measured as suicidal ideation, behavior (including suicide attempts) and completed suicide. PubMed, EMBASE, and Web of Science were systematically searched (until 31 October 2019) for existing systematic reviews and/or meta-analyses of double-blind randomized controlled trials. The quality of the included reviews was appraised using AMSTAR-2. Our meta-review included nine systematic reviews/meta-analyses (2 on ADHD; 1 on AD; 2 on ASD; 1 on enuresis; 1 on MDD, 1 on OCD and 1 on PTSD). In terms of efficacy this review found that, compared to placebo: fluoxetine was more efficacious in the treatment of MDD, fluvoxamine and paroxetine were better in the treatment of AD; fluoxetine and sertraline were more efficacious in the treatment of OCD; bupropion and desipramine improved clinician and teacher-rated ADHD symptoms; clomipramine and tianeptine were superior on some of the core symptoms of ASD; and no antidepressant was more efficacious for PTSD and enuresis. With regard to tolerability: imipramine, venlafaxine, and duloxetine were less well tolerated in MDD; no differences were found for any of the antidepressants in the treatment of anxiety disorders (ADs), ADHD, and PTSD; tianeptine and citalopram, but not clomipramine, were less well tolerated in children and adolescents with ASD. For suicidal behavior/ideation, venlafaxine (in MDD) and paroxetine (in AD) were associated with a significantly increased risk; by contrast, sertraline (in AD) was associated with a reduced risk. The majority of included systematic reviews/meta-analyses were rated as being of high or moderate in quality by the AMSTAR-2 critical appraisal tool (one and five, respectively). One included study was of low quality and two were of critically low quality. Compared to placebo, selected antidepressants can be efficacious in the acute treatment of some common psychiatric disorders, although statistically significant differences do not always translate into clinically significant results. Little information was available about tolerability of antidepressants in RCTs of OCD and in the treatment of ADHD, ASD, MDD, and PTSD. There is a paucity of data on suicidal ideation/behavior, but paroxetine may increase the risk of suicidality in the treatment of AD and venlafaxine for MDD. Findings from this review must be considered in light of potential limitations, such as the lack of comparative information about many antidepressants, the short-term outcomes and the quality of the available evidence.",
           "authors": [
             "Boaden Katharine",
             "Tomlinson Anneka",
@@ -1024,8 +1024,8 @@
           "artist": "Fuse809 (talk)"
         }
       ],
-      "fetchedAt": "2025-11-28T04:52:25.808Z",
-      "lastUpdated": "2025-11-28T04:52:25.808Z"
+      "fetchedAt": "2025-11-28T05:17:19.052Z",
+      "lastUpdated": "2025-11-28T05:17:19.052Z"
     },
     "adrafinil": {
       "substanceSlug": "adrafinil",
@@ -1067,7 +1067,7 @@
         {
           "pmid": "31951804",
           "title": "Pharmacokinetic and pharmacodynamic of the cognitive enhancer modafinil: Relevant clinical and forensic aspects.",
-          "abstract": "Modafinil is a nonamphetamine nootropic drug with an increasingly therapeutic interest due to its different sites of action and behavioral effects in comparison to cocaine or amphetamine. A review of modafinil (and of its prodrug adrafinil and its R-enantiomer armodafinil) chemical, pharmacokinetic, pharmacodynamic, toxicological, clinical and forensic aspects was performed, aiming to better understand possible health problems associated to its unconscious and unruled use. Modafinil is a racemate metabolized mainly in the liver into its inactive acid and sulfone metabolites, which undergo primarily renal excretion. Although not fully clarified, major effects seem to be associated to inhibition of dopamine reuptake and modulation of several other neurochemical pathways, namely noradrenergic, serotoninergic, orexinergic, histaminergic, glutamatergic and GABAergic. Due its wake-promoting effects, modafinil is used for the treatment of daily sleepiness associated to narcolepsy, obstructive sleep apnea and shift work sleep disorder. Its psychotropic and cognitive effects are also attractive in several other pathologies and conditions that affect sleep structure, induce fatigue and lethargy, and impair cognitive abilities. Additionally, in health subjects, including students, modafinil is being used off-label to overcome sleepiness, increase concentration and improve cognitive potential. The most common adverse effects associated to modafinil intake are headache, insomnia, anxiety,",
+          "abstract": "Modafinil is a nonamphetamine nootropic drug with an increasingly therapeutic interest due to its different sites of action and behavioral effects in comparison to cocaine or amphetamine. A review of modafinil (and of its prodrug adrafinil and its R-enantiomer armodafinil) chemical, pharmacokinetic, pharmacodynamic, toxicological, clinical and forensic aspects was performed, aiming to better understand possible health problems associated to its unconscious and unruled use. Modafinil is a racemate metabolized mainly in the liver into its inactive acid and sulfone metabolites, which undergo primarily renal excretion. Although not fully clarified, major effects seem to be associated to inhibition of dopamine reuptake and modulation of several other neurochemical pathways, namely noradrenergic, serotoninergic, orexinergic, histaminergic, glutamatergic and GABAergic. Due its wake-promoting effects, modafinil is used for the treatment of daily sleepiness associated to narcolepsy, obstructive sleep apnea and shift work sleep disorder. Its psychotropic and cognitive effects are also attractive in several other pathologies and conditions that affect sleep structure, induce fatigue and lethargy, and impair cognitive abilities. Additionally, in health subjects, including students, modafinil is being used off-label to overcome sleepiness, increase concentration and improve cognitive potential. The most common adverse effects associated to modafinil intake are headache, insomnia, anxiety, diarrhea, dry mouth and raise in blood pressure and heart rate. Infrequently, severe dermatologic effects in children, including maculopapular and morbilliform rash, erythema multiforme and Stevens-Johnson Syndrome have been reported. Intoxication and dependence associated to modafinil are uncommon. Further research on effects and health implications of modafinil and its analogs is steel needed to create evidence-based policies.",
           "authors": [
             "Sousa Ana",
             "Dinis-Oliveira Ricardo Jorge"
@@ -1126,8 +1126,8 @@
           "artist": "Tengma66"
         }
       ],
-      "fetchedAt": "2025-11-28T04:52:32.253Z",
-      "lastUpdated": "2025-11-28T04:52:32.253Z"
+      "fetchedAt": "2025-11-28T05:17:24.577Z",
+      "lastUpdated": "2025-11-28T05:17:24.577Z"
     },
     "phenylpiracetam": {
       "substanceSlug": "phenylpiracetam",
@@ -1155,7 +1155,7 @@
         {
           "pmid": "37357012",
           "title": "Unauthorized ingredients in \"nootropic\" dietary supplements: A review of the history, pharmacology, prevalence, international regulations, and potential as doping agents.",
-          "abstract": "The first nootropic prohibited in sport was fonturacetam (4-phenylpiracetam, carphedon) in 1998. Presented here 25&#x2009;years later is a broad-scale consideration of the history, pharmacology, prevalence, regulations, and doping potential of nootropics viewed through a lens of 50 selected dietary supplements (DS) marketed as \"cognitive enhancement,\" \"brain health,\" \"brain boosters,\" or \"nootropics,\" with a focus on unauthorized ingredients. Nootropic DS have risen to prominence over the last decade often as multicomponent formulations of bioactive ingredients presenting compelling pharmacological questions and potential public health concerns. Many popular nootropics are unauthorized food or DS ingredients according to the European Commission including huperzine A, yohimbine, and dimethylaminoethanol; unapproved pharmaceuticals like phenibut or emoxypine (mexidol); previously registered drugs like meclofenoxate or reserpine; EU authorized pharmaceuticals like piracetam or vinpocetine; infamous doping agents like methylhexaneamine or dimethylbutylamine; and other investigational substances and peptides. Several are authorized DS ingredients in the United States resulting in significant global variability as to what qualifies as a legal nootropic. Prohibited stimulants or &#xdf;2-agonists commonly used in \"pre-workout,\" \"weight loss,\" or \"thermogenic\" DS such as octodrine, hordenine, or higenamine are often stacked with nootropic substances. While stimulants and &#xdf;2-agoni",
+          "abstract": "The first nootropic prohibited in sport was fonturacetam (4-phenylpiracetam, carphedon) in 1998. Presented here 25&#x2009;years later is a broad-scale consideration of the history, pharmacology, prevalence, regulations, and doping potential of nootropics viewed through a lens of 50 selected dietary supplements (DS) marketed as \"cognitive enhancement,\" \"brain health,\" \"brain boosters,\" or \"nootropics,\" with a focus on unauthorized ingredients. Nootropic DS have risen to prominence over the last decade often as multicomponent formulations of bioactive ingredients presenting compelling pharmacological questions and potential public health concerns. Many popular nootropics are unauthorized food or DS ingredients according to the European Commission including huperzine A, yohimbine, and dimethylaminoethanol; unapproved pharmaceuticals like phenibut or emoxypine (mexidol); previously registered drugs like meclofenoxate or reserpine; EU authorized pharmaceuticals like piracetam or vinpocetine; infamous doping agents like methylhexaneamine or dimethylbutylamine; and other investigational substances and peptides. Several are authorized DS ingredients in the United States resulting in significant global variability as to what qualifies as a legal nootropic. Prohibited stimulants or &#xdf;2-agonists commonly used in \"pre-workout,\" \"weight loss,\" or \"thermogenic\" DS such as octodrine, hordenine, or higenamine are often stacked with nootropic substances. While stimulants and &#xdf;2-agonists are defined as doping agents by the World Anti-Doping Agency (WADA), many nootropics are not, although some may qualify as non-approved substances or related substances under catch-all language in the WADA Prohibited List. Synergistic combinations, excessive dosing, or recently researched pharmacology may justify listing certain nootropics as doping agents or warrant additional attention in future regulations.",
           "authors": [
             "J&#x119;drejko Karol",
             "Catlin Oliver",
@@ -1170,7 +1170,7 @@
         {
           "pmid": "28743458",
           "title": "S-phenylpiracetam, a selective DAT inhibitor, reduces body weight gain without influencing locomotor activity.",
-          "abstract": "S-phenylpiracetam is an optical isomer of phenotropil, which is a clinically used nootropic drug that improves physical condition and cognition. Recently, it was shown that S-phenylpiracetam is a selective dopamine transporter (DAT) inhibitor that does not influence norepinephrine (NE) or serotonin (5-HT) receptors. The aim of the present study was to study the effects of S-phenylpiracetam treatment on body weight gain, blood glucose and leptin levels, and locomotor activity. Western diet (WD)-fed mice and obese Zucker rats were treated daily with peroral administration of S-phenylpiracetam for 8 and 12weeks, respectively. Weight gain and plasma metabolites reflecting glucose metabolism were measured. Locomotor activity was detected in an open-field test. S-phenylpiracetam treatment significantly decreased body weight gain and fat mass increase in the obese Zucker rats and in the WD-fed mice. In addition, S-phenylpiracetam reduced the plasma glucose and leptin concentration and lowered hyperglycemia in a glucose tolerance test in both the mice and the rats. S-phenylpiracetam did not influence locomotor activity in the obese Zucker rats or in the WD-fed mice. The results demonstrate that S-phenylpiracetam reduces body weight gain and improves adaptation to hyperglycemia without stimulating locomotor activity. Our findings suggest that selective DAT inhibitors, such as S-phenylpiracetam, could be potentially useful for treating obesity in patients with metabolic syndrome with f",
+          "abstract": "S-phenylpiracetam is an optical isomer of phenotropil, which is a clinically used nootropic drug that improves physical condition and cognition. Recently, it was shown that S-phenylpiracetam is a selective dopamine transporter (DAT) inhibitor that does not influence norepinephrine (NE) or serotonin (5-HT) receptors. The aim of the present study was to study the effects of S-phenylpiracetam treatment on body weight gain, blood glucose and leptin levels, and locomotor activity. Western diet (WD)-fed mice and obese Zucker rats were treated daily with peroral administration of S-phenylpiracetam for 8 and 12weeks, respectively. Weight gain and plasma metabolites reflecting glucose metabolism were measured. Locomotor activity was detected in an open-field test. S-phenylpiracetam treatment significantly decreased body weight gain and fat mass increase in the obese Zucker rats and in the WD-fed mice. In addition, S-phenylpiracetam reduced the plasma glucose and leptin concentration and lowered hyperglycemia in a glucose tolerance test in both the mice and the rats. S-phenylpiracetam did not influence locomotor activity in the obese Zucker rats or in the WD-fed mice. The results demonstrate that S-phenylpiracetam reduces body weight gain and improves adaptation to hyperglycemia without stimulating locomotor activity. Our findings suggest that selective DAT inhibitors, such as S-phenylpiracetam, could be potentially useful for treating obesity in patients with metabolic syndrome with fewer adverse health consequences compared to other anorectic agents.",
           "authors": [
             "Zvejniece Liga",
             "Svalbe Baiba",
@@ -1185,7 +1185,7 @@
         {
           "pmid": "20166767",
           "title": "Piracetam and piracetam-like drugs: from basic science to novel clinical applications to CNS disorders.",
-          "abstract": "There is an increasing interest in nootropic drugs for the treatment of CNS disorders. Since the last meta-analysis of the clinical efficacy of piracetam, more information has accumulated. The primary objective of this systematic survey is to evaluate the clinical outcomes as well as the scientific literature relating to the pharmacology, pharmacokinetics/pharmacodynamics, mechanism of action, dosing, toxicology and adverse effects of marketed and investigational drugs. The major focus of the literature search was on articles demonstrating evidence-based clinical investigations during the past 10 years for the following therapeutic categories of CNS disorders: (i) cognition/memory; (ii) epilepsy and seizure; (iii) neurodegenerative diseases; (iv) stroke/ischaemia; and (v) stress and anxiety. In this article, piracetam-like compounds are divided into three subgroups based on their chemical structures, known efficacy and intended clinical uses. Subgroup 1 drugs include piracetam, oxiracetam, aniracetam, pramiracetam and phenylpiracetam, which have been used in humans and some of which are available as dietary supplements. Of these, oxiracetam and aniracetam are no longer in clinical use. Pramiracetam reportedly improved cognitive deficits associated with traumatic brain injuries. Although piracetam exhibited no long-term benefits for the treatment of mild cognitive impairments, recent studies demonstrated its neuroprotective effect when used during coronary bypass surgery. It w",
+          "abstract": "There is an increasing interest in nootropic drugs for the treatment of CNS disorders. Since the last meta-analysis of the clinical efficacy of piracetam, more information has accumulated. The primary objective of this systematic survey is to evaluate the clinical outcomes as well as the scientific literature relating to the pharmacology, pharmacokinetics/pharmacodynamics, mechanism of action, dosing, toxicology and adverse effects of marketed and investigational drugs. The major focus of the literature search was on articles demonstrating evidence-based clinical investigations during the past 10 years for the following therapeutic categories of CNS disorders: (i) cognition/memory; (ii) epilepsy and seizure; (iii) neurodegenerative diseases; (iv) stroke/ischaemia; and (v) stress and anxiety. In this article, piracetam-like compounds are divided into three subgroups based on their chemical structures, known efficacy and intended clinical uses. Subgroup 1 drugs include piracetam, oxiracetam, aniracetam, pramiracetam and phenylpiracetam, which have been used in humans and some of which are available as dietary supplements. Of these, oxiracetam and aniracetam are no longer in clinical use. Pramiracetam reportedly improved cognitive deficits associated with traumatic brain injuries. Although piracetam exhibited no long-term benefits for the treatment of mild cognitive impairments, recent studies demonstrated its neuroprotective effect when used during coronary bypass surgery. It was also effective in the treatment of cognitive disorders of cerebrovascular and traumatic origins; however, its overall effect on lowering depression and anxiety was higher than improving memory. As add-on therapy, it appears to benefit individuals with myoclonus epilepsy and tardive dyskinesia. Phenylpiracetam is more potent than piracetam and is used for a wider range of indications. In combination with a vasodilator drug, piracetam appeared to have an additive beneficial effect on various cognitive disabilities. Subgroup 2 drugs include levetiracetam, seletracetam and brivaracetam, which demonstrate antiepileptic activity, although their cognitive effects are unclear. Subgroup 3 includes piracetam derivatives with unknown clinical efficacies, and of these nefiracetam failed to improve cognition in post-stroke patients and rolipram is currently in clinical trials as an antidepressant. The remaining compounds of this subgroup are at various preclinical stages of research. The modes of action of piracetam and most of its derivatives remain an enigma. Differential effects on subtypes of glutamate receptors, but not the GABAergic actions, have been implicated. Piracetam seems to activate calcium influx into neuronal cells; however, this function is questionable in the light of findings that a persistent calcium inflow may have deleterious impact on neuronal cells. Although subgroup 2 compounds act via binding to another neuronal receptor (synaptic vesicle 2A), some of the subgroup 3 compounds, such as nefiracetam, are similar to those of subgroup 1. Based on calculations of the efficacy rates, our assessments indicate notable improvements in clinical outcomes with some of these agents.",
           "authors": [
             "Malykh Andrei G",
             "Sadaie M Reza"
@@ -1229,8 +1229,8 @@
           "artist": "Nerdking2015"
         }
       ],
-      "fetchedAt": "2025-11-28T04:52:39.380Z",
-      "lastUpdated": "2025-11-28T04:52:39.380Z"
+      "fetchedAt": "2025-11-28T05:17:30.840Z",
+      "lastUpdated": "2025-11-28T05:17:30.840Z"
     },
     "ostarine": {
       "substanceSlug": "ostarine",
@@ -1273,7 +1273,7 @@
         {
           "pmid": "39040033",
           "title": "The disordering effect of SARMs on a biomembrane model.",
-          "abstract": "From medicine to sport, selective androgen receptor modulators (SARMs) have represented promising applications. The ability of SARMs to selectively interact with the androgen receptor (AR) indicates that this kind of molecule can interfere with numerous physiological and pathological processes controlled by the AR regulatory mechanism. However, critical concerns in relation to safety and potential side effects of SARMs remain under discussion and investigation. SARMs, being hydrophobic/organic compounds, can be subjected to hydrophobic interactions. In this perspective, we hypothesize that SARMs interact with lipid membranes, producing significant physical and chemical changes that could be associated with several effects that SARMs represent in biological systems. In this context, the effect of SARMs on lipid membranes mediated by non-specific interactions is little explored. Here, we report significant information related to the changes that ostarine, ligandrol, andarine, and cardarine produce in the thermodynamic properties of a lipid biomembrane model. Physical changes and chemical interactions of the systems were investigated by differential scanning calorimetry (DSC), dynamic light scattering (DLS), attenuated total reflectance-Fourier transform infrared spectroscopy (ATR-FTIR), and theoretical calculations implementing density functional theory (DFT). We demonstrate that ostarine, ligandrol, andarine, and cardarine can strongly interact with a lipid biomembrane model c",
+          "abstract": "From medicine to sport, selective androgen receptor modulators (SARMs) have represented promising applications. The ability of SARMs to selectively interact with the androgen receptor (AR) indicates that this kind of molecule can interfere with numerous physiological and pathological processes controlled by the AR regulatory mechanism. However, critical concerns in relation to safety and potential side effects of SARMs remain under discussion and investigation. SARMs, being hydrophobic/organic compounds, can be subjected to hydrophobic interactions. In this perspective, we hypothesize that SARMs interact with lipid membranes, producing significant physical and chemical changes that could be associated with several effects that SARMs represent in biological systems. In this context, the effect of SARMs on lipid membranes mediated by non-specific interactions is little explored. Here, we report significant information related to the changes that ostarine, ligandrol, andarine, and cardarine produce in the thermodynamic properties of a lipid biomembrane model. Physical changes and chemical interactions of the systems were investigated by differential scanning calorimetry (DSC), dynamic light scattering (DLS), attenuated total reflectance-Fourier transform infrared spectroscopy (ATR-FTIR), and theoretical calculations implementing density functional theory (DFT). We demonstrate that ostarine, ligandrol, andarine, and cardarine can strongly interact with a lipid biomembrane model composed of 1,2-dimyristoyl-sn-glycero-3-phosphocholine (DMPC), and accordingly, these molecules can be incorporated into the polar/hydrophobic regions of the lipid bilayer. By employing theoretical calculations, we gained insights into the possible electrostatic interactions between SARMs and phospholipid molecules, enhancing our understanding of the driving forces behind the interactions of SARMs with lipid membranes. Overall, this investigation provides relevant knowledge related to the biophysical-chemical effects that SARMs produce in biomembrane models and could be of practical reference for promising applications of SARMs in medicine and sport.",
           "authors": [
             "D&#xed;az-Salazar Alma Jessica",
             "Espinosa-Roa Ari&#xe1;n",
@@ -1333,8 +1333,8 @@
           "artist": "Ronhjones"
         }
       ],
-      "fetchedAt": "2025-11-28T04:52:47.687Z",
-      "lastUpdated": "2025-11-28T04:52:47.687Z"
+      "fetchedAt": "2025-11-28T05:17:37.814Z",
+      "lastUpdated": "2025-11-28T05:17:37.814Z"
     },
     "andarine": {
       "substanceSlug": "andarine",
@@ -1391,8 +1391,8 @@
           "artist": "Boghog"
         }
       ],
-      "fetchedAt": "2025-11-28T04:52:55.369Z",
-      "lastUpdated": "2025-11-28T04:52:55.369Z"
+      "fetchedAt": "2025-11-28T05:17:44.216Z",
+      "lastUpdated": "2025-11-28T05:17:44.216Z"
     },
     "yohimbine": {
       "substanceSlug": "yohimbine",
@@ -1453,8 +1453,8 @@
           "artist": "\nU.S. Navy. Robert E. Bush Naval Hospital"
         }
       ],
-      "fetchedAt": "2025-11-28T04:53:02.520Z",
-      "lastUpdated": "2025-11-28T04:53:02.520Z"
+      "fetchedAt": "2025-11-28T05:17:49.926Z",
+      "lastUpdated": "2025-11-28T05:17:49.926Z"
     },
     "higenamine": {
       "substanceSlug": "higenamine",
@@ -1512,7 +1512,7 @@
         {
           "pmid": "37357012",
           "title": "Unauthorized ingredients in \"nootropic\" dietary supplements: A review of the history, pharmacology, prevalence, international regulations, and potential as doping agents.",
-          "abstract": "The first nootropic prohibited in sport was fonturacetam (4-phenylpiracetam, carphedon) in 1998. Presented here 25&#x2009;years later is a broad-scale consideration of the history, pharmacology, prevalence, regulations, and doping potential of nootropics viewed through a lens of 50 selected dietary supplements (DS) marketed as \"cognitive enhancement,\" \"brain health,\" \"brain boosters,\" or \"nootropics,\" with a focus on unauthorized ingredients. Nootropic DS have risen to prominence over the last decade often as multicomponent formulations of bioactive ingredients presenting compelling pharmacological questions and potential public health concerns. Many popular nootropics are unauthorized food or DS ingredients according to the European Commission including huperzine A, yohimbine, and dimethylaminoethanol; unapproved pharmaceuticals like phenibut or emoxypine (mexidol); previously registered drugs like meclofenoxate or reserpine; EU authorized pharmaceuticals like piracetam or vinpocetine; infamous doping agents like methylhexaneamine or dimethylbutylamine; and other investigational substances and peptides. Several are authorized DS ingredients in the United States resulting in significant global variability as to what qualifies as a legal nootropic. Prohibited stimulants or &#xdf;2-agonists commonly used in \"pre-workout,\" \"weight loss,\" or \"thermogenic\" DS such as octodrine, hordenine, or higenamine are often stacked with nootropic substances. While stimulants and &#xdf;2-agoni",
+          "abstract": "The first nootropic prohibited in sport was fonturacetam (4-phenylpiracetam, carphedon) in 1998. Presented here 25&#x2009;years later is a broad-scale consideration of the history, pharmacology, prevalence, regulations, and doping potential of nootropics viewed through a lens of 50 selected dietary supplements (DS) marketed as \"cognitive enhancement,\" \"brain health,\" \"brain boosters,\" or \"nootropics,\" with a focus on unauthorized ingredients. Nootropic DS have risen to prominence over the last decade often as multicomponent formulations of bioactive ingredients presenting compelling pharmacological questions and potential public health concerns. Many popular nootropics are unauthorized food or DS ingredients according to the European Commission including huperzine A, yohimbine, and dimethylaminoethanol; unapproved pharmaceuticals like phenibut or emoxypine (mexidol); previously registered drugs like meclofenoxate or reserpine; EU authorized pharmaceuticals like piracetam or vinpocetine; infamous doping agents like methylhexaneamine or dimethylbutylamine; and other investigational substances and peptides. Several are authorized DS ingredients in the United States resulting in significant global variability as to what qualifies as a legal nootropic. Prohibited stimulants or &#xdf;2-agonists commonly used in \"pre-workout,\" \"weight loss,\" or \"thermogenic\" DS such as octodrine, hordenine, or higenamine are often stacked with nootropic substances. While stimulants and &#xdf;2-agonists are defined as doping agents by the World Anti-Doping Agency (WADA), many nootropics are not, although some may qualify as non-approved substances or related substances under catch-all language in the WADA Prohibited List. Synergistic combinations, excessive dosing, or recently researched pharmacology may justify listing certain nootropics as doping agents or warrant additional attention in future regulations.",
           "authors": [
             "J&#x119;drejko Karol",
             "Catlin Oliver",
@@ -1557,8 +1557,8 @@
           "artist": "Gsifeng"
         }
       ],
-      "fetchedAt": "2025-11-28T04:53:09.198Z",
-      "lastUpdated": "2025-11-28T04:53:09.198Z"
+      "fetchedAt": "2025-11-28T05:17:55.851Z",
+      "lastUpdated": "2025-11-28T05:17:55.851Z"
     },
     "vinpocetine": {
       "substanceSlug": "vinpocetine",
@@ -1586,7 +1586,7 @@
         {
           "pmid": "37693907",
           "title": "The efficacy and safety of post-stroke cognitive impairment therapies: an umbrella review.",
-          "abstract": "Background: Stroke survivors are at significantly increased risk of cognitive impairment, which affects patients' independence of activities of daily living (ADLs), social engagement, and neurological function deficit. Many studies have been done to evaluate the efficacy and safety of post-stroke cognitive impairment (PSCI) treatment, and due to the largely inconsistent clinical data, there is a need to summarize and analyze the published clinical research data in this area. Objective: An umbrella review was performed to evaluate the efficacy and safety of PSCI therapies. Methods: Three independent authors searched for meta-analyses and systematic reviews on PubMed, the Cochrane Library, and the Web of Science to address this issue. We examined ADL and Barthel index (BI), Montreal Cognitive Assessment (MoCA), neurological function deficit as efficacy endpoints, and the incidence of adverse events as safety profiles. Results: In all, 312 studies from 19 eligible publications were included in the umbrella review. The results showed that angiotensin-converting enzyme inhibitors (ACEI) and N-methyl-D-aspartate (NMDA) antagonists, cell therapies, acupuncture, and EGB76 can improve the MoCA and ADL, and the adverse effects were mild for the treatment of PSCI. Moreover, Vinpocetine, Oxiracetam, Citicoline, thrombolytic therapy, Actovegin, DL-3-n-Butylphthalide, and Nimodipine showed adverse events or low article quality in patients with PSCI. However, the research evidence is not ex",
+          "abstract": "Background: Stroke survivors are at significantly increased risk of cognitive impairment, which affects patients' independence of activities of daily living (ADLs), social engagement, and neurological function deficit. Many studies have been done to evaluate the efficacy and safety of post-stroke cognitive impairment (PSCI) treatment, and due to the largely inconsistent clinical data, there is a need to summarize and analyze the published clinical research data in this area. Objective: An umbrella review was performed to evaluate the efficacy and safety of PSCI therapies. Methods: Three independent authors searched for meta-analyses and systematic reviews on PubMed, the Cochrane Library, and the Web of Science to address this issue. We examined ADL and Barthel index (BI), Montreal Cognitive Assessment (MoCA), neurological function deficit as efficacy endpoints, and the incidence of adverse events as safety profiles. Results: In all, 312 studies from 19 eligible publications were included in the umbrella review. The results showed that angiotensin-converting enzyme inhibitors (ACEI) and N-methyl-D-aspartate (NMDA) antagonists, cell therapies, acupuncture, and EGB76 can improve the MoCA and ADL, and the adverse effects were mild for the treatment of PSCI. Moreover, Vinpocetine, Oxiracetam, Citicoline, thrombolytic therapy, Actovegin, DL-3-n-Butylphthalide, and Nimodipine showed adverse events or low article quality in patients with PSCI. However, the research evidence is not exact and further research is needed. Conclusion: Our study demonstrated that ACEI inhibitors (Donepezil) and NMDA antagonists (Memantine), EGB761, and acupuncture are the ADL and BI, MoCA, and neurological function deficit medication/therapy, respectively, for patients with PSCI. Clinical Trial Registration: https://inplasy.com/inplasy-2022-11-0139/; Identifier: INPLASY2022110139.",
           "authors": [
             "Li Yongbiao",
             "Cui Ruyi",
@@ -1616,7 +1616,7 @@
         {
           "pmid": "37357012",
           "title": "Unauthorized ingredients in \"nootropic\" dietary supplements: A review of the history, pharmacology, prevalence, international regulations, and potential as doping agents.",
-          "abstract": "The first nootropic prohibited in sport was fonturacetam (4-phenylpiracetam, carphedon) in 1998. Presented here 25&#x2009;years later is a broad-scale consideration of the history, pharmacology, prevalence, regulations, and doping potential of nootropics viewed through a lens of 50 selected dietary supplements (DS) marketed as \"cognitive enhancement,\" \"brain health,\" \"brain boosters,\" or \"nootropics,\" with a focus on unauthorized ingredients. Nootropic DS have risen to prominence over the last decade often as multicomponent formulations of bioactive ingredients presenting compelling pharmacological questions and potential public health concerns. Many popular nootropics are unauthorized food or DS ingredients according to the European Commission including huperzine A, yohimbine, and dimethylaminoethanol; unapproved pharmaceuticals like phenibut or emoxypine (mexidol); previously registered drugs like meclofenoxate or reserpine; EU authorized pharmaceuticals like piracetam or vinpocetine; infamous doping agents like methylhexaneamine or dimethylbutylamine; and other investigational substances and peptides. Several are authorized DS ingredients in the United States resulting in significant global variability as to what qualifies as a legal nootropic. Prohibited stimulants or &#xdf;2-agonists commonly used in \"pre-workout,\" \"weight loss,\" or \"thermogenic\" DS such as octodrine, hordenine, or higenamine are often stacked with nootropic substances. While stimulants and &#xdf;2-agoni",
+          "abstract": "The first nootropic prohibited in sport was fonturacetam (4-phenylpiracetam, carphedon) in 1998. Presented here 25&#x2009;years later is a broad-scale consideration of the history, pharmacology, prevalence, regulations, and doping potential of nootropics viewed through a lens of 50 selected dietary supplements (DS) marketed as \"cognitive enhancement,\" \"brain health,\" \"brain boosters,\" or \"nootropics,\" with a focus on unauthorized ingredients. Nootropic DS have risen to prominence over the last decade often as multicomponent formulations of bioactive ingredients presenting compelling pharmacological questions and potential public health concerns. Many popular nootropics are unauthorized food or DS ingredients according to the European Commission including huperzine A, yohimbine, and dimethylaminoethanol; unapproved pharmaceuticals like phenibut or emoxypine (mexidol); previously registered drugs like meclofenoxate or reserpine; EU authorized pharmaceuticals like piracetam or vinpocetine; infamous doping agents like methylhexaneamine or dimethylbutylamine; and other investigational substances and peptides. Several are authorized DS ingredients in the United States resulting in significant global variability as to what qualifies as a legal nootropic. Prohibited stimulants or &#xdf;2-agonists commonly used in \"pre-workout,\" \"weight loss,\" or \"thermogenic\" DS such as octodrine, hordenine, or higenamine are often stacked with nootropic substances. While stimulants and &#xdf;2-agonists are defined as doping agents by the World Anti-Doping Agency (WADA), many nootropics are not, although some may qualify as non-approved substances or related substances under catch-all language in the WADA Prohibited List. Synergistic combinations, excessive dosing, or recently researched pharmacology may justify listing certain nootropics as doping agents or warrant additional attention in future regulations.",
           "authors": [
             "J&#x119;drejko Karol",
             "Catlin Oliver",
@@ -1661,8 +1661,8 @@
           "artist": "MarinaVladivostok"
         }
       ],
-      "fetchedAt": "2025-11-28T04:53:15.992Z",
-      "lastUpdated": "2025-11-28T04:53:15.992Z"
+      "fetchedAt": "2025-11-28T05:18:01.803Z",
+      "lastUpdated": "2025-11-28T05:18:01.803Z"
     },
     "picamilon": {
       "substanceSlug": "picamilon",
@@ -1763,8 +1763,8 @@
           "artist": "Nootropic dude"
         }
       ],
-      "fetchedAt": "2025-11-28T04:53:22.935Z",
-      "lastUpdated": "2025-11-28T04:53:22.935Z"
+      "fetchedAt": "2025-11-28T05:18:06.849Z",
+      "lastUpdated": "2025-11-28T05:18:06.849Z"
     },
     "amp-citrate": {
       "substanceSlug": "amp-citrate",
@@ -1789,8 +1789,8 @@
         }
       ],
       "images": [],
-      "fetchedAt": "2025-11-28T04:53:31.401Z",
-      "lastUpdated": "2025-11-28T04:53:31.401Z"
+      "fetchedAt": "2025-11-28T05:18:12.949Z",
+      "lastUpdated": "2025-11-28T05:18:12.949Z"
     },
     "methylsynephrine": {
       "substanceSlug": "methylsynephrine",
@@ -1852,8 +1852,8 @@
         }
       ],
       "images": [],
-      "fetchedAt": "2025-11-28T04:53:37.715Z",
-      "lastUpdated": "2025-11-28T04:53:37.715Z"
+      "fetchedAt": "2025-11-28T05:18:18.313Z",
+      "lastUpdated": "2025-11-28T05:18:18.313Z"
     },
     "hordenine": {
       "substanceSlug": "hordenine",
@@ -1881,7 +1881,7 @@
         {
           "pmid": "36985809",
           "title": "Beneficial Effects of Hordenine on a Model of Ulcerative Colitis.",
-          "abstract": "Hordenine, a phenethylamine alkaloid, is found in a variety of plants and exhibits a broad array of biological activities and pharmacological properties, including anti-inflammatory and anti-fibrotic effects. However, the efficacy and underlying mechanisms of hordenine in treating ulcerative colitis (UC) remain unclear. To address this, we examined the therapeutic effects of hordenine on dextran sodium sulphate (DSS)-induced UC by comparing disease activity index (DAI), colon length, secretion of inflammatory factors, and degree of colonic histological lesions across diseased mice that were and were not treated with hordenine. We found that hordenine significantly reduced DAI and levels of pro-inflammatory factors, including interleukin (IL)-6, IL-1&#x3b2;, and tumor necrosis factor alpha (TNF-&#x3b1;), and also alleviated colon tissue oedema, colonic lesions, inflammatory cells infiltration and decreased the number of goblet cells. Moreover, in vitro experiments showed that hordenine protected intestinal epithelial barrier function by increasing the expression of tight junction proteins including ZO-1 and occludin, while also promoting the healing of intestinal mucosa. Using immunohistochemistry and western blotting, we demonstrated that hordenine reduced the expression of sphingosine kinase 1 (SPHK1), sphingosine-1-phosphate receptor 1 (S1PR1), and ras-related C3 botulinum toxin substrate 1 (Rac1), and it inhibited the expression of phosphorylated signal transducer and acti",
+          "abstract": "Hordenine, a phenethylamine alkaloid, is found in a variety of plants and exhibits a broad array of biological activities and pharmacological properties, including anti-inflammatory and anti-fibrotic effects. However, the efficacy and underlying mechanisms of hordenine in treating ulcerative colitis (UC) remain unclear. To address this, we examined the therapeutic effects of hordenine on dextran sodium sulphate (DSS)-induced UC by comparing disease activity index (DAI), colon length, secretion of inflammatory factors, and degree of colonic histological lesions across diseased mice that were and were not treated with hordenine. We found that hordenine significantly reduced DAI and levels of pro-inflammatory factors, including interleukin (IL)-6, IL-1&#x3b2;, and tumor necrosis factor alpha (TNF-&#x3b1;), and also alleviated colon tissue oedema, colonic lesions, inflammatory cells infiltration and decreased the number of goblet cells. Moreover, in vitro experiments showed that hordenine protected intestinal epithelial barrier function by increasing the expression of tight junction proteins including ZO-1 and occludin, while also promoting the healing of intestinal mucosa. Using immunohistochemistry and western blotting, we demonstrated that hordenine reduced the expression of sphingosine kinase 1 (SPHK1), sphingosine-1-phosphate receptor 1 (S1PR1), and ras-related C3 botulinum toxin substrate 1 (Rac1), and it inhibited the expression of phosphorylated signal transducer and activator of transcription 3 (p-STAT3) in colon tissues. Thus, hordenine appears to be effective in UC treatment owing to pharmacological mechanisms that favor mucosal healing and the inhibition of SPHK-1/S1PR1/STAT3 signaling.",
           "authors": [
             "Xu Zhengguang",
             "Zhang Qilian",
@@ -1896,7 +1896,7 @@
         {
           "pmid": "37357012",
           "title": "Unauthorized ingredients in \"nootropic\" dietary supplements: A review of the history, pharmacology, prevalence, international regulations, and potential as doping agents.",
-          "abstract": "The first nootropic prohibited in sport was fonturacetam (4-phenylpiracetam, carphedon) in 1998. Presented here 25&#x2009;years later is a broad-scale consideration of the history, pharmacology, prevalence, regulations, and doping potential of nootropics viewed through a lens of 50 selected dietary supplements (DS) marketed as \"cognitive enhancement,\" \"brain health,\" \"brain boosters,\" or \"nootropics,\" with a focus on unauthorized ingredients. Nootropic DS have risen to prominence over the last decade often as multicomponent formulations of bioactive ingredients presenting compelling pharmacological questions and potential public health concerns. Many popular nootropics are unauthorized food or DS ingredients according to the European Commission including huperzine A, yohimbine, and dimethylaminoethanol; unapproved pharmaceuticals like phenibut or emoxypine (mexidol); previously registered drugs like meclofenoxate or reserpine; EU authorized pharmaceuticals like piracetam or vinpocetine; infamous doping agents like methylhexaneamine or dimethylbutylamine; and other investigational substances and peptides. Several are authorized DS ingredients in the United States resulting in significant global variability as to what qualifies as a legal nootropic. Prohibited stimulants or &#xdf;2-agonists commonly used in \"pre-workout,\" \"weight loss,\" or \"thermogenic\" DS such as octodrine, hordenine, or higenamine are often stacked with nootropic substances. While stimulants and &#xdf;2-agoni",
+          "abstract": "The first nootropic prohibited in sport was fonturacetam (4-phenylpiracetam, carphedon) in 1998. Presented here 25&#x2009;years later is a broad-scale consideration of the history, pharmacology, prevalence, regulations, and doping potential of nootropics viewed through a lens of 50 selected dietary supplements (DS) marketed as \"cognitive enhancement,\" \"brain health,\" \"brain boosters,\" or \"nootropics,\" with a focus on unauthorized ingredients. Nootropic DS have risen to prominence over the last decade often as multicomponent formulations of bioactive ingredients presenting compelling pharmacological questions and potential public health concerns. Many popular nootropics are unauthorized food or DS ingredients according to the European Commission including huperzine A, yohimbine, and dimethylaminoethanol; unapproved pharmaceuticals like phenibut or emoxypine (mexidol); previously registered drugs like meclofenoxate or reserpine; EU authorized pharmaceuticals like piracetam or vinpocetine; infamous doping agents like methylhexaneamine or dimethylbutylamine; and other investigational substances and peptides. Several are authorized DS ingredients in the United States resulting in significant global variability as to what qualifies as a legal nootropic. Prohibited stimulants or &#xdf;2-agonists commonly used in \"pre-workout,\" \"weight loss,\" or \"thermogenic\" DS such as octodrine, hordenine, or higenamine are often stacked with nootropic substances. While stimulants and &#xdf;2-agonists are defined as doping agents by the World Anti-Doping Agency (WADA), many nootropics are not, although some may qualify as non-approved substances or related substances under catch-all language in the WADA Prohibited List. Synergistic combinations, excessive dosing, or recently researched pharmacology may justify listing certain nootropics as doping agents or warrant additional attention in future regulations.",
           "authors": [
             "J&#x119;drejko Karol",
             "Catlin Oliver",
@@ -1954,8 +1954,8 @@
           "artist": "Panisanun"
         }
       ],
-      "fetchedAt": "2025-11-28T04:53:44.643Z",
-      "lastUpdated": "2025-11-28T04:53:44.643Z"
+      "fetchedAt": "2025-11-28T05:18:24.433Z",
+      "lastUpdated": "2025-11-28T05:18:24.433Z"
     },
     "octopamine": {
       "substanceSlug": "octopamine",
@@ -2039,8 +2039,8 @@
           "artist": "Jynto (talk)"
         }
       ],
-      "fetchedAt": "2025-11-28T04:53:50.870Z",
-      "lastUpdated": "2025-11-28T04:53:50.870Z"
+      "fetchedAt": "2025-11-28T05:18:29.593Z",
+      "lastUpdated": "2025-11-28T05:18:29.593Z"
     },
     "n-methyltyramine": {
       "substanceSlug": "n-methyltyramine",
@@ -2064,35 +2064,7 @@
         "pageid": 33289050,
         "lastModified": "2025-11-24T03:11:46Z"
       },
-      "pubmed": [
-        {
-          "pmid": "8721213",
-          "title": "Toxicity of Palicourea marcgravii: combined effects of fluoroacetate, N-methyltyramine and 2-methyltetrahydro-beta-carboline.",
-          "abstract": "Feeding experiments carried out with cattle and horses could prove the toxic effects of P. marcgravii (Rubiaceae) in all cases. The typical symptoms of \"sudden death\", however, are observed in ruminants only. This difference could not be explained so far. Apart from fluoroacetate, two more substances also have influence the toxic effects and have been isolated from P. marcgravii for the first time: N-methyltyramine and 2-methyltetrahydro-beta-carboline (2-Me THBC). Structure elucidation of these compounds is mainly accomplished by 1H-NMR, 13C-NMR and MS techniques. Due to the small quantity of fluoroacetate (5.4 micrograms/g plant), the main toxic effect obviously lies in the two discovered substances. In contrast to the slow death of horses (monogastriers), the \"sudden death syndrome\" of cattle (ruminants) can be explained as a result of the higher resorbility of these two substances in the gastro-intestinal system. Given orally, both substances influence the monoamine oxidase type A (MAO-A): N-methyltyramine acts as a competitive substrate, and 2-Me THBC is one of the most effective MAO-A-inhibitors. Thus, the decomposition of the specific MAO-A-substrates noradrenaline and adrenaline as well as of N-methyltyramine itself is inhibited. The alpha- and beta-receptors of the sympathetic system are stimulated more strongly, which leads to a drastic rise in blood pressure and thereby to a more rapid distribution of fluoroacetate in the body. This results in a reinforced input of",
-          "authors": [
-            "Kemmerling W"
-          ],
-          "journal": "Zeitschrift fur Naturforschung. C, Journal of biosciences",
-          "pubDate": "1997",
-          "year": 1997,
-          "doi": "10.1515/znc-1996-1-211",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/8721213/"
-        },
-        {
-          "pmid": "17582424",
-          "title": "Chromatographic and electrophoretic methods for the analysis of phenethylamine [corrected] alkaloids in Citrus aurantium.",
-          "abstract": "Citrus aurantium (bitter orange) is a plant belonging to the family Rutaceae, whose fruit extracts have been used recently for the treatment of obesity. The most important biologically active constituents of the C. aurantium fruits are phenethylamine alkaloids (i.e. octopamine, synephrine, tyramine, N-methyltyramine and hordenine). Synephrine is a primary synthesis compound with pharmacological activities such as vasoconstriction, elevation of blood pressure and relaxation of bronchial muscle. Synephrine is present in the peel and the edible part of Citrus fruit. Of the adrenergic amines of natural origin, synephrine has been found to be the main constituent of C. aurantium fruits and extracts; the other alkaloids are either absent or present in only low concentrations. It is known that synephrine and the other amines found in C. aurantium have adverse effects on the cardiovascular system, owing to adrenergic stimulation. In light of the great commercial proliferation of C. aurantium herbal medicines in recent years, this review provides an overview of various extraction, separation and detection techniques employed for the qualitative and quantitative determination of the alkaloids in C. aurantium and related species. The application of chromatographic and electrophoretic methods for the separation and determination of these active components in C. aurantium plant material and derivatives are described. Since synephrine is a chiral compound, enantioselective chromatographic ",
-          "authors": [
-            "Pellati Federica",
-            "Benvenuti Stefania"
-          ],
-          "journal": "Journal of chromatography. A",
-          "pubDate": "2007",
-          "year": 2007,
-          "doi": "10.1016/j.chroma.2007.05.097",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/17582424/"
-        }
-      ],
+      "pubmed": [],
       "images": [
         {
           "title": "N-Methyltyramine.svg",
@@ -2125,8 +2097,8 @@
           "artist": "Panisanun"
         }
       ],
-      "fetchedAt": "2025-11-28T04:53:57.341Z",
-      "lastUpdated": "2025-11-28T04:53:57.341Z"
+      "fetchedAt": "2025-11-28T05:18:33.963Z",
+      "lastUpdated": "2025-11-28T05:18:33.963Z"
     },
     "cyclazodone": {
       "substanceSlug": "cyclazodone",
@@ -2182,8 +2154,8 @@
           "artist": "Nuklear"
         }
       ],
-      "fetchedAt": "2025-11-28T04:54:02.096Z",
-      "lastUpdated": "2025-11-28T04:54:02.096Z"
+      "fetchedAt": "2025-11-28T05:18:38.283Z",
+      "lastUpdated": "2025-11-28T05:18:38.283Z"
     },
     "hydrafinil": {
       "substanceSlug": "hydrafinil",
@@ -2192,8 +2164,8 @@
       "wikipedia": null,
       "pubmed": [],
       "images": [],
-      "fetchedAt": "2025-11-28T04:54:08.809Z",
-      "lastUpdated": "2025-11-28T04:54:08.809Z"
+      "fetchedAt": "2025-11-28T05:18:43.162Z",
+      "lastUpdated": "2025-11-28T05:18:43.162Z"
     },
     "sulbutiamine": {
       "substanceSlug": "sulbutiamine",
@@ -2294,8 +2266,8 @@
           "artist": "Jynto (talk)"
         }
       ],
-      "fetchedAt": "2025-11-28T04:54:14.529Z",
-      "lastUpdated": "2025-11-28T04:54:14.529Z"
+      "fetchedAt": "2025-11-28T05:18:48.223Z",
+      "lastUpdated": "2025-11-28T05:18:48.223Z"
     },
     "dendrobium": {
       "substanceSlug": "dendrobium",
@@ -2398,8 +2370,8 @@
           "artist": "\nFarmer, J. B. (John Bretland), 1865-1944"
         }
       ],
-      "fetchedAt": "2025-11-28T04:54:22.814Z",
-      "lastUpdated": "2025-11-28T04:54:22.814Z"
+      "fetchedAt": "2025-11-28T05:18:55.306Z",
+      "lastUpdated": "2025-11-28T05:18:55.306Z"
     },
     "acacia-rigidula": {
       "substanceSlug": "acacia-rigidula",
@@ -2427,7 +2399,7 @@
         {
           "pmid": "24176750",
           "title": "Determination of selected biogenic amines in Acacia rigidula plant materials and dietary supplements using LC-MS/MS methods.",
-          "abstract": "Extracts of Acacia rigidula leaves are used in weight-loss products sold in vitamin shops and over the internet with little or no published data about their potential biological effects. In our chemical investigations on authenticated A. rigidula plant material, we established a rapid and sensitive LC-MS/MS method for the quantitative determination of several phenethylamine, tyramine and tryptamine derivatives. Stable isotopically labeled compounds were used as internal standards for quantitative analysis. We found total calculated contents of 6 biogenic amines in A. rigidula leaf of 18.6 and 32.9&#x3bc;g/g. The content of selected amines in 21 dietary supplements labeled as containing A. rigidula was determined by a second LC-MS/MS method. Our study revealed significant differences in the amine profiles of authenticated plant materials and dietary supplements. &#x3b2;-Methylphenethylamine, a non-natural compound, was found in 9 of the 21 dietary supplement products. &#x3b2;-Methylphenethylamine was found at levels of 960-60,500&#x3bc;g/g while phenethylamine was found at levels of 710-171,620&#x3bc;g/g. &#x3b2;-Methylphenethylamine is a positional isomer of amphetamine and our results showed that it can be misidentified as amphetamine during LC-MS analysis. An independent GC-MS analysis was used to confirm the presence of &#x3b2;-methylphenethylamine and the absence of amphetamine in dietary supplements labeled as containing A. rigidula. This study demonstrates that confirma",
+          "abstract": "Extracts of Acacia rigidula leaves are used in weight-loss products sold in vitamin shops and over the internet with little or no published data about their potential biological effects. In our chemical investigations on authenticated A. rigidula plant material, we established a rapid and sensitive LC-MS/MS method for the quantitative determination of several phenethylamine, tyramine and tryptamine derivatives. Stable isotopically labeled compounds were used as internal standards for quantitative analysis. We found total calculated contents of 6 biogenic amines in A. rigidula leaf of 18.6 and 32.9&#x3bc;g/g. The content of selected amines in 21 dietary supplements labeled as containing A. rigidula was determined by a second LC-MS/MS method. Our study revealed significant differences in the amine profiles of authenticated plant materials and dietary supplements. &#x3b2;-Methylphenethylamine, a non-natural compound, was found in 9 of the 21 dietary supplement products. &#x3b2;-Methylphenethylamine was found at levels of 960-60,500&#x3bc;g/g while phenethylamine was found at levels of 710-171,620&#x3bc;g/g. &#x3b2;-Methylphenethylamine is a positional isomer of amphetamine and our results showed that it can be misidentified as amphetamine during LC-MS analysis. An independent GC-MS analysis was used to confirm the presence of &#x3b2;-methylphenethylamine and the absence of amphetamine in dietary supplements labeled as containing A. rigidula. This study demonstrates that confirmations by independent analytical methods are essential to verify findings of unusual or unexpected compounds in dietary supplements.",
           "authors": [
             "Pawar Rahul S",
             "Grundel Erich",
@@ -2442,7 +2414,7 @@
         {
           "pmid": "25847603",
           "title": "An amphetamine isomer whose efficacy and safety in humans has never been studied, &#x3b2;-methylphenylethylamine (BMPEA), is found in multiple dietary supplements.",
-          "abstract": "The amphetamine isomer &#x3b2;-methylphenylethylamine (BMPEA) was first synthesized in the early 1930s, but its efficacy and safety in humans has not been studied. Recently, the United States Food and Drug Administration (FDA) detected BMPEA in dietary supplements labelled as containing Acacia rigidula. Over a year after the FDA reported its findings, we analyzed Acacia rigidula dietary supplements to determine if BMPEA had been removed. Supplements were analyzed using liquid chromatography-quadrupole time-of-flight mass spectrometry. Diluted methanolic extract from each supplement was run three times and each data set obtained was analyzed using Agilent MassHunter Qualitative Analysis. The presence of BMPEA was confirmed by accurate mass, retention time and mass spectra match against a reference standard. Quantification of BMPEA was determined using an eight-point calibration curve of spiked standard to a matrix blank. Twenty-one brands of Acacia rigidula supplements were analyzed. More than half (11/21; 52.4%) of the Acacia rigidula supplement brands contained BMPEA. The stimulant was present at quantities such that consumers following recommended maximum daily servings would consume a maximum of 93.7 mg of BMPEA per day. Consumers of Acacia rigidula supplements may be exposed to pharmacological dosages of an amphetamine isomer that lacks evidence of safety in humans. The FDA should immediately warn consumers about BMPEA and take aggressive enforcement action to eliminate B",
+          "abstract": "The amphetamine isomer &#x3b2;-methylphenylethylamine (BMPEA) was first synthesized in the early 1930s, but its efficacy and safety in humans has not been studied. Recently, the United States Food and Drug Administration (FDA) detected BMPEA in dietary supplements labelled as containing Acacia rigidula. Over a year after the FDA reported its findings, we analyzed Acacia rigidula dietary supplements to determine if BMPEA had been removed. Supplements were analyzed using liquid chromatography-quadrupole time-of-flight mass spectrometry. Diluted methanolic extract from each supplement was run three times and each data set obtained was analyzed using Agilent MassHunter Qualitative Analysis. The presence of BMPEA was confirmed by accurate mass, retention time and mass spectra match against a reference standard. Quantification of BMPEA was determined using an eight-point calibration curve of spiked standard to a matrix blank. Twenty-one brands of Acacia rigidula supplements were analyzed. More than half (11/21; 52.4%) of the Acacia rigidula supplement brands contained BMPEA. The stimulant was present at quantities such that consumers following recommended maximum daily servings would consume a maximum of 93.7 mg of BMPEA per day. Consumers of Acacia rigidula supplements may be exposed to pharmacological dosages of an amphetamine isomer that lacks evidence of safety in humans. The FDA should immediately warn consumers about BMPEA and take aggressive enforcement action to eliminate BMPEA in dietary supplements. Copyright &#xa9; 2015 John Wiley &amp; Sons, Ltd.",
           "authors": [
             "Cohen Pieter A",
             "Bloszies Clayton",
@@ -2502,8 +2474,8 @@
           "artist": "\nLinnean Society of New South Wales"
         }
       ],
-      "fetchedAt": "2025-11-28T04:54:30.910Z",
-      "lastUpdated": "2025-11-28T04:54:30.910Z"
+      "fetchedAt": "2025-11-28T05:19:01.943Z",
+      "lastUpdated": "2025-11-28T05:19:01.943Z"
     },
     "arecoline": {
       "substanceSlug": "arecoline",
@@ -2604,8 +2576,8 @@
           "artist": "\nHenry, Thomas Anderson, 1874-"
         }
       ],
-      "fetchedAt": "2025-11-28T04:54:38.994Z",
-      "lastUpdated": "2025-11-28T04:54:38.994Z"
+      "fetchedAt": "2025-11-28T05:19:08.930Z",
+      "lastUpdated": "2025-11-28T05:19:08.930Z"
     },
     "synephrine": {
       "substanceSlug": "synephrine",
@@ -2691,8 +2663,8 @@
           "artist": "PishT"
         }
       ],
-      "fetchedAt": "2025-11-28T04:54:45.379Z",
-      "lastUpdated": "2025-11-28T04:54:45.379Z"
+      "fetchedAt": "2025-11-28T05:19:16.046Z",
+      "lastUpdated": "2025-11-28T05:19:16.046Z"
     },
     "caffeine": {
       "substanceSlug": "caffeine",
@@ -2720,7 +2692,7 @@
         {
           "pmid": "33388079",
           "title": "International society of sports nutrition position stand: caffeine and exercise performance.",
-          "abstract": "Following critical evaluation of the available literature to date, The International Society of Sports Nutrition (ISSN) position regarding caffeine intake is as follows: 1. Supplementation with caffeine has been shown to acutely enhance various aspects of exercise performance in many but not all studies. Small to moderate benefits of caffeine use include, but are not limited to: muscular endurance, movement velocity and muscular strength, sprinting, jumping, and throwing performance, as well as a wide range of aerobic and anaerobic sport-specific actions. 2. Aerobic endurance appears to be the form of exercise with the most consistent moderate-to-large benefits from caffeine use, although the magnitude of its effects differs between individuals. 3. Caffeine has consistently been shown to improve exercise performance when consumed in doses of 3-6&#x2009;mg/kg body mass. Minimal effective doses of caffeine currently remain unclear but they may be as low as 2&#x2009;mg/kg body mass. Very high doses of caffeine (e.g. 9&#x2009;mg/kg) are associated with a high incidence of side-effects and do not seem to be required to elicit an ergogenic effect. 4. The most commonly used timing of caffeine supplementation is 60&#x2009;min pre-exercise. Optimal timing of caffeine ingestion likely depends on the source of caffeine. For example, as compared to caffeine capsules, caffeine chewing gums may require a shorter waiting time from consumption to the start of the exercise session. 5. Caffein",
+          "abstract": "Following critical evaluation of the available literature to date, The International Society of Sports Nutrition (ISSN) position regarding caffeine intake is as follows: 1. Supplementation with caffeine has been shown to acutely enhance various aspects of exercise performance in many but not all studies. Small to moderate benefits of caffeine use include, but are not limited to: muscular endurance, movement velocity and muscular strength, sprinting, jumping, and throwing performance, as well as a wide range of aerobic and anaerobic sport-specific actions. 2. Aerobic endurance appears to be the form of exercise with the most consistent moderate-to-large benefits from caffeine use, although the magnitude of its effects differs between individuals. 3. Caffeine has consistently been shown to improve exercise performance when consumed in doses of 3-6&#x2009;mg/kg body mass. Minimal effective doses of caffeine currently remain unclear but they may be as low as 2&#x2009;mg/kg body mass. Very high doses of caffeine (e.g. 9&#x2009;mg/kg) are associated with a high incidence of side-effects and do not seem to be required to elicit an ergogenic effect. 4. The most commonly used timing of caffeine supplementation is 60&#x2009;min pre-exercise. Optimal timing of caffeine ingestion likely depends on the source of caffeine. For example, as compared to caffeine capsules, caffeine chewing gums may require a shorter waiting time from consumption to the start of the exercise session. 5. Caffeine appears to improve physical performance in both trained and untrained individuals. 6. Inter-individual differences in sport and exercise performance as well as adverse effects on sleep or feelings of anxiety following caffeine ingestion may be attributed to genetic variation associated with caffeine metabolism, and physical and psychological response. Other factors such as habitual caffeine intake also may play a role in between-individual response variation. 7. Caffeine has been shown to be ergogenic for cognitive function, including attention and vigilance, in most individuals. 8. Caffeine may improve cognitive and physical performance in some individuals under conditions of sleep deprivation. 9. The use of caffeine in conjunction with endurance exercise in the heat and at altitude is well supported when dosages range from 3 to 6&#x2009;mg/kg and 4-6&#x2009;mg/kg, respectively. 10. Alternative sources of caffeine such as caffeinated chewing gum, mouth rinses, energy gels and chews have been shown to improve performance, primarily in aerobic exercise. 11. Energy drinks and pre-workout supplements containing caffeine have been demonstrated to enhance both anaerobic and aerobic performance.",
           "authors": [
             "Guest Nanci S",
             "VanDusseldorp Trisha A",
@@ -2794,8 +2766,8 @@
           "artist": "Roger Burger"
         }
       ],
-      "fetchedAt": "2025-11-28T04:54:52.738Z",
-      "lastUpdated": "2025-11-28T04:54:52.738Z"
+      "fetchedAt": "2025-11-28T05:19:21.958Z",
+      "lastUpdated": "2025-11-28T05:19:21.958Z"
     },
     "l-theanine": {
       "substanceSlug": "l-theanine",
@@ -2898,8 +2870,8 @@
           "artist": "Ed (Edgar181)"
         }
       ],
-      "fetchedAt": "2025-11-28T04:54:59.575Z",
-      "lastUpdated": "2025-11-28T04:54:59.575Z"
+      "fetchedAt": "2025-11-28T05:19:28.180Z",
+      "lastUpdated": "2025-11-28T05:19:28.180Z"
     },
     "creatine-monohydrate": {
       "substanceSlug": "creatine-monohydrate",
@@ -2927,7 +2899,7 @@
         {
           "pmid": "33557850",
           "title": "Common questions and misconceptions about creatine supplementation: what does the scientific evidence really show?",
-          "abstract": "Supplementing with creatine is very popular amongst athletes and exercising individuals for improving muscle mass, performance and recovery. Accumulating evidence also suggests that creatine supplementation produces a variety of beneficial effects in older and patient populations. Furthermore, evidence-based research shows that creatine supplementation is relatively well tolerated, especially at recommended dosages (i.e. 3-5 g/day or 0.1 g/kg of body mass/day). Although there are over 500 peer-refereed publications involving creatine supplementation, it is somewhat surprising that questions regarding the efficacy and safety of creatine still remain. These include, but are not limited to: 1. Does creatine lead to water retention? 2. Is creatine an anabolic steroid? 3. Does creatine cause kidney damage/renal dysfunction? 4. Does creatine cause hair loss / baldness? 5. Does creatine lead to dehydration and muscle cramping? 6. Is creatine harmful for children and adolescents? 7. Does creatine increase fat mass? 8. Is a creatine 'loading-phase' required? 9. Is creatine beneficial for older adults? 10. Is creatine only useful for resistance / power type activities? 11. Is creatine only effective for males? 12. Are other forms of creatine similar or superior to monohydrate and is creatine stable in solutions/beverages? To answer these questions, an internationally renowned team of research experts was formed to perform an evidence-based scientific evaluation of the literature regard",
+          "abstract": "Supplementing with creatine is very popular amongst athletes and exercising individuals for improving muscle mass, performance and recovery. Accumulating evidence also suggests that creatine supplementation produces a variety of beneficial effects in older and patient populations. Furthermore, evidence-based research shows that creatine supplementation is relatively well tolerated, especially at recommended dosages (i.e. 3-5 g/day or 0.1 g/kg of body mass/day). Although there are over 500 peer-refereed publications involving creatine supplementation, it is somewhat surprising that questions regarding the efficacy and safety of creatine still remain. These include, but are not limited to: 1. Does creatine lead to water retention? 2. Is creatine an anabolic steroid? 3. Does creatine cause kidney damage/renal dysfunction? 4. Does creatine cause hair loss / baldness? 5. Does creatine lead to dehydration and muscle cramping? 6. Is creatine harmful for children and adolescents? 7. Does creatine increase fat mass? 8. Is a creatine 'loading-phase' required? 9. Is creatine beneficial for older adults? 10. Is creatine only useful for resistance / power type activities? 11. Is creatine only effective for males? 12. Are other forms of creatine similar or superior to monohydrate and is creatine stable in solutions/beverages? To answer these questions, an internationally renowned team of research experts was formed to perform an evidence-based scientific evaluation of the literature regarding creatine supplementation.",
           "authors": [
             "Antonio Jose",
             "Candow Darren G",
@@ -2957,7 +2929,7 @@
         {
           "pmid": "10999421",
           "title": "Adverse effects of creatine supplementation: fact or fiction?",
-          "abstract": "The consumption of oral creatine monohydrate has become increasingly common among professional and amateur athletes. Despite numerous publications on the ergogenic effects of this naturally occurring substance, there is little information on the possible adverse effects of this supplement. The objectives of this review are to identify the scientific facts and contrast them with reports in the news media, which have repeatedly emphasised the health risks of creatine supplementation and do not hesitate to draw broad conclusions from individual case reports. Exogenous creatine supplements are often consumed by athletes in amounts of up to 20 g/day for a few days, followed by 1 to 10 g/day for weeks, months and even years. Usually, consumers do not report any adverse effects, but body mass increases. There are few reports that creatine supplementation has protective effects in heart, muscle and neurological diseases. Gastrointestinal disturbances and muscle cramps have been reported occasionally in healthy individuals, but the effects are anecdotal. Liver and kidney dysfunction have also been suggested on the basis of small changes in markers of organ function and of occasional case reports, but well controlled studies on the adverse effects of exogenous creatine supplementation are almost nonexistent. We have investigated liver changes during medium term (4 weeks) creatine supplementation in young athletes. None showed any evidence of dysfunction on the basis of serum enzymes an",
+          "abstract": "The consumption of oral creatine monohydrate has become increasingly common among professional and amateur athletes. Despite numerous publications on the ergogenic effects of this naturally occurring substance, there is little information on the possible adverse effects of this supplement. The objectives of this review are to identify the scientific facts and contrast them with reports in the news media, which have repeatedly emphasised the health risks of creatine supplementation and do not hesitate to draw broad conclusions from individual case reports. Exogenous creatine supplements are often consumed by athletes in amounts of up to 20 g/day for a few days, followed by 1 to 10 g/day for weeks, months and even years. Usually, consumers do not report any adverse effects, but body mass increases. There are few reports that creatine supplementation has protective effects in heart, muscle and neurological diseases. Gastrointestinal disturbances and muscle cramps have been reported occasionally in healthy individuals, but the effects are anecdotal. Liver and kidney dysfunction have also been suggested on the basis of small changes in markers of organ function and of occasional case reports, but well controlled studies on the adverse effects of exogenous creatine supplementation are almost nonexistent. We have investigated liver changes during medium term (4 weeks) creatine supplementation in young athletes. None showed any evidence of dysfunction on the basis of serum enzymes and urea production. Short term (5 days), medium term (9 weeks) and long term (up to 5 years) oral creatine supplementation has been studied in small cohorts of athletes whose kidney function was monitored by clearance methods and urine protein excretion rate. We did not find any adverse effects on renal function. The present review is not intended to reach conclusions on the effect of creatine supplementation on sport performance, but we believe that there is no evidence for deleterious effects in healthy individuals. Nevertheless, idiosyncratic effects may occur when large amounts of an exogenous substance containing an amino group are consumed, with the consequent increased load on the liver and kidneys. Regular monitoring is compulsory to avoid any abnormal reactions during oral creatine supplementation.",
           "authors": [
             "Poortmans J R",
             "Francaux M"
@@ -2999,8 +2971,8 @@
           "artist": "Antônio J Natali / Neuza Maria Brunoro Costa / Karina Ana da Silva"
         }
       ],
-      "fetchedAt": "2025-11-28T04:55:07.381Z",
-      "lastUpdated": "2025-11-28T04:55:07.381Z"
+      "fetchedAt": "2025-11-28T05:19:34.718Z",
+      "lastUpdated": "2025-11-28T05:19:34.718Z"
     },
     "beta-alanine": {
       "substanceSlug": "beta-alanine",
@@ -3043,7 +3015,7 @@
         {
           "pmid": "22270875",
           "title": "Effects of &#x3b2;-alanine supplementation on exercise performance: a meta-analysis.",
-          "abstract": "Due to the well-defined role of &#x3b2;-alanine as a substrate of carnosine (a major contributor to H+ buffering during high-intensity exercise), &#x3b2;-alanine is fast becoming a popular ergogenic aid to sports performance. There have been several recent qualitative review articles published on the topic, and here we present a preliminary quantitative review of the literature through a meta-analysis. A comprehensive search of the literature was employed to identify all studies suitable for inclusion in the analysis; strict exclusion criteria were also applied. Fifteen published manuscripts were included in the analysis, which reported the results of 57 measures within 23 exercise tests, using 18 supplementation regimes and a total of 360 participants [174, &#x3b2;-alanine supplementation group (BA) and 186, placebo supplementation group (Pla)]. BA improved (P=0.002) the outcome of exercise measures to a greater extent than Pla [median effect size (IQR): BA 0.374 (0.140-0.747), Pla 0.108 (-0.019 to 0.487)]. Some of that effect might be explained by the improvement (P=0.013) in exercise capacity with BA compared to Pla; no improvement was seen for exercise performance (P=0.204). In line with the purported mechanisms for an ergogenic effect of &#x3b2;-alanine supplementation, exercise lasting 60-240 s was improved (P=0.001) in BA compared to Pla, as was exercise of &gt;240 s (P=0.046). In contrast, there was no benefit of &#x3b2;-alanine on exercise lasting &lt;60 s (P=0.312).",
+          "abstract": "Due to the well-defined role of &#x3b2;-alanine as a substrate of carnosine (a major contributor to H+ buffering during high-intensity exercise), &#x3b2;-alanine is fast becoming a popular ergogenic aid to sports performance. There have been several recent qualitative review articles published on the topic, and here we present a preliminary quantitative review of the literature through a meta-analysis. A comprehensive search of the literature was employed to identify all studies suitable for inclusion in the analysis; strict exclusion criteria were also applied. Fifteen published manuscripts were included in the analysis, which reported the results of 57 measures within 23 exercise tests, using 18 supplementation regimes and a total of 360 participants [174, &#x3b2;-alanine supplementation group (BA) and 186, placebo supplementation group (Pla)]. BA improved (P=0.002) the outcome of exercise measures to a greater extent than Pla [median effect size (IQR): BA 0.374 (0.140-0.747), Pla 0.108 (-0.019 to 0.487)]. Some of that effect might be explained by the improvement (P=0.013) in exercise capacity with BA compared to Pla; no improvement was seen for exercise performance (P=0.204). In line with the purported mechanisms for an ergogenic effect of &#x3b2;-alanine supplementation, exercise lasting 60-240 s was improved (P=0.001) in BA compared to Pla, as was exercise of &gt;240 s (P=0.046). In contrast, there was no benefit of &#x3b2;-alanine on exercise lasting &lt;60 s (P=0.312). The median effect of &#x3b2;-alanine supplementation is a 2.85% (-0.37 to 10.49%) improvement in the outcome of an exercise measure, when a median total of 179 g of &#x3b2;-alanine is supplemented.",
           "authors": [
             "Hobson R M",
             "Saunders B",
@@ -3058,7 +3030,7 @@
         {
           "pmid": "24276304",
           "title": "&#x3b2;-Alanine supplementation for athletic performance: an update.",
-          "abstract": "&#x3b2;-alanine supplementation has become a common practice among competitive athletes participating in a range of different sports. Although the mechanism by which chronic &#x3b2;-alanine supplementation could have an ergogenic effect is widely debated, the popular view is that &#x3b2;-alanine supplementation augments intramuscular carnosine content, leading to an increase in muscle buffer capacity, a delay in the onset of muscular fatigue, and a facilitated recovery during repeated bouts of high-intensity exercise. &#x3b2;-alanine supplementation appears to be most effective for exercise tasks that rely heavily on ATP synthesis from anaerobic glycolysis. However, research investigating its efficacy as an ergogenic aid remains equivocal, making it difficult to draw conclusions as to its effectiveness for training and competition. The aim of this review was to update, summarize, and critically evaluate the findings associated with &#x3b2;-alanine supplementation and exercise performance with the most recent research available to allow the development of practical recommendations for coaches and athletes. A critical review of the literature reveals that when significant ergogenic effects have been found, they have been generally shown in untrained individuals performing exercise bouts under laboratory conditions. The body of scientific data available concerning highly trained athletes performing single competition-like exercise tasks indicates that this type of population rec",
+          "abstract": "&#x3b2;-alanine supplementation has become a common practice among competitive athletes participating in a range of different sports. Although the mechanism by which chronic &#x3b2;-alanine supplementation could have an ergogenic effect is widely debated, the popular view is that &#x3b2;-alanine supplementation augments intramuscular carnosine content, leading to an increase in muscle buffer capacity, a delay in the onset of muscular fatigue, and a facilitated recovery during repeated bouts of high-intensity exercise. &#x3b2;-alanine supplementation appears to be most effective for exercise tasks that rely heavily on ATP synthesis from anaerobic glycolysis. However, research investigating its efficacy as an ergogenic aid remains equivocal, making it difficult to draw conclusions as to its effectiveness for training and competition. The aim of this review was to update, summarize, and critically evaluate the findings associated with &#x3b2;-alanine supplementation and exercise performance with the most recent research available to allow the development of practical recommendations for coaches and athletes. A critical review of the literature reveals that when significant ergogenic effects have been found, they have been generally shown in untrained individuals performing exercise bouts under laboratory conditions. The body of scientific data available concerning highly trained athletes performing single competition-like exercise tasks indicates that this type of population receives modest but potentially worthwhile performance benefits from &#x3b2;-alanine supplementation. Recent data indicate that athletes may not only be using &#x3b2;-alanine supplementation to enhance sports performance but also as a training aid to augment bouts of high-intensity training. &#x3b2;-alanine supplementation has also been shown to increase resistance training performance and training volume in team-sport athletes, which may allow for greater overload and superior adaptations compared with training alone. The ergogenic potential of &#x3b2;-alanine supplementation for elite athletes performing repeated high-intensity exercise bouts, either during training or during competition in sports which require repeated maximal efforts (e.g., rugby and soccer), needs scientific confirmation.",
           "authors": [
             "Bellinger Phillip M"
           ],
@@ -3101,8 +3073,8 @@
           "artist": "Janeklass"
         }
       ],
-      "fetchedAt": "2025-11-28T04:55:13.603Z",
-      "lastUpdated": "2025-11-28T04:55:13.603Z"
+      "fetchedAt": "2025-11-28T05:19:40.594Z",
+      "lastUpdated": "2025-11-28T05:19:40.594Z"
     },
     "citrulline-malate": {
       "substanceSlug": "citrulline-malate",
@@ -3113,7 +3085,7 @@
         {
           "pmid": "34417881",
           "title": "A critical review of citrulline malate supplementation and exercise performance.",
-          "abstract": "As a nitric oxide (NO) enhancer, citrulline malate (CM) has recently been touted as a potential ergogenic aid to both resistance and high-intensity exercise performance, as well as the recovery of muscular performance. The mechanism has been associated with enhanced blood flow to active musculature, however, it might be more far-reaching as either ammonia homeostasis could be improved, or ATP production could be increased via greater availability of malate. Moreover, CM might improve muscle recovery via increased nutrient delivery and/or removal of waste products. To date, a single acute 8&#xa0;g dose of CM on either resistance exercise performance or cycling has been the most common approach, which has produced equivocal results. This makes the effectiveness of CM to improve exercise performance difficult to determine. Reasons for the disparity in conclusions seem to be due to methodological discrepancies such as the testing protocols and the associated test-retest reliability, dosing strategy (i.e., amount and timing), and the recent discovery of quality control issues with some manufacturers stated (i.e., citrulline:malate ratios). Further exploration of the optimal dose is therefore required including quantification of the bioavailability of NO, citrulline, and malate following ingestion of a range of CM doses. Similarly, further well-controlled studies using highly repeatable exercise protocols with a large aerobic component are required to assess the mechanisms associat",
+          "abstract": "As a nitric oxide (NO) enhancer, citrulline malate (CM) has recently been touted as a potential ergogenic aid to both resistance and high-intensity exercise performance, as well as the recovery of muscular performance. The mechanism has been associated with enhanced blood flow to active musculature, however, it might be more far-reaching as either ammonia homeostasis could be improved, or ATP production could be increased via greater availability of malate. Moreover, CM might improve muscle recovery via increased nutrient delivery and/or removal of waste products. To date, a single acute 8&#xa0;g dose of CM on either resistance exercise performance or cycling has been the most common approach, which has produced equivocal results. This makes the effectiveness of CM to improve exercise performance difficult to determine. Reasons for the disparity in conclusions seem to be due to methodological discrepancies such as the testing protocols and the associated test-retest reliability, dosing strategy (i.e., amount and timing), and the recent discovery of quality control issues with some manufacturers stated (i.e., citrulline:malate ratios). Further exploration of the optimal dose is therefore required including quantification of the bioavailability of NO, citrulline, and malate following ingestion of a range of CM doses. Similarly, further well-controlled studies using highly repeatable exercise protocols with a large aerobic component are required to assess the mechanisms associated with this supplement appropriately. Until such studies are completed, the efficacy of CM supplementation to improve exercise performance remains ambiguous.",
           "authors": [
             "Gough Lewis A",
             "Sparks S Andy",
@@ -3128,7 +3100,7 @@
         {
           "pmid": "31977835",
           "title": "Effects of Citrulline Supplementation on Exercise Performance in Humans: A Review of the Current Literature.",
-          "abstract": "Gonzalez, AM and Trexler, ET. Effects of citrulline supplementation on exercise performance in humans: A review of the current literature. J Strength Cond Res 34(5): 1480-1495, 2020-L-citrulline, a nonessential amino acid found primarily in watermelon, has recently garnered much attention for its potential to augment L-arginine bioavailability, nitric oxide production, and exercise performance. Over the past decade, L-citrulline has received considerable scientific attention examining potentially ergogenic properties for both aerobic and anaerobic exercise performance. Thus, the purpose of this article is to summarize the theoretical rationale behind L-citrulline supplementation and to comprehensively review the available scientific evidence assessing the potential ergogenic value of L-citrulline supplementation on vascular function and exercise performance in humans. In addition, research that has investigated the potential synergistic effects of L-citrulline with other dietary ingredients (e.g., arginine, antioxidants, nitrates, and branched-chain amino acids) is reviewed. Oral L-citrulline and citrulline malate supplementation have shown to increase plasma citrulline and arginine concentrations, along with total nitrate and nitrite concentrations. Although blood flow enhancement is a proposed mechanism for the ergogenic potential of L-citrulline, evidence supporting acute improvements in vasodilation and skeletal muscle tissue perfusion after supplementation is scarce and ",
+          "abstract": "Gonzalez, AM and Trexler, ET. Effects of citrulline supplementation on exercise performance in humans: A review of the current literature. J Strength Cond Res 34(5): 1480-1495, 2020-L-citrulline, a nonessential amino acid found primarily in watermelon, has recently garnered much attention for its potential to augment L-arginine bioavailability, nitric oxide production, and exercise performance. Over the past decade, L-citrulline has received considerable scientific attention examining potentially ergogenic properties for both aerobic and anaerobic exercise performance. Thus, the purpose of this article is to summarize the theoretical rationale behind L-citrulline supplementation and to comprehensively review the available scientific evidence assessing the potential ergogenic value of L-citrulline supplementation on vascular function and exercise performance in humans. In addition, research that has investigated the potential synergistic effects of L-citrulline with other dietary ingredients (e.g., arginine, antioxidants, nitrates, and branched-chain amino acids) is reviewed. Oral L-citrulline and citrulline malate supplementation have shown to increase plasma citrulline and arginine concentrations, along with total nitrate and nitrite concentrations. Although blood flow enhancement is a proposed mechanism for the ergogenic potential of L-citrulline, evidence supporting acute improvements in vasodilation and skeletal muscle tissue perfusion after supplementation is scarce and inconsistent. Nevertheless, several studies have reported that L-citrulline supplementation can enhance exercise performance and recovery. Given the positive effects observed from some investigations, future studies should continue to investigate the effects of both acute and chronic supplementation with L-citrulline and citrulline malate on markers of blood flow and exercise performance and should seek to elucidate the mechanism underlying such effects.",
           "authors": [
             "Gonzalez Adam M",
             "Trexler Eric T"
@@ -3157,14 +3129,14 @@
       ],
       "images": [
         {
-          "title": "Il rapimento di Elena, poema di Coluto recato in versi italiani con annotazioni dal professore Antonio Mezzanotte (IA IlRapimentoDiElena).pdf",
-          "url": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Il_rapimento_di_Elena%2C_poema_di_Coluto_recato_in_versi_italiani_con_annotazioni_dal_professore_Antonio_Mezzanotte_%28IA_IlRapimentoDiElena%29.pdf",
-          "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Il_rapimento_di_Elena%2C_poema_di_Coluto_recato_in_versi_italiani_con_annotazioni_dal_professore_Antonio_Mezzanotte_%28IA_IlRapimentoDiElena%29.pdf/page1-400px-Il_rapimento_di_Elena%2C_poema_di_Coluto_recato_in_versi_italiani_con_annotazioni_dal_professore_Antonio_Mezzanotte_%28IA_IlRapimentoDiElena%29.pdf.jpg",
-          "width": 552,
-          "height": 975,
-          "description": "\nBook digitized by Google and uploaded by ARLIMA (http://www.arlima.net)\n\nSubjects: Greek literature; Italian translation; Italy",
+          "title": "Rendiconti (IA rendiconti52521916acca).pdf",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/3/36/Rendiconti_%28IA_rendiconti52521916acca%29.pdf",
+          "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Rendiconti_%28IA_rendiconti52521916acca%29.pdf/page1-400px-Rendiconti_%28IA_rendiconti52521916acca%29.pdf.jpg",
+          "width": 1141,
+          "height": 1614,
+          "description": "\nSeries 5-6, 8- issued as Atti della Accademia nazionale dei Lincei; series 7, as Atti della Reale Accademia d'Italia\nChemical abstracts\nSeparately paged appendices accompany some volumes\nVolumes for ",
           "license": "Public domain",
-          "artist": "\nColluthus of Lycopolis"
+          "artist": "\nAccademia nazionale dei Lincei. Classe di scienze fisiche, matematiche e naturali"
         },
         {
           "title": "Bollettino della Associazione Agraria Friulana n. 13 (1878) (IA BolAssAgrFriulana1878-5).pdf",
@@ -3187,8 +3159,8 @@
           "artist": "Mxschons"
         }
       ],
-      "fetchedAt": "2025-11-28T04:55:24.495Z",
-      "lastUpdated": "2025-11-28T04:55:24.495Z"
+      "fetchedAt": "2025-11-28T05:19:48.418Z",
+      "lastUpdated": "2025-11-28T05:19:48.418Z"
     },
     "ashwagandha": {
       "substanceSlug": "ashwagandha",
@@ -3216,7 +3188,7 @@
         {
           "pmid": "36017529",
           "title": "Does Ashwagandha supplementation have a beneficial effect on the management of anxiety and stress? A systematic review and meta-analysis of randomized controlled trials.",
-          "abstract": "Clinical trial studies revealed conflicting results on the effect of Ashwagandha extract on anxiety and stress. Therefore, we aimed to evaluate the effect of Ashwagandha supplementation on anxiety as well as stress. A systematic search was performed in PubMed/Medline, Scopus, and Google Scholar from inception until December 2021. We included randomized clinical trials (RCTs) that investigate the effect of Ashwagandha extract on anxiety and stress. The overall effect size was pooled by random-effects model and the standardized mean difference (SMD) and 95% confidence interval (CIs) for outcomes were applied. Overall, 12 eligible papers with a total sample size of 1,002 participants and age range between 25 and 48&#x2009;years were included in the current systematic review and meta-analysis. We found that Ashwagandha supplementation significantly reduced anxiety (SMD: -1.55, 95% CI: -2.37, -0.74; p&#xa0;=&#xa0;.005; I2 &#xa0;=&#xa0;93.8%) and stress level (SMD: -1.75; 95% CI: -2.29, -1.22; p&#xa0;=&#xa0;.005; I2 &#xa0;=&#xa0;83.1%) compared to the placebo. Additionally, the non-linear dose-response analysis indicated a favorable effect of Ashwagandha supplementation on anxiety until 12,000&#x2009;mg/d and stress at dose of 300-600&#x2009;mg/d. Finally, we identified that the certainty of the evidence was low for both outcomes. The current systematic review and dose-response meta-analysis of RCTs revealed a beneficial effect in both stress and anxiety following Ashwagandha suppl",
+          "abstract": "Clinical trial studies revealed conflicting results on the effect of Ashwagandha extract on anxiety and stress. Therefore, we aimed to evaluate the effect of Ashwagandha supplementation on anxiety as well as stress. A systematic search was performed in PubMed/Medline, Scopus, and Google Scholar from inception until December 2021. We included randomized clinical trials (RCTs) that investigate the effect of Ashwagandha extract on anxiety and stress. The overall effect size was pooled by random-effects model and the standardized mean difference (SMD) and 95% confidence interval (CIs) for outcomes were applied. Overall, 12 eligible papers with a total sample size of 1,002 participants and age range between 25 and 48&#x2009;years were included in the current systematic review and meta-analysis. We found that Ashwagandha supplementation significantly reduced anxiety (SMD: -1.55, 95% CI: -2.37, -0.74; p&#xa0;=&#xa0;.005; I2 &#xa0;=&#xa0;93.8%) and stress level (SMD: -1.75; 95% CI: -2.29, -1.22; p&#xa0;=&#xa0;.005; I2 &#xa0;=&#xa0;83.1%) compared to the placebo. Additionally, the non-linear dose-response analysis indicated a favorable effect of Ashwagandha supplementation on anxiety until 12,000&#x2009;mg/d and stress at dose of 300-600&#x2009;mg/d. Finally, we identified that the certainty of the evidence was low for both outcomes. The current systematic review and dose-response meta-analysis of RCTs revealed a beneficial effect in both stress and anxiety following Ashwagandha supplementation. However, further high-quality studies are needed to firmly establish the clinical efficacy of the plant.",
           "authors": [
             "Akhgarjand Camellia",
             "Asoudeh Farzaneh",
@@ -3259,8 +3231,8 @@
         }
       ],
       "images": [],
-      "fetchedAt": "2025-11-28T04:55:30.316Z",
-      "lastUpdated": "2025-11-28T04:55:30.316Z"
+      "fetchedAt": "2025-11-28T05:19:53.653Z",
+      "lastUpdated": "2025-11-28T05:19:53.653Z"
     },
     "rhodiola-rosea": {
       "substanceSlug": "rhodiola-rosea",
@@ -3318,7 +3290,7 @@
         {
           "pmid": "20378318",
           "title": "Rosenroot (Rhodiola rosea): traditional use, chemical composition, pharmacology and clinical efficacy.",
-          "abstract": "The aim of this review article was to summarize accumulated information related to chemical composition, pharmacological activity, traditional and official use of Rhodiola rosea L. in medicine. In total approximately 140 compounds were isolated from roots and rhizome - monoterpene alcohols and their glycosides, cyanogenic glycosides, aryl glycosides, phenylethanoids, phenylpropanoids and their glycosides, flavonoids, flavonlignans, proanthocyanidins and gallic acid derivatives. Studies on isolated organs, tissues, cells and enzymes have revealed that Rhodiola preparations exhibit adaptogenic effect including, neuroprotective, cardioprotectiv e, anti-fatigue, antidepressive, anxiolytic, nootropic, life-span increasing effects and CNS stimulating activity. A number of clinical trials demonstrate that repeated administration of R. rosea extract SHR-5 exerts an anti-fatigue effect that increases mental performance (particularly the ability to concentrate in healthy subjects), and reduces burnout in patients with fatigue syndrome. Encouraging results exist for the use of Rhodiola in mild to moderate depression, and generalized anxiety. Several mechanisms of action possibly contributing to the clinical effect have been identified for Rhodiola extracts. They include interactions with HPA-system (cortisol-reducing), protein kinases p-JNK, nitric oxide, and defense mechanism proteins (e.g. heat shock proteins Hsp 70 and FoxO/DAF-16). Lack of interaction with other drugs and adverse ef",
+          "abstract": "The aim of this review article was to summarize accumulated information related to chemical composition, pharmacological activity, traditional and official use of Rhodiola rosea L. in medicine. In total approximately 140 compounds were isolated from roots and rhizome - monoterpene alcohols and their glycosides, cyanogenic glycosides, aryl glycosides, phenylethanoids, phenylpropanoids and their glycosides, flavonoids, flavonlignans, proanthocyanidins and gallic acid derivatives. Studies on isolated organs, tissues, cells and enzymes have revealed that Rhodiola preparations exhibit adaptogenic effect including, neuroprotective, cardioprotectiv e, anti-fatigue, antidepressive, anxiolytic, nootropic, life-span increasing effects and CNS stimulating activity. A number of clinical trials demonstrate that repeated administration of R. rosea extract SHR-5 exerts an anti-fatigue effect that increases mental performance (particularly the ability to concentrate in healthy subjects), and reduces burnout in patients with fatigue syndrome. Encouraging results exist for the use of Rhodiola in mild to moderate depression, and generalized anxiety. Several mechanisms of action possibly contributing to the clinical effect have been identified for Rhodiola extracts. They include interactions with HPA-system (cortisol-reducing), protein kinases p-JNK, nitric oxide, and defense mechanism proteins (e.g. heat shock proteins Hsp 70 and FoxO/DAF-16). Lack of interaction with other drugs and adverse effects in the course of clinical trials make it potentially attractive for use as a safe medication. In conclusion, Rhodiola rosea has robust traditional and pharmacological evidence of use in fatigue, and emerging evidence supporting cognition and mood.",
           "authors": [
             "Panossian A",
             "Wikman G",
@@ -3333,15 +3305,6 @@
       ],
       "images": [
         {
-          "title": "Annales des sciences naturelles (IA annalesdesscienc3111unse).pdf",
-          "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Annales_des_sciences_naturelles_%28IA_annalesdesscienc3111unse%29.pdf",
-          "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Annales_des_sciences_naturelles_%28IA_annalesdesscienc3111unse%29.pdf/page1-400px-Annales_des_sciences_naturelles_%28IA_annalesdesscienc3111unse%29.pdf.jpg",
-          "width": 872,
-          "height": 1443,
-          "description": "\nDescription based on: 3e sér., t. 1 (1844)\nChemical abstracts\nNumbered in series of twenty vols. each, e.g. sér. 2, v. 1-20; sér. 3, v. 1-20, etc\nContinues the vol. numbering of Annales des sciences ",
-          "license": "Public domain"
-        },
-        {
           "title": "The natural history of plants - their forms, growth, reproduction, and distribution (IA b28121120 0003).pdf",
           "url": "https://upload.wikimedia.org/wikipedia/commons/8/81/The_natural_history_of_plants_-_their_forms%2C_growth%2C_reproduction%2C_and_distribution_%28IA_b28121120_0003%29.pdf",
           "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/The_natural_history_of_plants_-_their_forms%2C_growth%2C_reproduction%2C_and_distribution_%28IA_b28121120_0003%29.pdf/page1-400px-The_natural_history_of_plants_-_their_forms%2C_growth%2C_reproduction%2C_and_distribution_%28IA_b28121120_0003%29.pdf.jpg",
@@ -3350,6 +3313,16 @@
           "description": "\nIssued in six volumes, each with individual t.-p., called Divisional volume I-VI. of which I-III form vol. 1 and IV-VI form vol. 2. The general title-page, preface and table of contents of vol. 1 are",
           "license": "Public domain",
           "artist": "\nKerner von Marilaun, Anton, 1831-1898\nOliver, F. W. (Francis Wall), 1864-1951\nMacdonald, Mary F. (M"
+        },
+        {
+          "title": "California Digital Library (IA descriptionofwes02maccrich).pdf",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/California_Digital_Library_%28IA_descriptionofwes02maccrich%29.pdf",
+          "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/California_Digital_Library_%28IA_descriptionofwes02maccrich%29.pdf/page1-400px-California_Digital_Library_%28IA_descriptionofwes02maccrich%29.pdf.jpg",
+          "width": 764,
+          "height": 1291,
+          "description": "\nSubjects: Scotland -- Description and travel; Isle of Man -- Description and travel",
+          "license": "Public domain",
+          "artist": "\nMacculloch, John, 1773-1835"
         },
         {
           "title": "Description of the Western Islands of Scotland,Including the Isle of Man- An Account of Their Geological Structure; With Remarks on Their Agriculture, Scenery and Antiquities in Three Vols. (IA dli.granth.37101).pdf",
@@ -3362,8 +3335,8 @@
           "artist": "\nMacculloch, John"
         }
       ],
-      "fetchedAt": "2025-11-28T04:55:37.774Z",
-      "lastUpdated": "2025-11-28T04:55:37.774Z"
+      "fetchedAt": "2025-11-28T05:20:00.005Z",
+      "lastUpdated": "2025-11-28T05:20:00.005Z"
     },
     "magnesium-glycinate": {
       "substanceSlug": "magnesium-glycinate",
@@ -3374,7 +3347,7 @@
         {
           "pmid": "36640582",
           "title": "Combined vitamin D and magnesium supplementation does not influence markers of bone turnover or glycemic control: A randomized controlled clinical trial.",
-          "abstract": "High-dose vitamin D supplementation can increase total osteocalcin concentrations that may reduce insulin resistance in individuals at risk for prediabetes or diabetes mellitus. Magnesium is a cofactor in vitamin D metabolism and activation. The purpose of this study was to determine the combined effect of vitamin D and magnesium supplementation on total osteocalcin concentrations, glycemic indices, and other bone turnover markers after a 12-week intervention in individuals who were overweight and obese, but otherwise healthy. We hypothesized that combined supplementation would improve serum total osteocalcin concentrations and glycemic indices more than vitamin D supplementation alone or a placebo. A total of 78 women and men completed this intervention in 3 groups: a vitamin D and magnesium group (1000 IU vitamin D3 and 360 mg magnesium glycinate), a vitamin D group (1000 IU vitamin D3), and a placebo group. Despite a significant increase in serum 25-hydroxyvitamin D concentrations in the vitamin D and magnesium group compared with the placebo group (difference&#xa0;=&#xa0;5.63; CI, -10.0 to -1.21; P&#xa0;=&#xa0;.001) post-intervention, there were no differences in serum concentrations of total osteocalcin, glucose, insulin, and adiponectin or the homeostatic model assessment of insulin resistance (HOMA-IR) among groups (P &gt; .05 for all). Additionally, total osteocalcin (&#x3b2;&#xa0;=&#xa0;-0.310, P&#xa0;=&#xa0;.081), bone-specific alkaline phosphatase (&#x3b2;&#xa0;=&#",
+          "abstract": "High-dose vitamin D supplementation can increase total osteocalcin concentrations that may reduce insulin resistance in individuals at risk for prediabetes or diabetes mellitus. Magnesium is a cofactor in vitamin D metabolism and activation. The purpose of this study was to determine the combined effect of vitamin D and magnesium supplementation on total osteocalcin concentrations, glycemic indices, and other bone turnover markers after a 12-week intervention in individuals who were overweight and obese, but otherwise healthy. We hypothesized that combined supplementation would improve serum total osteocalcin concentrations and glycemic indices more than vitamin D supplementation alone or a placebo. A total of 78 women and men completed this intervention in 3 groups: a vitamin D and magnesium group (1000 IU vitamin D3 and 360 mg magnesium glycinate), a vitamin D group (1000 IU vitamin D3), and a placebo group. Despite a significant increase in serum 25-hydroxyvitamin D concentrations in the vitamin D and magnesium group compared with the placebo group (difference&#xa0;=&#xa0;5.63; CI, -10.0 to -1.21; P&#xa0;=&#xa0;.001) post-intervention, there were no differences in serum concentrations of total osteocalcin, glucose, insulin, and adiponectin or the homeostatic model assessment of insulin resistance (HOMA-IR) among groups (P &gt; .05 for all). Additionally, total osteocalcin (&#x3b2;&#xa0;=&#xa0;-0.310, P&#xa0;=&#xa0;.081), bone-specific alkaline phosphatase (&#x3b2;&#xa0;=&#xa0;0.004, P&#xa0;=&#xa0;.986), and C-terminal cross-linked telopeptide (&#x3b2;&#xa0;=&#xa0;0.426, P&#xa0;=&#xa0;.057), were not significant predictors of HOMA-IR after the intervention. Combined supplementation was not associated with short-term improvements in glycemic indices or bone turnover markers in participants who were overweight and obese in our study. This trial was registered at clinicaltrials.gov (NCT03134417).",
           "authors": [
             "Dall Rosemary D",
             "Cheung May M",
@@ -3433,8 +3406,8 @@
           "artist": "SilverBullet X"
         }
       ],
-      "fetchedAt": "2025-11-28T04:55:47.698Z",
-      "lastUpdated": "2025-11-28T04:55:47.698Z"
+      "fetchedAt": "2025-11-28T05:20:07.319Z",
+      "lastUpdated": "2025-11-28T05:20:07.319Z"
     },
     "lions-mane": {
       "substanceSlug": "lions-mane",
@@ -3477,7 +3450,7 @@
         {
           "pmid": "26244378",
           "title": "Chemistry, Nutrition, and Health-Promoting Properties of Hericium erinaceus (Lion's Mane) Mushroom Fruiting Bodies and Mycelia and Their Bioactive Compounds.",
-          "abstract": "The culinary and medicinal mushroom Hericium erinaceus is widely consumed in Asian countries, but apparently not in the United States, for its nutritional and health benefits. To stimulate broader interest in the reported beneficial properties, this overview surveys and consolidates the widely scattered literature on the chemistry (isolation and structural characterization) of polysaccharides and secondary metabolites such as erinacines, hericerins, hericenones, resorcinols, steroids, mono- and diterpenes, and volatile aroma compounds, nutritional composition, food and industrial uses, and exceptional nutritional and health-promoting aspects of H. erinaceus. The reported health-promoting properties of the mushroom fruit bodies, mycelia, and bioactive pure compounds include antibiotic, anticarcinogenic, antidiabetic, antifatigue, antihypertensive, antihyperlipodemic, antisenescence, cardioprotective, hepatoprotective, nephroprotective, and neuroprotective properties and improvement of anxiety, cognitive function, and depression. The described anti-inflammatory, antioxidative, and immunostimulating properties in cells, animals, and humans seem to be responsible for the multiple health-promoting properties. A wide range of research advances and techniques are described and evaluated. The collated information and suggestion for further research might facilitate and guide further studies to optimize the use of the whole mushrooms and about 70 characterized actual and potential bio",
+          "abstract": "The culinary and medicinal mushroom Hericium erinaceus is widely consumed in Asian countries, but apparently not in the United States, for its nutritional and health benefits. To stimulate broader interest in the reported beneficial properties, this overview surveys and consolidates the widely scattered literature on the chemistry (isolation and structural characterization) of polysaccharides and secondary metabolites such as erinacines, hericerins, hericenones, resorcinols, steroids, mono- and diterpenes, and volatile aroma compounds, nutritional composition, food and industrial uses, and exceptional nutritional and health-promoting aspects of H. erinaceus. The reported health-promoting properties of the mushroom fruit bodies, mycelia, and bioactive pure compounds include antibiotic, anticarcinogenic, antidiabetic, antifatigue, antihypertensive, antihyperlipodemic, antisenescence, cardioprotective, hepatoprotective, nephroprotective, and neuroprotective properties and improvement of anxiety, cognitive function, and depression. The described anti-inflammatory, antioxidative, and immunostimulating properties in cells, animals, and humans seem to be responsible for the multiple health-promoting properties. A wide range of research advances and techniques are described and evaluated. The collated information and suggestion for further research might facilitate and guide further studies to optimize the use of the whole mushrooms and about 70 characterized actual and potential bioactive secondary metabolites to help prevent or treat human chronic, cognitive, and neurological diseases.",
           "authors": [
             "Friedman Mendel"
           ],
@@ -3535,8 +3508,8 @@
           "artist": "\nHowells, William Dean, 1837-1920"
         }
       ],
-      "fetchedAt": "2025-11-28T04:55:55.488Z",
-      "lastUpdated": "2025-11-28T04:55:55.488Z"
+      "fetchedAt": "2025-11-28T05:20:13.274Z",
+      "lastUpdated": "2025-11-28T05:20:13.274Z"
     },
     "alpha-gpc": {
       "substanceSlug": "alpha-gpc",
@@ -3639,8 +3612,8 @@
           "artist": "Zhang, Xiaoxiao; Gong, Tingyuan; Chi, Hong; Li, Tianduo"
         }
       ],
-      "fetchedAt": "2025-11-28T04:56:02.210Z",
-      "lastUpdated": "2025-11-28T04:56:02.210Z"
+      "fetchedAt": "2025-11-28T05:20:18.616Z",
+      "lastUpdated": "2025-11-28T05:20:18.616Z"
     }
   }
 }

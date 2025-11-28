@@ -167,7 +167,7 @@ async function fetchPubMed(searchQuery, maxResults = CONFIG.pubmedMaxResults) {
           articles.push({
             pmid,
             title: cleanText(title),
-            abstract: cleanText(abstract).slice(0, 1500), // Limit abstract length
+            abstract: cleanText(abstract), // Full abstract - no truncation
             authors,
             journal: cleanText(journal),
             pubDate: year,

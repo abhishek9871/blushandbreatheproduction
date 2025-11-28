@@ -1,7 +1,7 @@
 /**
  * RelatedArticles Component
  * 
- * Displays Wikipedia overview, PubMed research articles, and Wikimedia Commons images
+ * Displays Wikipedia overview and PubMed research articles
  * for banned substances and legal supplements.
  * 
  * Features:
@@ -12,9 +12,8 @@
  */
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import type { SubstanceArticles, WikipediaArticle, PubMedArticle, WikimediaImage } from '@/types';
+import type { SubstanceArticles, WikipediaArticle, PubMedArticle } from '@/types';
 
 // ═══════════════════════════════════════════════════════════════════
 // TYPES
@@ -240,141 +239,11 @@ function PubMedSection({ articles, substanceType }: PubMedSectionProps) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// IMAGE GALLERY SECTION
-// ═══════════════════════════════════════════════════════════════════
-
-interface ImageGallerySectionProps {
-  images: WikimediaImage[];
-  substanceName: string;
-}
-
-function ImageGallerySection({ images, substanceName }: ImageGallerySectionProps) {
-  const [selectedImage, setSelectedImage] = useState<WikimediaImage | null>(null);
-  
-  if (images.length === 0) return null;
-  
-  return (
-    <section 
-      className="bg-white dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
-      aria-labelledby="images-heading"
-    >
-      {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-        <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30">
-          <span className="material-symbols-outlined text-lg sm:text-xl text-purple-600 dark:text-purple-400">
-            photo_library
-          </span>
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 id="images-heading" className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
-            Related Images
-          </h3>
-          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-            From Wikimedia Commons
-          </p>
-        </div>
-      </div>
-      
-      {/* Image Grid */}
-      <div className="p-4 sm:p-5">
-        <div className="grid grid-cols-3 gap-2 sm:gap-3">
-          {images.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedImage(image)}
-              className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-500 transition-colors group"
-              aria-label={`View ${image.title}`}
-            >
-              <Image
-                src={image.thumbUrl}
-                alt={image.description || `${substanceName} image ${index + 1}`}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-200"
-                sizes="(max-width: 640px) 100px, 150px"
-                unoptimized // External URLs from Wikimedia
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                <span className="material-symbols-outlined text-white opacity-0 group-hover:opacity-100 transition-opacity text-2xl drop-shadow-lg">
-                  zoom_in
-                </span>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-      
-      {/* Lightbox Modal */}
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div 
-            className="relative max-w-3xl w-full bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
-              aria-label="Close image"
-            >
-              <span className="material-symbols-outlined">close</span>
-            </button>
-            
-            {/* Image */}
-            <div className="relative aspect-video bg-gray-100 dark:bg-gray-800">
-              <Image
-                src={selectedImage.url}
-                alt={selectedImage.description || substanceName}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 800px"
-                unoptimized
-              />
-            </div>
-            
-            {/* Info */}
-            <div className="p-4 sm:p-5 border-t border-gray-200 dark:border-gray-700">
-              <h4 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base mb-1">
-                {selectedImage.title}
-              </h4>
-              {selectedImage.description && (
-                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2">
-                  {selectedImage.description}
-                </p>
-              )}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-500">
-                {selectedImage.artist && (
-                  <span>By: {selectedImage.artist}</span>
-                )}
-                {selectedImage.license && (
-                  <span>License: {selectedImage.license}</span>
-                )}
-              </div>
-              <a
-                href={selectedImage.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-              >
-                View original on Wikimedia Commons
-                <span className="material-symbols-outlined text-sm">open_in_new</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
-    </section>
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════════════════════
 
 export function RelatedArticles({ articles, substanceType, className = '' }: RelatedArticlesProps) {
-  const hasContent = articles.wikipedia !== null || articles.pubmed.length > 0 || articles.images.length > 0;
+  const hasContent = articles.wikipedia !== null || articles.pubmed.length > 0;
   
   if (!hasContent) {
     return null;
@@ -413,21 +282,12 @@ export function RelatedArticles({ articles, substanceType, className = '' }: Rel
         />
       )}
       
-      {/* Image Gallery */}
-      {articles.images.length > 0 && (
-        <ImageGallerySection 
-          images={articles.images} 
-          substanceName={articles.substanceName}
-        />
-      )}
-      
       {/* Data Attribution */}
       <div className="text-xs text-gray-500 dark:text-gray-500 text-center py-2">
         <p>
           Data sourced from{' '}
-          <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 dark:hover:text-gray-300">Wikipedia</a>,{' '}
-          <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 dark:hover:text-gray-300">PubMed</a>, and{' '}
-          <a href="https://commons.wikimedia.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 dark:hover:text-gray-300">Wikimedia Commons</a>
+          <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 dark:hover:text-gray-300">Wikipedia</a> and{' '}
+          <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-700 dark:hover:text-gray-300">PubMed</a>
         </p>
       </div>
     </div>

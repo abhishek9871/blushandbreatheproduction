@@ -211,7 +211,7 @@ export default function MedicinesPage({ featuredMedicines }: MedicinesPageProps)
                 Browse A-Z
               </Link>
               <Link
-                href="/health"
+                href="/medicines/interactions"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-full font-medium transition-colors backdrop-blur-sm"
               >
                 <span className="material-symbols-outlined">compare_arrows</span>

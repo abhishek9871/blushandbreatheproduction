@@ -48,8 +48,9 @@ export function TableOfContents({ items, className = '' }: TableOfContentsProps)
 
   return (
     <nav 
-      className={`toc-container bg-white dark:bg-card-dark border border-border-light dark:border-border-dark rounded-xl shadow-sm ${className}`}
+      className={`toc-container relative bg-white dark:bg-card-dark border border-border-light dark:border-border-dark rounded-xl shadow-sm ${className}`}
       aria-label="Table of contents"
+      style={{ position: 'relative' }}
     >
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}

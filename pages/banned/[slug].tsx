@@ -179,10 +179,12 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
 
           {/* Table of Contents - Pillar Pages Only */}
           {(substance as any).isPillarPage && (substance as any).pillarSections && (
-            <TableOfContents
-              items={(substance as any).pillarSections.map((s: any) => ({ id: s.id, title: s.title }))}
-              className="mb-8 lg:sticky lg:top-4 lg:float-right lg:w-72 lg:ml-6 lg:mb-0"
-            />
+            <div className="mb-8">
+              <TableOfContents
+                items={(substance as any).pillarSections.map((s: any) => ({ id: s.id, title: s.title }))}
+                className=""
+              />
+            </div>
           )}
 
           {/* Product Ingredients Table */}

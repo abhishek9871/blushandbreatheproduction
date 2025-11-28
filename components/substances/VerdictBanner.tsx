@@ -125,7 +125,7 @@ export function VerdictBanner({
           </div>
 
           {/* Substance Name */}
-          <p className="text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
+          <p className="text-lg md:text-xl font-semibold text-gray-800 mb-1">
             {substanceName}
           </p>
 

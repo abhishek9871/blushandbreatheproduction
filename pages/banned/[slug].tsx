@@ -13,7 +13,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {
-  LegalDisclaimerBanner,
   BannedSubstanceWarning,
   SafetyWarningAlert,
   SubstanceCard,
@@ -120,9 +119,6 @@ export default function BannedSubstancePage({ substance, error }: BannedSubstanc
       )}
 
       <main className="max-w-4xl mx-auto px-4 py-8">
-        {/* Legal Disclaimers - MUST be visible */}
-        <LegalDisclaimerBanner pageType="banned" className="mb-6" />
-
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-text-subtle-light dark:text-text-subtle-dark mb-6">
           <Link href="/" className="hover:text-primary">Home</Link>
@@ -335,14 +331,6 @@ export default function BannedSubstancePage({ substance, error }: BannedSubstanc
         
         {/* Mobile CTA Spacer */}
         <div className="sticky-cta-spacer md:hidden" />
-
-        {/* Bottom Disclaimer */}
-        <LegalDisclaimerBanner
-          type="medical"
-          collapsible
-          defaultExpanded={false}
-          className="mt-8"
-        />
       </main>
     </>
   );

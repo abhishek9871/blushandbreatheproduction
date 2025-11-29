@@ -53,17 +53,17 @@ export default function Home({ featuredArticles }: InferGetStaticPropsType<typeo
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Hero Section */}
         <section className="w-full">
-          <div className="flex min-h-[500px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center text-center px-6 py-10" style={{ backgroundImage: "linear-gradient(to top, rgba(15, 118, 110, 0.8) 0%, rgba(45, 212, 191, 0.6) 100%)" }}>
+          <div className="flex min-h-[500px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center text-center px-6 py-10" style={{ backgroundImage: "linear-gradient(to top, rgba(13, 95, 89, 0.95) 0%, rgba(20, 150, 140, 0.85) 100%)" }}>
             <div className="flex flex-col gap-4 max-w-3xl">
-              <h1 className="text-white text-4xl font-black leading-tight tracking-tight md:text-6xl">Your Trusted Guide to Health & Wellness</h1>
-              <p className="text-white/90 text-base font-normal leading-relaxed md:text-lg">Explore medicine information, nutrition plans, supplement guides, and wellness tips — all backed by research and curated for you.</p>
+              <h1 className="text-white text-4xl font-black leading-tight tracking-tight md:text-6xl drop-shadow-md">Your Trusted Guide to Health & Wellness</h1>
+              <p className="text-white text-base font-medium leading-relaxed md:text-lg drop-shadow-sm">Explore medicine information, nutrition plans, supplement guides, and wellness tips. <span className="block mt-1 text-white/90">Research-backed content curated just for you.</span></p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              <Link href="/medicines" className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-white text-primary text-base font-bold leading-normal tracking-wide shadow-lg hover:bg-gray-100 transition-all transform hover:scale-105">
+              <Link href="/medicines" className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-white text-teal-700 text-base font-bold leading-normal tracking-wide shadow-lg hover:bg-gray-100 transition-all transform hover:scale-105">
                 <span className="material-symbols-outlined mr-2 text-lg">medication</span>
                 <span>Explore Medicines</span>
               </Link>
-              <Link href="/nutrition" className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-white/20 text-white border-2 border-white text-base font-bold leading-normal tracking-wide hover:bg-white/30 transition-all transform hover:scale-105">
+              <Link href="/nutrition" className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-white/20 text-white border-2 border-white text-base font-bold leading-normal tracking-wide hover:bg-white/30 transition-all transform hover:scale-105 shadow-md">
                 <span className="material-symbols-outlined mr-2 text-lg">restaurant</span>
                 <span>AI Diet Plans</span>
               </Link>

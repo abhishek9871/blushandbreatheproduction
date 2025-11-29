@@ -54,11 +54,11 @@ export function TableOfContents({ items, className = '' }: TableOfContentsProps)
     >
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="w-full px-4 py-3 flex items-center justify-between text-left md:cursor-default"
+        className="w-full min-h-[48px] px-4 py-3 flex items-center justify-between text-left md:cursor-default"
         aria-expanded={!isCollapsed}
       >
-        <span className="font-semibold text-text-light dark:text-text-dark flex items-center gap-2">
-          <span className="material-symbols-outlined text-primary">toc</span>
+        <span className="font-semibold text-sm md:text-base text-text-light dark:text-text-dark flex items-center gap-2">
+          <span className="material-symbols-outlined text-primary text-lg md:text-xl">toc</span>
           Table of Contents
         </span>
         <span className={`material-symbols-outlined md:hidden transition-transform ${isCollapsed ? '' : 'rotate-180'}`}>
@@ -66,8 +66,8 @@ export function TableOfContents({ items, className = '' }: TableOfContentsProps)
         </span>
       </button>
       
-      <div className={`${isCollapsed ? 'hidden' : 'block'} md:block`}>
-        <ul className="px-4 pb-4 space-y-1">
+      <div className={`${isCollapsed ? 'hidden' : 'block'} md:block max-h-[60vh] overflow-y-auto`}>
+        <ul className="px-3 md:px-4 pb-4 space-y-0.5 md:space-y-1">
           {items.map((item, index) => (
             <li key={item.id}>
               <a
@@ -82,7 +82,7 @@ export function TableOfContents({ items, className = '' }: TableOfContentsProps)
                     window.history.pushState(null, '', `#${item.id}`);
                   }
                 }}
-                className={`block py-2 px-3 text-sm rounded-lg transition-colors ${
+                className={`block py-2.5 md:py-2 px-3 text-sm rounded-lg transition-colors min-h-[44px] flex items-center ${
                   activeId === item.id
                     ? 'bg-primary/10 text-primary font-medium'
                     : 'text-text-subtle-light dark:text-text-subtle-dark hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -106,7 +106,7 @@ export function TableOfContents({ items, className = '' }: TableOfContentsProps)
                   window.history.pushState(null, '', '#faqs');
                 }
               }}
-              className={`block py-2 px-3 text-sm rounded-lg transition-colors ${
+              className={`block py-2.5 md:py-2 px-3 text-sm rounded-lg transition-colors min-h-[44px] flex items-center ${
                 activeId === 'faqs'
                   ? 'bg-primary/10 text-primary font-medium'
                   : 'text-text-subtle-light dark:text-text-subtle-dark hover:bg-gray-100 dark:hover:bg-gray-800'

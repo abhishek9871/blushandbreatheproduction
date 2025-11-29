@@ -669,3 +669,150 @@ html {
   margin-bottom: 0.75rem;
   break-inside: avoid;
 }
+
+/* =================================== */
+/* Mobile Optimization Styles          */
+/* =================================== */
+
+/* Mobile Typography for Pillar Content */
+@media (max-width: 640px) {
+  .pillar-content h2 {
+    font-size: 1.375rem;
+    line-height: 1.3;
+  }
+  
+  .pillar-content h3 {
+    font-size: 1.125rem;
+    line-height: 1.3;
+  }
+  
+  .pillar-content h4 {
+    font-size: 1rem;
+  }
+  
+  .pillar-content p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  
+  .pillar-content ul,
+  .pillar-content ol {
+    padding-left: 1rem;
+  }
+  
+  .pillar-content li {
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .pillar-content table {
+    font-size: 0.8125rem;
+  }
+  
+  .pillar-content th,
+  .pillar-content td {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 768px) {
+  .pillar-content a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  /* Prevent iOS zoom on input focus */
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile-friendly tables */
+.pillar-content table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+/* Guide sections mobile spacing */
+@media (max-width: 640px) {
+  .guide-sections section {
+    margin-bottom: 2rem;
+  }
+  
+  .guide-sections h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Hover effects only on devices that support hover */
+@media (hover: hover) {
+  .substance-card:hover {
+    transform: scale(1.02);
+  }
+}
+
+@media (hover: none) {
+  .substance-card:hover {
+    transform: none;
+  }
+}
+
+/* Safe swap box mobile */
+@media (max-width: 640px) {
+  .safe-swap-box {
+    padding: 1rem;
+  }
+}
+
+/* FAQ accordion mobile */
+@media (max-width: 640px) {
+  .faq-accordion .max-h-96 {
+    max-height: 24rem;
+  }
+}
+
+/* Related pages section mobile */
+@media (max-width: 640px) {
+  .related-pages-section h3 {
+    font-size: 0.75rem;
+  }
+}
+
+/* CTA buttons mobile */
+@media (max-width: 640px) {
+  .cta-button {
+    min-height: 44px;
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile sticky CTA improvements */
+@media (max-width: 768px) {
+  .sticky-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 40;
+  }
+  
+  .dark .sticky-cta {
+    background: #1f2937;
+    border-color: #374151;
+  }
+}

@@ -96,11 +96,11 @@ export function VerdictBanner({
   };
 
   return (
-    <div className={`${config.bgClass} p-5 md:p-6 ${className}`}>
-      <div className="flex items-start gap-4">
+    <div className={`${config.bgClass} p-4 md:p-6 ${className}`}>
+      <div className="flex items-start gap-3 md:gap-4">
         {/* Large Icon */}
         <div className={`flex-shrink-0 ${config.iconColor}`}>
-          <span className="material-symbols-outlined text-4xl md:text-5xl">
+          <span className="material-symbols-outlined text-3xl md:text-4xl lg:text-5xl">
             {config.icon}
           </span>
         </div>
@@ -108,8 +108,8 @@ export function VerdictBanner({
         {/* Content */}
         <div className="flex-1 min-w-0">
           {/* Verdict Title */}
-          <div className="flex items-center gap-3 mb-2">
-            <h2 className={`text-2xl md:text-3xl font-bold tracking-tight ${config.titleColor}`}>
+          <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2">
+            <h2 className={`text-xl md:text-2xl lg:text-3xl font-bold tracking-tight leading-tight ${config.titleColor}`}>
               {config.title}
             </h2>
             {type === 'banned' && (
@@ -125,20 +125,20 @@ export function VerdictBanner({
           </div>
 
           {/* Substance Name */}
-          <p className="text-lg md:text-xl font-semibold text-gray-800 mb-1">
+          <p className="text-base md:text-lg lg:text-xl font-semibold text-gray-900 dark:text-white mb-0.5 md:mb-1 leading-tight">
             {substanceName}
           </p>
 
           {/* Subtitle */}
-          <p className="text-sm md:text-base text-gray-600">
+          <p className="text-xs md:text-sm lg:text-base text-gray-600 dark:text-gray-400">
             {getSubtitle()}
           </p>
 
           {/* Primary Risk Warning (for banned) */}
           {primaryRisk && (type === 'banned' || type === 'restricted') && (
-            <div className="mt-3 flex items-center gap-2 text-red-700">
-              <span className="material-symbols-outlined text-lg">warning</span>
-              <span className="font-medium">{primaryRisk}</span>
+            <div className="mt-2 md:mt-3 flex items-start gap-2 text-red-700 dark:text-red-400">
+              <span className="material-symbols-outlined text-base md:text-lg flex-shrink-0 mt-0.5">warning</span>
+              <span className="font-medium text-sm md:text-base leading-snug">{primaryRisk}</span>
             </div>
           )}
 

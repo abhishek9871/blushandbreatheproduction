@@ -92,27 +92,27 @@ export default function GuidePage({ article, error }: GuidePageProps) {
         dateModified={article.modifiedDate}
       />
 
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-text-subtle-light dark:text-text-subtle-dark mb-6">
+        <nav className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-text-subtle-light dark:text-text-subtle-dark mb-4 sm:mb-6">
           <Link href="/" className="hover:text-primary">Home</Link>
           <span>/</span>
           <Link href="/health" className="hover:text-primary">Health</Link>
           <span>/</span>
           <span className="text-text-light dark:text-text-dark">Guides</span>
           <span>/</span>
-          <span className="text-text-light dark:text-text-dark truncate max-w-[200px]">{article.title}</span>
+          <span className="text-text-light dark:text-text-dark truncate max-w-[120px] sm:max-w-[200px]">{article.title}</span>
         </nav>
 
         <article>
           {/* Header */}
-          <header className="mb-8">
-            <div className="flex items-start justify-between gap-4 mb-4">
+          <header className="mb-6 sm:mb-8">
+            <div className="flex items-start justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-text-light dark:text-text-dark mb-3">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-light dark:text-text-dark mb-2 sm:mb-3">
                   {article.title}
                 </h1>
-                <div className="flex items-center gap-4 text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-text-subtle-light dark:text-text-subtle-dark">
                   <span className="flex items-center gap-1">
                     <span className="material-symbols-outlined text-sm">schedule</span>
                     {article.readingTime} min read
@@ -136,7 +136,7 @@ export default function GuidePage({ article, error }: GuidePageProps) {
           />
 
           {/* Introduction */}
-          <section className="mb-10">
+          <section className="mb-8 sm:mb-10">
             <div 
               className="prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
                 prose-headings:text-text-light dark:prose-headings:text-text-dark
@@ -154,7 +154,7 @@ export default function GuidePage({ article, error }: GuidePageProps) {
                 id={section.id}
                 className="mb-10 scroll-mt-20"
               >
-                <h2 className="text-2xl font-bold text-text-light dark:text-text-dark mb-4 flex items-center gap-2">
+                <h2 className="text-xl sm:text-2xl font-bold text-text-light dark:text-text-dark mb-3 sm:mb-4 flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary">article</span>
                   {section.title}
                 </h2>

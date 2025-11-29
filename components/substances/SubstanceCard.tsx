@@ -98,7 +98,7 @@ export const SubstanceCard: React.FC<SubstanceCardProps> = ({
 
   return (
     <Link href={getLink()} className="block group">
-      <div className="medical-card p-5 relative overflow-hidden">
+      <div className="medical-card p-4 md:p-5 relative overflow-hidden">
         {/* Type indicator stripe */}
         <div className={`absolute top-0 left-0 w-1 h-full ${
           type === 'banned' ? 'bg-alert-red' : 
@@ -109,7 +109,7 @@ export const SubstanceCard: React.FC<SubstanceCardProps> = ({
         {/* Header with badge */}
         <div className="flex items-start justify-between mb-3 pl-3">
           <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-lg text-text-light dark:text-text-dark group-hover:text-primary transition-colors truncate">
+            <h3 className="font-bold text-base md:text-lg text-text-light dark:text-text-dark group-hover:text-primary transition-colors truncate">
               {getName()}
             </h3>
             <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark capitalize flex items-center gap-1">
@@ -128,7 +128,7 @@ export const SubstanceCard: React.FC<SubstanceCardProps> = ({
         </div>
 
         {/* Description */}
-        <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mb-4 line-clamp-2 pl-3 leading-relaxed">
+        <p className="text-xs md:text-sm text-text-subtle-light dark:text-text-subtle-dark mb-3 md:mb-4 line-clamp-2 pl-3 leading-relaxed">
           {getDescription()}
         </p>
 
@@ -153,7 +153,7 @@ export const SubstanceCard: React.FC<SubstanceCardProps> = ({
             )}
           </div>
 
-          <span className="flex items-center gap-1 text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1">
+          <span className="flex items-center gap-1 text-primary font-medium text-sm md:opacity-0 md:group-hover:opacity-100 transition-all md:group-hover:translate-x-1">
             View
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </span>

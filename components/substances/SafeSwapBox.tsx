@@ -73,14 +73,14 @@ export function SafeSwapBox({
     <div className={`safe-swap-box ${className}`}>
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
-          <span className="material-symbols-outlined text-white text-2xl">swap_horiz</span>
+        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+          <span className="material-symbols-outlined text-white text-xl md:text-2xl">swap_horiz</span>
         </div>
         <div>
-          <h3 className="text-lg md:text-xl font-bold text-green-800 dark:text-green-300">
+          <h3 className="text-base md:text-lg lg:text-xl font-bold text-green-800 dark:text-green-300 leading-tight">
             Safe Legal Alternative
           </h3>
-          <p className="text-sm text-green-700 dark:text-green-400">
+          <p className="text-xs md:text-sm text-green-700 dark:text-green-400">
             Try this instead of {bannedSubstance.name}
           </p>
         </div>
@@ -90,8 +90,8 @@ export function SafeSwapBox({
       <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md mb-4">
         <div className="flex items-start gap-4">
           {/* Icon/Image placeholder */}
-          <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 flex items-center justify-center flex-shrink-0">
-            <span className="material-symbols-outlined text-3xl text-green-600 dark:text-green-400">
+          <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 flex items-center justify-center flex-shrink-0">
+            <span className="material-symbols-outlined text-2xl md:text-3xl text-green-600 dark:text-green-400">
               medication
             </span>
           </div>
@@ -99,7 +99,7 @@ export function SafeSwapBox({
           {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2 mb-1">
-              <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h4 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-tight">
                 {alternative.name}
               </h4>
               <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs font-semibold rounded">
@@ -112,11 +112,11 @@ export function SafeSwapBox({
             </p>
 
             {/* Benefits Pills */}
-            <div className="flex flex-wrap gap-1.5 mb-3">
+            <div className="flex flex-wrap gap-1 md:gap-1.5 mb-2 md:mb-3">
               {alternative.benefits.slice(0, 3).map((benefit, i) => (
                 <span
                   key={i}
-                  className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs rounded-full"
+                  className="px-1.5 md:px-2 py-0.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-[10px] md:text-xs rounded-full"
                 >
                   {benefit}
                 </span>
@@ -128,14 +128,14 @@ export function SafeSwapBox({
         {/* Why We Recommend */}
         <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
           <div className="flex items-start gap-2">
-            <span className="material-symbols-outlined text-blue-500 text-lg flex-shrink-0 mt-0.5">
+            <span className="material-symbols-outlined text-blue-500 text-base md:text-lg flex-shrink-0 mt-0.5">
               lightbulb
             </span>
             <div>
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <p className="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Why We Recommend This
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                 {recommendationReason}
               </p>
             </div>
@@ -149,7 +149,7 @@ export function SafeSwapBox({
         <Link
           href={`/supplement/${alternative.slug}`}
           onClick={handleSwapClick}
-          className="flex-1 cta-button bg-white dark:bg-gray-800 text-gray-800 dark:text-white border-2 border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20"
+          className="flex-1 cta-button min-h-[44px] text-sm md:text-base bg-white dark:bg-gray-800 text-gray-800 dark:text-white border-2 border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20"
         >
           <span className="material-symbols-outlined text-green-600">info</span>
           Learn More
@@ -159,7 +159,7 @@ export function SafeSwapBox({
         {topProduct && (
           <button
             onClick={handleProductClick}
-            className="flex-1 cta-button cta-button-success"
+            className="flex-1 cta-button cta-button-success min-h-[44px] text-sm md:text-base"
           >
             <span className="material-symbols-outlined">shopping_cart</span>
             Buy {topProduct.brand} - ${topProduct.price.toFixed(2)}

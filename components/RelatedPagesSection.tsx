@@ -68,12 +68,12 @@ export function RelatedPagesSection({ relatedPages, currentPageTitle, className 
 
   return (
     <section className={`related-pages-section ${className}`}>
-      <h2 className="text-xl font-semibold text-text-light dark:text-text-dark mb-4 flex items-center gap-2">
+      <h2 className="text-lg md:text-xl font-semibold text-text-light dark:text-text-dark mb-3 md:mb-4 flex items-center gap-2">
         <span className="material-symbols-outlined text-primary">hub</span>
         Related Content
       </h2>
       
-      <p className="text-text-subtle-light dark:text-text-subtle-dark mb-6">
+      <p className="text-sm md:text-base text-text-subtle-light dark:text-text-subtle-dark mb-4 md:mb-6">
         Explore more topics related to {currentPageTitle}:
       </p>
 
@@ -89,14 +89,14 @@ export function RelatedPagesSection({ relatedPages, currentPageTitle, className 
               <Link
                 key={page.slug}
                 href={`${config.basePath}/${page.slug}`}
-                className={`block p-4 rounded-xl border-2 ${config.borderColor} ${config.bgColor} hover:shadow-md transition-all group`}
+                className={`block p-3 md:p-4 rounded-xl border-2 ${config.borderColor} ${config.bgColor} hover:shadow-md transition-all group min-h-[44px]`}
               >
                 <div className="flex items-center gap-3">
-                  <span className={`material-symbols-outlined text-2xl ${config.color}`}>
+                  <span className={`material-symbols-outlined text-xl md:text-2xl ${config.color}`}>
                     {config.icon}
                   </span>
                   <div>
-                    <span className="font-semibold text-text-light dark:text-text-dark group-hover:text-primary transition-colors">
+                    <span className="font-semibold text-sm md:text-base text-text-light dark:text-text-dark group-hover:text-primary transition-colors line-clamp-2">
                       {page.title}
                     </span>
                     <span className="block text-xs text-text-subtle-light dark:text-text-subtle-dark mt-0.5">
@@ -119,19 +119,19 @@ export function RelatedPagesSection({ relatedPages, currentPageTitle, className 
           <h3 className="text-sm font-medium text-text-subtle-light dark:text-text-subtle-dark uppercase tracking-wide mb-3">
             Related Topics
           </h3>
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
             {clusterPages.map((page) => {
               const config = TYPE_CONFIG[page.type];
               return (
                 <Link
                   key={page.slug}
                   href={`${config.basePath}/${page.slug}`}
-                  className={`flex items-center gap-3 p-3 rounded-lg border ${config.borderColor} bg-white dark:bg-card-dark hover:${config.bgColor} transition-colors group`}
+                  className={`flex items-center gap-2 md:gap-3 p-3 rounded-lg border ${config.borderColor} bg-white dark:bg-card-dark hover:${config.bgColor} transition-colors group min-h-[44px]`}
                 >
                   <span className={`material-symbols-outlined ${config.color}`}>
                     {config.icon}
                   </span>
-                  <span className="text-sm font-medium text-text-light dark:text-text-dark group-hover:text-primary transition-colors flex-1">
+                  <span className="text-xs md:text-sm font-medium text-text-light dark:text-text-dark group-hover:text-primary transition-colors flex-1 line-clamp-2">
                     {page.title}
                   </span>
                   <span className="material-symbols-outlined text-sm text-gray-400">
@@ -150,14 +150,14 @@ export function RelatedPagesSection({ relatedPages, currentPageTitle, className 
           <h3 className="text-sm font-medium text-text-subtle-light dark:text-text-subtle-dark uppercase tracking-wide mb-3">
             See Also
           </h3>
-          <ul className="space-y-2">
+          <ul className="space-y-1.5 md:space-y-2">
             {relatedOnly.map((page) => {
               const config = TYPE_CONFIG[page.type];
               return (
                 <li key={page.slug}>
                   <Link
                     href={`${config.basePath}/${page.slug}`}
-                    className="flex items-center gap-2 text-text-subtle-light dark:text-text-subtle-dark hover:text-primary transition-colors"
+                    className="flex items-center gap-2 text-text-subtle-light dark:text-text-subtle-dark hover:text-primary transition-colors min-h-[44px] py-1"
                   >
                     <span className={`material-symbols-outlined text-sm ${config.color}`}>
                       {config.icon}

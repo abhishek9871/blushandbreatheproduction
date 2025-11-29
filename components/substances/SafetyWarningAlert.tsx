@@ -110,36 +110,36 @@ export const SafetyWarningAlert: React.FC<SafetyWarningAlertProps> = ({
 
   return (
     <div
-      className={`rounded-lg border-2 p-4 ${styles.bg} ${styles.border} ${className}`}
+      className={`rounded-lg border-2 p-3 sm:p-4 ${styles.bg} ${styles.border} ${className}`}
       role="alert"
     >
       <div className="flex items-start gap-3">
         {/* Icon */}
-        <span className={`material-symbols-outlined text-2xl ${styles.iconColor} flex-shrink-0`}>
+        <span className={`material-symbols-outlined text-xl md:text-2xl ${styles.iconColor} flex-shrink-0`}>
           {styles.icon}
         </span>
 
         {/* Content */}
         <div className="flex-1">
           {/* Title */}
-          <h4 className={`font-bold text-lg ${styles.titleColor}`}>
+          <h4 className={`font-bold text-base md:text-lg ${styles.titleColor}`}>
             {title}
           </h4>
 
           {/* Main message */}
-          <p className={`mt-1 ${styles.textColor}`}>
+          <p className={`mt-1 text-sm md:text-base ${styles.textColor}`}>
             {message}
           </p>
 
           {/* Additional details */}
           {details && details.length > 0 && (
-            <ul className={`mt-3 space-y-1 ${styles.textColor}`}>
+            <ul className={`mt-2 md:mt-3 space-y-1 ${styles.textColor}`}>
               {details.map((detail, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <span className="material-symbols-outlined text-sm mt-0.5">
                     arrow_right
                   </span>
-                  <span className="text-sm">{detail}</span>
+                  <span className="text-xs md:text-sm">{detail}</span>
                 </li>
               ))}
             </ul>

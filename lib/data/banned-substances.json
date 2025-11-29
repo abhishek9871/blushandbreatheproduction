@@ -584,79 +584,271 @@
         "Mitragyna speciosa",
         "Ketum",
         "Kakuam",
-        "Thang"
+        "Thang",
+        "Biak-Biak",
+        "Thom"
       ],
-      "category": "other",
+      "category": "opioid",
       "legalStatus": "restricted",
-      "legalStatusDetails": "Under FDA Import Alert 54-15. Illegal in 7 states. Age/testing restrictions in others.",
+      "legalStatusDetails": "Not federally scheduled but under FDA Import Alert 54-15. Banned in 7 states including the 2025 Louisiana Ban (SB 154, effective Aug 1, 2025). Texas Regulation (SB 1868, effective Sept 1, 2025) imposes the nation's strictest 7-OH limits at 0.1%. FDA recommended scheduling 7-hydroxymitragynine (7-OH) in July 2025. 15+ states have adopted the Kratom Consumer Protection Act (KCPA) with age restrictions and testing requirements.",
       "bannedBy": [
-        "FDA (Import Alert)"
+        "FDA (Import Alert 54-15)",
+        "Alabama",
+        "Arkansas",
+        "Indiana",
+        "Rhode Island",
+        "Vermont",
+        "Wisconsin",
+        "Louisiana (SB 154)"
       ],
       "stateRestrictions": {
-        "Alabama": "Illegal",
-        "Arkansas": "Illegal",
-        "Indiana": "Illegal",
-        "Rhode Island": "Illegal",
-        "Vermont": "Illegal",
-        "Wisconsin": "Illegal",
-        "Louisiana": "Illegal (effective Aug 1, 2025)",
-        "Georgia": "Age 21+, lab testing required",
-        "Texas": "Synthetic kratom banned, strict alkaloid limits"
+        "Alabama": "Schedule I - Fully Banned (May 2016)",
+        "Arkansas": "Schedule I - Fully Banned (2016)",
+        "Indiana": "Fully Banned (2014)",
+        "Rhode Island": "Schedule I - Fully Banned (2017)",
+        "Vermont": "Schedule I - Fully Banned (2016)",
+        "Wisconsin": "Schedule I - Fully Banned (2014)",
+        "Louisiana": "Schedule I - SB 154 Ban (Aug 1, 2025) - $50K fine, 1-5 years for distribution",
+        "Texas": "KCPA - SB 1868 (Sept 1, 2025) - Strictest 7-OH limit at 0.1%, age 21+",
+        "Georgia": "KCPA - HB 181 (Jan 1, 2025) - Age 21+, strict labeling",
+        "Arizona": "KCPA - Age 21+ (Jan 1, 2025)",
+        "Florida": "KCPA - Age 21+, Sarasota County banned",
+        "Colorado": "Age 21+, candy/vape forms banned",
+        "Oklahoma": "KCPA - SB 891 (2025) - Age 18+, max 2% 7-OH",
+        "South Carolina": "KCPA - SB 221 (July 2025)",
+        "Connecticut": "Pending Schedule I - hearing Oct 2025"
       },
       "healthRisks": [
         {
-          "category": "Overdose",
-          "description": "91 overdose deaths (2016-2017 alone). Opioid-like toxicity.",
+          "category": "Overdose Deaths",
+          "description": "CDC documented 91 overdose deaths involving kratom (2016-2017). Most cases involved other substances, but kratom was the sole toxicological finding in some fatalities.",
           "severity": "high",
-          "sources": [
-            "CDC MMWR Report"
-          ]
+          "sources": ["CDC MMWR Report 2019"]
+        },
+        {
+          "category": "Opioid Dependence",
+          "description": "Mitragynine and 7-hydroxymitragynine act on mu-opioid receptors, creating physical dependence. Withdrawal symptoms include muscle aches, insomnia, irritability, and anxiety lasting 4-10 days.",
+          "severity": "high",
+          "sources": ["PMC Withdrawal Studies 2023"]
+        },
+        {
+          "category": "Seizure Risk",
+          "description": "Analysis of Poison Control data (2011-2017) identified 113 kratom-induced seizures. Risk increases with concentrated 7-OH products.",
+          "severity": "high",
+          "sources": ["Neurology Journal 2025"]
         },
         {
           "category": "Contamination",
-          "description": "199 people infected in 2018 Salmonella outbreak. Products often contaminated with bacteria, heavy metals.",
+          "description": "199 people infected in 2018 Salmonella outbreak linked to kratom. Products often contaminated with bacteria, heavy metals, and in some cases synthetic opioids.",
           "severity": "moderate",
-          "sources": [
-            "CDC Outbreak Report 2018"
-          ]
+          "sources": ["CDC Outbreak Report 2018"]
+        },
+        {
+          "category": "Hepatotoxicity",
+          "description": "Rare cases of liver injury documented in chronic users. Mechanism may involve CYP enzyme inhibition or direct hepatocellular toxicity.",
+          "severity": "moderate",
+          "sources": ["FDA Adverse Event Reports"]
         }
       ],
       "sideEffects": [
-        "Opioid-like toxicity and overdose",
-        "Withdrawal symptoms",
-        "Liver toxicity",
-        "Constipation",
-        "Nausea and vomiting",
-        "Tolerance and rapid escalation"
+        "Opioid-like withdrawal syndrome (muscle aches, insomnia, RLS)",
+        "Nausea, vomiting, and constipation",
+        "Seizures (especially with high doses or 7-OH products)",
+        "Liver toxicity (rare but documented)",
+        "Rapid tolerance development requiring dose escalation",
+        "Anxiety, irritability, and mood swings",
+        "Weight loss and appetite suppression",
+        "Dry mouth and dehydration",
+        "Cardiovascular effects at high doses"
       ],
       "contraindications": [
-        "Opioid use disorder history",
-        "Liver disease",
-        "Pregnancy",
-        "CNS depressant use"
+        "History of opioid use disorder",
+        "Liver disease or elevated liver enzymes",
+        "Pregnancy or breastfeeding",
+        "Concurrent use of CNS depressants (benzos, alcohol, opioids)",
+        "History of seizures",
+        "MAO inhibitor use",
+        "Kidney disease"
       ],
       "overdoseRisk": "high",
       "addictionPotential": "high",
-      "description": "Kratom is a plant from Southeast Asia containing alkaloids that act on opioid receptors. Marketed as a 'natural herbal supplement' but has opioid-like effects with overdose risk, withdrawal syndrome, and significant contamination issues.",
-      "mechanism": "Mitragynine and 7-hydroxymitragynine act on mu-opioid receptors (similar to opioids). Also has NMDA antagonism. Effects are dose-dependent: stimulant at low doses, sedative at high doses.",
-      "history": "Traditional use in Southeast Asia for centuries. Gained popularity in the US in the 2010s as an alternative to opioids. Multiple contamination outbreaks and deaths led to increased regulation.",
-      "whyBanned": "Opioid-like effects with overdose risk, contamination issues, withdrawal syndrome, and lack of quality control. FDA cannot ensure safety of kratom products.",
+      "description": "Kratom (Mitragyna speciosa) is a tropical evergreen tree native to Southeast Asia whose leaves contain alkaloids that act on opioid receptors. The two primary alkaloids—mitragynine and 7-hydroxymitragynine (7-OH)—produce dose-dependent effects: stimulation at low doses (1-5g) and sedation/analgesia at higher doses (5-15g). While marketed as a 'natural' alternative to opioids, kratom produces physiological dependence with a documented withdrawal syndrome. The FDA maintains Import Alert 54-15 and has not approved kratom for any medical use.",
+      "mechanism": "Mitragynine is a partial agonist at mu-opioid receptors with additional activity at kappa, delta opioid receptors, alpha-2 adrenergic receptors, and serotonergic systems. 7-hydroxymitragynine is approximately 22x more potent at mu-opioid receptors. This multi-receptor activity explains kratom's unique combination of stimulant (low dose) and sedative (high dose) effects, as well as its complex withdrawal presentation combining opioid-like and stimulant-like features.",
+      "history": "Traditional use in Thailand and Malaysia for centuries as a labor aid and folk medicine. Thailand banned kratom in 1943 due to interference with opium tax revenue, then decriminalized it in 2021. In the US, kratom gained popularity in the 2010s as an alternative to prescription opioids. The DEA attempted emergency Schedule I classification in 2016 but withdrew after unprecedented public backlash. Multiple contamination outbreaks, overdose deaths, and wrongful death lawsuits have driven increasing state-level regulation.",
+      "whyBanned": "States ban kratom due to: (1) Opioid-like addiction and withdrawal potential; (2) 91+ documented deaths involving kratom; (3) Contamination issues including the 2018 Salmonella outbreak; (4) Lack of quality control and standardization; (5) FDA's determination that kratom products are adulterated/misbranded; (6) Emerging evidence of seizure risk with concentrated 7-OH products.",
       "legalAlternatives": [
         "ashwagandha",
-        "rhodiola-rosea"
+        "rhodiola-rosea",
+        "l-theanine",
+        "magnesium-glycinate"
       ],
-      "metaTitle": "Kratom - Legal Status, Overdose Risks & Safe Alternatives",
-      "metaDescription": "Learn about Kratom's legal status (banned in 7 states), opioid-like risks, 91 deaths, and discover safe legal alternatives for energy and relaxation.",
+      "metaTitle": "Kratom: Complete 2025 Guide | Legal Status, Withdrawal, & Alternatives",
+      "metaDescription": "Comprehensive kratom guide: 2025 legal status by state (SB 154, SB 1868), withdrawal timeline, 10% taper protocol, safe alternatives. Updated Nov 2025.",
       "keywords": [
         "kratom",
-        "kratom legal",
+        "kratom legal status 2025",
+        "is kratom legal in my state",
+        "kratom withdrawal",
+        "kratom withdrawal timeline",
+        "kratom taper",
+        "kratom alternatives",
         "kratom ban",
-        "kratom deaths",
-        "kratom alternative",
-        "mitragyna speciosa"
+        "louisiana kratom ban",
+        "texas kratom law",
+        "mitragyna speciosa",
+        "kratom drug test",
+        "kratom side effects"
       ],
+      "isPillarPage": true,
+      "pillarSections": [
+        {
+          "id": "what-is-kratom",
+          "title": "What is Kratom?",
+          "content": "<p><strong>Kratom (Mitragyna speciosa)</strong> is a tropical evergreen tree in the coffee family native to Southeast Asia, primarily Thailand, Malaysia, Indonesia, and Myanmar. The leaves contain over 40 alkaloids, with the two most pharmacologically significant being <strong>mitragynine</strong> (66% of alkaloid content) and <strong>7-hydroxymitragynine (7-OH)</strong>.</p><p>Kratom produces <strong>dose-dependent effects</strong>:</p><ul><li><strong>Low doses (1-5g):</strong> Stimulation, increased energy, alertness, and sociability—similar to coffee</li><li><strong>Moderate doses (5-10g):</strong> Analgesic effects, mild euphoria, reduced anxiety</li><li><strong>High doses (10-15g+):</strong> Sedation, opioid-like effects, pain relief, potential for nausea</li></ul><p>This biphasic action results from mitragynine's complex pharmacology: at low concentrations it activates adrenergic receptors (stimulation), while at higher concentrations mu-opioid receptor activity predominates (sedation/analgesia).</p><p><strong>Common Forms:</strong></p><ul><li><strong>Powder:</strong> Dried, crushed leaves—most common form</li><li><strong>Capsules:</strong> Measured powder doses for convenience</li><li><strong>Extracts:</strong> Concentrated products with elevated 7-OH levels—higher addiction and seizure risk</li><li><strong>Shots/Drinks:</strong> Liquid extracts often sold at gas stations</li></ul><p>While kratom has been used traditionally in Southeast Asia for centuries, its modern Western use as an opioid alternative has raised significant safety concerns, leading to FDA import alerts and state-level bans.</p>",
+          "keywordTarget": "what is kratom"
+        },
+        {
+          "id": "legal-status-2025",
+          "title": "Kratom Legal Status 2025: State-by-State Map",
+          "content": "<p>Kratom's legal status varies dramatically across the United States. As of November 2025, <strong>7 states have fully banned kratom</strong>, while <strong>15+ states have adopted the Kratom Consumer Protection Act (KCPA)</strong> with age restrictions and product standards.</p><h3>2025 Major Legislative Changes</h3><table><thead><tr><th>State</th><th>Bill</th><th>Effective Date</th><th>Key Provisions</th></tr></thead><tbody><tr><td><strong>Louisiana</strong></td><td>SB 154</td><td>Aug 1, 2025</td><td>Schedule I ban. $50,000 fine and 1-5 years for distribution. Possession: $1,000 or 6 months.</td></tr><tr><td><strong>Texas</strong></td><td>SB 1868</td><td>Sept 1, 2025</td><td>Strictest 7-OH limit in nation (0.1%). Age 21+. Synthetic alkaloids banned under Penalty Group 1.</td></tr><tr><td><strong>Georgia</strong></td><td>HB 181</td><td>Jan 1, 2025</td><td>Age raised to 21+. Strict labeling requirements. Vaping kratom prohibited.</td></tr><tr><td><strong>South Carolina</strong></td><td>SB 221</td><td>July 2025</td><td>KCPA framework with safety and labeling standards.</td></tr><tr><td><strong>Oklahoma</strong></td><td>SB 891</td><td>2025</td><td>Age 18+. Max 2% 7-OH. Lab testing required.</td></tr></tbody></table><h3>Fully Banned States (7)</h3><p><strong>Alabama, Arkansas, Indiana, Rhode Island, Vermont, Wisconsin, Louisiana</strong> (as of Aug 2025)</p><p>In these states, kratom is classified as a Schedule I controlled substance. Possession and sale carry criminal penalties.</p><h3>KCPA Regulation States (15+)</h3><p>States with Kratom Consumer Protection Acts regulate rather than ban: <strong>Arizona, Colorado, Florida, Georgia, Kentucky, Maryland, Nevada, Oklahoma, South Carolina, South Dakota, Tennessee, Texas, Utah, Virginia, West Virginia</strong></p><p>KCPA typically requires: age verification (18-21+), lab testing, labeling of alkaloid content, prohibition on synthetic alkaloids, and GMP manufacturing standards.</p><h3>Federal Status</h3><p>Kratom remains <strong>not scheduled</strong> at the federal level. However, the FDA maintains <strong>Import Alert 54-15</strong> allowing seizure of kratom products at ports. In July 2025, the FDA recommended scheduling <strong>7-hydroxymitragynine (7-OH)</strong> as a controlled substance—this targets concentrated extract products, not natural leaf kratom.</p>",
+          "keywordTarget": "kratom legal status by state 2025"
+        },
+        {
+          "id": "withdrawal-protocol",
+          "title": "Kratom Withdrawal: Timeline & The 10% Taper Protocol",
+          "content": "<p><strong>Never quit kratom cold turkey if you have significant dependence.</strong> Abrupt cessation causes uncomfortable withdrawal symptoms that peak around days 3-4.</p><h3>Withdrawal Timeline</h3><table><thead><tr><th>Phase</th><th>Duration</th><th>Symptoms</th></tr></thead><tbody><tr><td><strong>Early Withdrawal</strong></td><td>6-12 hours</td><td>Mild irritability, anxiety, muscle aches, sweating, runny nose</td></tr><tr><td><strong>Acute Withdrawal</strong></td><td>24-72 hours</td><td>Peak physical symptoms, intense muscle pain, severe GI distress, insomnia, RLS</td></tr><tr><td><strong>Subacute Phase</strong></td><td>Days 4-7</td><td>Gradual symptom reduction, lingering fatigue, reduced psychological intensity</td></tr><tr><td><strong>Late Withdrawal</strong></td><td>1-2 weeks</td><td>Most physical symptoms resolved, psychological symptoms may persist</td></tr><tr><td><strong>PAWS</strong></td><td>Weeks to months</td><td>Mood instability, anxiety, depression, cravings, cognitive effects</td></tr></tbody></table><h3>The 10% Weekly Reduction Protocol</h3><p>The evidence-based tapering approach involves <strong>reducing total daily dose by 10% every 7 days</strong>:</p><ol><li><strong>Establish baseline:</strong> Measure and record your exact daily intake using a digital scale (0.1g accuracy)</li><li><strong>Calculate reduction:</strong> Multiply daily dose by 0.9 for your new weekly target</li><li><strong>Divide doses:</strong> Split daily amount across your normal dosing schedule</li><li><strong>Hold if needed:</strong> If symptoms emerge, hold current dose until stable before continuing</li><li><strong>Slower at low doses:</strong> Below 5g/day, consider 5% reductions every 1-2 weeks</li></ol><p><strong>Example 20g/day taper:</strong> Week 1: 18g → Week 2: 16.2g → Week 3: 14.6g → Week 4: 13.1g... continuing until cessation</p><h3>Supportive Supplements</h3><ul><li><strong>Magnesium glycinate (400-800mg/day):</strong> Reduces RLS and muscle tension</li><li><strong>Vitamin C sodium ascorbate (megadose protocol):</strong> 5,000-25,000mg/day in divided doses during acute phase</li><li><strong>Black seed oil (1-2 tsp/day):</strong> May reduce cravings and anxiety</li><li><strong>L-theanine (200-400mg/day):</strong> For sleep and relaxation</li><li><strong>Ashwagandha (300-600mg/day):</strong> Cortisol modulation and stress reduction</li></ul>",
+          "keywordTarget": "kratom withdrawal timeline"
+        },
+        {
+          "id": "safety-side-effects",
+          "title": "Safety Concerns & Side Effects",
+          "content": "<h3>Documented Deaths</h3><p>The CDC documented <strong>91 overdose deaths involving kratom</strong> from 2016-2017. While most cases involved polysubstance use, kratom was identified as a contributing factor. A 2025 Neurology study identified <strong>113 kratom-induced seizures</strong> from Poison Control data (2011-2017), with risk elevated in concentrated 7-OH products.</p><h3>Serious Adverse Events</h3><ul><li><strong>Seizures:</strong> Increasing reports, especially with extract products. Standard urinalysis does not detect kratom; diagnosis often delayed 4+ days.</li><li><strong>Hepatotoxicity:</strong> Rare but documented liver injury in chronic users requiring hospitalization.</li><li><strong>Cardiac events:</strong> Case reports of tachycardia and arrhythmia at high doses.</li><li><strong>Respiratory depression:</strong> Possible when combined with other CNS depressants.</li></ul><h3>Common Side Effects</h3><table><thead><tr><th>System</th><th>Effects</th></tr></thead><tbody><tr><td><strong>Gastrointestinal</strong></td><td>Nausea, vomiting, constipation, appetite suppression</td></tr><tr><td><strong>Neurological</strong></td><td>Dizziness, tremor, seizures (high dose), cognitive impairment</td></tr><tr><td><strong>Psychological</strong></td><td>Anxiety, irritability, depression, insomnia</td></tr><tr><td><strong>Physical</strong></td><td>Dry mouth, sweating, weight loss, tolerance escalation</td></tr></tbody></table><h3>Drug Interactions</h3><p>Kratom inhibits CYP2D6 and CYP3A4 enzymes, potentially increasing levels of medications metabolized by these pathways. <strong>Dangerous combinations include:</strong></p><ul><li>Opioids (respiratory depression risk)</li><li>Benzodiazepines (enhanced sedation)</li><li>Alcohol (CNS depression)</li><li>MAO inhibitors (hypertensive crisis potential)</li><li>Antidepressants (serotonin syndrome risk with some SSRIs)</li></ul><h3>Contamination Issues</h3><p>The 2018 Salmonella outbreak infected 199 people across 41 states. Testing has also found kratom products contaminated with heavy metals, E. coli, and even synthetic opioids. The lack of FDA oversight means product quality varies dramatically.</p>",
+          "keywordTarget": "kratom side effects dangers"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Is kratom legal in my state in 2025?",
+          "answer": "Kratom is fully banned in 7 states: Alabama, Arkansas, Indiana, Louisiana (as of Aug 1, 2025), Rhode Island, Vermont, and Wisconsin. It's legal with age restrictions (typically 21+) in 15+ KCPA states including Arizona, Florida, Georgia, and Texas. In remaining states, it's legal but unregulated. Check your specific state law before purchasing."
+        },
+        {
+          "question": "How long does kratom withdrawal last?",
+          "answer": "Acute kratom withdrawal symptoms typically last 4-10 days, with peak intensity around days 3-4. Physical symptoms (muscle aches, GI issues, RLS) usually resolve within 7-10 days. Psychological symptoms (anxiety, depression, cravings) may persist for weeks in Post-Acute Withdrawal Syndrome (PAWS). Duration depends on dose, frequency, and individual metabolism."
+        },
+        {
+          "question": "Does kratom show up on a drug test?",
+          "answer": "Standard 5-panel and 12-panel drug tests do NOT detect kratom. However, specialized tests for mitragynine exist and are increasingly used by probation offices, pain management clinics, and some employers. Kratom is detectable in urine for 5-7 days, blood for 24-48 hours, and hair for up to 90 days."
+        },
+        {
+          "question": "Can you die from kratom withdrawal?",
+          "answer": "There are no documented deaths solely from kratom withdrawal. Unlike alcohol or benzodiazepine withdrawal, kratom withdrawal does not typically cause seizures. However, severe dehydration from vomiting/diarrhea is a risk, and psychological distress including suicidal ideation has been reported. Medical supervision is recommended for heavy users."
+        },
+        {
+          "question": "What is the safest way to quit kratom?",
+          "answer": "The safest approach is a gradual taper: reduce your dose by 10% every 7 days until cessation. Use a digital scale for accuracy. Supportive supplements (magnesium, vitamin C, black seed oil) can help manage symptoms. For heavy users (>20g/day) or those with complications, medical supervision with potential buprenorphine bridge therapy may be appropriate."
+        },
+        {
+          "question": "Is kratom an opioid?",
+          "answer": "Kratom is classified as an 'atypical opioid.' Its primary alkaloids (mitragynine, 7-hydroxymitragynine) act on mu-opioid receptors like traditional opioids, but with additional activity at adrenergic, serotonergic, and other receptors. This creates both opioid-like effects (pain relief, sedation, withdrawal) and unique properties (stimulation at low doses). It produces physiological dependence and withdrawal similar to opioids."
+        }
+      ],
+      "citations": [
+        {
+          "title": "Kratom Withdrawal: Discussions and conclusions of a scientific review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10311168/",
+          "source": "PMC/NIH",
+          "year": "2023"
+        },
+        {
+          "title": "FDA Information on Kratom",
+          "url": "https://www.fda.gov/news-events/public-health-focus/fda-and-kratom",
+          "source": "FDA",
+          "year": "2025"
+        },
+        {
+          "title": "Louisiana SB 154 - Kratom Scheduling",
+          "url": "https://legis.la.gov/legis/BillInfo.aspx?s=25RS&b=SB154",
+          "source": "Louisiana Legislature",
+          "year": "2025"
+        },
+        {
+          "title": "Texas SB 1868 - Kratom Consumer Protection",
+          "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=SB1868",
+          "source": "Texas Legislature",
+          "year": "2025"
+        },
+        {
+          "title": "Kratom-Induced Seizures: Poison Control Data Analysis",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11539871/",
+          "source": "Neurology/PMC",
+          "year": "2025"
+        },
+        {
+          "title": "Long-Term Buprenorphine Treatment for Kratom Use Disorder",
+          "url": "https://journals.sagepub.com/doi/10.1080/08897077.2021.2010250",
+          "source": "Sage Journals",
+          "year": "2022"
+        }
+      ],
+      "relatedPages": [
+        {
+          "slug": "kratom-withdrawal-timeline",
+          "title": "Kratom Withdrawal Timeline Day-by-Day",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "kratom-taper-protocol",
+          "title": "How to Taper Off Kratom Safely",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "kratom-withdrawal-supplements",
+          "title": "Supplements for Kratom Withdrawal",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "kratom-legal-states-2025",
+          "title": "Kratom Legal Status Map 2025",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "kratom-drug-test",
+          "title": "Does Kratom Show Up on Drug Tests?",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "kratom-alternatives-pain",
+          "title": "Natural Kratom Alternatives for Pain",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "kratom-alternatives-energy",
+          "title": "Kratom Alternatives for Energy",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "ashwagandha",
+          "title": "Ashwagandha",
+          "type": "supplement",
+          "relationship": "related"
+        },
+        {
+          "slug": "rhodiola-rosea",
+          "title": "Rhodiola Rosea",
+          "type": "supplement",
+          "relationship": "related"
+        }
+      ],
+      "wikipediaSearchTerms": ["Kratom", "Mitragynine"],
       "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-27T00:00:00Z"
+      "updatedAt": "2025-11-29T00:00:00Z"
     },
     {
       "id": "banned-sarms",

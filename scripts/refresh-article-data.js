@@ -33,7 +33,7 @@ const CONFIG = {
   outputPath: path.join(__dirname, '../lib/data/substance-articles.json'),
   
   // User agent (required by Wikipedia API policy)
-  userAgent: 'BlushAndBreathe/1.0 (https://blushandbreathe.com; contact@blushandbreathe.com)',
+  userAgent: 'BlushAndBreathe/1.0 (https://www.blushandbreath.com; contact@blushandbreath.com)',
 };
 
 // ═══════════════════════════════════════════════════════════════════

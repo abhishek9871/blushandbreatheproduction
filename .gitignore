@@ -19,10 +19,10 @@ node_modules/
 # Testing
 /coverage
 
-# Environment (keep .env.local.example if needed)
+# Environment (keep .env.example for reference)
 .env
-.env.production
-.env.vercel
+.env.*
+!.env.example
 
 # Vercel
 .vercel/

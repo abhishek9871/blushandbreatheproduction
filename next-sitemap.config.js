@@ -6,7 +6,7 @@ const legalSupplementsData = require('./lib/data/legal-supplements.json');
 const articlesData = require('./lib/data/articles.json');
 
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://blushandbreathe.com',
+  siteUrl: process.env.SITE_URL || 'https://www.blushandbreath.com',
   generateRobotsTxt: true,
   generateIndexSitemap: true,
   sitemapSize: 7000,
@@ -14,8 +14,25 @@ module.exports = {
   priority: 0.7,
   outDir: 'public', // Output directory for sitemap files
   
-  // Exclude specific paths
-  exclude: ['/404', '/500', '/api/*', '/_*'],
+  // Exclude specific paths - ONLY include SEO-valuable static content pages
+  // Exclude dynamic/API-dependent pages that will show different content to Googlebot
+  exclude: [
+    '/404', 
+    '/500', 
+    '/api/*', 
+    '/_*',
+    // Dynamic pages that depend on external APIs or user data - will cause "crawled but not indexed"
+    '/bookmarks',      // User-specific localStorage data - empty for Googlebot
+    '/health',         // Dynamic news feed from external API
+    '/beauty',         // Dynamic product listings from external API  
+    '/nutrition',      // Dynamic nutrition content from API
+    '/videos',         // Dynamic YouTube API content
+    '/health-store',   // Dynamic product catalog from external API
+    '/medicines/search',       // Search results page - dynamic
+    '/medicines/interactions', // Interactive tool - no static SEO content
+    '/article/*',      // Dynamic article pages
+    '/product/*',      // Dynamic product pages
+  ],
   
   // Configure robots.txt
   robotsTxtOptions: {
@@ -23,12 +40,25 @@ module.exports = {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/'],
+        disallow: [
+          '/api/', 
+          '/admin/', 
+          '/bookmarks',           // User-specific page
+          '/medicines/search',    // Search tool
+          '/medicines/interactions', // Interactive tool
+          '/article/',            // Dynamic articles
+          '/product/',            // Dynamic products
+        ],
       },
-      // Be specific about substance pages for responsible crawling
+      // Explicitly allow Next.js static assets (JS/CSS) for proper rendering
       {
         userAgent: '*',
-        allow: ['/banned/', '/supplement/', '/medicine/', '/compare/', '/guide/'],
+        allow: ['/_next/static/'],
+      },
+      // Explicitly allow SEO-valuable substance education pages
+      {
+        userAgent: '*',
+        allow: ['/banned/', '/supplement/', '/compare/', '/guide/', '/info/', '/medicines'],
       },
     ],
     additionalSitemaps: [],

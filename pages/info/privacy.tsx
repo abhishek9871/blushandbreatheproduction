@@ -16,7 +16,8 @@ export default function PrivacyPage() {
         <meta property="og:title" content="Privacy Policy | Blush & Breathe" />
         <meta property="og:description" content="Privacy Policy for Blush & Breathe health and beauty content platform." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/privacy" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/privacy" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

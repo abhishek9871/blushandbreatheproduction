@@ -24,9 +24,10 @@ import type { ContentHubArticle } from '@/types';
 interface GuidePageProps {
   article: ContentHubArticle | null;
   error?: string;
+  formattedDate?: string;
 }
 
-export default function GuidePage({ article, error }: GuidePageProps) {
+export default function GuidePage({ article, error, formattedDate }: GuidePageProps) {
   if (error || !article) {
     return (
       <>
@@ -69,14 +70,14 @@ export default function GuidePage({ article, error }: GuidePageProps) {
         <meta name="description" content={article.metaDescription} />
         <meta name="keywords" content={article.keywords.join(', ')} />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={`https://blushandbreathe.com/guide/${article.slug}`} />
+        <link rel="canonical" href={`https://www.blushandbreath.com/guide/${article.slug}`} />
         
         {/* Open Graph */}
         <meta property="og:title" content={article.metaTitle} />
         <meta property="og:description" content={article.metaDescription} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://blushandbreathe.com/guide/${article.slug}`} />
-        <meta property="og:image" content="https://blushandbreathe.com/images/og-guide.jpg" />
+        <meta property="og:url" content={`https://www.blushandbreath.com/guide/${article.slug}`} />
+        <meta property="og:image" content="https://www.blushandbreath.com/images/og-guide.jpg" />
         <meta property="og:site_name" content="Blush & Breathe" />
         
         {/* Twitter */}
@@ -106,7 +107,7 @@ export default function GuidePage({ article, error }: GuidePageProps) {
           citations: article.citations,
           readingTime: article.readingTime,
         }}
-        pageUrl={`https://blushandbreathe.com/guide/${article.slug}`}
+        pageUrl={`https://www.blushandbreath.com/guide/${article.slug}`}
         pageTitle={article.metaTitle}
         pageDescription={article.metaDescription}
         datePublished={article.publishedDate}
@@ -140,7 +141,7 @@ export default function GuidePage({ article, error }: GuidePageProps) {
                   </span>
                   <span className="flex items-center gap-1">
                     <span className="material-symbols-outlined text-sm">calendar_today</span>
-                    Updated {new Date(article.modifiedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    Updated {formattedDate}
                   </span>
                 </div>
               </div>
@@ -306,9 +307,18 @@ export const getStaticProps: GetStaticProps<GuidePageProps> = async ({ params })
       };
     }
 
+    // Format date at build time to prevent hydration mismatch
+    const formattedDate = new Date(article.modifiedDate).toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric',
+      timeZone: 'UTC' // Use UTC to ensure consistent output
+    });
+
     return {
       props: {
         article,
+        formattedDate,
       },
       revalidate: 3600, // Revalidate every hour
     };

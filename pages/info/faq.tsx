@@ -123,7 +123,8 @@ export default function FAQPage() {
         <meta property="og:title" content="FAQ | Blush & Breathe Help Center" />
         <meta property="og:description" content="Find answers to your questions about Blush & Breathe health and beauty platform." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/faq" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/faq" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-primary/5 to-transparent dark:from-primary/10">

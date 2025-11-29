@@ -16,7 +16,8 @@ export default function ReturnsPage() {
         <meta property="og:title" content="Returns & Refunds | Blush & Breathe" />
         <meta property="og:description" content="Important return and refund information for products found on Blush & Breathe platform." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/returns" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/returns" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-orange-50 to-transparent dark:from-orange-900/10">

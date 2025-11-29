@@ -68,7 +68,7 @@ interface SchemaMarkupProps {
 // CONSTANTS
 // ═══════════════════════════════════════════════════════════════════
 
-const SITE_URL = 'https://blushandbreathe.com';
+const SITE_URL = 'https://www.blushandbreath.com';
 const SITE_NAME = 'Blush & Breathe';
 const ORGANIZATION_LOGO = `${SITE_URL}/images/logo.png`;
 

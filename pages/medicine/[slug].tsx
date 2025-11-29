@@ -23,6 +23,7 @@ import type { MedicineInfo, DrugInteraction } from '@/types';
 interface MedicinePageProps {
   medicine: MedicineInfo | null;
   error?: string;
+  formattedLastUpdated?: string;
 }
 
 // FAQ data generator based on medicine info
@@ -297,7 +298,7 @@ function convertIndianMedicineToInfo(med: IndianMedicine): MedicineInfo {
   };
 }
 
-export default function MedicinePage({ medicine, error }: MedicinePageProps) {
+export default function MedicinePage({ medicine, error, formattedLastUpdated }: MedicinePageProps) {
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   
   // Fetch interactions client-side if RxCUI is available
@@ -348,13 +349,13 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
         <title>{medicine.metaTitle}</title>
         <meta name="description" content={medicine.metaDescription} />
         <meta name="keywords" content={medicine.keywords.join(', ')} />
-        <link rel="canonical" href={`https://blushandbreath.com/medicine/${medicine.slug}`} />
+        <link rel="canonical" href={`https://www.blushandbreath.com/medicine/${medicine.slug}`} />
         
         {/* Open Graph */}
         <meta property="og:title" content={medicine.metaTitle} />
         <meta property="og:description" content={medicine.metaDescription} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://blushandbreath.com/medicine/${medicine.slug}`} />
+        <meta property="og:url" content={`https://www.blushandbreath.com/medicine/${medicine.slug}`} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -787,7 +788,7 @@ export default function MedicinePage({ medicine, error }: MedicinePageProps) {
               <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
                 This information is sourced from the FDA&apos;s public drug database (OpenFDA) and 
                 the National Library of Medicine&apos;s RxNorm API. Data was last updated on{' '}
-                {new Date(medicine.lastUpdated).toLocaleDateString()}.
+                {formattedLastUpdated || 'recently'}.
               </p>
               {medicine.rxcui && (
                 <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-2">
@@ -1584,8 +1585,16 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
         medicine.sources.wikipedia = true;
       }
       
+      // Format date at build time to prevent hydration mismatch
+      const formattedLastUpdated = new Date(medicine.lastUpdated).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric', 
+        year: 'numeric',
+        timeZone: 'UTC'
+      });
+      
       return {
-        props: { medicine },
+        props: { medicine, formattedLastUpdated },
         revalidate: 86400, // Revalidate daily
       };
     }
@@ -1610,8 +1619,12 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
           medicine.sources.wikipedia = true;
         }
         
+        const formattedLastUpdated = new Date(medicine.lastUpdated).toLocaleDateString('en-US', {
+          month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+        });
+        
         return {
-          props: { medicine },
+          props: { medicine, formattedLastUpdated },
           revalidate: 86400, // Revalidate daily
         };
       }
@@ -1634,8 +1647,12 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
         medicine.sources.wikipedia = true;
       }
       
+      const formattedLastUpdated = new Date(medicine.lastUpdated).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+      });
+      
       return {
-        props: { medicine },
+        props: { medicine, formattedLastUpdated },
         revalidate: 86400, // Revalidate daily
       };
     }
@@ -1655,8 +1672,12 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
         medicine.sources.wikipedia = true;
       }
       
+      const formattedLastUpdated = new Date(medicine.lastUpdated).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+      });
+      
       return {
-        props: { medicine },
+        props: { medicine, formattedLastUpdated },
         revalidate: 86400, // Revalidate daily
       };
     }
@@ -1667,8 +1688,12 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
     const wikiMedicine = await fetchFromWikipediaOnly(resolvedName);
     
     if (wikiMedicine) {
+      const formattedLastUpdated = new Date(wikiMedicine.lastUpdated).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+      });
+      
       return {
-        props: { medicine: wikiMedicine },
+        props: { medicine: wikiMedicine, formattedLastUpdated },
         revalidate: 86400, // Revalidate daily
       };
     }
@@ -1679,8 +1704,12 @@ export const getStaticProps: GetStaticProps<MedicinePageProps> = async ({ params
     const pubchemMedicine = await fetchFromPubChem(resolvedName);
     
     if (pubchemMedicine) {
+      const formattedLastUpdated = new Date(pubchemMedicine.lastUpdated).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+      });
+      
       return {
-        props: { medicine: pubchemMedicine },
+        props: { medicine: pubchemMedicine, formattedLastUpdated },
         revalidate: 86400, // Revalidate daily
       };
     }

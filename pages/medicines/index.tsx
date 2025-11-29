@@ -137,12 +137,12 @@ export default function MedicinesPage({ featuredMedicines }: MedicinesPageProps)
         <title>MediVault - Medicine Encyclopedia | HealthBeauty Hub</title>
         <meta name="description" content="MediVault: Comprehensive medicine database powered by FDA data. Search any drug, check interactions, and get detailed medication information." />
         <meta name="keywords" content="medicine database, drug information, FDA drugs, medication guide, drug interactions, pharmacy reference" />
-        <link rel="canonical" href="https://blushandbreath.com/medicines" />
+        <link rel="canonical" href="https://www.blushandbreath.com/medicines" />
         
         <meta property="og:title" content="MediVault - Medicine Encyclopedia" />
         <meta property="og:description" content="Search any FDA-approved drug. Get comprehensive medication information, interactions, and safety data." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blushandbreath.com/medicines" />
+        <meta property="og:url" content="https://www.blushandbreath.com/medicines" />
       </Head>
 
       <main className="min-h-screen">

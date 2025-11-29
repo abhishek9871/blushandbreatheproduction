@@ -95,7 +95,7 @@ export default function SupplementPage({ supplement, articles, error }: Suppleme
         type="DietarySupplement"
         supplement={supplement}
         citations={articles?.pubmed}
-        pageUrl={`https://blushandbreathe.com/supplement/${supplement.slug}`}
+        pageUrl={`https://www.blushandbreath.com/supplement/${supplement.slug}`}
         pageTitle={supplement.metaTitle}
         pageDescription={supplement.metaDescription}
         datePublished={supplement.createdAt}

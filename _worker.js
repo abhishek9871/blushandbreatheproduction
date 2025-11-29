@@ -2195,8 +2195,11 @@ export default {
           ebayParams.append('filter', filters.join(','));
         }
 
-        // Call eBay Browse API
-        const ebayUrl = `https://api.ebay.com/buy/browse/v1/item_summary/search?${ebayParams.toString()}`;
+        // Call eBay Browse API (use sandbox or production based on env)
+        const ebayBaseUrl = env.EBAY_ENV === 'SANDBOX' 
+          ? 'https://api.sandbox.ebay.com' 
+          : 'https://api.ebay.com';
+        const ebayUrl = `${ebayBaseUrl}/buy/browse/v1/item_summary/search?${ebayParams.toString()}`;
         const headers = {
           'Authorization': `Bearer ${token}`,
           'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
@@ -2339,10 +2342,13 @@ export default {
           throw new Error('Failed to obtain eBay access token');
         }
 
-        // Call eBay Browse API for item details
+        // Call eBay Browse API for item details (use sandbox or production based on env)
         // The itemId is already in the correct format (e.g., v1|123456789|0)
         // Valid fieldgroups for getItem: COMPACT, PRODUCT, ADDITIONAL_SELLER_DETAILS, CHARITY_DETAILS
-        const ebayUrl = `https://api.ebay.com/buy/browse/v1/item/${itemId}?fieldgroups=PRODUCT`;
+        const ebayBaseUrl = env.EBAY_ENV === 'SANDBOX' 
+          ? 'https://api.sandbox.ebay.com' 
+          : 'https://api.ebay.com';
+        const ebayUrl = `${ebayBaseUrl}/buy/browse/v1/item/${itemId}?fieldgroups=PRODUCT`;
         console.log('Fetching from eBay:', ebayUrl);
         
         const ebayResponse = await fetch(ebayUrl, {
@@ -2589,8 +2595,11 @@ export default {
           ebayParams.append('filter', filters.join(','));
         }
 
-        // Call eBay Browse API
-        const ebayUrl = `https://api.ebay.com/buy/browse/v1/item_summary/search?${ebayParams.toString()}`;
+        // Call eBay Browse API (use sandbox or production based on env)
+        const ebayBaseUrl = env.EBAY_ENV === 'SANDBOX' 
+          ? 'https://api.sandbox.ebay.com' 
+          : 'https://api.ebay.com';
+        const ebayUrl = `${ebayBaseUrl}/buy/browse/v1/item_summary/search?${ebayParams.toString()}`;
         const headers = {
           'Authorization': `Bearer ${token}`,
           'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'

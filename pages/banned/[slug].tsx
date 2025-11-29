@@ -105,7 +105,7 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
         type="MedicalWebPage"
         bannedSubstance={substance}
         citations={articles?.pubmed}
-        pageUrl={`https://blushandbreathe.com/banned/${substance.slug}`}
+        pageUrl={`https://www.blushandbreath.com/banned/${substance.slug}`}
         pageTitle={substance.metaTitle}
         pageDescription={substance.metaDescription}
         datePublished={substance.createdAt}

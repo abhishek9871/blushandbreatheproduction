@@ -237,7 +237,7 @@ export default function ArticlePage({ article: serverArticle, relatedArticles, a
   }
   
   const categoryClass = categoryColorMap[article.category] || 'text-primary';
-  const articleUrl = typeof window !== 'undefined' ? window.location.href : `https://blushandbreathe.com${router.asPath}`;
+  const articleUrl = typeof window !== 'undefined' ? window.location.href : `https://www.blushandbreath.com${router.asPath}`;
   
   // Use fetched content if available, otherwise fall back to API content
   const displayContent = fullHtml || contentToHtml(article.content);

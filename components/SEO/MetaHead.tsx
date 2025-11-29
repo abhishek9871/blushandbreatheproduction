@@ -36,7 +36,7 @@ interface MetaHeadProps {
 // CONSTANTS
 // ═══════════════════════════════════════════════════════════════════
 
-const SITE_URL = 'https://blushandbreathe.com';
+const SITE_URL = 'https://www.blushandbreath.com';
 const SITE_NAME = 'Blush & Breathe';
 const CURRENT_YEAR = new Date().getFullYear();
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-default.jpg`;

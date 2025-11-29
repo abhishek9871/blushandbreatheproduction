@@ -352,7 +352,7 @@ export default function ComparisonPage({ banned, alternative, products, slug }: 
       {/* Schema.org Structured Data - Comparison WebPage */}
       <SchemaMarkup
         type="WebPage"
-        pageUrl={`https://blushandbreathe.com/compare/${slug}`}
+        pageUrl={`https://www.blushandbreath.com/compare/${slug}`}
         pageTitle={pageTitle}
         pageDescription={pageDescription}
         datePublished={banned.createdAt}

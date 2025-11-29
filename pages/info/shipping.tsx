@@ -16,7 +16,8 @@ export default function ShippingPage() {
         <meta property="og:title" content="Shipping Information | Blush & Breathe" />
         <meta property="og:description" content="Important shipping information for products found on Blush & Breathe platform." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/shipping" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/shipping" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-transparent dark:from-blue-900/10">

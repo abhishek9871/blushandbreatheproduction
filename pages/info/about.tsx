@@ -16,7 +16,8 @@ export default function AboutPage() {
         <meta property="og:title" content="Our Story | Blush & Breathe" />
         <meta property="og:description" content="Discover the story behind Blush & Breathe - your trusted health and beauty content hub." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/about" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/about" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-primary/5 to-transparent dark:from-primary/10">

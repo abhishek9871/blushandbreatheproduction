@@ -47,17 +47,17 @@ But **NO Article schema** for the main page content (pillar sections like "What 
 | Property | Value | Status |
 |----------|-------|--------|
 | `@type` | Article | ✅ Correct |
-| `@id` | https://blushandbreathe.com/banned/dmaa#article | ✅ Unique ID |
+| `@id` | https://blushandbreath.com/banned/dmaa#article | ✅ Unique ID |
 | `headline` | "DMAA (1,3-Dimethylamylamine): Complete Guide to the Banned Stimulant [2025]" | ✅ SEO optimized |
 | `name` | Same as headline | ✅ Consistent |
 | `description` | "Comprehensive guide to DMAA: why it was banned after 5 deaths..." | ✅ 160 chars |
-| `image` | https://blushandbreathe.com/images/substances/dmaa.jpg | ✅ Present |
-| `url` | https://blushandbreathe.com/banned/dmaa | ✅ Canonical |
+| `image` | https://blushandbreath.com/images/substances/dmaa.jpg | ✅ Present |
+| `url` | https://blushandbreath.com/banned/dmaa | ✅ Canonical |
 | `datePublished` | 2025-01-01T00:00:00Z | ✅ ISO 8601 format |
 | `dateModified` | 2025-11-28T00:00:00Z | ✅ ISO 8601 format |
 | `author.@type` | Organization | ✅ |
 | `author.name` | Blush & Breathe | ✅ |
-| `author.url` | https://blushandbreathe.com | ✅ |
+| `author.url` | https://blushandbreath.com | ✅ |
 | `author.logo` | ImageObject with URL | ✅ |
 | `publisher` | Same as author | ✅ |
 | `articleSection` | "Health" | ✅ |
@@ -116,10 +116,10 @@ But **NO Article schema** for the main page content (pillar sections like "What 
 
 | Position | Name | URL |
 |----------|------|-----|
-| 1 | Home | https://blushandbreathe.com |
-| 2 | Health | https://blushandbreathe.com/health |
-| 3 | Banned Substances | https://blushandbreathe.com/banned |
-| 4 | DMAA | https://blushandbreathe.com/banned/dmaa |
+| 1 | Home | https://blushandbreath.com |
+| 2 | Health | https://blushandbreath.com/health |
+| 3 | Banned Substances | https://blushandbreath.com/banned |
+| 4 | DMAA | https://blushandbreath.com/banned/dmaa |
 
 ---
 
@@ -214,14 +214,14 @@ But **NO Article schema** for the main page content (pillar sections like "What 
 ### Fix 5: robots.txt Production Domain
 **File:** `public/robots.txt`
 **Changes:**
-- Updated Host to `https://blushandbreathe.com`
-- Updated Sitemap to `https://blushandbreathe.com/sitemap.xml`
+- Updated Host to `https://blushandbreath.com`
+- Updated Sitemap to `https://blushandbreath.com/sitemap.xml`
 - Added `Disallow: /_next/` to prevent crawling build files
 
 ### Fix 6: Sitemap Configuration
 **File:** `next-sitemap.config.js`
 **Changes:**
-- Updated default siteUrl to `https://blushandbreathe.com`
+- Updated default siteUrl to `https://blushandbreath.com`
 - Added `/_next/` to disallow list
 
 ---
@@ -230,10 +230,10 @@ But **NO Article schema** for the main page content (pillar sections like "What 
 
 | Component | Status | Notes |
 |-----------|--------|-------|
-| **robots.txt** | ✅ Ready | Points to blushandbreathe.com |
-| **sitemap.xml** | ✅ Ready | 145 URLs, all using blushandbreathe.com |
-| **Canonical URLs** | ✅ Ready | All point to blushandbreathe.com |
-| **Schema URLs** | ✅ Ready | All point to blushandbreathe.com |
+| **robots.txt** | ✅ Ready | Points to blushandbreath.com |
+| **sitemap.xml** | ✅ Ready | 145 URLs, all using blushandbreath.com |
+| **Canonical URLs** | ✅ Ready | All point to blushandbreath.com |
+| **Schema URLs** | ✅ Ready | All point to blushandbreath.com |
 | **Meta robots** | ✅ Ready | Pillar: index,nofollow / Guide & Supplement: index,follow |
 | **Article schema** | ✅ Ready | All page types have Article with image |
 | **FAQ schema** | ✅ Ready | All pillar pages have 6 FAQs |
@@ -243,12 +243,12 @@ But **NO Article schema** for the main page content (pillar sections like "What 
 
 ---
 
-## 📋 WHEN YOU CONFIGURE blushandbreathe.com
+## 📋 WHEN YOU CONFIGURE blushandbreath.com
 
-1. **Add domain in Vercel:** Dashboard → Project → Settings → Domains → Add `blushandbreathe.com`
+1. **Add domain in Vercel:** Dashboard → Project → Settings → Domains → Add `blushandbreath.com`
 2. **Update DNS:** Point your domain's A/CNAME records to Vercel
-3. **Submit to Search Console:** Add property `https://blushandbreathe.com`
-4. **Submit sitemap:** Add `https://blushandbreathe.com/sitemap.xml`
+3. **Submit to Search Console:** Add property `https://blushandbreath.com`
+4. **Submit sitemap:** Add `https://blushandbreath.com/sitemap.xml`
 5. **Request indexing:** Use URL Inspection tool for priority pages
 
 ---

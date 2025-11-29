@@ -34,6 +34,20 @@ export default function Home({ featuredArticles }: InferGetStaticPropsType<typeo
       <Head>
         <title>Blush & Breathe | Health, Beauty & Wellness</title>
         <meta name="description" content="Your ultimate guide to health, beauty, and wellness. Discover skincare tips, nutrition guides, and wellness advice." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.blushandbreath.com/" />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.blushandbreath.com/" />
+        <meta property="og:title" content="Blush & Breathe | Health, Beauty & Wellness" />
+        <meta property="og:description" content="Your ultimate guide to health, beauty, and wellness. Discover skincare tips, nutrition guides, and wellness advice." />
+        <meta property="og:site_name" content="Blush & Breathe" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blush & Breathe | Health, Beauty & Wellness" />
+        <meta name="twitter:description" content="Your ultimate guide to health, beauty, and wellness." />
       </Head>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">

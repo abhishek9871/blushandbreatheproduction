@@ -40,7 +40,8 @@ export default function PressPage() {
         <meta property="og:title" content="Press & Media | Blush & Breathe" />
         <meta property="og:description" content="Latest news and media coverage about Blush & Breathe health and beauty platform." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/press" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/press" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-accent/5 to-transparent dark:from-accent/10">

@@ -37,7 +37,8 @@ export default function CareersPage() {
         <meta property="og:title" content="Careers at Blush & Breathe" />
         <meta property="og:description" content="Join our mission to make health and beauty information accessible to everyone." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/careers" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/careers" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-secondary/5 to-transparent dark:from-secondary/10">

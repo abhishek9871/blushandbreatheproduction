@@ -210,7 +210,7 @@ async function importViaApi(
   supplements: LegalSupplement[],
   products: AffiliateProduct[]
 ): Promise<ImportResult> {
-  const apiUrl = process.env.WORKER_API_URL || 'https://api.blushandbreathe.com';
+  const apiUrl = process.env.WORKER_API_URL || 'https://api.blushandbreath.com';
   const adminToken = process.env.ADMIN_TOKEN;
 
   if (!adminToken) {

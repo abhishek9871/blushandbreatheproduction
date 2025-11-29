@@ -54,7 +54,8 @@ export default function ContactPage() {
         <meta property="og:title" content="Contact Us | Blush & Breathe" />
         <meta property="og:description" content="Get in touch with the Blush & Breathe team. We're here to help!" />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/contact" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/contact" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-primary/5 to-transparent dark:from-primary/10">

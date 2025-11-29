@@ -1,7 +1,7 @@
 # 🔍 Comprehensive Pre-Launch SEO Audit Report
 
 **Date:** November 29, 2025
-**Target Domain:** blushandbreathe.com
+**Target Domain:** blushandbreath.com
 **Current Staging:** blushandbreathproduction.vercel.app
 
 ---
@@ -83,10 +83,10 @@ After rigorous testing, **all critical issues have been fixed**. The site is now
 **Issue:** robots.txt and sitemap were using staging URL instead of production domain.
 
 **Fixed:**
-- `robots.txt`: Host and Sitemap now point to `blushandbreathe.com`
-- `next-sitemap.config.js`: Default siteUrl is `blushandbreathe.com`
-- All canonical URLs point to `blushandbreathe.com`
-- All schema URLs point to `blushandbreathe.com`
+- `robots.txt`: Host and Sitemap now point to `blushandbreath.com`
+- `next-sitemap.config.js`: Default siteUrl is `blushandbreath.com`
+- All canonical URLs point to `blushandbreath.com`
+- All schema URLs point to `blushandbreath.com`
 
 ---
 
@@ -121,15 +121,15 @@ Allow: /medicine/
 Allow: /compare/
 Allow: /guide/
 
-Host: https://blushandbreathe.com
-Sitemap: https://blushandbreathe.com/sitemap.xml
+Host: https://blushandbreath.com
+Sitemap: https://blushandbreath.com/sitemap.xml
 ```
 
 ### sitemap.xml ✅
 - Index: `/sitemap.xml`
 - Main: `/sitemap-0.xml`
 - Total URLs: 145
-- All using `blushandbreathe.com` domain
+- All using `blushandbreath.com` domain
 
 ### Meta Tags by Page Type ✅
 
@@ -158,28 +158,28 @@ These are in PubMed/ScholarlyArticle citations and are expected:
 
 ### Before Domain Configuration:
 - [x] All meta robots tags set to `index, follow`
-- [x] All canonical URLs point to `blushandbreathe.com`
-- [x] All schema URLs point to `blushandbreathe.com`
-- [x] Sitemap uses `blushandbreathe.com`
-- [x] robots.txt uses `blushandbreathe.com`
+- [x] All canonical URLs point to `blushandbreath.com`
+- [x] All schema URLs point to `blushandbreath.com`
+- [x] Sitemap uses `blushandbreath.com`
+- [x] robots.txt uses `blushandbreath.com`
 - [x] No invalid structured data
 - [x] All rich result types valid (Article, FAQ, Breadcrumb)
 - [x] Internal links pass PageRank
 
 ### Domain Configuration Steps:
-1. **Vercel:** Add domain `blushandbreathe.com` in Project Settings → Domains
+1. **Vercel:** Add domain `blushandbreath.com` in Project Settings → Domains
 2. **DNS:** Add A/CNAME records pointing to Vercel
 3. **SSL:** Vercel auto-provisions Let's Encrypt certificate
 4. **Wait:** 24-48 hours for DNS propagation
 
 ### After Domain Configuration:
 1. **Google Search Console:**
-   - Add property: `https://blushandbreathe.com`
-   - Submit sitemap: `https://blushandbreathe.com/sitemap.xml`
+   - Add property: `https://blushandbreath.com`
+   - Submit sitemap: `https://blushandbreath.com/sitemap.xml`
    - Request indexing for priority pages
 
 2. **Bing Webmaster Tools:**
-   - Add site: `https://blushandbreathe.com`
+   - Add site: `https://blushandbreath.com`
    - Submit sitemap
    - Import from Search Console
 

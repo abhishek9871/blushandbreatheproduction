@@ -16,7 +16,8 @@ export default function TermsPage() {
         <meta property="og:title" content="Terms of Service | Blush & Breathe" />
         <meta property="og:description" content="Terms of Service for Blush & Breathe health and beauty content platform." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://blushandbreathproduction.vercel.app/info/terms" />
+        <link rel="canonical" href="https://www.blushandbreath.com/info/terms" />
+        <meta name="robots" content="index, follow" />
       </Head>
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

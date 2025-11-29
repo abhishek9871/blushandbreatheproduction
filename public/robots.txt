@@ -3,18 +3,27 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
-Disallow: /_next/
+Disallow: /bookmarks
+Disallow: /medicines/search
+Disallow: /medicines/interactions
+Disallow: /article/
+Disallow: /product/
+
+# *
+User-agent: *
+Allow: /_next/static/
 
 # *
 User-agent: *
 Allow: /banned/
 Allow: /supplement/
-Allow: /medicine/
 Allow: /compare/
 Allow: /guide/
+Allow: /info/
+Allow: /medicines
 
 # Host
-Host: https://blushandbreathe.com
+Host: https://www.blushandbreath.com
 
 # Sitemaps
-Sitemap: https://blushandbreathe.com/sitemap.xml
+Sitemap: https://www.blushandbreath.com/sitemap.xml

@@ -12,11 +12,37 @@ import type { BannedSubstance, LegalSupplement, MedicineInfo, AffiliateProduct, 
 // TYPES
 // ═══════════════════════════════════════════════════════════════════
 
-type SchemaType = 'Drug' | 'DietarySupplement' | 'MedicalWebPage' | 'Product' | 'FAQPage' | 'WebPage';
+type SchemaType = 'Drug' | 'DietarySupplement' | 'MedicalWebPage' | 'Product' | 'FAQPage' | 'WebPage' | 'Article';
 
 interface FAQItem {
   question: string;
   answer: string;
+}
+
+interface ArticleCitation {
+  title: string;
+  url: string;
+  source: string;
+  year?: string;
+}
+
+interface ArticleSection {
+  id: string;
+  title: string;
+  content: string;
+}
+
+interface ContentHubArticleData {
+  title: string;
+  slug: string;
+  category: string;
+  introduction: string;
+  sections: ArticleSection[];
+  conclusion?: string;
+  keywords: string[];
+  faqs?: FAQItem[];
+  citations?: ArticleCitation[];
+  readingTime?: number;
 }
 
 interface SchemaMarkupProps {
@@ -27,6 +53,7 @@ interface SchemaMarkupProps {
   medicine?: MedicineInfo;
   product?: AffiliateProduct;
   faqItems?: FAQItem[];
+  article?: ContentHubArticleData;
   // Citation support for research articles
   citations?: PubMedArticle[];
   // Page metadata
@@ -305,6 +332,55 @@ function generateFAQSchema(faqItems: FAQItem[]) {
 }
 
 /**
+ * Generate Article schema for content hub articles (cluster pages)
+ * This provides comprehensive Article markup for Google Rich Results
+ */
+function generateArticleSchema(
+  article: ContentHubArticleData,
+  pageUrl: string,
+  datePublished: string,
+  dateModified: string
+) {
+  // Calculate word count from sections
+  const wordCount = article.sections.reduce((total, section) => {
+    const plainText = section.content.replace(/<[^>]*>/g, '');
+    return total + plainText.split(/\s+/).length;
+  }, 0);
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': pageUrl,
+    headline: article.title,
+    name: article.title,
+    description: article.introduction.replace(/<[^>]*>/g, '').slice(0, 160),
+    url: pageUrl,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': pageUrl,
+    },
+    datePublished,
+    dateModified,
+    author: generateOrganizationSchema(),
+    publisher: generateOrganizationSchema(),
+    articleSection: article.category,
+    keywords: article.keywords.join(', '),
+    wordCount,
+    ...(article.readingTime && { timeRequired: `PT${article.readingTime}M` }),
+    // Add citations if available
+    ...(article.citations && article.citations.length > 0 && {
+      citation: article.citations.map(c => ({
+        '@type': 'CreativeWork',
+        name: c.title,
+        url: c.url,
+        publisher: { '@type': 'Organization', name: c.source },
+        ...(c.year && { datePublished: c.year }),
+      })),
+    }),
+  };
+}
+
+/**
  * Generate BreadcrumbList schema
  */
 function generateBreadcrumbSchema(
@@ -419,6 +495,7 @@ export function SchemaMarkup(props: SchemaMarkupProps) {
     medicine,
     product,
     faqItems,
+    article,
     citations,
     pageUrl,
     pageTitle,
@@ -526,6 +603,31 @@ export function SchemaMarkup(props: SchemaMarkupProps) {
       }
       break;
 
+    case 'Article':
+      if (article) {
+        // Generate Article schema
+        schemas.push(generateArticleSchema(
+          article,
+          pageUrl,
+          datePublished,
+          dateModified
+        ));
+        
+        // Add FAQ schema if FAQs exist
+        if (article.faqs && article.faqs.length > 0) {
+          schemas.push(generateFAQSchema(article.faqs));
+        }
+        
+        // Add breadcrumb schema
+        schemas.push(generateBreadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: 'Health', url: `${SITE_URL}/health` },
+          { name: 'Guides', url: `${SITE_URL}/health` },
+          { name: article.title, url: pageUrl },
+        ]));
+      }
+      break;
+
     case 'FAQPage':
       if (faqItems && faqItems.length > 0) {
         schemas.push(generateFAQSchema(faqItems));
@@ -578,4 +680,5 @@ export {
   generateFAQSchema,
   generateBreadcrumbSchema,
   generateCitationSchema,
+  generateArticleSchema,
 };

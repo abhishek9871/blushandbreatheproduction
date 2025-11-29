@@ -83,8 +83,19 @@ export default function GuidePage({ article, error }: GuidePageProps) {
       
       {/* Schema.org Structured Data */}
       <SchemaMarkup
-        type="FAQPage"
-        faqItems={article.faqs}
+        type="Article"
+        article={{
+          title: article.title,
+          slug: article.slug,
+          category: article.category,
+          introduction: article.introduction,
+          sections: article.sections,
+          conclusion: article.conclusion,
+          keywords: article.keywords,
+          faqs: article.faqs,
+          citations: article.citations,
+          readingTime: article.readingTime,
+        }}
         pageUrl={`https://blushandbreathe.com/guide/${article.slug}`}
         pageTitle={article.metaTitle}
         pageDescription={article.metaDescription}

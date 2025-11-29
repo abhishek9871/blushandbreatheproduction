@@ -12,7 +12,7 @@ export default function AboutPage() {
       <Head>
         <title>Our Story | Blush & Breathe - Health & Beauty Hub</title>
         <meta name="description" content="Discover the story behind Blush & Breathe. We curate the best health, beauty, and wellness content from trusted sources to help you live your best life." />
-        <meta name="keywords" content="about us, health beauty hub, wellness platform, content curation, blush and breathe story" />
+        <meta name="keywords" content="about us, blush and breathe, wellness platform, content curation, health and wellness" />
         <meta property="og:title" content="Our Story | Blush & Breathe" />
         <meta property="og:description" content="Discover the story behind Blush & Breathe - your trusted health and beauty content hub." />
         <meta property="og:type" content="website" />

@@ -55,12 +55,19 @@ export default function Home({ featuredArticles }: InferGetStaticPropsType<typeo
         <section className="w-full">
           <div className="flex min-h-[500px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center text-center px-6 py-10" style={{ backgroundImage: "linear-gradient(to top, rgba(15, 118, 110, 0.8) 0%, rgba(45, 212, 191, 0.6) 100%)" }}>
             <div className="flex flex-col gap-4 max-w-3xl">
-              <h1 className="text-white text-4xl font-black leading-tight tracking-tight md:text-6xl">The Ultimate Guide to Mindful Skincare</h1>
-              <p className="text-white/90 text-base font-normal leading-relaxed md:text-lg">Discover the secrets to a radiant complexion and a calm mind with our comprehensive guide to skincare rituals.</p>
+              <h1 className="text-white text-4xl font-black leading-tight tracking-tight md:text-6xl">Your Trusted Guide to Health & Wellness</h1>
+              <p className="text-white/90 text-base font-normal leading-relaxed md:text-lg">Explore medicine information, nutrition plans, supplement guides, and wellness tips — all backed by research and curated for you.</p>
             </div>
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 mt-4 bg-white text-primary text-base font-bold leading-normal tracking-wide shadow-lg hover:bg-gray-200 transition-all transform hover:scale-105">
-              <span className="truncate">Read Full Article</span>
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+              <Link href="/medicines" className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-white text-primary text-base font-bold leading-normal tracking-wide shadow-lg hover:bg-gray-100 transition-all transform hover:scale-105">
+                <span className="material-symbols-outlined mr-2 text-lg">medication</span>
+                <span>Explore Medicines</span>
+              </Link>
+              <Link href="/nutrition" className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-white/20 text-white border-2 border-white text-base font-bold leading-normal tracking-wide hover:bg-white/30 transition-all transform hover:scale-105">
+                <span className="material-symbols-outlined mr-2 text-lg">restaurant</span>
+                <span>AI Diet Plans</span>
+              </Link>
+            </div>
           </div>
         </section>
 

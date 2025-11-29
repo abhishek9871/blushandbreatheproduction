@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600 dark:text-gray-400">
-          <p>© 2026 HealthBeauty Hub. All rights reserved.</p>
+          <p>© 2025 Blush & Breathe. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
             <Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/terms">Terms of Service</Link>
             <Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/privacy">Privacy Policy</Link>

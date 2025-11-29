@@ -963,7 +963,7 @@ async function fetchFromMyChem(drugName: string): Promise<MedicineInfo | null> {
     
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'MediVault/1.0 (HealthBeauty Hub Medicine Encyclopedia)'
+        'User-Agent': 'MediVault/1.0 (Blush & Breathe Medicine Encyclopedia)'
       }
     });
     
@@ -1120,7 +1120,7 @@ async function fetchWikipediaData(drugName: string): Promise<{
     
     const extractResponse = await fetch(extractUrl, {
       headers: {
-        'User-Agent': 'MediVault/1.0 (HealthBeauty Hub Medicine Encyclopedia)'
+        'User-Agent': 'MediVault/1.0 (Blush & Breathe Medicine Encyclopedia)'
       }
     });
     
@@ -1143,7 +1143,7 @@ async function fetchWikipediaData(drugName: string): Promise<{
     
     const wikitextResponse = await fetch(wikitextUrl, {
       headers: {
-        'User-Agent': 'MediVault/1.0 (HealthBeauty Hub Medicine Encyclopedia)'
+        'User-Agent': 'MediVault/1.0 (Blush & Breathe Medicine Encyclopedia)'
       }
     });
     
@@ -1433,7 +1433,7 @@ async function fetchFromMyUpcharDirect(drugName: string): Promise<MedicineInfo |
     
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'MediVault/1.0 (HealthBeauty Hub Medicine Encyclopedia)',
+        'User-Agent': 'MediVault/1.0 (Blush & Breathe Medicine Encyclopedia)',
         'Accept': 'application/json',
       }
     });

@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3">
             <span className="material-symbols-outlined text-primary text-3xl">spa</span>
-            <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">HealthBeauty Hub</span>
+            <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">Blush & Breathe</span>
           </Link>
           <nav className="hidden md:flex flex-1 justify-center items-center gap-1 lg:gap-6">
             {NAV_LINKS.map(link => (

@@ -1512,7 +1512,7 @@ export default {
                 'Authorization': `Bearer ${resendApiKey}`
               },
               body: JSON.stringify({
-                from: 'HealthBeauty Hub <onboarding@resend.dev>',
+                from: 'Blush & Breathe <onboarding@resend.dev>',
                 to: [notificationEmail],
                 subject: 'New Newsletter Subscription',
                 html: `
@@ -1521,7 +1521,7 @@ export default {
                     <p><strong>Email:</strong> ${email}</p>
                     <p><strong>Subscribed at:</strong> ${new Date(timestamp).toLocaleString()}</p>
                     <hr style="margin: 20px 0; border: none; border-top: 1px solid #e5e7eb;">
-                    <p style="color: #6b7280; font-size: 14px;">This notification was sent from your HealthBeauty Hub website.</p>
+                    <p style="color: #6b7280; font-size: 14px;">This notification was sent from Blush & Breathe.</p>
                   </div>
                 `
               })
@@ -1601,7 +1601,7 @@ export default {
                 'Authorization': `Bearer ${resendApiKey}`
               },
               body: JSON.stringify({
-                from: 'HealthBeauty Hub <onboarding@resend.dev>',
+                from: 'Blush & Breathe <onboarding@resend.dev>',
                 to: [notificationEmail],
                 reply_to: email,
                 subject: `New Contact Form: ${subject}`,
@@ -1619,7 +1619,7 @@ export default {
                       <p style="white-space: pre-wrap; background: #f9fafb; padding: 15px; border-radius: 8px; margin-top: 10px;">${message}</p>
                     </div>
                     <hr style="margin: 20px 0; border: none; border-top: 1px solid #e5e7eb;">
-                    <p style="color: #6b7280; font-size: 14px;">This message was sent from your HealthBeauty Hub contact form.</p>
+                    <p style="color: #6b7280; font-size: 14px;">This message was sent from Blush & Breathe contact form.</p>
                     <p style="color: #6b7280; font-size: 14px;">Reply to: <a href="mailto:${email}">${email}</a></p>
                   </div>
                 `

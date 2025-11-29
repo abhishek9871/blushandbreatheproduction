@@ -67,7 +67,7 @@ export default function EmergencyInfoPage() {
   return (
     <>
       <Head>
-        <title>Emergency Medical Information | HealthBeauty Hub</title>
+        <title>Emergency Medical Information | Blush & Breathe</title>
         <meta name="description" content="Critical emergency medical contacts, overdose signs, and what to do in a medical emergency. Poison Control: 1-800-222-1222" />
         <meta name="robots" content="index, follow" />
       </Head>

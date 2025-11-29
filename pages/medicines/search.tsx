@@ -304,7 +304,7 @@ export default function MedicineSearchPage() {
   return (
     <>
       <Head>
-        <title>Search Medicines - MediVault | HealthBeauty Hub</title>
+        <title>Search Medicines - MediVault | Blush & Breathe</title>
         <meta name="description" content="Search any FDA-approved medicine. Get comprehensive drug information, dosage, side effects, and interactions." />
         <meta name="robots" content="index, follow" />
       </Head>

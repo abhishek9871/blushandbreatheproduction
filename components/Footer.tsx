@@ -55,29 +55,30 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">Shop</h3>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">Explore</h3>
             <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-              <li><Link className="hover:text-secondary dark:hover:text-secondary transition-colors" href="/beauty">Beauty</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/health">Health</Link></li>
-              <li><Link className="hover:text-accent dark:hover:text-accent transition-colors" href="/nutrition">Nutrition</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/videos">Videos</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/health">Health Articles</Link></li>
+              <li><Link className="hover:text-secondary dark:hover:text-secondary transition-colors" href="/beauty">Beauty Tips</Link></li>
+              <li><Link className="hover:text-accent dark:hover:text-accent transition-colors" href="/nutrition">AI Diet Plans</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/videos">Wellness Videos</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">MediVault</h3>
+            <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines">Medicine Database</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines/search">Search Medicines</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines/interactions">Drug Interactions</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/emergency">Emergency Info</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">About Us</h3>
             <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
               <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/about">Our Story</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/careers">Careers</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/press">Press</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">Support</h3>
-            <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
               <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/contact">Contact Us</Link></li>
               <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/faq">FAQ</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/shipping">Shipping</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/returns">Returns</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/careers">Careers</Link></li>
             </ul>
           </div>
           <div>

@@ -15,8 +15,8 @@ const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
   const pathname = usePathname();
 
   const baseLinkClasses = "text-sm font-medium transition-colors px-3 py-2 rounded-md";
-  const inactiveLinkClasses = "hover:text-primary";
-  const activeLinkClasses = "text-primary font-bold";
+  const inactiveLinkClasses = "text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary";
+  const activeLinkClasses = "text-primary dark:text-primary font-bold";
 
   const isActive = (path: string) => {
     if (path === '/') return pathname === '/';
@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
               <Link
                 key={link.name}
                 href={link.path}
-                className={`${baseLinkClasses} text-gray-700 dark:text-gray-300 ${isActive(link.path) ? activeLinkClasses : inactiveLinkClasses}`}
+                className={`${baseLinkClasses} ${isActive(link.path) ? activeLinkClasses : inactiveLinkClasses}`}
               >
                 {link.name}
               </Link>

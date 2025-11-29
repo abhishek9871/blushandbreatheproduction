@@ -816,6 +816,473 @@
       "publishedDate": "2025-11-29T00:00:00Z",
       "modifiedDate": "2025-11-29T00:00:00Z",
       "readingTime": 7
+    },
+    {
+      "id": "article-sarms-side-effects",
+      "slug": "sarms-side-effects",
+      "title": "SARMs Side Effects: Medical Evidence & Health Risks in 2025",
+      "metaTitle": "SARMs Side Effects: Liver Damage, Suppression & Risks [2025]",
+      "metaDescription": "Complete guide to SARMs side effects: documented liver injury (DILI), testosterone suppression, HDL reduction, vision problems. Clinical case studies.",
+      "keywords": ["sarms side effects", "sarms liver damage", "sarms testosterone suppression", "sarms health risks", "rad-140 side effects", "ostarine side effects"],
+      "category": "guide",
+      "introduction": "<p><strong>SARMs carry documented health risks</strong> including drug-induced liver injury (DILI), testosterone suppression, and cardiovascular effects. This guide reviews the clinical evidence from 9+ peer-reviewed case studies.</p>",
+      "sections": [
+        {
+          "id": "liver-injury",
+          "title": "Drug-Induced Liver Injury (DILI)",
+          "content": "<p><strong>The most serious documented side effect.</strong> 9+ peer-reviewed cases show cholestatic hepatitis:</p><h3>Key Case: RAD-140 (Perananthan 2024)</h3><ul><li>Peak bilirubin: 708 µmol/L (35x normal)</li><li>Pattern: Cholestatic hepatitis with bile plugs</li><li>Recovery: Full normalization within 5 months</li></ul><h3>Mechanism</h3><ul><li>Bile Salt Export Pump (BSEP) dysregulation</li><li>Idiosyncratic immune-mediated response</li><li>Individual genetic susceptibility (ABCB11 mutations)</li></ul><p><strong>Critical finding:</strong> ALL documented cases recovered with drug cessation. No deaths or transplants required.</p>"
+        },
+        {
+          "id": "testosterone-suppression",
+          "title": "Testosterone Suppression",
+          "content": "<p>All SARMs suppress the HPG axis dose-dependently:</p><h3>LGD-4033 Clinical Trial Data (Basaria 2013)</h3><table><thead><tr><th>Dose</th><th>Total T</th><th>Free T</th><th>LH</th><th>SHBG</th></tr></thead><tbody><tr><td>0.1 mg/day</td><td>Minimal</td><td>Minimal</td><td>Minimal</td><td>Minimal</td></tr><tr><td>0.3 mg/day</td><td>Moderate</td><td>Suppressed</td><td>Suppressed</td><td>Suppressed</td></tr><tr><td>1.0 mg/day</td><td>Significant</td><td>Significant</td><td>Significant</td><td>Dose-dependent</td></tr></tbody></table><p><strong>Recovery timeline:</strong> 4-16 weeks with proper PCT. Without PCT, recovery can take months.</p>"
+        },
+        {
+          "id": "cardiovascular",
+          "title": "Cardiovascular Risk",
+          "content": "<h3>HDL Cholesterol Suppression (Guo 2022)</h3><table><thead><tr><th>Dose</th><th>HDL Change</th><th>% Decrease</th></tr></thead><tbody><tr><td>1 mg/day</td><td>-5.2 mg/dL</td><td>-10%</td></tr><tr><td>5 mg/day</td><td>-13.4 mg/dL</td><td>-26%</td></tr><tr><td>15 mg/day</td><td>-18.3 mg/dL</td><td>-35%</td></tr></tbody></table><p><strong>Mechanism:</strong> Elevated hepatic lipase (HTGL) activity catabolizes HDL particles. APOA1 reduction up to 40 mg/dL at high doses.</p><p><strong>Important caveat:</strong> Long-term cardiovascular outcome data is ABSENT. HDL reduction may not directly translate to atherosclerosis risk.</p>"
+        },
+        {
+          "id": "vision-effects",
+          "title": "Vision Side Effects (Andarine S-4)",
+          "content": "<p><strong>Unique to Andarine (S-4):</strong></p><ul><li><strong>Xanthopsia:</strong> Yellow-tinted vision</li><li><strong>Nyctopia:</strong> Reduced night vision</li><li><strong>Impaired adaptation:</strong> Slow adjustment between light/dark</li></ul><p><strong>Prevalence:</strong> ~3% of users. Dose-dependent (threshold ~50mg/day).</p><p><strong>Reversibility:</strong> ALL cases fully reverse within 2-7 days of cessation. No permanent vision damage reported.</p>"
+        }
+      ],
+      "faqs": [
+        {"question": "Are SARMs side effects reversible?", "answer": "Most documented side effects (liver injury, testosterone suppression, vision changes) are reversible with drug cessation. Liver recovery takes 3-12 months, testosterone 4-16 weeks with PCT, vision 2-7 days. Long-term effects remain unknown."},
+        {"question": "Which SARM has the worst side effects?", "answer": "RAD-140 and Ligandrol are most frequently implicated in liver injury cases. Andarine (S-4) uniquely causes vision disturbances. Cardarine (technically not a SARM) carries cancer risk based on animal studies."}
+      ],
+      "citations": [
+        {"title": "RAD-140 Liver Injury Case", "url": "https://australianprescriber.tg.org.au/articles/severe-liver-injury-following-use-of-rad-140", "source": "Australian Prescriber", "year": "2024"},
+        {"title": "SARM-Induced DILI Series", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8180234/", "source": "PMC/NIH", "year": "2021"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "sarms-liver-hepatotoxicity", "title": "SARMs & Liver Health", "type": "article", "relationship": "related"},
+        {"slug": "sarms-pct-guide", "title": "SARMs PCT Guide", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 10
+    },
+    {
+      "id": "article-are-sarms-legal",
+      "slug": "are-sarms-legal",
+      "title": "Are SARMs Legal? 2025 Legal Status, FDA Warnings & Enforcement",
+      "metaTitle": "Are SARMs Legal? 2025 US Law, FDA Status & Penalties",
+      "metaDescription": "Complete SARMs legal guide: federal status, SARMs Control Act, FDA enforcement, criminal penalties. Blackstone Labs 54-month sentences. Updated 2025.",
+      "keywords": ["are sarms legal", "sarms legal status", "sarms fda", "sarms illegal", "sarms control act", "sarms criminal penalties"],
+      "category": "guide",
+      "introduction": "<p><strong>SARMs are NOT legal for human consumption in the United States.</strong> They are classified as unapproved drugs, not dietary supplements. Criminal prosecution has escalated dramatically since 2020.</p>",
+      "sections": [
+        {
+          "id": "federal-status",
+          "title": "Federal Legal Status",
+          "content": "<p>SARMs are <strong>NOT Schedule III controlled substances</strong>—two bills failed (S.2742 in 2018, S.2895 in 2019). However, they are prosecuted as <strong>unapproved drugs under 21 USC § 355</strong>.</p><h3>Legal Authority</h3><ul><li><strong>21 USC § 355:</strong> Unapproved New Drugs</li><li><strong>21 USC §§ 337-340:</strong> Criminal/Civil Penalties</li><li><strong>DASCA (2014):</strong> Designer Anabolic Steroid Control Act</li></ul><p>The FDA maintains that SARMs cannot be legally marketed as dietary supplements or drugs. Import Alert 54-15 allows seizure at ports.</p>"
+        },
+        {
+          "id": "criminal-enforcement",
+          "title": "Criminal Enforcement (2022-2025)",
+          "content": "<table><thead><tr><th>Case</th><th>Year</th><th>Sentence</th><th>Forfeiture</th></tr></thead><tbody><tr><td><strong>Blackstone Labs</strong> (PJ Braun)</td><td>2022</td><td>54 months prison</td><td>$3 million</td></tr><tr><td><strong>Blackstone Labs</strong> (Aaron Singerman)</td><td>2022</td><td>54 months prison</td><td>$2.9 million</td></tr><tr><td><strong>James Boccuzzi</strong></td><td>2021</td><td>Up to 15 years</td><td>—</td></tr><tr><td><strong>Tyler Hall / Rat's Army</strong></td><td>2025</td><td>Pending</td><td>TBD</td></tr></tbody></table><p><strong>Key Trend:</strong> FDA shifted from warning letters to criminal prosecution as primary enforcement strategy.</p>"
+        },
+        {
+          "id": "penalties",
+          "title": "Criminal Penalties",
+          "content": "<ul><li><strong>Distribution:</strong> Up to 5 years federal imprisonment</li><li><strong>Distribution to minors:</strong> Up to 15 years</li><li><strong>Manufacture:</strong> Up to 5 years + equipment seizure</li><li><strong>Import:</strong> Federal felony even for personal quantities</li></ul><h3>Collateral Consequences</h3><ul><li>Permanent federal felony record</li><li>Ineligible for federal student loans/employment</li><li>Security clearance revocation</li><li>Professional license impact</li></ul>"
+        },
+        {
+          "id": "military-sports",
+          "title": "Military & Sports Prohibitions",
+          "content": "<h3>Department of Defense</h3><ul><li>ALL SARMs on DoD Prohibited List (Instruction 6130.06)</li><li>UCMJ Article 112a violations: Dishonorable discharge + 5 years</li><li>Security clearance permanently revoked</li></ul><h3>WADA & NCAA</h3><ul><li>Category S1.2 Anabolic Agents—ALL SARMs prohibited</li><li>No TUE (Therapeutic Use Exemption) available</li><li>2-4 year competition ban for violations</li></ul>"
+        }
+      ],
+      "faqs": [
+        {"question": "Can I buy SARMs legally for research?", "answer": "The 'research chemical' loophole is legally risky. Courts have ruled that if products are marketed to humans (fitness communities, bodybuilding), the label disclaimer is insufficient. FDA prosecutes based on intent, not just labeling."},
+        {"question": "Is possession of SARMs illegal?", "answer": "Technically yes—possession of unapproved drugs violates federal law. However, prosecution typically targets manufacturers and distributors, not individual users. Import from China with shipping records can escalate to distribution charges."}
+      ],
+      "citations": [
+        {"title": "SARMs Control Act S.2895", "url": "https://www.congress.gov/bill/116th-congress/senate-bill/2895", "source": "Congress.gov", "year": "2019"},
+        {"title": "FDA Consumer Warning", "url": "https://www.fda.gov/consumers/consumer-updates/fda-warns-use-selective-androgen-receptor-modulators-sarms", "source": "FDA", "year": "2023"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "sarms-banned-military-sports", "title": "Military & Sports Bans", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 9
+    },
+    {
+      "id": "article-sarms-pct-guide",
+      "slug": "sarms-pct-guide",
+      "title": "SARMs Post-Cycle Therapy (PCT) Protocol: Complete Recovery Guide",
+      "metaTitle": "SARMs PCT Guide: Protocols, Drugs & Recovery Timeline [2025]",
+      "metaDescription": "Complete SARMs PCT protocol: Tamoxifen/Clomid dosing, 4 protocol tiers by cycle intensity, recovery timeline, and ancillary support compounds.",
+      "keywords": ["sarms pct", "post cycle therapy sarms", "sarms recovery", "tamoxifen sarms", "clomid pct", "sarms testosterone recovery"],
+      "category": "guide",
+      "introduction": "<p><strong>All SARMs suppress testosterone production.</strong> Post-Cycle Therapy (PCT) accelerates HPG axis recovery, prevents muscle loss, and restores hormonal balance.</p>",
+      "sections": [
+        {
+          "id": "why-pct",
+          "title": "Why PCT Is Essential",
+          "content": "<p>SARMs suppress testosterone through negative feedback on the HPG axis. <strong>Without PCT:</strong></p><ul><li>Prolonged hypogonadism (months)</li><li>Sexual dysfunction and erectile issues</li><li>Depression and mood disturbances</li><li>Muscle loss post-cycle</li><li>Potential permanent HPG dysfunction</li></ul>"
+        },
+        {
+          "id": "pct-drugs",
+          "title": "PCT Drug Mechanisms",
+          "content": "<h3>Tamoxifen (Nolvadex)</h3><ul><li>Blocks estrogen receptors in pituitary</li><li>Removes negative feedback on LH/FSH</li><li>Standard dose: 20-40mg/day</li><li>Well-tolerated in most users</li></ul><h3>Clomiphene (Clomid)</h3><ul><li>Similar mechanism (estrogen receptor antagonist)</li><li>More potent for severe suppression</li><li>Standard dose: 25-50mg/day</li><li>Side effects: Headaches, visual disturbances, mood</li></ul>"
+        },
+        {
+          "id": "protocols",
+          "title": "PCT Protocols by Cycle Intensity",
+          "content": "<h3>Protocol 1: Mild Cycles</h3><p><strong>For:</strong> Ostarine 20-30mg/day, 6-8 weeks</p><ul><li>Weeks 1-2: Tamoxifen 40mg/day</li><li>Weeks 3-4: Tamoxifen 20mg/day</li><li>Expected recovery: 4-8 weeks</li></ul><h3>Protocol 2: Moderate Cycles</h3><p><strong>For:</strong> LGD-4033 10mg/day or RAD-140 5-10mg/day, 8-12 weeks</p><ul><li>Weeks 1-2: Tamoxifen 40mg + Clomiphene 25mg</li><li>Weeks 3-4: Tamoxifen 20mg</li><li>Expected recovery: 8-12 weeks</li></ul><h3>Protocol 3: Heavy Cycles</h3><p><strong>For:</strong> RAD-140 10mg+ or LGD 15mg+, 12+ weeks</p><ul><li>Weeks 1-2: Tamoxifen 40mg + Clomiphene 50mg + HCG 3000IU EOD</li><li>Weeks 3-4: Tamoxifen 20mg + Clomiphene 25mg</li><li>Weeks 5-6: Taper based on symptoms</li><li>Expected recovery: 12-16 weeks</li></ul>"
+        },
+        {
+          "id": "ancillary",
+          "title": "Ancillary Support Compounds",
+          "content": "<h3>During PCT</h3><ul><li><strong>DHEA:</strong> 100-200mg/day</li><li><strong>Tongkat Ali:</strong> 300-400mg/day</li><li><strong>Zinc Picolinate:</strong> 50mg/day</li><li><strong>Magnesium:</strong> 400mg/day</li><li><strong>Vitamin D:</strong> 4000 IU/day</li></ul><h3>Key Principles</h3><ul><li>Start PCT 3-7 days after last SARM dose</li><li>Don't extend beyond 6 weeks (extended PCT suppresses T)</li><li>Taper—don't stop cold turkey</li><li>Maintain training and nutrition</li></ul>"
+        }
+      ],
+      "faqs": [
+        {"question": "Do I need PCT after Ostarine?", "answer": "Yes, though Ostarine causes milder suppression than LGD or RAD-140. A 4-week PCT with Tamoxifen 20mg/day is typically sufficient for standard Ostarine cycles."},
+        {"question": "How do I know if I need PCT?", "answer": "All SARM cycles >4 weeks should include PCT. Symptoms of suppression include fatigue, low libido, depression, and reduced motivation. Bloodwork (total T, free T, LH, FSH) provides objective confirmation."}
+      ],
+      "citations": [
+        {"title": "Post-Cycle Therapy for SARMs", "url": "https://swolverine.com/blogs/blog/post-cycle-therapy-for-sarms-prohormones-do-you-need-it", "source": "Clinical Review", "year": "2024"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "sarms-testosterone-suppression", "title": "SARMs & Testosterone", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 11
+    },
+    {
+      "id": "article-sarms-vs-steroids",
+      "slug": "sarms-vs-steroids",
+      "title": "SARMs vs Steroids: Differences, Risks & Which Is Worse?",
+      "metaTitle": "SARMs vs Steroids: Safety, Results & Risks Compared [2025]",
+      "metaDescription": "SARMs vs steroids comparison: muscle gains, liver toxicity, suppression, legal status. Which is more dangerous? Evidence-based analysis.",
+      "keywords": ["sarms vs steroids", "sarms compared to steroids", "are sarms safer than steroids", "sarms vs testosterone", "anabolic steroids vs sarms"],
+      "category": "guide",
+      "introduction": "<p><strong>SARMs are often marketed as safer than steroids—but is this true?</strong> Both carry significant risks. This comparison examines the evidence.</p>",
+      "sections": [
+        {
+          "id": "mechanism",
+          "title": "Mechanism Comparison",
+          "content": "<table><thead><tr><th>Factor</th><th>SARMs</th><th>Steroids</th></tr></thead><tbody><tr><td><strong>Receptor Binding</strong></td><td>Androgen receptors (selective)</td><td>Androgen receptors (systemic)</td></tr><tr><td><strong>Tissue Selectivity</strong></td><td>Designed for muscle/bone</td><td>Affects all tissues</td></tr><tr><td><strong>Conversion</strong></td><td>No aromatization to estrogen</td><td>Can convert to estrogen/DHT</td></tr><tr><td><strong>Administration</strong></td><td>Oral (most)</td><td>Injectable or oral</td></tr></tbody></table><p><strong>Reality check:</strong> SARMs' claimed selectivity is incomplete in humans. They still affect liver, cardiovascular system, and HPG axis.</p>"
+        },
+        {
+          "id": "results",
+          "title": "Results Comparison",
+          "content": "<table><thead><tr><th>Metric</th><th>SARMs (12 weeks)</th><th>Steroids (12 weeks)</th></tr></thead><tbody><tr><td><strong>Muscle Gain</strong></td><td>5-15 lbs</td><td>15-30 lbs</td></tr><tr><td><strong>Strength</strong></td><td>+20-40%</td><td>+30-50%</td></tr><tr><td><strong>Water Retention</strong></td><td>Minimal</td><td>Significant (some)</td></tr></tbody></table><p>Steroids produce 2-3x greater gains but with proportionally higher risks.</p>"
+        },
+        {
+          "id": "safety",
+          "title": "Safety Comparison",
+          "content": "<table><thead><tr><th>Risk</th><th>SARMs</th><th>Steroids</th></tr></thead><tbody><tr><td><strong>Liver Toxicity</strong></td><td>Documented (DILI)</td><td>Documented (oral steroids)</td></tr><tr><td><strong>Cardiovascular</strong></td><td>HDL -10-35%</td><td>HDL -40-70%</td></tr><tr><td><strong>Suppression</strong></td><td>Moderate-Severe</td><td>Severe-Complete</td></tr><tr><td><strong>Gynecomastia</strong></td><td>15% (RAD-140)</td><td>30-50%</td></tr><tr><td><strong>Hair Loss</strong></td><td>Low risk</td><td>High risk (DHT)</td></tr><tr><td><strong>Acne</strong></td><td>Mild</td><td>Moderate-Severe</td></tr></tbody></table><p><strong>Neither is safe.</strong> Steroids cause more severe side effects, but SARMs have documented liver injury and unknown long-term risks.</p>"
+        },
+        {
+          "id": "legal",
+          "title": "Legal Status",
+          "content": "<ul><li><strong>Steroids:</strong> Schedule III controlled substances. Felony possession/distribution.</li><li><strong>SARMs:</strong> Unapproved drugs. Federal felony for manufacture/distribution. Not Schedule III but prosecuted under FDA authority.</li></ul><p><strong>Bottom line:</strong> Both carry federal criminal risk. Neither is legally available for recreational use.</p>"
+        }
+      ],
+      "faqs": [
+        {"question": "Are SARMs safer than steroids?", "answer": "Not necessarily. SARMs cause less severe suppression and fewer androgenic side effects (acne, hair loss), but they have documented liver toxicity that steroids don't always cause. Long-term SARM safety data is absent. Neither is safe."},
+        {"question": "Do SARMs build as much muscle as steroids?", "answer": "No. SARMs produce roughly 1/2 to 1/3 the muscle gains of steroids. A typical SARM cycle yields 5-15 lbs; steroids yield 15-30 lbs. The reduced gains come with reduced (but not eliminated) risks."}
+      ],
+      "citations": [
+        {"title": "Anabolic Steroid vs SARM Comparison", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6031703/", "source": "PMC/NIH", "year": "2018"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "sarms-side-effects", "title": "SARMs Side Effects", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 9
+    },
+    {
+      "id": "article-ostarine-vs-ligandrol-vs-rad140",
+      "slug": "ostarine-vs-ligandrol-vs-rad140",
+      "title": "Ostarine vs Ligandrol vs RAD-140: SARM Comparison & Which Is Best?",
+      "metaTitle": "Ostarine vs Ligandrol vs RAD-140: Best SARM Comparison [2025]",
+      "metaDescription": "Compare Ostarine (MK-2866), Ligandrol (LGD-4033), and RAD-140. Muscle gains, suppression, side effects, dosing. Which SARM is best for your goals?",
+      "keywords": ["ostarine vs ligandrol", "rad-140 vs ostarine", "lgd-4033 vs rad-140", "best sarm for muscle", "sarm comparison"],
+      "category": "guide",
+      "introduction": "<p><strong>The three most popular SARMs compared.</strong> Ostarine is mildest, Ligandrol is the bulking choice, and RAD-140 is most potent. Here's how they stack up.</p>",
+      "sections": [
+        {
+          "id": "overview",
+          "title": "Quick Comparison Table",
+          "content": "<table><thead><tr><th>Factor</th><th>Ostarine</th><th>Ligandrol</th><th>RAD-140</th></tr></thead><tbody><tr><td><strong>Potency</strong></td><td>Mild</td><td>Moderate</td><td>High</td></tr><tr><td><strong>Muscle Gain</strong></td><td>3-6 lbs</td><td>5-10 lbs</td><td>8-15 lbs</td></tr><tr><td><strong>Best For</strong></td><td>Cutting, Recomp</td><td>Bulking</td><td>Bulking, Strength</td></tr><tr><td><strong>Suppression</strong></td><td>Mild</td><td>Moderate-High</td><td>High</td></tr><tr><td><strong>Liver Risk</strong></td><td>Low-Moderate</td><td>Moderate</td><td>Highest documented</td></tr><tr><td><strong>Typical Dose</strong></td><td>10-25mg/day</td><td>5-10mg/day</td><td>10-20mg/day</td></tr></tbody></table>"
+        },
+        {
+          "id": "ostarine",
+          "title": "Ostarine (MK-2866)",
+          "content": "<p><strong>The beginner-friendly SARM:</strong></p><ul><li><strong>Mechanism:</strong> Selective AR agonist, most studied SARM</li><li><strong>Clinical status:</strong> Phase III trials (failed to meet endpoints)</li><li><strong>Muscle gain:</strong> 3-6 lbs in 8 weeks</li><li><strong>Suppression:</strong> Mild—many users skip PCT (not recommended)</li><li><strong>Best for:</strong> Cutting cycles, body recomposition, beginners</li><li><strong>Dosing:</strong> 10-25mg/day for 8-12 weeks</li></ul>"
+        },
+        {
+          "id": "ligandrol",
+          "title": "Ligandrol (LGD-4033)",
+          "content": "<p><strong>The bulking SARM:</strong></p><ul><li><strong>Clinical evidence:</strong> Phase I trial showed 2.67 kg lean mass gain at 1mg/day</li><li><strong>Muscle gain:</strong> 5-10 lbs in 8-12 weeks</li><li><strong>Suppression:</strong> Significant—PCT essential</li><li><strong>Bone density:</strong> Clinical data shows improvement</li><li><strong>Best for:</strong> Bulking, strength gains</li><li><strong>Dosing:</strong> 5-10mg/day for 8-12 weeks</li></ul>"
+        },
+        {
+          "id": "rad140",
+          "title": "RAD-140 (Testolone)",
+          "content": "<p><strong>The most potent SARM:</strong></p><ul><li><strong>Potency:</strong> Higher anabolic:androgenic ratio than testosterone</li><li><strong>Muscle gain:</strong> 8-15 lbs in 8-12 weeks</li><li><strong>Suppression:</strong> Severe—comprehensive PCT required</li><li><strong>Liver risk:</strong> Most frequently implicated in DILI cases</li><li><strong>Gynecomastia:</strong> ~15% of users report symptoms</li><li><strong>Dosing:</strong> 10-20mg/day for 8-12 weeks</li></ul><p><strong>Warning:</strong> RAD-140 has the highest documented hepatotoxicity risk among SARMs.</p>"
+        }
+      ],
+      "faqs": [
+        {"question": "Which SARM is best for beginners?", "answer": "Ostarine is generally considered safest for beginners due to milder suppression and lower liver risk. Start at 10-15mg/day for 8 weeks with a mild PCT."},
+        {"question": "Which SARM builds the most muscle?", "answer": "RAD-140 produces the greatest muscle gains (8-15 lbs) but with the highest risk profile. Ligandrol offers a better risk/reward balance for most users seeking significant gains."}
+      ],
+      "citations": [
+        {"title": "LGD-4033 Clinical Trial", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4111291/", "source": "PMC/NIH", "year": "2013"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "sarms-side-effects", "title": "SARMs Side Effects", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 8
+    },
+    {
+      "id": "article-legal-alternatives-to-sarms",
+      "slug": "legal-alternatives-to-sarms",
+      "title": "Legal Alternatives to SARMs: Evidence-Based Supplements & Natural Options",
+      "metaTitle": "Legal SARM Alternatives: Creatine, Tongkat Ali & More [2025]",
+      "metaDescription": "Best legal alternatives to SARMs: creatine (200+ RCTs), phosphatidic acid, Tongkat Ali. 50-70% of SARM results with zero health risks.",
+      "keywords": ["legal alternatives to sarms", "sarms alternatives", "natural anabolics", "creatine vs sarms", "tongkat ali", "phosphatidic acid"],
+      "category": "guide",
+      "introduction": "<p><strong>Legal supplements can provide 50-70% of SARMs' muscle gains with zero health risks.</strong> This guide covers evidence-based alternatives ranked by research quality.</p>",
+      "sections": [
+        {
+          "id": "tier1",
+          "title": "Tier 1: Proven Effective (USE THESE)",
+          "content": "<h3>Creatine Monohydrate</h3><ul><li><strong>Evidence:</strong> 200+ RCTs, A+ rating</li><li><strong>Results:</strong> +2-4 lbs lean mass, +15-25% strength</li><li><strong>Dose:</strong> 5g/day (loading optional)</li><li><strong>Cost:</strong> $10/month</li><li><strong>Safety:</strong> Excellent (20+ years research)</li></ul><h3>Phosphatidic Acid</h3><ul><li><strong>Evidence:</strong> 5+ RCTs, B+ rating</li><li><strong>Results:</strong> +2-4 lbs lean mass via mTOR activation</li><li><strong>Dose:</strong> 250-375mg/day pre-workout</li><li><strong>Cost:</strong> $25/month</li></ul><h3>Tongkat Ali</h3><ul><li><strong>Evidence:</strong> 5+ RCTs, B rating</li><li><strong>Results:</strong> +10-30% testosterone (natural)</li><li><strong>Dose:</strong> 300-400mg/day standardized extract</li><li><strong>Cost:</strong> $15/month</li></ul>"
+        },
+        {
+          "id": "optimal-stack",
+          "title": "Optimal 12-Week Legal Stack",
+          "content": "<h3>The Protocol</h3><ul><li><strong>Creatine:</strong> 5g/day ($10/mo)</li><li><strong>Tongkat Ali:</strong> 300-400mg/day ($15/mo)</li><li><strong>Phosphatidic Acid:</strong> 250-375mg/day ($25/mo)</li><li><strong>Beta-Alanine:</strong> 2-6g/day ($12/mo)</li></ul><p><strong>Total cost:</strong> ~$80/month (~$240/12 weeks)</p><h3>Expected Results</h3><ul><li>Muscle gain: 4-8 lbs</li><li>Strength: +20-30%</li><li>No PCT required</li><li>Can continue indefinitely</li></ul>"
+        },
+        {
+          "id": "avoid",
+          "title": "Tier 3: Skip These",
+          "content": "<h3>Turkesterone</h3><p>2025 RCTs show <strong>no significant effect</strong> on muscle growth. Placebo group gained more lean mass in one study.</p><h3>Laxogenin</h3><p><strong>Zero human trials.</strong> In vitro studies show androgenic activity in prostate cells—potential safety concern.</p><h3>Fadogia Agrestis</h3><p><strong>Zero human trials.</strong> Animal studies suggest liver/kidney/testicular toxicity with prolonged use.</p>"
+        },
+        {
+          "id": "comparison",
+          "title": "Legal Stack vs SARMs",
+          "content": "<table><thead><tr><th>Factor</th><th>Legal Stack</th><th>SARMs (LGD)</th></tr></thead><tbody><tr><td><strong>Muscle (12 wks)</strong></td><td>4-8 lbs</td><td>8-12 lbs</td></tr><tr><td><strong>Strength</strong></td><td>+20-30%</td><td>+20-40%</td></tr><tr><td><strong>Liver Risk</strong></td><td>None</td><td>Documented DILI</td></tr><tr><td><strong>Suppression</strong></td><td>None (boost T)</td><td>Severe (PCT needed)</td></tr><tr><td><strong>Legality</strong></td><td>100% Legal</td><td>Federal Felony</td></tr><tr><td><strong>Cost</strong></td><td>$240</td><td>$400-600 (+ PCT)</td></tr></tbody></table>"
+        }
+      ],
+      "faqs": [
+        {"question": "Can legal supplements match SARMs results?", "answer": "Legal supplements provide 50-70% of SARM gains (4-8 lbs vs 8-15 lbs). The trade-off: zero health risks, no PCT, complete legality, and sustainable long-term use."},
+        {"question": "Is creatine as effective as SARMs?", "answer": "Creatine produces comparable strength gains (+15-25%) but less muscle mass (2-4 lbs vs 5-15 lbs). However, creatine is proven safe with 200+ trials and can be used indefinitely."}
+      ],
+      "citations": [
+        {"title": "Creatine for Muscle Performance", "url": "https://pubmed.ncbi.nlm.nih.gov/12945830/", "source": "PubMed", "year": "2003"},
+        {"title": "Tongkat Ali Testosterone Meta-Analysis", "url": "https://pubmed.ncbi.nlm.nih.gov/36013514/", "source": "PubMed", "year": "2022"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "creatine-monohydrate", "title": "Creatine Monohydrate", "type": "supplement", "relationship": "related"},
+        {"slug": "ashwagandha", "title": "Ashwagandha", "type": "supplement", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 10
+    },
+    {
+      "id": "article-sarms-testosterone-suppression",
+      "slug": "sarms-testosterone-suppression",
+      "title": "SARMs and Testosterone: Suppression, Recovery & HPG Axis Impact",
+      "metaTitle": "SARMs Testosterone Suppression: How Bad & Recovery Time [2025]",
+      "metaDescription": "How SARMs suppress testosterone: clinical trial data, suppression by compound, recovery timeline, and HPG axis restoration protocols.",
+      "keywords": ["sarms testosterone suppression", "do sarms suppress testosterone", "sarms hpg axis", "lgd-4033 suppression", "rad-140 testosterone"],
+      "category": "guide",
+      "introduction": "<p><strong>All SARMs suppress natural testosterone production.</strong> The degree varies by compound and dose. Understanding this helps plan effective recovery.</p>",
+      "sections": [
+        {
+          "id": "mechanism",
+          "title": "How SARMs Suppress Testosterone",
+          "content": "<p>SARMs activate androgen receptors, triggering negative feedback:</p><ol><li><strong>Hypothalamus:</strong> Detects elevated androgen signaling</li><li><strong>GnRH reduction:</strong> Hypothalamus reduces gonadotropin-releasing hormone</li><li><strong>LH/FSH drop:</strong> Pituitary releases less luteinizing hormone and FSH</li><li><strong>Testicular shutdown:</strong> Leydig cells produce less testosterone</li></ol><p>This HPG axis suppression is dose-dependent and compound-specific.</p>"
+        },
+        {
+          "id": "clinical-data",
+          "title": "Clinical Suppression Data",
+          "content": "<h3>LGD-4033 Phase I Trial (Basaria 2013)</h3><table><thead><tr><th>Dose</th><th>Total T</th><th>Free T</th><th>LH</th><th>SHBG</th></tr></thead><tbody><tr><td>Placebo</td><td>Unchanged</td><td>Unchanged</td><td>Normal</td><td>Stable</td></tr><tr><td>0.1mg/day</td><td>Minimal</td><td>Minimal</td><td>Minimal</td><td>Minimal</td></tr><tr><td>0.3mg/day</td><td>Moderate</td><td>Suppressed</td><td>Suppressed</td><td>Suppressed</td></tr><tr><td>1.0mg/day</td><td>Significant</td><td>Significant</td><td>Significant</td><td>Dose-dependent</td></tr></tbody></table><p><strong>Key finding:</strong> Hormones returned to baseline after discontinuation.</p>"
+        },
+        {
+          "id": "by-compound",
+          "title": "Suppression by Compound",
+          "content": "<ul><li><strong>Ostarine:</strong> Mild suppression. Some users skip PCT (not recommended).</li><li><strong>Ligandrol:</strong> Moderate-high suppression. PCT essential.</li><li><strong>RAD-140:</strong> Severe suppression, often equals or exceeds LGD-4033.</li><li><strong>YK-11:</strong> Very high suppression (myostatin inhibitor properties).</li><li><strong>S-23:</strong> Near-complete suppression (studied as male contraceptive).</li></ul>"
+        },
+        {
+          "id": "recovery",
+          "title": "Recovery Timeline",
+          "content": "<h3>With Proper PCT</h3><ul><li><strong>LH/FSH normalization:</strong> 2-4 weeks</li><li><strong>Testosterone baseline:</strong> 4-12 weeks</li><li><strong>Spermatogenesis recovery:</strong> 3-6 months (if affected)</li></ul><h3>Without PCT</h3><ul><li>Recovery can take 3-6+ months</li><li>Prolonged hypogonadal symptoms</li><li>Risk of muscle loss, mood disorders, sexual dysfunction</li></ul><p><strong>Male contraceptive literature:</strong> 67% recover by 6 months, 90% by 12 months, 100% by 24 months.</p>"
+        }
+      ],
+      "faqs": [
+        {"question": "Do all SARMs suppress testosterone?", "answer": "Yes. All SARMs that activate androgen receptors cause HPG axis suppression. The degree varies: Ostarine is mildest, RAD-140 and S-23 cause severe suppression."},
+        {"question": "Can SARMs cause permanent testosterone suppression?", "answer": "No documented cases of permanent suppression exist. However, prolonged high-dose use or repeated cycles without recovery may extend recovery time significantly."}
+      ],
+      "citations": [
+        {"title": "LGD-4033 Hormonal Effects", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4111291/", "source": "PMC/NIH", "year": "2013"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "sarms-pct-guide", "title": "SARMs PCT Guide", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 9
+    },
+    {
+      "id": "article-sarms-liver-hepatotoxicity",
+      "slug": "sarms-liver-hepatotoxicity",
+      "title": "SARMs & Liver Health: Hepatotoxicity Risk, Case Studies & Safety Data",
+      "metaTitle": "SARMs Liver Damage: DILI Cases & Hepatotoxicity Risk [2025]",
+      "metaDescription": "SARMs liver toxicity explained: 9+ documented DILI cases, cholestatic hepatitis pattern, recovery timeline. RAD-140 and Ligandrol case studies.",
+      "keywords": ["sarms liver damage", "sarms hepatotoxicity", "rad-140 liver toxicity", "sarms dili", "ligandrol liver injury", "sarms cholestasis"],
+      "category": "guide",
+      "introduction": "<p><strong>Drug-induced liver injury (DILI) is the most serious documented SARM side effect.</strong> 9+ peer-reviewed cases document severe cholestatic hepatitis—but all recovered with cessation.</p>",
+      "sections": [
+        {
+          "id": "case-studies",
+          "title": "Documented Case Studies",
+          "content": "<h3>RAD-140 Case (Perananthan 2024)</h3><ul><li><strong>Patient:</strong> Previously healthy male</li><li><strong>Duration:</strong> 2 months RAD-140 use</li><li><strong>Peak bilirubin:</strong> 708 µmol/L (35x normal)</li><li><strong>Pattern:</strong> Cholestatic hepatitis with bile plugs</li><li><strong>Recovery:</strong> Full normalization within 5 months</li></ul><h3>Ligandrol/Ostarine Cases (Koller 2021)</h3><ul><li><strong>Patients:</strong> Two young men</li><li><strong>Duration:</strong> 2-9 weeks SARM use</li><li><strong>Critical finding:</strong> Symptoms appeared after stopping SARM and starting PCT</li><li><strong>Peak bilirubin:</strong> 401 µmol/L</li><li><strong>Histology:</strong> Cholestatic hepatitis with bile duct loss</li></ul><p><strong>Implication:</strong> PCT drugs may contribute to or trigger liver injury.</p>"
+        },
+        {
+          "id": "pattern",
+          "title": "Hepatotoxicity Pattern",
+          "content": "<p><strong>All documented cases show cholestatic pattern</strong> (bile stasis), NOT hepatocellular destruction:</p><ul><li>Canalicular bile plugs</li><li>Minimal hepatocyte necrosis</li><li>Profound hyperbilirubinemia (100-700+ µmol/L)</li><li>Mild ALT elevation (100-200 U/L range)</li><li>Normal or mildly elevated alkaline phosphatase</li><li>INR mildly elevated but NO fulminant liver failure</li></ul><h3>Recovery</h3><ul><li>100% documented cases recovered</li><li>Timeline: 3-12 months</li><li>No deaths or liver transplants required</li></ul>"
+        },
+        {
+          "id": "mechanism",
+          "title": "Proposed Mechanism",
+          "content": "<h3>Most Likely: Idiosyncratic Immune-Mediated</h3><ol><li><strong>BSEP Dysregulation:</strong> SARMs may disrupt Bile Salt Export Pump (ABCB11), causing bile acid accumulation</li><li><strong>Genetic susceptibility:</strong> ABCB11 mutations and alpha-1-antitrypsin variants may increase risk</li><li><strong>Metabolite toxicity:</strong> SARM metabolites may directly injure hepatocytes via CYP450 pathways</li></ol><p><strong>Why it's rare:</strong> Idiosyncratic mechanism means individual susceptibility, not dose-dependent toxicity.</p>"
+        },
+        {
+          "id": "management",
+          "title": "Management & Prevention",
+          "content": "<h3>Warning Signs (Stop Immediately)</h3><ul><li>Jaundice (yellowing of skin/eyes)</li><li>Dark urine</li><li>Right upper quadrant pain</li><li>Severe itching (pruritus)</li><li>Unexplained fatigue</li></ul><h3>If Symptoms Develop</h3><ul><li>Discontinue ALL hepatotoxic substances</li><li>Seek medical evaluation (LFTs, bilirubin)</li><li>Supportive care: hydration, ursodiol for itching</li><li>Avoid alcohol, acetaminophen, herbal supplements</li><li>Weekly liver function monitoring until normalized</li></ul><h3>Prevention</h3><ul><li>Baseline liver function tests before cycle</li><li>Avoid hepatotoxic combinations</li><li>Limit cycle duration</li><li>Consider liver support (NAC, milk thistle)</li></ul>"
+        }
+      ],
+      "faqs": [
+        {"question": "How common is SARM liver damage?", "answer": "Rare but documented. 9+ peer-reviewed cases exist despite widespread use, suggesting idiosyncratic (individual susceptibility) mechanism rather than dose-dependent toxicity. Actual incidence is unknown."},
+        {"question": "Which SARM is worst for liver?", "answer": "RAD-140 (Testolone) is most frequently implicated in documented cases, followed by Ligandrol. Ostarine appears to have lower hepatotoxicity risk but cases exist."}
+      ],
+      "citations": [
+        {"title": "RAD-140 Liver Injury", "url": "https://australianprescriber.tg.org.au/articles/severe-liver-injury-following-use-of-rad-140", "source": "Australian Prescriber", "year": "2024"},
+        {"title": "SARM DILI Case Series", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8180234/", "source": "PMC/NIH", "year": "2021"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "sarms-side-effects", "title": "SARMs Side Effects", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 9
+    },
+    {
+      "id": "article-sarms-stacking-guide",
+      "slug": "sarms-stacking-guide",
+      "title": "SARM Stacking Guide: Best Combinations, Protocols & Safety Concerns",
+      "metaTitle": "SARM Stacking: Best Combinations & Safety Guide [2025]",
+      "metaDescription": "SARM stacking guide: popular combinations (LGD + RAD-140), protocols by experience level, compounded risks, and PCT requirements for stacks.",
+      "keywords": ["sarm stacking", "sarm stack", "lgd rad stack", "best sarm stack", "sarm combination", "stacking sarms safely"],
+      "category": "guide",
+      "introduction": "<p><strong>SARM stacking combines multiple compounds for enhanced results—but also compounded risks.</strong> Suppression, liver stress, and PCT complexity all increase.</p>",
+      "sections": [
+        {
+          "id": "popular-stacks",
+          "title": "Popular SARM Stacks",
+          "content": "<h3>Bulking Stack</h3><ul><li><strong>LGD-4033:</strong> 5-10mg/day</li><li><strong>RAD-140:</strong> 10mg/day</li><li><strong>Duration:</strong> 8 weeks</li><li><strong>Expected:</strong> 10-15 lbs muscle</li><li><strong>Suppression:</strong> Severe—comprehensive PCT required</li></ul><h3>Cutting Stack</h3><ul><li><strong>Ostarine:</strong> 20mg/day</li><li><strong>Cardarine:</strong> 10-20mg/day (PPARδ agonist, NOT a SARM)</li><li><strong>Duration:</strong> 8 weeks</li><li><strong>Expected:</strong> Muscle preservation + fat loss</li><li><strong>Warning:</strong> Cardarine carries cancer risk (animal studies)</li></ul><h3>Recomp Stack</h3><ul><li><strong>Ostarine:</strong> 20mg/day</li><li><strong>LGD-4033:</strong> 5mg/day</li><li><strong>Duration:</strong> 8 weeks</li><li><strong>Expected:</strong> 5-8 lbs muscle + fat loss</li></ul>"
+        },
+        {
+          "id": "risks",
+          "title": "Compounded Stack Risks",
+          "content": "<h3>Suppression</h3><p>Stacking compounds suppression exponentially, not additively:</p><ul><li>Single SARM: Moderate suppression</li><li>Two SARMs: Severe suppression</li><li>Three+ SARMs: Near-complete shutdown</li></ul><h3>Liver Stress</h3><p>Multiple oral compounds increase hepatotoxicity risk:</p><ul><li>Both compounds processed through liver</li><li>CYP450 enzyme competition</li><li>Cumulative bile duct stress</li></ul><h3>PCT Complexity</h3><ul><li>Longer PCT duration (6-8 weeks vs 4)</li><li>Higher SERM doses potentially needed</li><li>HCG often required</li><li>Recovery timeline: 12-20 weeks</li></ul>"
+        },
+        {
+          "id": "protocols",
+          "title": "Stack Protocols by Experience",
+          "content": "<h3>Beginner (NOT Recommended to Stack)</h3><p>First-time users should run single compound to assess tolerance.</p><h3>Intermediate</h3><ul><li>Two compounds maximum</li><li>8 weeks duration</li><li>Moderate doses</li><li>Full PCT protocol</li></ul><h3>Advanced</h3><ul><li>May stack 2-3 compounds</li><li>Requires blood work monitoring</li><li>Comprehensive PCT with HCG</li><li>Minimum 8-week recovery between cycles</li></ul>"
+        },
+        {
+          "id": "pct-stacks",
+          "title": "PCT for Stacks",
+          "content": "<h3>Dual SARM Stack PCT</h3><ul><li><strong>Weeks 1-2:</strong> Tamoxifen 40mg + Clomiphene 50mg + HCG 3000IU EOD</li><li><strong>Weeks 3-4:</strong> Tamoxifen 20mg + Clomiphene 25mg</li><li><strong>Weeks 5-6:</strong> Tamoxifen 10mg + Clomiphene 12.5mg</li></ul><h3>Ancillary Support</h3><ul><li>DHEA: 100-200mg/day</li><li>NAC: 1200mg/day (liver)</li><li>Milk Thistle: 1000mg/day</li><li>Tongkat Ali: 400mg/day</li></ul>"
+        }
+      ],
+      "faqs": [
+        {"question": "Is stacking SARMs worth it?", "answer": "Stacking increases gains 20-30% but compounds risks significantly: severe suppression, increased liver stress, complex PCT. Most users are better served by single compounds with proper training/nutrition."},
+        {"question": "Can beginners stack SARMs?", "answer": "No. First-time users should run a single compound (preferably Ostarine) to assess individual response and tolerance before considering stacks."}
+      ],
+      "citations": [
+        {"title": "SARM Stacking Protocols", "url": "https://insidebodybuilding.com/first-sarm-stack/", "source": "Clinical Review", "year": "2024"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "sarms-pct-guide", "title": "SARMs PCT Guide", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 8
+    },
+    {
+      "id": "article-sarms-banned-military-sports",
+      "slug": "sarms-banned-military-sports",
+      "title": "Military & Sports: SARMs Banned by DoD, WADA & NCAA in 2025",
+      "metaTitle": "SARMs Banned: Military, WADA & NCAA Prohibitions [2025]",
+      "metaDescription": "SARMs banned by military (DoD), WADA, NCAA: complete prohibition list, testing methods, penalties, and detection windows for service members and athletes.",
+      "keywords": ["sarms banned military", "sarms wada", "sarms ncaa", "sarms drug test", "sarms dod prohibited", "sarms athlete ban"],
+      "category": "guide",
+      "introduction": "<p><strong>ALL SARMs are prohibited in military service, Olympic sports, and NCAA athletics.</strong> Testing is routine and penalties are severe—including dishonorable discharge and multi-year competition bans.</p>",
+      "sections": [
+        {
+          "id": "military",
+          "title": "Department of Defense Prohibition",
+          "content": "<h3>Legal Authority</h3><ul><li><strong>DoD Instruction 6130.06:</strong> Use of Dietary Supplements in the DoD</li><li><strong>UCMJ Article 112a:</strong> Wrongful Use of Controlled Substances</li><li><strong>OPSS:</strong> Operation Supplement Safety maintains prohibited list</li></ul><h3>Prohibited Status</h3><ul><li>ALL SARMs on DoD Prohibited Dietary Supplement Ingredients List</li><li>List includes 800+ substances (updated quarterly)</li><li>Military exchange (AAFES) prohibited from selling products with listed ingredients</li></ul><h3>Penalties</h3><ul><li>Dishonorable discharge</li><li>Forfeiture of all pay and allowances</li><li>Up to 5 years confinement</li><li>Reduction to lowest enlisted grade</li><li>Security clearance permanently revoked</li></ul>"
+        },
+        {
+          "id": "wada",
+          "title": "WADA Prohibition",
+          "content": "<h3>2025 Prohibited List</h3><ul><li><strong>Category:</strong> S1.2 Anabolic Agents</li><li><strong>Status:</strong> Prohibited in AND out of competition</li><li><strong>Scope:</strong> All Olympic sports, World Championships, international competition</li></ul><h3>Explicitly Listed SARMs</h3><ul><li>Ostarine (MK-2866)</li><li>Ligandrol (LGD-4033)</li><li>RAD-140 (Testolone)</li><li>Andarine (S-4)</li><li>MK-677 (Ibutamoren)</li><li>Cardarine (GW-501516)</li></ul><h3>TUE Status</h3><p><strong>No Therapeutic Use Exemption available.</strong> No SARM has approved medical use, so TUE pathway is closed.</p><h3>Penalties</h3><ul><li>2-4 year competition ban (first offense)</li><li>Results nullification</li><li>Medal/prize money forfeiture</li><li>Lifetime ban possible (repeat offenses)</li></ul>"
+        },
+        {
+          "id": "ncaa",
+          "title": "NCAA Prohibition",
+          "content": "<h3>NCAA Banned Substances List</h3><ul><li>ALL SARMs included under Anabolic Agents</li><li>Year-round prohibition (not just competition)</li><li>Applies to all NCAA divisions</li></ul><h3>Testing</h3><ul><li>Random year-round testing</li><li>Championship event testing</li><li>Postseason testing</li></ul><h3>Penalties</h3><ul><li>Immediate ineligibility</li><li>Loss of scholarship</li><li>Team sanctions possible</li><li>1-year minimum suspension (first offense)</li></ul>"
+        },
+        {
+          "id": "testing",
+          "title": "Testing & Detection",
+          "content": "<h3>Testing Methods</h3><ul><li><strong>Primary:</strong> Gas Chromatography/Mass Spectrometry (GCMS) urine</li><li><strong>Emerging:</strong> Hair testing (longer detection)</li><li><strong>Blood:</strong> Indirect markers (growth hormone-related)</li></ul><h3>Detection Windows</h3><table><thead><tr><th>SARM</th><th>Urine Detection</th></tr></thead><tbody><tr><td>Ostarine</td><td>Up to 9 days</td></tr><tr><td>Ligandrol</td><td>Up to 22 days</td></tr><tr><td>RAD-140</td><td>Up to 5-8 days</td></tr><tr><td>Cardarine</td><td>Up to 40 days</td></tr></tbody></table><p><strong>Note:</strong> Detection windows vary by dose, duration, and individual metabolism.</p>"
+        }
+      ],
+      "faqs": [
+        {"question": "Can military members use SARMs?", "answer": "Absolutely not. ALL SARMs are on the DoD Prohibited List. Violations under UCMJ Article 112a carry dishonorable discharge, confinement up to 5 years, and permanent security clearance revocation."},
+        {"question": "How long do SARMs stay detectable?", "answer": "Detection windows vary: Ostarine ~9 days, Ligandrol ~22 days, RAD-140 ~5-8 days, Cardarine ~40 days. Hair testing can extend detection to 90+ days."}
+      ],
+      "citations": [
+        {"title": "WADA 2025 Prohibited List", "url": "https://www.wada-ama.org/en/prohibited-list", "source": "WADA", "year": "2025"},
+        {"title": "DoD Prohibited Substances", "url": "https://www.opss.org/", "source": "OPSS/DoD", "year": "2025"}
+      ],
+      "relatedPages": [
+        {"slug": "sarms", "title": "SARMs: Complete Guide", "type": "banned", "relationship": "pillar"},
+        {"slug": "are-sarms-legal", "title": "Are SARMs Legal?", "type": "article", "relationship": "related"}
+      ],
+      "publishedDate": "2025-11-29T00:00:00Z",
+      "modifiedDate": "2025-11-29T00:00:00Z",
+      "readingTime": 8
     }
   ]
 }

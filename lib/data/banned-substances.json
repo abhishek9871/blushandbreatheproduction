@@ -855,77 +855,259 @@
       "slug": "sarms",
       "name": "SARMs (Selective Androgen Receptor Modulators)",
       "alternativeNames": [
-        "Ostarine",
-        "Ligandrol",
-        "RAD-140",
-        "Andarine",
-        "MK-677"
+        "Ostarine (MK-2866)",
+        "Ligandrol (LGD-4033)",
+        "RAD-140 (Testolone)",
+        "Andarine (S-4)",
+        "MK-677 (Ibutamoren)",
+        "YK-11",
+        "S-23",
+        "Cardarine (GW-501516)"
       ],
       "category": "sarm",
       "legalStatus": "banned_usa",
-      "legalStatusDetails": "Unapproved drugs - cannot be sold as dietary supplements. Felony charges for distribution.",
+      "legalStatusDetails": "SARMs are classified as unapproved investigational new drugs (INDs) under 21 USC § 355 of the Food, Drug & Cosmetic Act. Two bills to classify SARMs as Schedule III controlled substances (S.2742 in 2018 and S.2895 in 2019) failed to pass. Criminal enforcement has escalated dramatically since 2024, with Blackstone Labs founders receiving 54 months federal prison each. Possession, manufacture, and distribution carry federal felony charges up to 5 years imprisonment. ALL SARMs are prohibited by WADA (Category S1.2), NCAA, and the Department of Defense.",
       "bannedBy": [
-        "FDA",
-        "WADA",
-        "DOD"
+        "FDA (Import Alert 54-15)",
+        "WADA (Prohibited List S1.2)",
+        "DoD (Instruction 6130.06)",
+        "NCAA",
+        "All Olympic Sports"
       ],
       "stateRestrictions": {
-        "US": "Federal - Unapproved drug",
-        "Military": "ALL SARMs on DOD Prohibited List"
+        "Federal": "Unapproved drug - 21 USC § 355. Up to 5 years imprisonment for distribution.",
+        "Louisiana": "State controlled substance scheduling",
+        "Mississippi": "Schedule III - 3-24 years for trafficking",
+        "Military": "ALL SARMs on DoD Prohibited List. UCMJ Article 112a violations: Dishonorable discharge, up to 5 years confinement.",
+        "Australia": "Schedule 4 - 2 years prison + $300K fine (AusLabs case 2024)",
+        "UK": "Schedule 4 Controlled Substance",
+        "Canada": "Controlled under CDSA",
+        "EU": "Unapproved across all 27 member states"
       },
       "healthRisks": [
         {
-          "category": "Legal",
-          "description": "Multiple felony convictions for SARM distribution (2024-2025). Criminal risk to suppliers AND users.",
+          "category": "Drug-Induced Liver Injury (DILI)",
+          "description": "9+ documented cases of severe cholestatic hepatitis. Peak bilirubin up to 708 µmol/L (35x normal). RAD-140 and Ligandrol most frequently implicated. Recovery takes 3-12 months with cessation.",
           "severity": "high",
-          "sources": [
-            "DOJ Press Releases 2024"
-          ]
+          "sources": ["PMC9753945", "Australian Prescriber 2024", "PMC8180234"]
         },
         {
-          "category": "Hormonal",
-          "description": "Testosterone suppression requiring Post-Cycle Therapy. Unknown long-term effects.",
+          "category": "Testosterone Suppression",
+          "description": "LGD-4033 at 1mg/day causes significant suppression of total testosterone, free testosterone, LH, and SHBG. Recovery requires Post-Cycle Therapy (PCT) and takes 4-16 weeks.",
+          "severity": "high",
+          "sources": ["Basaria et al. Phase I Trial", "PMC4111291"]
+        },
+        {
+          "category": "Cardiovascular Risk",
+          "description": "Dose-dependent HDL cholesterol suppression of 10-35%. At 15mg/day, HDL drops 35% with APOA1 reduction of 40mg/dL. Long-term cardiovascular outcome data absent.",
           "severity": "moderate",
-          "sources": [
-            "Clinical case reports"
-          ]
+          "sources": ["Guo et al. 2022", "PMC9271272"]
+        },
+        {
+          "category": "Cancer Risk (Cardarine)",
+          "description": "Cardarine (GW-501516) caused rapid cancer development in rats across multiple organs. Development halted by all pharmaceutical sponsors. 27% lifespan reduction in mouse cancer models.",
+          "severity": "high",
+          "sources": ["GSK Preclinical Data", "Bianchi 2023"]
+        },
+        {
+          "category": "Federal Criminal Prosecution",
+          "description": "Blackstone Labs founders sentenced to 54 months federal prison (2022). Tyler Hall (Rat's Army) prosecuted May 2025. Combined forfeitures exceed $7 million.",
+          "severity": "high",
+          "sources": ["DOJ Press Releases", "FDA OCI"]
         }
       ],
       "sideEffects": [
-        "Liver toxicity",
-        "Cardiovascular events",
-        "Testosterone suppression",
-        "Cancer risk (animal studies)",
-        "Mood changes"
+        "Drug-induced liver injury (DILI) with cholestatic hepatitis",
+        "Severe testosterone suppression (50-70%)",
+        "HDL cholesterol reduction (10-35%)",
+        "Vision disturbances - yellow tint, night blindness (Andarine S-4 specific)",
+        "Gynecomastia (15% of RAD-140 users)",
+        "Testicular shrinkage and infertility",
+        "Hair loss (compound-dependent)",
+        "Mood changes, depression, irritability",
+        "Insomnia and sleep disturbances",
+        "Acne and skin changes"
       ],
       "contraindications": [
-        "Hormone-sensitive cancers",
-        "Liver disease",
-        "Heart disease",
-        "Women (virilization risk)"
+        "History of liver disease or elevated liver enzymes",
+        "Hormone-sensitive cancers (prostate, breast)",
+        "Cardiovascular disease or lipid disorders",
+        "Women (virilization risk, pregnancy contraindicated)",
+        "Active military service or competitive athletics",
+        "Concurrent use of hepatotoxic medications",
+        "Under 25 years old (endocrine system development)"
       ],
       "overdoseRisk": "moderate",
       "addictionPotential": "moderate",
-      "description": "SARMs are synthetic drugs that bind to androgen receptors, claiming to build muscle selectively. They are unapproved drugs with unknown long-term risks, often contaminated or mislabeled, and carry serious legal consequences.",
-      "mechanism": "Bind to androgen receptors in muscle tissue, stimulating anabolic (muscle-building) effects. Claimed to be selective for muscle vs. prostate, but this selectivity is not proven in humans.",
-      "history": "Developed by pharmaceutical companies in the 1990s for muscle wasting diseases. None have been FDA approved. Proliferated in the supplement industry as 'research chemicals' to skirt regulations.",
-      "whyBanned": "Unapproved drugs with unknown long-term risks. FDA cannot ensure safety. Products often contaminated or mislabeled. Active criminal enforcement.",
+      "description": "SARMs (Selective Androgen Receptor Modulators) are synthetic drugs designed to bind androgen receptors selectively, claiming to build muscle without the side effects of steroids. However, no SARM has ever received FDA approval. They are classified as unapproved investigational new drugs with documented hepatotoxicity, hormonal suppression, and cardiovascular risks. Criminal prosecution has escalated dramatically since 2024, with manufacturers receiving multi-year federal prison sentences.",
+      "mechanism": "SARMs bind to androgen receptors (ARs) in muscle and bone tissue, activating anabolic signaling pathways. Unlike traditional steroids, they were designed for tissue selectivity—stimulating muscle growth while minimizing prostate/hair follicle effects. However, human evidence shows this selectivity is incomplete. All SARMs suppress the hypothalamic-pituitary-gonadal (HPG) axis, reducing endogenous testosterone production dose-dependently.",
+      "history": "Developed by pharmaceutical companies in the 1990s for muscle wasting diseases, osteoporosis, and cancer cachexia. GTx Inc. advanced Ostarine to Phase III trials for cancer cachexia but failed to achieve FDA approval. No SARM has ever been approved for human use. The substances proliferated in the supplement industry labeled as 'research chemicals' until FDA enforcement escalated to criminal prosecution in 2020+.",
+      "whyBanned": "SARMs are banned because: (1) They are unapproved drugs with incomplete safety data; (2) Documented hepatotoxicity with 9+ severe liver injury cases; (3) Significant testosterone suppression requiring PCT; (4) Products frequently contaminated or mislabeled (50%+ fail purity tests); (5) Active FDA criminal enforcement with prison sentences up to 54 months; (6) Unknown long-term effects on cardiovascular, endocrine, and reproductive systems.",
       "legalAlternatives": [
-        "creatine-monohydrate"
+        "creatine-monohydrate",
+        "ashwagandha",
+        "rhodiola-rosea"
       ],
-      "metaTitle": "SARMs - Why They're Illegal, Health Risks & Legal Alternatives",
-      "metaDescription": "Learn why SARMs are illegal unapproved drugs, the criminal penalties, health risks, and discover safe legal alternatives for muscle building.",
+      "metaTitle": "SARMs: Complete 2025 Guide | Legal Status, Side Effects & Safe Alternatives",
+      "metaDescription": "Comprehensive SARMs guide: legal status (federal felony), documented liver injury cases, testosterone suppression, PCT protocols, and evidence-based legal alternatives. Updated Nov 2025.",
       "keywords": [
         "sarms",
+        "sarms side effects",
+        "are sarms legal",
+        "sarms pct",
+        "sarms vs steroids",
         "ostarine",
         "ligandrol",
         "rad-140",
-        "sarms legal",
-        "sarms ban",
-        "sarms alternative"
+        "sarms liver damage",
+        "sarms testosterone suppression",
+        "legal alternatives to sarms",
+        "sarms banned"
       ],
+      "isPillarPage": true,
+      "pillarSections": [
+        {
+          "id": "what-are-sarms",
+          "title": "What Are SARMs?",
+          "content": "<p><strong>SARMs (Selective Androgen Receptor Modulators)</strong> are synthetic drugs designed to selectively bind androgen receptors in muscle and bone tissue, theoretically providing anabolic (muscle-building) effects without the side effects of traditional steroids.</p><p>The most common SARMs include:</p><ul><li><strong>Ostarine (MK-2866):</strong> Mildest SARM, used for cutting/recomposition</li><li><strong>Ligandrol (LGD-4033):</strong> Potent bulking SARM, significant suppression</li><li><strong>RAD-140 (Testolone):</strong> Most potent SARM, high muscle gain potential</li><li><strong>Andarine (S-4):</strong> Cutting SARM with unique vision side effects</li><li><strong>MK-677 (Ibutamoren):</strong> Growth hormone secretagogue (not technically a SARM)</li></ul><p><strong>Critical Fact:</strong> No SARM has ever received FDA approval for human use. They remain unapproved investigational drugs with incomplete safety profiles.</p>",
+          "keywordTarget": "what are sarms"
+        },
+        {
+          "id": "legal-status-2025",
+          "title": "SARMs Legal Status 2025: Federal Law & Criminal Enforcement",
+          "content": "<p>SARMs occupy a unique legal position: they are <strong>NOT Schedule III controlled substances</strong> (two bills failed: S.2742 in 2018, S.2895 in 2019), but are prosecuted as <strong>unapproved drugs under 21 USC § 355</strong>.</p><h3>Criminal Enforcement Escalation</h3><table><thead><tr><th>Case</th><th>Year</th><th>Outcome</th></tr></thead><tbody><tr><td><strong>Blackstone Labs</strong> (PJ Braun, Aaron Singerman)</td><td>2022</td><td>54 months federal prison each, $7M forfeiture</td></tr><tr><td><strong>Tyler Hall / Rat's Army</strong></td><td>2025</td><td>Federal felony prosecution pending</td></tr><tr><td><strong>AusLabs (Australia)</strong></td><td>2024</td><td>2 years prison + $300,000 fine</td></tr></tbody></table><h3>Penalties</h3><ul><li><strong>Distribution:</strong> Up to 5 years federal imprisonment</li><li><strong>Distribution to minors:</strong> Up to 15 years</li><li><strong>Military (UCMJ 112a):</strong> Dishonorable discharge + 5 years confinement</li><li><strong>Athletes (WADA):</strong> 2-4 year competition ban</li></ul><p><strong>Bottom Line:</strong> Possession for personal use is technically a federal crime. Import from China documented in shipping records can escalate to distribution charges.</p>",
+          "keywordTarget": "are sarms legal 2025"
+        },
+        {
+          "id": "side-effects-health-risks",
+          "title": "SARMs Side Effects: Documented Health Risks",
+          "content": "<h3>1. Drug-Induced Liver Injury (DILI)</h3><p>The most serious documented side effect. 9+ peer-reviewed cases show <strong>cholestatic hepatitis</strong> pattern:</p><ul><li>Peak bilirubin: Up to 708 µmol/L (35x normal)</li><li>Pattern: Bile stasis, NOT hepatocellular destruction</li><li>Recovery: 3-12 months with drug cessation</li><li>No deaths or transplants required in documented cases</li></ul><h3>2. Testosterone Suppression</h3><p>All SARMs suppress the HPG axis dose-dependently:</p><ul><li><strong>LGD-4033 at 1mg/day:</strong> Significant suppression of total T, free T, LH, SHBG</li><li><strong>RAD-140:</strong> Suppression equals or exceeds LGD-4033</li><li><strong>Recovery:</strong> 4-16 weeks with proper PCT</li></ul><h3>3. Cardiovascular Risk</h3><p>Dose-dependent HDL cholesterol suppression:</p><ul><li>5mg/day: -26% HDL reduction</li><li>15mg/day: -35% HDL reduction</li><li>APOA1 reduction up to 40mg/dL</li></ul><h3>4. Vision Effects (Andarine S-4)</h3><p>Unique to Andarine: yellow-tinted vision, night blindness, impaired light adaptation. Affects ~3% of users. <strong>Fully reversible</strong> within 2-7 days of cessation.</p>",
+          "keywordTarget": "sarms side effects"
+        },
+        {
+          "id": "legal-alternatives",
+          "title": "Legal Alternatives to SARMs: Evidence-Based Options",
+          "content": "<p>Legal supplements can provide <strong>50-70% of SARMs' muscle gains</strong> with zero health risks:</p><h3>Tier 1: Proven Effective</h3><table><thead><tr><th>Supplement</th><th>Evidence</th><th>Expected Results (12 weeks)</th></tr></thead><tbody><tr><td><strong>Creatine Monohydrate</strong></td><td>200+ RCTs, A+ rating</td><td>+2-4 lbs lean mass, +15-25% strength</td></tr><tr><td><strong>Phosphatidic Acid</strong></td><td>5+ RCTs, B+ rating</td><td>+2-4 lbs lean mass via mTOR activation</td></tr><tr><td><strong>Tongkat Ali</strong></td><td>5+ RCTs, B rating</td><td>+10-30% testosterone (natural), improved recovery</td></tr></tbody></table><h3>Optimal Legal Stack</h3><ul><li>Creatine monohydrate: 5g/day ($10/month)</li><li>Tongkat Ali: 300-400mg/day ($15/month)</li><li>Phosphatidic Acid: 250-375mg/day ($25/month)</li></ul><p><strong>Expected Results:</strong> 4-8 lbs muscle gain, +20-30% strength, zero PCT needed, can continue indefinitely.</p><p><strong>Avoid:</strong> Turkesterone (2025 studies show no effect), Laxogenin (zero human data), Fadogia Agrestis (no human safety data).</p>",
+          "keywordTarget": "legal alternatives to sarms"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Are SARMs legal in the United States in 2025?",
+          "answer": "SARMs are NOT legal for human consumption. They are classified as unapproved drugs under FDA regulations. While not Schedule III controlled substances, they carry federal felony charges for manufacture/distribution (up to 5 years prison). Blackstone Labs founders received 54 months each in 2022. Personal possession is technically illegal but less commonly prosecuted."
+        },
+        {
+          "question": "What are the main side effects of SARMs?",
+          "answer": "The main documented side effects are: (1) Drug-induced liver injury (DILI) with cholestatic hepatitis; (2) Testosterone suppression requiring PCT; (3) HDL cholesterol reduction (10-35%); (4) Vision disturbances (Andarine-specific); (5) Gynecomastia (15% of RAD-140 users). Long-term effects remain unknown as no SARM has completed FDA approval trials."
+        },
+        {
+          "question": "Do SARMs require Post-Cycle Therapy (PCT)?",
+          "answer": "Yes. All SARMs suppress the HPG axis. PCT with SERMs (Tamoxifen 20-40mg/day, Clomiphene 25-50mg/day) for 4-6 weeks is recommended to restore natural testosterone production. Without PCT, recovery can take months with symptoms of hypogonadism (fatigue, depression, sexual dysfunction, muscle loss)."
+        },
+        {
+          "question": "Can SARMs cause liver damage?",
+          "answer": "Yes. 9+ peer-reviewed cases document SARM-induced liver injury, primarily cholestatic hepatitis. RAD-140 and Ligandrol are most frequently implicated. Peak bilirubin levels up to 708 µmol/L (35x normal) have been documented. All cases recovered with drug cessation over 3-12 months. No deaths or liver transplants have been required."
+        },
+        {
+          "question": "Are SARMs banned by WADA and the military?",
+          "answer": "Yes. ALL SARMs are prohibited by WADA (Category S1.2 - Anabolic Agents), banned both in and out of competition. No TUE (Therapeutic Use Exemption) is available. The DoD lists ALL SARMs on its Prohibited Dietary Supplement Ingredients List. Military violations under UCMJ Article 112a carry dishonorable discharge and up to 5 years confinement."
+        },
+        {
+          "question": "What are the best legal alternatives to SARMs?",
+          "answer": "The best evidence-based alternatives are: (1) Creatine monohydrate (200+ RCTs, 2-4 lbs lean mass); (2) Phosphatidic acid (mTOR activation, 2-4 lbs muscle); (3) Tongkat Ali (natural testosterone boost 10-30%). This stack provides 50-70% of SARMs' results with zero health risks, no PCT needed, and complete legality."
+        }
+      ],
+      "citations": [
+        {
+          "title": "Severe Liver Injury Following RAD-140 Use",
+          "url": "https://australianprescriber.tg.org.au/articles/severe-liver-injury-following-use-of-rad-140",
+          "source": "Australian Prescriber",
+          "year": "2024"
+        },
+        {
+          "title": "SARM-Induced Liver Injury Case Series",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8180234/",
+          "source": "PMC/NIH",
+          "year": "2021"
+        },
+        {
+          "title": "LGD-4033 Phase I Clinical Trial",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4111291/",
+          "source": "PMC/NIH - Basaria et al.",
+          "year": "2013"
+        },
+        {
+          "title": "SARMs Control Act of 2019",
+          "url": "https://www.congress.gov/bill/116th-congress/senate-bill/2895",
+          "source": "Congress.gov",
+          "year": "2019"
+        },
+        {
+          "title": "FDA Consumer Warning on SARMs",
+          "url": "https://www.fda.gov/consumers/consumer-updates/fda-warns-use-selective-androgen-receptor-modulators-sarms",
+          "source": "FDA",
+          "year": "2023"
+        },
+        {
+          "title": "SARM Effects on Lipid Profiles",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9271272/",
+          "source": "PMC/NIH - Guo et al.",
+          "year": "2022"
+        }
+      ],
+      "relatedPages": [
+        {
+          "slug": "sarms-side-effects",
+          "title": "SARMs Side Effects: Medical Evidence",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "are-sarms-legal",
+          "title": "Are SARMs Legal? 2025 Status",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "sarms-pct-guide",
+          "title": "SARMs PCT Protocol Guide",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "sarms-vs-steroids",
+          "title": "SARMs vs Steroids Comparison",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "sarms-liver-hepatotoxicity",
+          "title": "SARMs & Liver Health",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "legal-alternatives-to-sarms",
+          "title": "Legal Alternatives to SARMs",
+          "type": "article",
+          "relationship": "cluster"
+        },
+        {
+          "slug": "creatine-monohydrate",
+          "title": "Creatine Monohydrate",
+          "type": "supplement",
+          "relationship": "related"
+        },
+        {
+          "slug": "ashwagandha",
+          "title": "Ashwagandha",
+          "type": "supplement",
+          "relationship": "related"
+        }
+      ],
+      "wikipediaSearchTerms": ["Selective androgen receptor modulator", "Ostarine", "Ligandrol"],
       "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-27T00:00:00Z"
+      "updatedAt": "2025-11-29T00:00:00Z"
     },
     {
       "id": "banned-ephedrine",

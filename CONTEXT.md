@@ -1456,4 +1456,116 @@ Test all URLs load correctly and internal links work.
 
 ---
 
-*Last updated: November 29, 2025 (Added Phenibut Content Hub with Blue Ocean SEO pillar + cluster model)*
+### 18. SARMs Content Hub - Complete Implementation (Nov 29, 2025)
+
+**Overview**: Implemented a massive content hub for SARMs (Selective Androgen Receptor Modulators) following the "Pillar + Cluster" SEO strategy. This hub targets high-intent medical, legal, and safety keywords to capture traffic and redirect users to safe legal alternatives.
+
+#### Research Foundation
+Based on 5 deep research reports located in `research/`:
+- `sarms-keywords.md`: 50+ high-value keywords (Blue Ocean strategy)
+- `sarms-legal-status.md`: 2025 regulatory landscape (FDA, WADA, DoD)
+- `sarms-side-effects.md`: Medical review of DILI, suppression, and cancer risks
+- `sarms-alternatives.md`: Evidence-based comparison of legal options
+- `sarms-content-hub-structure.md`: Architecture blueprint
+
+#### Implementation Details
+
+##### Pillar Page: `/banned/sarms`
+**Data file**: `lib/data/banned-substances.json` (updated SARMs entry)
+
+**Key Features**:
+- **Medical Authority**: Detailed sections on Drug-Induced Liver Injury (DILI), Testosterone Suppression, and Cardarine Cancer Risk.
+- **Legal Clarity**: Explains the "Unapproved New Drug" status vs. Controlled Substance confusion, plus Military/WADA bans.
+- **Rich Content**: 6 Pillar Sections, 6 FAQs, 6 Clinical Citations.
+- **Conversion Focus**: Promotes "Tier 1" legal alternatives (Creatine, Phosphatidic Acid, Tongkat Ali).
+
+##### Cluster Pages (10 New Articles)
+**Data file**: `lib/data/articles.json`
+
+| # | Slug | Title | Focus |
+|---|------|-------|-------|
+| 1 | `sarms-side-effects` | SARMs Side Effects: Medical Evidence & Health Risks | DILI, Vision Issues, Cancer |
+| 2 | `are-sarms-legal` | Are SARMs Legal? 2025 Legal Status & Enforcement | FDA, SARMs Control Act, State Laws |
+| 3 | `sarms-pct-guide` | SARMs Post-Cycle Therapy (PCT) Protocol | Recovery, SERMs, Protocols |
+| 4 | `sarms-vs-steroids` | SARMs vs Steroids: Differences & Risks | Safety comparison, Efficacy |
+| 5 | `ostarine-vs-ligandrol-vs-rad140` | Ostarine vs Ligandrol vs RAD-140 Comparison | Compound selection guide |
+| 6 | `legal-alternatives-to-sarms` | Legal Alternatives to SARMs | Creatine, PA, Tongkat Ali evidence |
+| 7 | `sarms-testosterone-suppression` | SARMs & Testosterone Suppression | HPG Axis impact, Recovery |
+| 8 | `sarms-liver-hepatotoxicity` | SARMs & Liver Health: Hepatotoxicity | Clinical case studies of liver injury |
+| 9 | `sarms-stacking-guide` | SARM Stacking Guide | Safety warnings, synergy risks |
+| 10 | `sarms-banned-military-sports` | Military & Sports SARMs Bans | DoD Instruction 6130.06, WADA |
+
+#### Internal Linking Strategy
+- **Pillar (`/banned/sarms`)** links to all 10 cluster pages.
+- **Cluster Pages** link back to the Pillar and to relevant sibling clusters (e.g., "Side Effects" links to "PCT Guide").
+- **Product Integration**: All pages feature "Legal Alternative" cards pointing to affiliate products (Transparent Labs, etc.).
+
+#### Production URLs
+- **Pillar**: https://blushandbreathproduction.vercel.app/banned/sarms
+- **Cluster Example**: https://blushandbreathproduction.vercel.app/guide/sarms-side-effects
+
+---
+
+### 19. Kratom Content Hub - Harm Reduction Strategy (Nov 28, 2025)
+
+**Overview**: Implemented a massive Kratom content hub focusing on harm reduction, legal status clarity, and safe tapering protocols. This addresses the high search volume for "kratom withdrawal" and "is kratom legal".
+
+#### Implementation Details
+
+##### Pillar Page: `/banned/kratom`
+**Data file**: `lib/data/banned-substances.json`
+
+**Key Features**:
+- **Legal Map**: Detailed breakdown of 7 banned states vs. 15+ KCPA regulated states.
+- **Safety Data**: CDC overdose stats, seizure risks, and contamination warnings.
+- **Taper Protocol**: The "10% Weekly Reduction" method.
+- **Rich Content**: 6 Pillar Sections, 6 FAQs, 6 Citations.
+
+##### Cluster Pages (7 Articles)
+**Data file**: `lib/data/articles.json`
+
+| # | Slug | Title | Focus |
+|---|------|-------|-------|
+| 1 | `kratom-withdrawal-timeline` | Kratom Withdrawal Timeline Day-by-Day | Acute vs PAWS phases |
+| 2 | `kratom-taper-protocol` | How to Taper Off Kratom Safely | Step-by-step reduction guide |
+| 3 | `kratom-withdrawal-supplements` | Supplements for Kratom Withdrawal | Magnesium, Vit C, Black Seed Oil |
+| 4 | `kratom-legal-states-2025` | Kratom Legal Status Map 2025 | State-by-state laws (SB 154, etc.) |
+| 5 | `kratom-drug-test` | Does Kratom Show Up on Drug Tests? | 5-panel vs specialized testing |
+| 6 | `kratom-alternatives-pain` | Natural Kratom Alternatives for Pain | Safe legal options |
+| 7 | `kratom-alternatives-energy` | Kratom Alternatives for Energy | Caffeine, Theanine, Rhodiola |
+
+#### Production URLs
+- **Pillar**: https://blushandbreathproduction.vercel.app/banned/kratom
+- **Cluster Example**: https://blushandbreathproduction.vercel.app/guide/kratom-legal-states-2025
+
+---
+
+### 20. DMAA Content Hub - Blue Ocean SEO Strategy (Nov 27, 2025)
+
+**Overview**: The first implementation of the "Pillar + Cluster" strategy, targeting the banned stimulant DMAA.
+
+#### Implementation Details
+
+##### Pillar Page: `/banned/dmaa`
+**Data file**: `lib/data/banned-substances.json`
+
+**Key Features**:
+- **History**: From 1944 nasal decongestant to 2013 FDA ban.
+- **Safety**: Documented deaths (London Marathon, Fort Bliss) and stroke risks.
+- **Drug Testing**: Explanation of false positives for amphetamines.
+
+##### Cluster Pages (2 Articles)
+**Data file**: `lib/data/articles.json`
+
+| # | Slug | Title | Focus |
+|---|------|-------|-------|
+| 1 | `dmaa-drug-testing-guide` | DMAA Drug Testing: False Positives | Military/Employment testing risks |
+| 2 | `banned-pre-workouts-2025` | Complete List of Banned Pre Workouts | Jack3d, OxyElite Pro, etc. |
+
+#### Production URLs
+- **Pillar**: https://blushandbreathproduction.vercel.app/banned/dmaa
+- **Cluster Example**: https://blushandbreathproduction.vercel.app/guide/dmaa-drug-testing-guide
+
+---
+
+*Last updated: November 29, 2025 (Added Kratom & DMAA Content Hubs)*

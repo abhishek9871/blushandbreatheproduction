@@ -3,6 +3,37 @@
 /* ===== Tailwind v4 Dark Mode - Class Based ===== */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ===== Material Symbols - Prevent FOUT (Flash of Unstyled Text) ===== */
+/* 
+ * Problem: Icon font shows raw text ("spa", "search", "menu") before font loads
+ * Solution: Hide icons initially, show once font is loaded via JS font detection
+ */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga';
+  /* Initially invisible - prevents showing raw text like "spa", "search" */
+  opacity: 0;
+  transition: opacity 0.15s ease-in;
+}
+
+/* Show icons once font is loaded (class added by JS in _document.tsx) */
+.fonts-loaded .material-symbols-outlined {
+  opacity: 1;
+}
+
 /* ===== Custom Theme Variables - Medical Grade Design System ===== */
 :root {
   /* Background colors */

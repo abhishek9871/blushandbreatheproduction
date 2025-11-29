@@ -10,6 +10,7 @@ Allow: /banned/
 Allow: /supplement/
 Allow: /medicine/
 Allow: /compare/
+Allow: /guide/
 
 # Host
 Host: https://blushandbreathproduction.vercel.app

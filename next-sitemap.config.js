@@ -3,6 +3,7 @@
 // Import substance data for sitemap generation
 const bannedSubstancesData = require('./lib/data/banned-substances.json');
 const legalSupplementsData = require('./lib/data/legal-supplements.json');
+const articlesData = require('./lib/data/articles.json');
 
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://blushandbreathproduction.vercel.app',
@@ -27,7 +28,7 @@ module.exports = {
       // Be specific about substance pages for responsible crawling
       {
         userAgent: '*',
-        allow: ['/banned/', '/supplement/', '/medicine/', '/compare/'],
+        allow: ['/banned/', '/supplement/', '/medicine/', '/compare/', '/guide/'],
       },
     ],
     additionalSitemaps: [
@@ -61,7 +62,10 @@ module.exports = {
     }
     // Substance Education Pages
     else if (path.startsWith('/banned/')) {
-      priority = 0.9; // High priority - safety content
+      priority = 0.9; // High priority - safety content (pillar pages)
+      changefreq = 'weekly';
+    } else if (path.startsWith('/guide/')) {
+      priority = 0.85; // High priority - cluster articles (SEO content hub)
       changefreq = 'weekly';
     } else if (path.startsWith('/supplement/')) {
       priority = 0.8;
@@ -130,7 +134,25 @@ module.exports = {
       }
     });
     
+    // ═══════════════════════════════════════════════════════════════════
+    // GUIDE PAGES (CLUSTER ARTICLES)
+    // ═══════════════════════════════════════════════════════════════════
+    // Content Hub cluster articles (Kratom, SARMs, DMAA, Phenibut guides)
+    const articles = articlesData.articles || [];
+    articles.forEach(article => {
+      result.push({
+        loc: `/guide/${article.slug}`,
+        changefreq: 'weekly',
+        priority: 0.85, // High priority - cluster content for SEO
+        lastmod: article.modifiedDate || new Date().toISOString(),
+      });
+    });
+    
     console.log(`[Sitemap] Generated ${result.length} substance education URLs`);
+    console.log(`  - Banned substances: ${bannedSubstances.length}`);
+    console.log(`  - Legal supplements: ${supplements.length}`);
+    console.log(`  - Guide articles: ${articles.length}`);
+    console.log(`  - Comparison pages: ${result.length - bannedSubstances.length - supplements.length - articles.length}`);
     
     return result;
   },

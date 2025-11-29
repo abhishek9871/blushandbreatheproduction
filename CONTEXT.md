@@ -2,6 +2,90 @@
 
 > **Purpose**: This file provides essential context for AI assistants working on this codebase. Read this first before making changes.
 
+---
+
+## 🚨 CRITICAL: READ THIS FIRST (AI AGENTS)
+
+> **This section contains MANDATORY rules that MUST be followed before making ANY changes to the codebase. Failure to follow these rules has caused significant issues in the past.**
+
+### Production Domain (CANONICAL URL)
+
+```
+✅ CORRECT: https://www.blushandbreath.com
+❌ WRONG:   https://blushandbreath.com (non-www)
+❌ WRONG:   https://blushandbreathproduction.vercel.app (Vercel preview)
+```
+
+**ALL URLs in the codebase MUST use `https://www.blushandbreath.com`**. This includes:
+- Sitemap URLs (`next-sitemap.config.js` → `siteUrl`)
+- Canonical URLs in page `<Head>` tags
+- Open Graph `og:url` meta tags
+- Schema.org structured data URLs
+- robots.txt `Host` and `Sitemap` directives
+- Any hardcoded URLs in components
+
+### SEO & Indexing Rules (LEARNED FROM PAST MISTAKES)
+
+| Rule | Description | Files Affected |
+|------|-------------|----------------|
+| **www vs non-www** | ALWAYS use `www.blushandbreath.com`. The server redirects non-www to www, causing Google "Redirect Error" if sitemap uses non-www. | `next-sitemap.config.js`, `MetaHead.tsx`, `SchemaMarkup.tsx`, all page files |
+| **Canonical URLs** | Every indexable page MUST have `<link rel="canonical" href="https://www.blushandbreath.com/..." />` | All pages in `pages/` |
+| **robots.txt** | MUST allow `/_next/static/` for Google to render JS/CSS. MUST disallow `/api/` to prevent API indexing. | `public/robots.txt`, `next-sitemap.config.js` |
+| **Date Formatting** | Use UTC timezone in `getStaticProps` to prevent hydration mismatch: `toLocaleDateString('en-US', { timeZone: 'UTC' })` | Dynamic pages with dates |
+| **Open Graph Tags** | Homepage and all important pages need `og:url`, `og:title`, `og:description`, `og:type` | `pages/index.tsx`, all SEO pages |
+| **API XHR Blocking** | `/api/` routes are intentionally blocked in robots.txt. This causes "1/24 resources blocked" in Google - this is EXPECTED and OK because page content is SSG. | N/A |
+
+### Secrets Management (NEVER COMMIT SECRETS)
+
+```
+⚠️ CRITICAL: Secrets were removed from wrangler.backend.toml on Nov 29, 2025
+```
+
+**DO NOT add secrets to these files:**
+- `wrangler.backend.toml` - Use `wrangler secret put` instead
+- Any `.env` file that's not in `.gitignore`
+- Any source code file
+
+**Cloudflare Worker Secrets (set via CLI):**
+```bash
+wrangler secret put EBAY_CLIENT_ID
+wrangler secret put EBAY_CLIENT_SECRET  
+wrangler secret put UNSPLASH_ACCESS_KEY
+```
+
+**Vercel Environment Variables (set in dashboard or CLI):**
+```bash
+npx vercel env add GEMINI_API_KEY production
+npx vercel env add YOUTUBE_API_KEY production
+npx vercel env add RESEND_API_KEY production
+```
+
+### Pre-Deployment Checklist
+
+Before deploying ANY changes, verify:
+
+- [ ] All URLs use `https://www.blushandbreath.com` (not non-www or Vercel URL)
+- [ ] No secrets/API keys in source code
+- [ ] `npm run build` succeeds without errors
+- [ ] Sitemap generates with correct www URLs
+- [ ] New pages have canonical URLs and OG tags
+
+### Google Search Console Sitemap
+
+```
+Current Sitemap: https://www.blushandbreath.com/sitemap.xml
+Discovered URLs: 157+
+Status: Success (as of Nov 29, 2025)
+```
+
+When adding new pages:
+1. Rebuild: `npm run build` (regenerates sitemap)
+2. Deploy: `npx vercel --prod`
+3. Wait 24-48 hours for Google to crawl new URLs from sitemap
+4. For priority pages, manually request indexing in Search Console
+
+---
+
 ## Architecture Overview
 
 ```
@@ -13,8 +97,8 @@
 │  • Next.js 16 (Pages Router)    │  • jyotilalchandani-backend    │
 │  • Deployed on Vercel           │  • _worker.js (main entry)     │
 │  • ISR with 1hr revalidation    │  • wrangler.backend.toml       │
-│  • URL: blushandbreath          │  • KV: MERGED_CACHE            │
-│    production.vercel.app        │  • Durable Objects: Affiliate  │
+│  • URL: www.blushandbreath.com  │  • KV: MERGED_CACHE            │
+│    (Custom domain on Vercel)    │  • Durable Objects: Affiliate  │
 │  • Vercel Edge Functions for AI │  • Cron: Hourly RSS refresh    │
 ├─────────────────────────────────┴─────────────────────────────────┤
 │  ARTICLE READER (Cloudflare Worker)                              │
@@ -1379,12 +1463,12 @@ Located in `research/` folder:
 | `lib/data/articles.json` | Added 5 new guide articles for phenibut cluster pages |
 
 #### Production URLs
-- **Pillar**: https://blushandbreathproduction.vercel.app/banned/phenibut
-- **Cluster 1**: https://blushandbreathproduction.vercel.app/guide/phenibut-taper-schedule
-- **Cluster 2**: https://blushandbreathproduction.vercel.app/guide/phenibut-paws-recovery-timeline
-- **Cluster 3**: https://blushandbreathproduction.vercel.app/guide/phenibut-withdrawal-warning-signs
-- **Cluster 4**: https://blushandbreathproduction.vercel.app/guide/phenibut-baclofen-taper
-- **Cluster 5**: https://blushandbreathproduction.vercel.app/guide/phenibut-natural-withdrawal-support
+- **Pillar**: https://www.blushandbreath.com/banned/phenibut
+- **Cluster 1**: https://www.blushandbreath.com/guide/phenibut-taper-schedule
+- **Cluster 2**: https://www.blushandbreath.com/guide/phenibut-paws-recovery-timeline
+- **Cluster 3**: https://www.blushandbreath.com/guide/phenibut-withdrawal-warning-signs
+- **Cluster 4**: https://www.blushandbreath.com/guide/phenibut-baclofen-taper
+- **Cluster 5**: https://www.blushandbreath.com/guide/phenibut-natural-withdrawal-support
 
 #### Build Stats
 - Total static pages: 146
@@ -1501,8 +1585,8 @@ Based on 5 deep research reports located in `research/`:
 - **Product Integration**: All pages feature "Legal Alternative" cards pointing to affiliate products (Transparent Labs, etc.).
 
 #### Production URLs
-- **Pillar**: https://blushandbreathproduction.vercel.app/banned/sarms
-- **Cluster Example**: https://blushandbreathproduction.vercel.app/guide/sarms-side-effects
+- **Pillar**: https://www.blushandbreath.com/banned/sarms
+- **Cluster Example**: https://www.blushandbreath.com/guide/sarms-side-effects
 
 ---
 
@@ -1535,8 +1619,8 @@ Based on 5 deep research reports located in `research/`:
 | 7 | `kratom-alternatives-energy` | Kratom Alternatives for Energy | Caffeine, Theanine, Rhodiola |
 
 #### Production URLs
-- **Pillar**: https://blushandbreathproduction.vercel.app/banned/kratom
-- **Cluster Example**: https://blushandbreathproduction.vercel.app/guide/kratom-legal-states-2025
+- **Pillar**: https://www.blushandbreath.com/banned/kratom
+- **Cluster Example**: https://www.blushandbreath.com/guide/kratom-legal-states-2025
 
 ---
 
@@ -1563,9 +1647,85 @@ Based on 5 deep research reports located in `research/`:
 | 2 | `banned-pre-workouts-2025` | Complete List of Banned Pre Workouts | Jack3d, OxyElite Pro, etc. |
 
 #### Production URLs
-- **Pillar**: https://blushandbreathproduction.vercel.app/banned/dmaa
-- **Cluster Example**: https://blushandbreathproduction.vercel.app/guide/dmaa-drug-testing-guide
+- **Pillar**: https://www.blushandbreath.com/banned/dmaa
+- **Cluster Example**: https://www.blushandbreath.com/guide/dmaa-drug-testing-guide
 
 ---
 
-*Last updated: November 29, 2025 (Added Kratom & DMAA Content Hubs)*
+---
+
+## 📋 PAST ISSUES & LESSONS LEARNED
+
+This section documents issues that were encountered and fixed. AI agents should be aware of these to avoid repeating mistakes.
+
+### Issue #1: www vs non-www URL Mismatch (Nov 29, 2025)
+
+**Problem**: Google Search Console reported "Redirect error" for `/banned/dmaa` and other pages.
+
+**Root Cause**: 
+- Sitemap URLs used `https://blushandbreath.com` (non-www)
+- Server redirected to `https://www.blushandbreath.com` (www)
+- Google saw this as a redirect loop/error
+
+**Files Fixed**:
+- `next-sitemap.config.js` - Changed `siteUrl` to `https://www.blushandbreath.com`
+- `public/robots.txt` - Changed `Host` and `Sitemap` directives
+- `components/SEO/MetaHead.tsx` - Changed `SITE_URL` constant
+- `components/SEO/SchemaMarkup.tsx` - Changed `SITE_URL` constant
+- All page files with hardcoded canonical URLs
+
+**Lesson**: ALWAYS use the www version of the domain everywhere.
+
+### Issue #2: Homepage Missing SEO Tags (Nov 29, 2025)
+
+**Problem**: Homepage (`pages/index.tsx`) had no canonical URL, no Open Graph tags.
+
+**Fix**: Added complete SEO meta tags to `pages/index.tsx`:
+```tsx
+<link rel="canonical" href="https://www.blushandbreath.com/" />
+<meta property="og:url" content="https://www.blushandbreath.com/" />
+<meta property="og:title" content="..." />
+```
+
+### Issue #3: robots.txt Blocking JavaScript (Nov 29, 2025)
+
+**Problem**: Google couldn't render pages properly because `/_next/` was blocked.
+
+**Fix**: Updated robots.txt to explicitly allow `/_next/static/`:
+```
+Allow: /_next/static/
+```
+
+### Issue #4: Date Hydration Mismatch (Nov 29, 2025)
+
+**Problem**: Pages with dates showed React hydration errors because server and client rendered different date strings.
+
+**Fix**: Pre-compute formatted dates in `getStaticProps` with UTC timezone:
+```typescript
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+});
+```
+
+### Issue #5: Secrets Committed to Git (Nov 29, 2025)
+
+**Problem**: GitHub blocked push due to eBay/Unsplash API keys in `wrangler.backend.toml`.
+
+**Fix**:
+1. Removed secrets from `wrangler.backend.toml`
+2. Updated `.gitignore` to exclude all `.env.*` files
+3. Used `git rm --cached` to remove tracked `.env` files
+4. Secrets now set via `wrangler secret put` CLI command
+
+### Issue #6: API XHR Blocked by robots.txt (Nov 29, 2025)
+
+**Problem**: Google URL Inspection showed "1/24 resources blocked" for API calls like `/api/substances/banned/kratom`.
+
+**Resolution**: This is EXPECTED behavior and NOT a problem. The API endpoints are intentionally blocked because:
+1. Pages use SSG (Static Site Generation) - content is pre-rendered
+2. API calls are only for client-side interactivity
+3. Google says "Page can be indexed" - the content is available
+
+---
+
+*Last updated: November 29, 2025 (Added SEO audit rules, secrets management, production URL corrections)*

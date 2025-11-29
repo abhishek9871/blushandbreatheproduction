@@ -116,20 +116,21 @@ function generateMedicalWebPageSchema(
     dateModified,
     publisher: generateOrganizationSchema(),
     author: generateOrganizationSchema(),
+    // Use Substance instead of Drug to avoid Google interpreting as Product
+    // Drug schema requires offers/review/aggregateRating for Product rich results
     about: {
-      '@type': 'Drug',
+      '@type': 'Substance',
       name: substance.name,
       alternateName: substance.alternativeNames,
       description: substance.description,
-      legalStatus: {
-        '@type': 'DrugLegalStatus',
-        applicableLocation: {
-          '@type': 'Country',
-          name: 'United States',
-        },
-      },
-      warning: substance.sideEffects.join('. '),
-      adverseOutcome: substance.healthRisks.map(r => r.description).join('. '),
+    },
+    // Include substance details at page level for better SEO
+    mentions: {
+      '@type': 'MedicalEntity',
+      name: substance.name,
+      alternateName: substance.alternativeNames,
+      description: substance.description,
+      legalStatus: 'Banned/Prohibited substance',
     },
     medicalAudience: {
       '@type': 'MedicalAudience',

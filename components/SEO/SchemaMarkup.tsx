@@ -166,13 +166,14 @@ function generateDietarySupplementSchema(
       doseValue: supplement.dosage.recommended,
     },
     
-    // Safety information
+    // Safety information (as plain text to avoid Product schema issues)
     safetyConsideration: supplement.sideEffects.join('. '),
-    warning: supplement.contraindications.join('. '),
-    interactingDrug: supplement.drugInteractions.map(drug => ({
-      '@type': 'Drug',
-      name: drug,
-    })),
+    warning: [
+      ...supplement.contraindications,
+      ...supplement.drugInteractions
+    ].join('. '),
+    // Note: Removed interactingDrug with nested Drug types as Google incorrectly
+    // interprets them as Product schemas requiring offers/price fields
     
     // Regulatory status
     legalStatus: {
@@ -355,6 +356,7 @@ function generateArticleSchema(
     headline: article.title,
     name: article.title,
     description: article.introduction.replace(/<[^>]*>/g, '').slice(0, 160),
+    image: `${SITE_URL}/images/guides/${article.slug}.jpg`, // Add image to avoid non-critical issues
     url: pageUrl,
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -541,6 +543,56 @@ export function SchemaMarkup(props: SchemaMarkupProps) {
         
         schemas.push(medicalSchema);
         
+        // ═══════════════════════════════════════════════════════════════
+        // ADD ARTICLE SCHEMA FOR MAIN SEO CONTENT (PILLAR SECTIONS)
+        // This ensures Google sees our SEO-optimized content as an Article
+        // ═══════════════════════════════════════════════════════════════
+        if ((bannedSubstance as any).isPillarPage && (bannedSubstance as any).pillarSections) {
+          // Build article body from pillar sections
+          const pillarSections = (bannedSubstance as any).pillarSections as Array<{ id: string; title: string; content: string }>;
+          const articleBody = pillarSections.map(s => s.content.replace(/<[^>]*>/g, '')).join('\n\n');
+          const wordCount = articleBody.split(/\s+/).length;
+          
+          const mainArticleSchema = {
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            '@id': `${pageUrl}#article`,
+            headline: bannedSubstance.metaTitle || `${bannedSubstance.name}: Complete Guide`,
+            name: bannedSubstance.metaTitle || `${bannedSubstance.name}: Complete Guide`,
+            description: bannedSubstance.metaDescription || bannedSubstance.description.slice(0, 160),
+            image: `${SITE_URL}/images/substances/${bannedSubstance.slug}.jpg`,
+            url: pageUrl,
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': pageUrl,
+            },
+            datePublished,
+            dateModified,
+            author: {
+              '@type': 'Organization',
+              name: SITE_NAME,
+              url: SITE_URL,
+              logo: {
+                '@type': 'ImageObject',
+                url: ORGANIZATION_LOGO,
+              },
+            },
+            publisher: generateOrganizationSchema(),
+            articleSection: 'Health',
+            keywords: bannedSubstance.keywords?.join(', ') || '',
+            wordCount,
+            articleBody: articleBody.slice(0, 5000), // Google recommends keeping articleBody reasonable
+            // Add Table of Contents as article structure
+            hasPart: pillarSections.map((section, index) => ({
+              '@type': 'WebPageElement',
+              name: section.title,
+              cssSelector: `#${section.id}`,
+              position: index + 1,
+            })),
+          };
+          schemas.push(mainArticleSchema);
+        }
+        
         // Use custom FAQs if available (pillar pages), otherwise auto-generate
         const faqsToUse = (bannedSubstance as any).faqs && (bannedSubstance as any).faqs.length > 0
           ? (bannedSubstance as any).faqs
@@ -559,20 +611,54 @@ export function SchemaMarkup(props: SchemaMarkupProps) {
 
     case 'DietarySupplement':
       if (supplement) {
-        // Generate main schema with citation support
-        const supplementSchema = generateDietarySupplementSchema(
-          supplement,
-          pageUrl,
+        // NOTE: DietarySupplement is NOT a Google Rich Results type and causes
+        // invalid Product validation errors. We skip it and use Article instead.
+        // The Article schema below provides the same SEO value for rich results.
+        
+        // ═══════════════════════════════════════════════════════════════
+        // ADD ARTICLE SCHEMA FOR MAIN SEO CONTENT
+        // This ensures Google sees supplement info as an Article
+        // ═══════════════════════════════════════════════════════════════
+        const supplementArticleBody = [
+          supplement.description,
+          `Benefits: ${supplement.benefits.join('. ')}`,
+          `Mechanism: ${supplement.mechanism}`,
+          `Recommended Dosage: ${supplement.dosage.recommended}. ${supplement.dosage.notes || ''}`,
+          `Side Effects: ${supplement.sideEffects.join(', ')}`,
+        ].join('\n\n');
+        
+        const supplementArticleSchema = {
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          '@id': `${pageUrl}#article`,
+          headline: supplement.metaTitle || `${supplement.name}: Benefits, Dosage & Side Effects`,
+          name: supplement.metaTitle || `${supplement.name}: Benefits, Dosage & Side Effects`,
+          description: supplement.metaDescription || supplement.description.slice(0, 160),
+          image: `${SITE_URL}/images/supplements/${supplement.slug}.jpg`,
+          url: pageUrl,
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': pageUrl,
+          },
           datePublished,
-          dateModified
-        );
+          dateModified,
+          author: {
+            '@type': 'Organization',
+            name: SITE_NAME,
+            url: SITE_URL,
+            logo: {
+              '@type': 'ImageObject',
+              url: ORGANIZATION_LOGO,
+            },
+          },
+          publisher: generateOrganizationSchema(),
+          articleSection: 'Health',
+          keywords: supplement.keywords?.join(', ') || '',
+          wordCount: supplementArticleBody.split(/\s+/).length,
+          articleBody: supplementArticleBody,
+        };
+        schemas.push(supplementArticleSchema);
         
-        // Add citations if provided (for E-E-A-T SEO)
-        if (citations && citations.length > 0) {
-          (supplementSchema as any).citation = generateCitationSchema(citations);
-        }
-        
-        schemas.push(supplementSchema);
         // Auto-generate FAQ
         schemas.push(generateFAQSchema(generateFAQFromSupplement(supplement)));
         // Add breadcrumbs

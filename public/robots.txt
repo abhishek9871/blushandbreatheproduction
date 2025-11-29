@@ -3,6 +3,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /_next/
 
 # *
 User-agent: *
@@ -13,7 +14,7 @@ Allow: /compare/
 Allow: /guide/
 
 # Host
-Host: https://blushandbreathproduction.vercel.app
+Host: https://blushandbreathe.com
 
 # Sitemaps
-Sitemap: https://blushandbreathproduction.vercel.app/sitemap.xml
+Sitemap: https://blushandbreathe.com/sitemap.xml

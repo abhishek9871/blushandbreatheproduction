@@ -245,11 +245,11 @@ export function MetaHead(props: MetaHeadProps) {
   const ogImage = generateOgImage(props);
 
   // Determine robots directive
+  // All content pages should use 'index, follow' to support pillar-cluster SEO strategy
+  // Affiliate links should use rel="nofollow sponsored" individually, not page-wide nofollow
   const robotsContent = props.noIndex 
     ? 'noindex, nofollow' 
-    : props.pageType === 'banned' 
-      ? 'index, nofollow' // Index banned pages but don't follow links
-      : 'index, follow';
+    : 'index, follow';
 
   return (
     <Head>

@@ -68,6 +68,7 @@ export default function GuidePage({ article, error }: GuidePageProps) {
         <title>{article.metaTitle}</title>
         <meta name="description" content={article.metaDescription} />
         <meta name="keywords" content={article.keywords.join(', ')} />
+        <meta name="robots" content="index, follow" />
         <link rel="canonical" href={`https://blushandbreathe.com/guide/${article.slug}`} />
         
         {/* Open Graph */}
@@ -75,10 +76,19 @@ export default function GuidePage({ article, error }: GuidePageProps) {
         <meta property="og:description" content={article.metaDescription} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://blushandbreathe.com/guide/${article.slug}`} />
+        <meta property="og:image" content="https://blushandbreathe.com/images/og-guide.jpg" />
+        <meta property="og:site_name" content="Blush & Breathe" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={article.metaTitle} />
+        <meta name="twitter:description" content={article.metaDescription} />
         
         {/* Article metadata */}
         <meta property="article:published_time" content={article.publishedDate} />
         <meta property="article:modified_time" content={article.modifiedDate} />
+        <meta property="article:section" content="Health" />
+        <meta name="author" content="Blush & Breathe" />
       </Head>
       
       {/* Schema.org Structured Data */}

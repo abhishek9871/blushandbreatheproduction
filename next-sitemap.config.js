@@ -6,7 +6,7 @@ const legalSupplementsData = require('./lib/data/legal-supplements.json');
 const articlesData = require('./lib/data/articles.json');
 
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://blushandbreathproduction.vercel.app',
+  siteUrl: process.env.SITE_URL || 'https://blushandbreathe.com',
   generateRobotsTxt: true,
   generateIndexSitemap: true,
   sitemapSize: 7000,
@@ -23,7 +23,7 @@ module.exports = {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/'],
+        disallow: ['/api/', '/admin/', '/_next/'],
       },
       // Be specific about substance pages for responsible crawling
       {
@@ -31,10 +31,7 @@ module.exports = {
         allow: ['/banned/', '/supplement/', '/medicine/', '/compare/', '/guide/'],
       },
     ],
-    additionalSitemaps: [
-      // Add additional sitemaps if needed
-      // 'https://blushandbreathe.com/server-sitemap.xml',
-    ],
+    additionalSitemaps: [],
   },
   
   // Transform function to customize sitemap entries

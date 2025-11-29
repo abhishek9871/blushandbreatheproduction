@@ -19,7 +19,6 @@ import {
   AffiliateProductList,
   MetaHead,
   SchemaMarkup,
-  AgeGate,
   VerdictBanner,
   SafeSwapBox,
   RelatedArticles,
@@ -34,8 +33,7 @@ import { trackPageView, trackWarningViewed } from '@/lib/analytics';
 import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles } from '@/lib/data';
 import type { BannedSubstance, LegalSupplement, AffiliateProduct, SubstanceArticles } from '@/types';
 
-// Substances that require age verification
-const AGE_RESTRICTED_SUBSTANCES = ['kratom', 'phenibut'];
+// Age gate removed - was blocking Google from seeing content
 
 interface BannedSubstancePageProps {
   substance: BannedSubstance | null;
@@ -94,9 +92,6 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
     }
   }, [substance]);
 
-  // Check if age gate is required
-  const requiresAgeGate = substance && AGE_RESTRICTED_SUBSTANCES.includes(substance.slug);
-
   return (
     <>
       {/* Dynamic SEO Metadata */}
@@ -116,14 +111,6 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
         datePublished={substance.createdAt}
         dateModified={substance.updatedAt}
       />
-
-      {/* Age Gate for restricted substances */}
-      {requiresAgeGate && (
-        <AgeGate
-          minAge={18}
-          substanceName={substance.name}
-        />
-      )}
 
       <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
         {/* Breadcrumb */}

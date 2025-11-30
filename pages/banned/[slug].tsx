@@ -30,7 +30,7 @@ import {
 import { LoadingSpinner } from '@/components';
 import { useLegalAlternatives, useAffiliateProducts } from '@/hooks';
 import { trackPageView, trackWarningViewed } from '@/lib/analytics';
-import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles } from '@/lib/data';
+import { getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles } from '@/lib/data';
 import type { BannedSubstance, LegalSupplement, AffiliateProduct, SubstanceArticles } from '@/types';
 
 // Age gate removed - was blocking Google from seeing content
@@ -46,6 +46,9 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 export default function BannedSubstancePage({ substance, articles, error }: BannedSubstancePageProps) {
   // Fetch legal alternatives client-side for freshness
   const { data: alternatives, loading: altLoading } = useLegalAlternatives(substance?.slug);
+  
+  // Fetch affiliate products for the first alternative (avoids bundling lib/data on client)
+  const { data: affiliateProducts } = useAffiliateProducts(alternatives?.[0]?.slug);
 
   if (error || !substance) {
     return (
@@ -346,7 +349,7 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
                 <SafeSwapBox
                   bannedSubstance={substance}
                   alternative={alternatives[0]}
-                  topProduct={getAffiliateProductsForSupplement(alternatives[0].slug)[0]}
+                  topProduct={affiliateProducts?.[0]}
                   position={0}
                 />
                 

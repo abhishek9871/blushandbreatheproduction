@@ -1652,6 +1652,71 @@ Based on 5 deep research reports located in `research/`:
 
 ---
 
+### 21. Performance Optimization - Font & Bundle Fixes (Nov 30, 2025)
+
+**Overview**: Major performance improvements reducing page load by 3.5MB through font optimization and JavaScript bundle fixes.
+
+#### Problem Identified
+- DMAA pillar page had 4.7MB network payload causing 55/100 mobile performance score
+- **Root Cause 1**: Material Symbols variable font was 3.7MB (80% of total payload)
+- **Root Cause 2**: `lib/data` bundle leak - JSON files bundled into client JS (~400KB)
+
+#### Fix 1: Material Symbols Font (Global - ALL Pages)
+**File**: `pages/_document.tsx`
+
+```typescript
+// BEFORE (3.7MB variable font with all axes):
+Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200
+
+// AFTER (297KB static font with fixed values):
+Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap
+```
+
+- **Savings**: 3.4MB (92% reduction)
+- **Affects**: All 165+ pages site-wide
+- **Icons used**: ~110 icons (static font sufficient for all)
+
+#### Fix 2: lib/data Bundle Leak (Banned Pages Only)
+**File**: `pages/banned/[slug].tsx`
+
+```typescript
+// BEFORE (bundles entire lib/data into client JS):
+import { getAffiliateProductsForSupplement } from '@/lib/data';
+topProduct={getAffiliateProductsForSupplement(alternatives[0].slug)[0]}
+
+// AFTER (fetches via API hook, no bundle leak):
+const { data: affiliateProducts } = useAffiliateProducts(alternatives?.[0]?.slug);
+topProduct={affiliateProducts?.[0]}
+```
+
+- **Savings**: ~400KB of JSON removed from client bundle
+- **Root cause**: Direct function call in component caused Webpack to bundle entire `lib/data/index.ts` module
+
+#### Results (DMAA Page Lighthouse Scores)
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Mobile Performance | 55 | **69** | +14 points |
+| Desktop Performance | 62 | **98** | +36 points |
+| Mobile LCP | 25.1s | **5.0s** | 5x faster |
+| Mobile TBT | 190ms | **0ms** | Perfect |
+| Font Payload | 3.7MB | **297KB** | 92% smaller |
+| SEO Score | 100 | **100** | Maintained |
+
+#### Other Pages Status
+| Page Type | Pattern Used | Bundle Leak? |
+|-----------|--------------|--------------|
+| `/banned/[slug]` | ✅ Fixed - uses `useAffiliateProducts` hook | No |
+| `/supplement/[slug]` | Already uses `useAffiliateProducts` hook | No |
+| `/compare/[slug]` | Uses lib/data only in `getStaticProps` (tree-shaken) | No |
+| `/guide/[slug]` | Uses lib/data only in `getStaticProps` (tree-shaken) | No |
+
+#### Key Learnings
+1. **Variable fonts are HUGE** - Only use if you need multiple weights/styles. Static fonts with fixed values are 10-15x smaller.
+2. **Tree-shaking only works for server-side code** - If you import a function in a React component, the entire module gets bundled.
+3. **Use hooks for client-side data fetching** - The `useAffiliateProducts` pattern fetches via API and avoids bundling JSON.
+
+---
+
 ---
 
 ## 📋 PAST ISSUES & LESSONS LEARNED
@@ -1728,4 +1793,4 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 
 ---
 
-*Last updated: November 29, 2025 (Added SEO audit rules, secrets management, production URL corrections)*
+*Last updated: November 30, 2025 (Added performance optimization: font 3.7MB→297KB, bundle leak fix, mobile score 55→69)*

@@ -47,16 +47,41 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Material Symbols - use swap for better performance */}
+        {/* 
+          Non-render-blocking font loading using preload + onload pattern
+          This prevents fonts from blocking the initial render
+        */}
         <link
-          rel="stylesheet"
+          rel="preload"
+          as="style"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
         />
-        {/* Lexend font */}
         <link
-          rel="stylesheet"
+          rel="preload"
+          as="style"
           href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap"
         />
+        
+        {/* Async font loading script */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            var fonts = [
+              'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap',
+              'https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap'
+            ];
+            fonts.forEach(function(href) {
+              var link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = href;
+              document.head.appendChild(link);
+            });
+          })();
+        ` }} />
+        
+        <noscript>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" />
+        </noscript>
       </Head>
       <body className="antialiased">
         <Main />

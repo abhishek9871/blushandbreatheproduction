@@ -43,45 +43,26 @@ export default function Document() {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#2dd4bf" />
         
-        {/* Preconnect to Google Fonts for faster loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* 
-          Non-render-blocking font loading using preload + onload pattern
-          This prevents fonts from blocking the initial render
-        */}
+        {/* Preload Material Symbols font to prevent FOUT (Flash of Unstyled Text) */}
         <link
           rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
           as="style"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
         />
         <link
-          rel="preload"
-          as="style"
-          href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
         />
-        
-        {/* Async font loading script */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          (function() {
-            var fonts = [
-              'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap',
-              'https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap'
-            ];
-            fonts.forEach(function(href) {
-              var link = document.createElement('link');
-              link.rel = 'stylesheet';
-              link.href = href;
-              document.head.appendChild(link);
-            });
-          })();
-        ` }} />
-        
-        <noscript>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" />
-        </noscript>
+        {/* Preload Lexend font */}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+          as="style"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+        />
       </Head>
       <body className="antialiased">
         <Main />

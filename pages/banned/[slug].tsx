@@ -8,10 +8,9 @@
  * Example: /banned/dmaa, /banned/phenibut
  */
 
-import React, { useEffect, Suspense } from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {
   BannedSubstanceWarning,
@@ -22,24 +21,13 @@ import {
   SchemaMarkup,
   VerdictBanner,
   SafeSwapBox,
+  RelatedArticles,
+  FAQAccordion,
   TableOfContents,
   IngredientsTable,
+  RelatedPagesSection,
 } from '@/components';
 import { LoadingSpinner } from '@/components';
-
-// Dynamic imports for heavy components - improves initial page load
-const RelatedArticles = dynamic(() => import('@/components/articles/RelatedArticles').then(mod => mod.RelatedArticles), {
-  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-64 rounded-xl" />,
-  ssr: false // Wikipedia content doesn't need SSR for SEO (schema already has the data)
-});
-
-const FAQAccordion = dynamic(() => import('@/components/FAQAccordion').then(mod => mod.FAQAccordion), {
-  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-32 rounded-xl" />,
-});
-
-const RelatedPagesSection = dynamic(() => import('@/components/RelatedPagesSection').then(mod => mod.RelatedPagesSection), {
-  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-24 rounded-xl" />,
-});
 import { useLegalAlternatives, useAffiliateProducts } from '@/hooks';
 import { trackPageView, trackWarningViewed } from '@/lib/analytics';
 import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles } from '@/lib/data';
@@ -415,30 +403,26 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
             </div>
           )}
 
-          {/* FAQ Accordion - uses content-visibility for performance */}
+          {/* FAQ Accordion */}
           {(substance as any).faqs && (substance as any).faqs.length > 0 && (
-            <div className="faq-section">
-              <FAQAccordion 
-                faqs={(substance as any).faqs} 
-                className="mb-8"
-              />
-            </div>
+            <FAQAccordion 
+              faqs={(substance as any).faqs} 
+              className="mb-8"
+            />
           )}
 
           {/* Related Pages - Internal Linking */}
           {(substance as any).relatedPages && (substance as any).relatedPages.length > 0 && (
-            <div className="related-pages-section">
-              <RelatedPagesSection
-                relatedPages={(substance as any).relatedPages}
-                currentPageTitle={substance.name}
-                className="mb-8"
-              />
-            </div>
+            <RelatedPagesSection
+              relatedPages={(substance as any).relatedPages}
+              currentPageTitle={substance.name}
+              className="mb-8"
+            />
           )}
 
           {/* Related Articles - Wikipedia, PubMed, Images */}
           {articles && (
-            <section className="mb-8 related-articles-section">
+            <section className="mb-8">
               <RelatedArticles
                 articles={articles}
                 substanceType="banned"

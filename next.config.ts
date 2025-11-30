@@ -3,15 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   
-  // Compress responses
-  compress: true,
-  
-  // Enable experimental features for better performance
-  experimental: {
-    // Optimize package imports for tree-shaking
-    optimizePackageImports: ['@/components', 'lucide-react'],
-  },
-  
   // Image optimization configuration
   images: {
     remotePatterns: [

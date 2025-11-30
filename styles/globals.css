@@ -3,7 +3,11 @@
 /* ===== Tailwind v4 Dark Mode - Class Based ===== */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ===== Material Symbols - Optimized for Performance ===== */
+/* ===== Material Symbols - Prevent FOUT (Flash of Unstyled Text) ===== */
+/* 
+ * Problem: Icon font shows raw text ("spa", "search", "menu") before font loads
+ * Solution: Hide icons initially, show once font is loaded via JS font detection
+ */
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined', sans-serif;
   font-weight: normal;
@@ -20,24 +24,14 @@
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: 'liga';
+  /* Initially invisible - prevents showing raw text like "spa", "search" */
+  opacity: 0;
+  transition: opacity 0.15s ease-in;
 }
 
-/* ===== Performance: content-visibility for off-screen content ===== */
-/* This tells browser to skip rendering off-screen sections until scrolled into view */
-/* Content remains in DOM for SEO, but rendering is deferred for performance */
-.pillar-sections section,
-.pillar-content,
-article > section:not(:first-child) {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 500px; /* Estimated height placeholder */
-}
-
-/* Defer rendering of FAQ, Related content sections */
-.faq-section,
-.related-articles-section,
-.related-pages-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 400px;
+/* Show icons once font is loaded (class added by JS in _document.tsx) */
+.fonts-loaded .material-symbols-outlined {
+  opacity: 1;
 }
 
 /* ===== Custom Theme Variables - Medical Grade Design System ===== */

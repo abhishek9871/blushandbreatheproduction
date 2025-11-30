@@ -16,20 +16,11 @@ import type {
   BannedSubstance,
   LegalSupplement,
   AffiliateProduct,
-  LegalDisclaimer,
-  StateRestriction,
   SubstanceArticles,
   SubstanceArticlesData,
+  ContentHubArticle,
+  ArticlesData
 } from '@/types';
-
-// Import placeholder data (to be replaced with actual data files)
-import bannedSubstancesData from './banned-substances.json';
-import legalSupplementsData from './legal-supplements.json';
-import affiliateProductsData from './affiliate-products.json';
-import substanceArticlesData from './substance-articles.json';
-import contentHubArticlesData from './articles.json';
-
-import type { ContentHubArticle, ArticlesData } from '@/types';
 
 // ═══════════════════════════════════════════════════════════════════
 // DATA ACCESS FUNCTIONS
@@ -39,7 +30,9 @@ import type { ContentHubArticle, ArticlesData } from '@/types';
  * Get all banned substances from the research data
  */
 export function getBannedSubstances(): BannedSubstance[] {
-  return bannedSubstancesData.substances as BannedSubstance[];
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const data = require('./banned-substances.json');
+  return data.substances as BannedSubstance[];
 }
 
 /**
@@ -60,7 +53,9 @@ export function getBannedSubstanceSlugs(): string[] {
  * Get all legal supplements from the research data
  */
 export function getLegalSupplements(): LegalSupplement[] {
-  return legalSupplementsData.supplements as LegalSupplement[];
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const data = require('./legal-supplements.json');
+  return data.supplements as LegalSupplement[];
 }
 
 /**
@@ -93,7 +88,9 @@ export function getLegalAlternatives(bannedSlug: string): LegalSupplement[] {
  * Get all affiliate products from the research data
  */
 export function getAffiliateProducts(): AffiliateProduct[] {
-  return affiliateProductsData.products as AffiliateProduct[];
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const data = require('./affiliate-products.json');
+  return data.products as AffiliateProduct[];
 }
 
 /**
@@ -238,7 +235,8 @@ export function exportAllData() {
  * Get article data for a specific substance by slug
  */
 export function getSubstanceArticles(slug: string): SubstanceArticles | undefined {
-  const data = substanceArticlesData as SubstanceArticlesData;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const data = require('./substance-articles.json') as SubstanceArticlesData;
   return data.articles[slug];
 }
 
@@ -246,7 +244,8 @@ export function getSubstanceArticles(slug: string): SubstanceArticles | undefine
  * Get all substance articles
  */
 export function getAllSubstanceArticles(): Record<string, SubstanceArticles> {
-  const data = substanceArticlesData as SubstanceArticlesData;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const data = require('./substance-articles.json') as SubstanceArticlesData;
   return data.articles;
 }
 
@@ -254,7 +253,8 @@ export function getAllSubstanceArticles(): Record<string, SubstanceArticles> {
  * Get article metadata (version, generation date)
  */
 export function getArticleDataMetadata(): { version: string; generatedAt: string } {
-  const data = substanceArticlesData as SubstanceArticlesData;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const data = require('./substance-articles.json') as SubstanceArticlesData;
   return {
     version: data.version,
     generatedAt: data.generatedAt,
@@ -269,7 +269,9 @@ export function getArticleDataMetadata(): { version: string; generatedAt: string
  * Get all content hub articles
  */
 export function getContentHubArticles(): ContentHubArticle[] {
-  return (contentHubArticlesData as ArticlesData).articles as ContentHubArticle[];
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const data = require('./articles.json') as ArticlesData;
+  return data.articles as ContentHubArticle[];
 }
 
 /**

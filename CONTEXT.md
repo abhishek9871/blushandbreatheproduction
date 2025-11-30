@@ -1717,6 +1717,52 @@ topProduct={affiliateProducts?.[0]}
 
 ---
 
+## 22. Bing IndexNow Integration (Nov 30, 2025)
+
+### Purpose
+To accelerate Bing indexing of priority URLs using IndexNow API, as Bing was showing "No results" while Google had already indexed 10+ pages.
+
+### Implementation
+**IndexNow Key**: `d8df54ad1c1949f6b6511cd1bc69a6c9`
+**Key Location**: `https://www.blushandbreath.com/d8df54ad1c1949f6b6511cd1bc69a6c9.txt`
+
+#### Steps Completed
+1. **Added IndexNow key file** to `public/` directory
+2. **Built and deployed** to Vercel production
+3. **Submitted 50 priority URLs** via IndexNow API in 5 batches:
+   - Homepage + Main pillar pages (DMAA, Phenibut, Kratom, SARMs)
+   - Guide articles (Kratom, DMAA, Phenibut guides)
+   - Supplements + Info pages (About, FAQ, Contact)
+   - More banned substances (Cardarine, DMHA, Ostarine, etc.)
+   - Comparison pages + SARMs guides
+4. **Committed key file** to Git and pushed to main branch
+
+#### PowerShell Command Used
+```powershell
+$body = @{host='www.blushandbreath.com';key='d8df54ad1c1949f6b6511cd1bc69a6c9';keyLocation='https://www.blushandbreath.com/d8df54ad1c1949f6b6511cd1bc69a6c9.txt';urlList=@('URL1','URL2',...)} | ConvertTo-Json; Invoke-RestMethod -Uri 'https://api.indexnow.org/indexnow' -Method POST -Body $body -ContentType 'application/json; charset=utf-8'
+```
+
+### Expected Timeline
+| Timeline | Expected Action |
+|----------|-----------------|
+| Within hours | Bing receives and queues URLs |
+| 1-3 days | Bing crawls submitted URLs |
+| 3-7 days | URLs start appearing in Bing index |
+
+### URLs Submitted (50 Total)
+- Homepage: `https://www.blushandbreath.com/`
+- Banned substances: DMAA, Phenibut, Kratom, SARMs, Ephedrine, Clenbuterol, Tianeptine, Cardarine, DMHA, Ostarine, Andarine, Yohimbine, Higenamine, Vinpocetine, Picamilon, Synephrine, Hordenine, Octopamine
+- Supplements: Caffeine, L-Theanine, Creatine Monohydrate, Ashwagandha, Rhodiola Rosea, Beta-Alanine, Magnesium Glycinate, Lion's Mane
+- Guides: Kratom legal states, DMAA drug testing, Phenibut withdrawal, Kratom withdrawal, Banned pre-workouts 2025, SARMs side effects, Legal alternatives to SARMs, Kratom taper protocol, Phenibut taper schedule, Kratom drug test, Kratom alternatives (pain & energy), Phenibut legal status, SARMs stacking, SARMs testosterone suppression, SARMs liver toxicity, SARMs banned military/sports, SARMs drug testing
+- Info pages: About, FAQ, Contact
+- Medicine database: `/medicines`
+- Comparisons: DMAA vs Caffeine, Phenibut vs Ashwagandha, Kratom vs L-Theanine, SARMs vs Creatine, Ephedrine vs Caffeine
+
+### Future Use
+The IndexNow key is now permanently deployed. Use the same PowerShell command to submit new URLs when adding content to the site.
+
+---
+
 ---
 
 ## 📋 PAST ISSUES & LESSONS LEARNED

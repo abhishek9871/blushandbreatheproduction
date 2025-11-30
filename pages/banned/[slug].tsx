@@ -33,11 +33,11 @@ const RelatedArticles = dynamic(() => import('@/components/articles/RelatedArtic
   ssr: false // Wikipedia content doesn't need SSR for SEO (schema already has the data)
 });
 
-const FAQAccordion = dynamic(() => import('@/components/FAQ/FAQAccordion').then(mod => mod.FAQAccordion), {
+const FAQAccordion = dynamic(() => import('@/components/FAQAccordion').then(mod => mod.FAQAccordion), {
   loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-32 rounded-xl" />,
 });
 
-const RelatedPagesSection = dynamic(() => import('@/components/articles/RelatedPagesSection').then(mod => mod.RelatedPagesSection), {
+const RelatedPagesSection = dynamic(() => import('@/components/RelatedPagesSection').then(mod => mod.RelatedPagesSection), {
   loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-24 rounded-xl" />,
 });
 import { useLegalAlternatives, useAffiliateProducts } from '@/hooks';

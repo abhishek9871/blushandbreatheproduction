@@ -3,18 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   
-  // Performance optimizations
-  swcMinify: true,
-  
   // Compress responses
   compress: true,
   
-  // Optimize fonts
-  optimizeFonts: true,
-  
   // Enable experimental features for better performance
   experimental: {
-    // Optimize package imports
+    // Optimize package imports for tree-shaking
     optimizePackageImports: ['@/components', 'lucide-react'],
   },
   

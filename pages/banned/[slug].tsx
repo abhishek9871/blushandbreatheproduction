@@ -415,26 +415,30 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
             </div>
           )}
 
-          {/* FAQ Accordion */}
+          {/* FAQ Accordion - uses content-visibility for performance */}
           {(substance as any).faqs && (substance as any).faqs.length > 0 && (
-            <FAQAccordion 
-              faqs={(substance as any).faqs} 
-              className="mb-8"
-            />
+            <div className="faq-section">
+              <FAQAccordion 
+                faqs={(substance as any).faqs} 
+                className="mb-8"
+              />
+            </div>
           )}
 
           {/* Related Pages - Internal Linking */}
           {(substance as any).relatedPages && (substance as any).relatedPages.length > 0 && (
-            <RelatedPagesSection
-              relatedPages={(substance as any).relatedPages}
-              currentPageTitle={substance.name}
-              className="mb-8"
-            />
+            <div className="related-pages-section">
+              <RelatedPagesSection
+                relatedPages={(substance as any).relatedPages}
+                currentPageTitle={substance.name}
+                className="mb-8"
+              />
+            </div>
           )}
 
           {/* Related Articles - Wikipedia, PubMed, Images */}
           {articles && (
-            <section className="mb-8">
+            <section className="mb-8 related-articles-section">
               <RelatedArticles
                 articles={articles}
                 substanceType="banned"

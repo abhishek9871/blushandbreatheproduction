@@ -28,9 +28,8 @@ import {
   RelatedPagesSection,
 } from '@/components';
 import { LoadingSpinner } from '@/components';
-import { useLegalAlternatives, useAffiliateProducts } from '@/hooks';
 import { trackPageView, trackWarningViewed } from '@/lib/analytics';
-import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles } from '@/lib/data';
+import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles, getLegalAlternatives } from '@/lib/data';
 import type { BannedSubstance, LegalSupplement, AffiliateProduct, SubstanceArticles } from '@/types';
 
 // Age gate removed - was blocking Google from seeing content
@@ -38,15 +37,14 @@ import type { BannedSubstance, LegalSupplement, AffiliateProduct, SubstanceArtic
 interface BannedSubstancePageProps {
   substance: BannedSubstance | null;
   articles: SubstanceArticles | null;
+  alternatives: LegalSupplement[];
+  topProduct: AffiliateProduct | null;
   error?: string;
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
-export default function BannedSubstancePage({ substance, articles, error }: BannedSubstancePageProps) {
-  // Fetch legal alternatives client-side for freshness
-  const { data: alternatives, loading: altLoading } = useLegalAlternatives(substance?.slug);
-
+export default function BannedSubstancePage({ substance, articles, alternatives, topProduct, error }: BannedSubstancePageProps) {
   if (error || !substance) {
     return (
       <>
@@ -336,17 +334,13 @@ export default function BannedSubstancePage({ substance, articles, error }: Bann
               that provide similar benefits safely:
             </p>
 
-            {altLoading ? (
-              <div className="flex justify-center py-8">
-                <LoadingSpinner />
-              </div>
-            ) : alternatives && alternatives.length > 0 ? (
+            {alternatives && alternatives.length > 0 ? (
               <div className="space-y-6">
                 {/* Featured Alternative with SafeSwapBox */}
                 <SafeSwapBox
                   bannedSubstance={substance}
                   alternative={alternatives[0]}
-                  topProduct={getAffiliateProductsForSupplement(alternatives[0].slug)[0]}
+                  topProduct={topProduct || undefined}
                   position={0}
                 />
                 
@@ -472,7 +466,13 @@ export const getStaticProps: GetStaticProps<BannedSubstancePageProps> = async ({
 
   if (!slug) {
     return {
-      props: { substance: null, articles: null, error: 'Invalid slug' },
+      props: { 
+        substance: null, 
+        articles: null, 
+        alternatives: [], 
+        topProduct: null,
+        error: 'Invalid slug' 
+      },
       revalidate: 60,
     };
   }
@@ -483,7 +483,13 @@ export const getStaticProps: GetStaticProps<BannedSubstancePageProps> = async ({
 
     if (!substance) {
       return {
-        props: { substance: null, articles: null, error: 'Substance not found' },
+        props: { 
+          substance: null, 
+          articles: null, 
+          alternatives: [], 
+          topProduct: null,
+          error: 'Substance not found' 
+        },
         revalidate: 60,
       };
     }
@@ -491,17 +497,37 @@ export const getStaticProps: GetStaticProps<BannedSubstancePageProps> = async ({
     // Get related articles (Wikipedia, PubMed, images)
     const articles = getSubstanceArticles(slug) || null;
 
+    // Get legal alternatives server-side
+    const alternatives = getLegalAlternatives(slug);
+
+    // Get top product for the first alternative
+    let topProduct: AffiliateProduct | null = null;
+    if (alternatives.length > 0) {
+      const products = getAffiliateProductsForSupplement(alternatives[0].slug);
+      if (products.length > 0) {
+        topProduct = products[0];
+      }
+    }
+
     return {
       props: {
         substance,
         articles,
+        alternatives,
+        topProduct,
       },
       revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
     console.error('Failed to fetch banned substance:', error);
     return {
-      props: { substance: null, articles: null, error: 'Failed to load substance data' },
+      props: { 
+        substance: null, 
+        articles: null, 
+        alternatives: [], 
+        topProduct: null,
+        error: 'Failed to load substance data' 
+      },
       revalidate: 60,
     };
   }

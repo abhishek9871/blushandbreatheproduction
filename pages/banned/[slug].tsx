@@ -29,7 +29,7 @@ import {
 } from '@/components';
 import { LoadingSpinner } from '@/components';
 import { trackPageView, trackWarningViewed } from '@/lib/analytics';
-import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles, getLegalAlternatives } from '@/lib/data';
+import { getAffiliateProductsForSupplement, getBannedSubstanceBySlug, getBannedSubstanceSlugs, getSubstanceArticles, getLegalAlternatives } from '@/lib/data/server';
 import type { BannedSubstance, LegalSupplement, AffiliateProduct, SubstanceArticles } from '@/types';
 
 // Age gate removed - was blocking Google from seeing content

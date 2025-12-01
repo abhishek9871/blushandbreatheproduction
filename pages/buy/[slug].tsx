@@ -28,6 +28,7 @@ import LegalStatusTable from '@/components/buy/LegalStatusTable';
 import EffectComparisonChart from '@/components/buy/EffectComparisonChart';
 import ConversionCTA from '@/components/buy/ConversionCTA';
 import BuyPageSchema from '@/components/buy/BuyPageSchema';
+import FeaturedProductShowcase from '@/components/buy/FeaturedProductShowcase';
 
 interface BuyPageProps {
   page: BuyPage | null;
@@ -231,6 +232,10 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
                     effects={page.effectComparison}
                     sideEffects={page.sideEffectComparison}
                   />
+                )}
+
+                {section.id === 'legal-alternatives' && page.featuredProduct && (
+                  <FeaturedProductShowcase product={page.featuredProduct} />
                 )}
 
                 {section.id === 'legal-alternatives' && (

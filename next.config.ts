@@ -38,6 +38,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'i.ebayimg.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.bigmusclesnutrition.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.bigmusclesnutrition.com',
+      },
     ],
   },
   

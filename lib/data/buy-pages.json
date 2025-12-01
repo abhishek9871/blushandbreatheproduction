@@ -299,12 +299,66 @@
         "quantityThreshold": 100,
         "quantityRiskBonus": 10
       },
+      "featuredProduct": {
+        "id": "bigmuscles-karnage-black-featured",
+        "name": "BigMuscles Karnage Black",
+        "brand": "BigMuscles Nutrition",
+        "tagline": "India's Most Powerful Legal Pre-Workout — The End of All Pre-Workouts",
+        "price": 1599,
+        "originalPrice": 1999,
+        "servings": 30,
+        "pricePerServing": 53,
+        "rating": 4.6,
+        "reviewCount": 2847,
+        "images": {
+          "main": "https://www.bigmusclesnutrition.com/cdn/shop/files/Karnage-Black-Tiger_s-Blood_1524x.jpg?v=1755233931",
+          "gallery": [
+            "https://www.bigmusclesnutrition.com/cdn/shop/files/Karnage-Black-Arctic-blast_1524x.jpg?v=1755233931",
+            "https://www.bigmusclesnutrition.com/cdn/shop/files/Karnage-black-pdp-1_1524x.png?v=1755233931",
+            "https://www.bigmusclesnutrition.com/cdn/shop/files/Karnage-black-pdp-2_1524x.png?v=1755233931",
+            "https://www.bigmusclesnutrition.com/cdn/shop/files/Karnage-black-pdp-3_b0800afc-2d29-4b88-aebc-21f2b549026e_1524x.png?v=1755233931"
+          ]
+        },
+        "highlights": [
+          { "icon": "bolt", "title": "Serving Size", "description": "14g Ultra-Potent" },
+          { "icon": "science", "title": "L-Citrulline", "description": "7000mg Clinical" },
+          { "icon": "local_fire_department", "title": "Energy Duration", "description": "3-4 Hours" },
+          { "icon": "thumb_up", "title": "No Crash", "description": "Smooth Comedown" }
+        ],
+        "ingredients": [
+          { "name": "L-Citrulline", "amount": "7000mg", "benefit": "Skin-tearing muscle pumps & blood flow" },
+          { "name": "Beta-Alanine", "amount": "1500mg", "benefit": "Endurance & delays fatigue" },
+          { "name": "L-Tyrosine", "amount": "1000mg", "benefit": "Laser focus & mental clarity" },
+          { "name": "Nitrosigine®", "amount": "1000mg", "benefit": "Patented nitric oxide booster" },
+          { "name": "Betaine Anhydrous", "amount": "1000mg", "benefit": "Power output & strength" },
+          { "name": "L-Taurine", "amount": "1000mg", "benefit": "Hydration & performance" },
+          { "name": "Natural Caffeine", "amount": "150mg", "benefit": "Clean energy without jitters" },
+          { "name": "L-Theanine", "amount": "100mg", "benefit": "Smooth focus, no anxiety" }
+        ],
+        "benefits": [
+          "Delivers 80% of DMAA's intensity with ZERO legal risk",
+          "No jitters, no crash — smooth energy that lasts 3-4 hours",
+          "Transparent label: You know exactly what you're getting",
+          "GMP certified & 3rd party lab tested for banned substances",
+          "Delicious flavors: Tiger's Blood, Arctic Blast, Son of a Beast",
+          "Soy-free, gluten-free, sugar-free formula"
+        ],
+        "guarantees": [
+          "COD Available",
+          "1-3 Day Delivery",
+          "100% FSSAI Legal",
+          "Lab Tested",
+          "GMP Certified"
+        ],
+        "buyLink": "https://www.amazon.in/dp/B0CG7YWBXL?tag=blushandbreat-21",
+        "officialLink": "https://www.bigmusclesnutrition.com/collections/pre-workout/products/karnage-black"
+      },
       "alternatives": [
         {
           "id": "bigmuscles-karnage-black",
           "name": "BigMuscles Karnage Black",
           "brand": "BigMuscles Nutrition",
-          "tier": "preworkout",
+          "tier": "High-Stim",
           "alternativeFor": "DMAA",
           "keyIngredients": ["L-Citrulline 7000mg", "Beta-Alanine 1500mg", "L-Tyrosine 1000mg", "Nitrosigine 1000mg", "Natural Caffeine 150mg"],
           "caffeine": 150,
@@ -336,7 +390,7 @@
           "id": "muscleblaze-wrathx",
           "name": "MuscleBlaze Pre Workout WrathX",
           "brand": "MuscleBlaze",
-          "tier": "preworkout",
+          "tier": "5hr Energy",
           "alternativeFor": "DMAA",
           "keyIngredients": ["Caffeine 200mg", "EnXtra 150mg", "Citrulline DL-Malate 3000mg", "L-Arginine 750mg", "Beta-Alanine 1500mg", "Creapure Creatine"],
           "caffeine": 200,
@@ -368,7 +422,7 @@
           "id": "muscleblaze-preworkout-xtreme",
           "name": "MuscleBlaze Pre Workout 200 Xtreme",
           "brand": "MuscleBlaze",
-          "tier": "preworkout",
+          "tier": "Value",
           "alternativeFor": "DMAA",
           "keyIngredients": ["Caffeine 200mg", "L-Theanine 200mg", "Beta-Alanine 2000mg", "L-Citrulline 3000mg"],
           "caffeine": 200,
@@ -400,7 +454,7 @@
           "id": "on-gold-standard-preworkout",
           "name": "Optimum Nutrition Gold Standard Pre-Workout",
           "brand": "Optimum Nutrition",
-          "tier": "preworkout",
+          "tier": "No Jitters",
           "alternativeFor": "DMAA",
           "keyIngredients": ["Caffeine 175mg", "Creatine Monohydrate 3g", "Beta-Alanine 1.5g", "L-Citrulline", "AstraGin"],
           "caffeine": 175,
@@ -432,7 +486,7 @@
           "id": "kapiva-shilajit-resin",
           "name": "Kapiva Himalayan Shilajit Resin",
           "brand": "Kapiva",
-          "tier": "ayurvedic",
+          "tier": "Shilajit",
           "alternativeFor": "DMAA (natural energy)",
           "keyIngredients": ["Pure Himalayan Shilajit 250mg", "Fulvic Acid 70%+", "80+ trace minerals"],
           "price": 599,
@@ -463,7 +517,7 @@
           "id": "himalaya-ashwagandha",
           "name": "Himalaya Ashwagandha Tablets",
           "brand": "Himalaya Wellness",
-          "tier": "ayurvedic",
+          "tier": "Adaptogen",
           "alternativeFor": "DMAA (adaptogenic energy)",
           "keyIngredients": ["Ashwagandha (Withania somnifera) root extract 250mg"],
           "price": 229,

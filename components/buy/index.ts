@@ -14,3 +14,4 @@ export { default as LegalStatusTable } from './LegalStatusTable';
 export { default as EffectComparisonChart } from './EffectComparisonChart';
 export { default as ConversionCTA } from './ConversionCTA';
 export { default as BuyPageSchema } from './BuyPageSchema';
+export { default as FeaturedProductShowcase } from './FeaturedProductShowcase';

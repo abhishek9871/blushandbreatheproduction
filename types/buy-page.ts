@@ -174,6 +174,43 @@ export interface LegalStatusByCountry {
 }
 
 // ═══════════════════════════════════════════════════════════════════
+// FEATURED PRODUCT TYPE (for promoted alternatives)
+// ═══════════════════════════════════════════════════════════════════
+
+export interface FeaturedProduct {
+  id: string;
+  name: string;
+  brand: string;
+  tagline: string;
+  price: number;
+  originalPrice?: number;
+  servings: number;
+  pricePerServing: number;
+  rating: number;
+  reviewCount: number;
+  images: {
+    main: string;
+    gallery: string[];
+    badges?: string[];
+  };
+  highlights: {
+    icon: string;
+    title: string;
+    description: string;
+  }[];
+  ingredients: {
+    name: string;
+    amount: string;
+    benefit: string;
+  }[];
+  benefits: string[];
+  guarantees: string[];
+  buyLink: string;
+  amazonLink?: string;
+  officialLink?: string;
+}
+
+// ═══════════════════════════════════════════════════════════════════
 // MAIN BUY PAGE TYPE
 // ═══════════════════════════════════════════════════════════════════
 
@@ -208,6 +245,7 @@ export interface BuyPage {
   supplierWarnings: SupplierWarning[];
   testimonials: UserTestimonial[];
   calculatorConfig: CalculatorConfig;
+  featuredProduct?: FeaturedProduct; // Promoted product showcase
   alternatives: AlternativeProduct[];
   legalStatusByCountry: LegalStatusByCountry[];
   effectComparison: EffectComparison[];

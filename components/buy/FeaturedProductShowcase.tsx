@@ -56,7 +56,7 @@ export default function FeaturedProductShowcase({ product }: FeaturedProductShow
   return (
     <section 
       id="featured-product" 
-      className="my-8 scroll-mt-20"
+      className="my-8 scroll-mt-20 overflow-hidden"
     >
       {/* Section Header */}
       <div className="text-center mb-6">
@@ -73,11 +73,11 @@ export default function FeaturedProductShowcase({ product }: FeaturedProductShow
       </div>
 
       {/* Main Product Card */}
-      <div className="bg-gradient-to-br from-card-light to-gray-50 dark:from-card-dark dark:to-gray-900 rounded-2xl border-2 border-primary/30 overflow-hidden shadow-xl">
-        <div className="grid md:grid-cols-2 gap-0">
+      <div className="bg-gradient-to-br from-card-light to-gray-50 dark:from-card-dark dark:to-gray-900 rounded-2xl border-2 border-primary/30 overflow-hidden shadow-xl w-full max-w-full">
+        <div className="grid md:grid-cols-2 gap-0 w-full max-w-full overflow-hidden">
           
           {/* Image Gallery Section */}
-          <div className="relative bg-white dark:bg-gray-900 p-4 sm:p-6">
+          <div className="relative bg-white dark:bg-gray-900 p-4 sm:p-6 w-full max-w-full overflow-hidden">
             {/* Discount Badge */}
             {discount > 0 && (
               <div className="absolute top-4 left-4 z-10 bg-alert-red text-white px-3 py-1 rounded-full text-sm font-bold">
@@ -122,49 +122,49 @@ export default function FeaturedProductShowcase({ product }: FeaturedProductShow
           </div>
 
           {/* Product Info Section */}
-          <div className="p-4 sm:p-6 flex flex-col">
+          <div className="p-4 sm:p-6 flex flex-col overflow-hidden w-full max-w-full">
             {/* Brand & Rating */}
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <span className="text-sm font-medium text-primary">{product.brand}</span>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 flex-shrink-0">
                 <span className="text-warning-amber">★</span>
                 <span className="font-bold text-text-light dark:text-text-dark">{product.rating}</span>
-                <span className="text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                <span className="text-xs sm:text-sm text-text-subtle-light dark:text-text-subtle-dark">
                   ({product.reviewCount.toLocaleString('en-IN')} reviews)
                 </span>
               </div>
             </div>
 
             {/* Price Section */}
-            <div className="flex items-baseline gap-3 mb-4">
-              <span className="text-3xl font-bold text-text-light dark:text-text-dark">
+            <div className="flex flex-wrap items-baseline gap-2 sm:gap-3 mb-4">
+              <span className="text-2xl sm:text-3xl font-bold text-text-light dark:text-text-dark">
                 ₹{product.price.toLocaleString('en-IN')}
               </span>
               {product.originalPrice && (
-                <span className="text-lg text-text-subtle-light dark:text-text-subtle-dark line-through">
+                <span className="text-base sm:text-lg text-text-subtle-light dark:text-text-subtle-dark line-through">
                   ₹{product.originalPrice.toLocaleString('en-IN')}
                 </span>
               )}
-              <span className="text-sm text-success-green font-medium">
+              <span className="text-xs sm:text-sm text-success-green font-medium">
                 ₹{product.pricePerServing}/serving
               </span>
             </div>
 
             {/* Key Highlights */}
-            <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4">
               {product.highlights.slice(0, 4).map((highlight, idx) => (
                 <div 
                   key={idx}
-                  className="flex items-center gap-2 p-2 bg-white/50 dark:bg-gray-800/50 rounded-lg"
+                  className="flex items-center gap-1.5 sm:gap-2 p-2 bg-white/50 dark:bg-gray-800/50 rounded-lg overflow-hidden"
                 >
-                  <span className="material-symbols-outlined text-primary text-xl">
+                  <span className="material-symbols-outlined text-primary text-lg sm:text-xl flex-shrink-0">
                     {highlight.icon}
                   </span>
-                  <div>
-                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark">
+                  <div className="min-w-0">
+                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark truncate">
                       {highlight.title}
                     </p>
-                    <p className="text-sm font-semibold text-text-light dark:text-text-dark">
+                    <p className="text-xs sm:text-sm font-semibold text-text-light dark:text-text-dark truncate">
                       {highlight.description}
                     </p>
                   </div>
@@ -173,15 +173,15 @@ export default function FeaturedProductShowcase({ product }: FeaturedProductShow
             </div>
 
             {/* Benefits List */}
-            <div className="mb-4">
+            <div className="mb-4 overflow-hidden">
               <h4 className="text-sm font-semibold text-text-light dark:text-text-dark mb-2">
                 Why Athletes Choose This:
               </h4>
               <ul className="space-y-1.5">
                 {product.benefits.slice(0, 5).map((benefit, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-sm text-text-subtle-light dark:text-text-subtle-dark">
-                    <span className="text-success-green mt-0.5">✓</span>
-                    {benefit}
+                  <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-text-subtle-light dark:text-text-subtle-dark">
+                    <span className="text-success-green mt-0.5 flex-shrink-0">✓</span>
+                    <span className="break-words">{benefit}</span>
                   </li>
                 ))}
               </ul>
@@ -201,14 +201,14 @@ export default function FeaturedProductShowcase({ product }: FeaturedProductShow
             </div>
 
             {/* CTA Buttons */}
-            <div className="mt-auto space-y-3">
+            <div className="mt-auto space-y-3 w-full max-w-full">
               <a
                 href={product.buyLink}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl"
+                className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl text-sm sm:text-base"
               >
-                <span className="material-symbols-outlined">shopping_cart</span>
+                <span className="material-symbols-outlined text-xl">shopping_cart</span>
                 Buy Now on Amazon
                 <span className="material-symbols-outlined text-sm">open_in_new</span>
               </a>
@@ -218,16 +218,16 @@ export default function FeaturedProductShowcase({ product }: FeaturedProductShow
                   href={product.officialLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-gray-800 border border-border-light dark:border-border-dark hover:border-primary text-text-light dark:text-text-dark font-medium rounded-xl transition-all"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-gray-800 border border-border-light dark:border-border-dark hover:border-primary text-text-light dark:text-text-dark font-medium rounded-xl transition-all text-sm sm:text-base"
                 >
                   View on Official Website
                   <span className="material-symbols-outlined text-sm">open_in_new</span>
                 </a>
               )}
               
-              <p className="text-center text-xs text-text-subtle-light dark:text-text-subtle-dark">
+              <p className="text-center text-xs text-text-subtle-light dark:text-text-subtle-dark px-2">
                 <span className="material-symbols-outlined text-sm align-middle">local_shipping</span>
-                {' '}Free Delivery • COD Available • 1-3 Day Shipping
+                {' '}Free Delivery • COD • 1-3 Day Shipping
               </p>
             </div>
           </div>

@@ -62,10 +62,10 @@ export default function BuyPageSchema({
     keywords: page.keywords.join(', '),
     wordCount: page.wordCount,
     about: {
-      '@type': 'Drug',
+      '@type': 'ChemicalSubstance',
       name: 'DMAA (1,3-Dimethylamylamine)',
       alternateName: ['Methylhexanamine', 'DMAA', '1,3-DMAA'],
-      legalStatus: 'Banned in dietary supplements',
+      description: 'Banned dietary supplement ingredient',
     },
     mentions: page.medicalSources.map(source => ({
       '@type': 'MedicalStudy',

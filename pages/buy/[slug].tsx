@@ -190,9 +190,8 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
                 </h2>
                 
                 <div 
-                  className="prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
+                  className="buy-page-content prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
                     prose-headings:text-text-light dark:prose-headings:text-text-dark
-                    prose-h3:text-lg prose-h3:md:text-xl prose-h3:font-bold prose-h3:mt-6 prose-h3:mb-3
                     prose-strong:text-text-light dark:prose-strong:text-text-dark
                     prose-ul:list-disc prose-ol:list-decimal
                     prose-a:text-primary"

@@ -847,3 +847,45 @@ html {
     border-color: #374151;
   }
 }
+
+/* =================================== */
+/* Buy Page Content - H3 Styling       */
+/* =================================== */
+
+/* Buy page content h3 headings - prominent section headers */
+.buy-page-content h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-top: 1.75rem;
+  margin-bottom: 0.875rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary);
+  display: inline-block;
+}
+
+.dark .buy-page-content h3 {
+  color: var(--text-dark);
+  border-bottom-color: var(--primary);
+}
+
+@media (min-width: 768px) {
+  .buy-page-content h3 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* First h3 in a section should have no top margin */
+.buy-page-content > h3:first-child {
+  margin-top: 0.5rem;
+}
+
+/* H3 with icon prefix styling */
+.buy-page-content h3::before {
+  content: "›";
+  color: var(--primary);
+  font-weight: 700;
+  margin-right: 0.5rem;
+}

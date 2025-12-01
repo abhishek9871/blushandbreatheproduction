@@ -74,50 +74,72 @@ export default function MedicalCitationBadge({
         </button>
       </div>
 
-      {/* Expanded Sources List */}
+      {/* Expanded Sources List - Redesigned for better UX */}
       {showSources && (
-        <div className="mt-2 p-4 bg-card-light dark:bg-card-dark rounded-lg border border-border-light dark:border-border-dark">
-          <h3 className="text-sm font-bold text-text-light dark:text-text-dark mb-3 flex items-center gap-2">
-            <span className="material-symbols-outlined text-medical-blue">menu_book</span>
-            Key Medical Sources
-          </h3>
-          <ul className="space-y-3">
-            {sources.slice(0, 5).map((source, index) => (
-              <li key={source.id} className="text-sm">
-                <div className="flex items-start gap-2">
-                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium 
-                    ${source.sourceType === 'fda' ? 'bg-medical-blue-light text-medical-blue' : ''}
-                    ${source.sourceType === 'pubmed' || source.sourceType === 'case_report' ? 'bg-success-green-light text-success-green' : ''}
-                    ${source.sourceType === 'fssai' ? 'bg-warning-amber-light text-warning-amber' : ''}
-                    ${source.sourceType === 'wada' ? 'bg-alert-red-light text-alert-red' : ''}
+        <div className="mt-3 rounded-xl border border-border-light dark:border-border-dark overflow-hidden bg-white dark:bg-gray-900">
+          {/* Header */}
+          <div className="px-4 py-3 bg-gradient-to-r from-medical-blue/10 to-transparent border-b border-border-light dark:border-border-dark">
+            <h3 className="text-base font-bold text-text-light dark:text-text-dark flex items-center gap-2">
+              <span className="material-symbols-outlined text-medical-blue">menu_book</span>
+              Key Medical Sources
+            </h3>
+            <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-0.5">
+              Peer-reviewed research and regulatory documents
+            </p>
+          </div>
+
+          {/* Sources Grid - Cards on desktop, stacked on mobile */}
+          <div className="p-3 md:p-4 space-y-3 md:space-y-0 md:grid md:grid-cols-2 md:gap-3 lg:grid-cols-1 lg:gap-4">
+            {sources.slice(0, 5).map((source) => (
+              <div 
+                key={source.id} 
+                className="p-3 md:p-4 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-medical-blue/50 transition-colors"
+              >
+                {/* Source Type Badge & Title Row */}
+                <div className="flex items-start gap-2 mb-2">
+                  <span className={`shrink-0 px-2 py-1 rounded text-xs font-bold uppercase tracking-wide
+                    ${source.sourceType === 'fda' ? 'bg-medical-blue text-white' : ''}
+                    ${source.sourceType === 'pubmed' ? 'bg-success-green text-white' : ''}
+                    ${source.sourceType === 'case_report' ? 'bg-purple-600 text-white' : ''}
+                    ${source.sourceType === 'fssai' ? 'bg-warning-amber text-white' : ''}
+                    ${source.sourceType === 'wada' ? 'bg-alert-red text-white' : ''}
                   `}>
-                    {source.sourceType.toUpperCase()}
+                    {source.sourceType === 'case_report' ? 'CASE REPORT' : source.sourceType.toUpperCase()}
                   </span>
-                  <div className="flex-1">
-                    <a 
-                      href={source.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-text-light dark:text-text-dark font-medium hover:text-primary"
-                    >
-                      {source.title}
-                    </a>
-                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-0.5">
-                      {source.authority} • {source.date}
-                    </p>
-                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-1 italic">
-                      &ldquo;{source.keyQuote}&rdquo;
-                    </p>
-                  </div>
                 </div>
-              </li>
+                
+                {/* Title */}
+                <a 
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm md:text-base font-semibold text-text-light dark:text-text-dark hover:text-medical-blue transition-colors leading-snug"
+                >
+                  {source.title}
+                </a>
+                
+                {/* Authority & Date */}
+                <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-1.5 flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-sm">apartment</span>
+                  {source.authority}
+                  <span className="text-gray-300 dark:text-gray-600">•</span>
+                  {source.date}
+                </p>
+                
+                {/* Key Quote */}
+                <blockquote className="mt-3 pl-3 border-l-2 border-medical-blue/40 text-xs md:text-sm text-text-subtle-light dark:text-text-subtle-dark italic leading-relaxed">
+                  &ldquo;{source.keyQuote}&rdquo;
+                </blockquote>
+              </div>
             ))}
-          </ul>
+          </div>
           
-          {/* Review Date */}
-          <div className="mt-4 pt-3 border-t border-border-light dark:border-border-dark text-xs text-text-subtle-light dark:text-text-subtle-dark">
-            <span className="material-symbols-outlined text-base align-middle mr-1">update</span>
-            Content last reviewed: {modifiedDate}
+          {/* Footer - Review Date */}
+          <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800/30 border-t border-border-light dark:border-border-dark flex items-center justify-between">
+            <div className="text-xs text-text-subtle-light dark:text-text-subtle-dark flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-sm text-success-green">verified</span>
+              Content last reviewed: <span className="font-medium">{modifiedDate}</span>
+            </div>
           </div>
         </div>
       )}

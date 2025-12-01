@@ -21,8 +21,9 @@ export default function MedicalCitationBadge({
 
   // Group sources by type
   const fdaSources = sources.filter(s => s.sourceType === 'fda').length;
-  const pubmedSources = sources.filter(s => s.sourceType === 'pubmed' || s.sourceType === 'case_report').length;
-  const regulatorySources = sources.filter(s => s.sourceType === 'fssai' || s.sourceType === 'wada').length;
+  const pubmedSources = sources.filter(s => s.sourceType === 'pubmed').length;
+  const caseReports = sources.filter(s => s.sourceType === 'case_report').length;
+  const regulatorySources = sources.filter(s => s.sourceType === 'wada' || s.sourceType === 'regulatory').length;
 
   return (
     <div className="mb-6">
@@ -50,9 +51,14 @@ export default function MedicalCitationBadge({
               {fdaSources} FDA
             </span>
           )}
+          {caseReports > 0 && (
+            <span className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-purple-600 border border-purple-600/30">
+              {caseReports} Case Reports
+            </span>
+          )}
           {pubmedSources > 0 && (
             <span className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-success-green border border-success-green/30">
-              {pubmedSources} PubMed
+              {pubmedSources} Studies
             </span>
           )}
           {regulatorySources > 0 && (
@@ -89,37 +95,45 @@ export default function MedicalCitationBadge({
           </div>
 
           {/* Sources Grid - Cards on desktop, stacked on mobile */}
-          <div className="p-3 md:p-4 space-y-3 md:space-y-0 md:grid md:grid-cols-2 md:gap-3 lg:grid-cols-1 lg:gap-4">
-            {sources.slice(0, 5).map((source) => (
+          <div className="p-3 md:p-4 space-y-3 max-h-[500px] overflow-y-auto">
+            {sources.map((source) => (
               <div 
                 key={source.id} 
                 className="p-3 md:p-4 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-medical-blue/50 transition-colors"
               >
                 {/* Source Type Badge & Title Row */}
-                <div className="flex items-start gap-2 mb-2">
+                <div className="flex items-start justify-between gap-2 mb-2">
                   <span className={`shrink-0 px-2 py-1 rounded text-xs font-bold uppercase tracking-wide
                     ${source.sourceType === 'fda' ? 'bg-medical-blue text-white' : ''}
                     ${source.sourceType === 'pubmed' ? 'bg-success-green text-white' : ''}
                     ${source.sourceType === 'case_report' ? 'bg-purple-600 text-white' : ''}
-                    ${source.sourceType === 'fssai' ? 'bg-warning-amber text-white' : ''}
                     ${source.sourceType === 'wada' ? 'bg-alert-red text-white' : ''}
+                    ${source.sourceType === 'regulatory' ? 'bg-warning-amber text-white' : ''}
                   `}>
-                    {source.sourceType === 'case_report' ? 'CASE REPORT' : source.sourceType.toUpperCase()}
+                    {source.sourceType === 'case_report' ? 'CASE REPORT' : 
+                     source.sourceType === 'regulatory' ? 'REGULATORY' : 
+                     source.sourceType.toUpperCase()}
                   </span>
+                  
+                  {/* View Source Button */}
+                  <a
+                    href={source.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-medium rounded-lg transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-sm">open_in_new</span>
+                    View Source
+                  </a>
                 </div>
                 
                 {/* Title */}
-                <a 
-                  href={source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm md:text-base font-semibold text-text-light dark:text-text-dark hover:text-medical-blue transition-colors leading-snug"
-                >
+                <h4 className="text-sm md:text-base font-semibold text-text-light dark:text-text-dark leading-snug">
                   {source.title}
-                </a>
+                </h4>
                 
                 {/* Authority & Date */}
-                <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-1.5 flex items-center gap-1.5">
+                <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-1.5 flex items-center gap-1.5 flex-wrap">
                   <span className="material-symbols-outlined text-sm">apartment</span>
                   {source.authority}
                   <span className="text-gray-300 dark:text-gray-600">•</span>

@@ -88,48 +88,147 @@
           "relevanceToIndia": "The FDA's position on DMAA's cardiovascular risks directly applies to Indian consumers who may be importing DMAA supplements."
         },
         {
-          "id": "pubmed-mortality",
-          "sourceType": "pubmed",
-          "title": "From the Field to the Morgue: A Multicenter Study on Acute DMAA Intoxication",
-          "date": "2023-03-20",
-          "authority": "International Journal of Environmental Research and Public Health",
-          "keyQuote": "The study documented 14 acute DMAA intoxication cases across 3 hospitals, with 3 fatalities (21.4% mortality rate). All fatalities presented with severe cardiovascular complications including ventricular arrhythmias and acute heart failure.",
-          "citationText": "López-Rodríguez, A., et al. (2023). DMAA Intoxication. Int J Environ Res Public Health, 20(6), 5381.",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/36982923/",
-          "relevanceToIndia": "This 2023 study provides quantified mortality data (21.4% death rate) specifically among young, healthy bodybuilders—the exact demographic searching for DMAA in India."
-        },
-        {
-          "id": "fssai-regulation",
-          "sourceType": "fssai",
-          "title": "FSSAI Food Safety and Standards Regulations 2015",
-          "date": "2015-07-30",
-          "authority": "Food Safety and Standards Authority of India (FSSAI)",
-          "keyQuote": "FSSAI prohibits the use of any substance in food supplements which is not approved as a food additive or which lacks scientific evidence for safety. Stimulants not included in the list of permitted additives under Schedule V are prohibited.",
-          "citationText": "Food Safety and Standards Authority of India. (2015). FSS Regulations for Nutraceuticals.",
-          "url": "https://www.fssai.gov.in/upload/uploadfiles/files/Regulations/Gazette_Notification_Supplements_Nutraceuticals_24_12_2016.pdf",
-          "relevanceToIndia": "This FSSAI notification establishes the legal framework under which DMAA is prohibited in India. Penalties up to ₹10 lakh under the Food Safety and Standards Act, 2006."
-        },
-        {
-          "id": "case-report-stroke",
+          "id": "cerebral-hemorrhage",
           "sourceType": "case_report",
-          "title": "Hemorrhagic Stroke and Cerebral Vasculitis After DMAA Ingestion",
-          "date": "2012-05-15",
-          "authority": "Journal of Medical Imaging and Health Sciences",
-          "keyQuote": "A 32-year-old male professional athlete presented with sudden onset severe headache and left-sided weakness 4 hours after ingesting a DMAA-containing pre-workout supplement. The patient required emergency decompressive craniectomy and remained hemiparetic at 6-month follow-up.",
-          "citationText": "Gutierrez-Hellin, J., et al. (2012). Hemorrhagic Stroke After DMAA Ingestion.",
-          "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4104153/",
-          "relevanceToIndia": "This case involves a 32-year-old professional athlete who suffered permanent neurological damage. The mechanism (cerebral vasculitis from hypertensive crisis) is particularly dangerous in India's hot climate."
+          "title": "DMAA Associated with Cerebral Hemorrhage",
+          "date": "2012-10-01",
+          "authority": "Annals of Emergency Medicine",
+          "keyQuote": "Documents 3 cases of cerebral hemorrhage in adults following recreational DMAA use, all occurring after consumption with alcohol. Details the sympathomimetic and pressor effects of DMAA.",
+          "citationText": "Gee, P., et al. (2012). Use of Recreational Drug 1,3-Dimethylamylamine (DMAA) Associated With Cerebral Hemorrhage. Ann Emerg Med, 60(4), 431-434.",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0196064412003745",
+          "relevanceToIndia": "Documents cerebral hemorrhage cases in young adults - directly relevant to Indian fitness enthusiasts using DMAA supplements."
         },
         {
-          "id": "wada-prohibited",
+          "id": "soldier-deaths",
+          "sourceType": "case_report",
+          "title": "Death of Active Duty Soldiers Following DMAA Ingestion",
+          "date": "2012-11-01",
+          "authority": "Military Medicine",
+          "keyQuote": "Case reports of two U.S. soldiers who died from cardiac arrest during physical exertion while taking DMAA-containing supplements. Discusses the combination of DMAA with other ingredients and exercise-related fatalities.",
+          "citationText": "Eliason, M.J., et al. (2012). Death of Active Duty Soldiers Following Ingestion of Dietary Supplements Containing DMAA. Mil Med, 177(12), 1455.",
+          "url": "https://academic.oup.com/milmed/article-pdf/177/12/1455/20551781/milmed-d-12-00265.pdf",
+          "relevanceToIndia": "Two young soldiers died during exercise while using DMAA - critical warning for Indian athletes and military personnel."
+        },
+        {
+          "id": "nz-party-pills",
+          "sourceType": "case_report",
+          "title": "Toxicity from DMAA Party Pills - Cerebral Hemorrhage Case",
+          "date": "2010-12-01",
+          "authority": "New Zealand Medical Journal",
+          "keyQuote": "Details cerebral hemorrhage case in a 21-year-old following DMAA ingestion, discusses regulatory response in New Zealand, and notes DMAA's inclusion on WADA's prohibited list.",
+          "citationText": "Gee, P., et al. (2010). Another Bitter Pill: A Case of Toxicity from DMAA Party Pills. N Z Med J, 123(1327).",
+          "url": "https://nzmj.org.nz/media/pages/journal/vol-123-no-1327/another-bitter-pill-a-case-of-toxicity-from-dmaa-party-pills/dc2639ea93-1696474179/another-bitter-pill-a-case-of-toxicity-from-dmaa-party-pills.pdf",
+          "relevanceToIndia": "21-year-old suffered cerebral hemorrhage - age-relevant warning for young Indian fitness enthusiasts."
+        },
+        {
+          "id": "texas-poison",
+          "sourceType": "pubmed",
+          "title": "DMAA Exposures Reported to Texas Poison Control",
+          "date": "2012-10-01",
+          "authority": "Human & Experimental Toxicology",
+          "keyQuote": "Analysis of 56 DMAA exposure cases reported to Texas Poison Control, documenting adverse effects including tachycardia (28.6%), nausea (16.1%), vomiting (12.5%), chest pain, and hypertension.",
+          "citationText": "Forrester, M.B. (2012). Exposures to 1,3-Dimethylamylamine-Containing Products Reported to Texas Poison Control. Hum Exp Toxicol, 32(1).",
+          "url": "https://journals.sagepub.com/doi/10.1177/0960327112454895",
+          "relevanceToIndia": "Documents 56 poison control cases - provides statistical evidence of DMAA's adverse effects pattern."
+        },
+        {
+          "id": "myocardial-infarction",
+          "sourceType": "case_report",
+          "title": "Acute Myocardial Infarction Associated with DMAA Supplement",
+          "date": "2014-02-01",
+          "authority": "Clinical Journal of Sport Medicine",
+          "keyQuote": "Case report linking DMAA-containing Jack3d supplement to myocardial infarction. Reviews two U.S. soldier deaths (ages 22 and 32) from heart attacks during fitness exercises with DMAA found in postmortem toxicology.",
+          "citationText": "Smith, T.B., et al. (2014). Acute Myocardial Infarction Associated with Dietary Supplement Containing DMAA. Clin J Sport Med, 24(1).",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3967491/",
+          "relevanceToIndia": "Heart attacks in young athletes (ages 22-32) - directly relevant to Indian gym-goers using pre-workouts."
+        },
+        {
+          "id": "intracerebral-hemorrhage",
+          "sourceType": "case_report",
+          "title": "Intracerebral Hemorrhage Associated With DMAA Supplement",
+          "date": "2014-04-01",
+          "authority": "Neurology",
+          "keyQuote": "Case report of 37-year-old man with intracerebral hemorrhage after taking DMAA supplement before exercise. Literature review identified 5 cases of ICH associated with DMAA, all occurring shortly after consumption.",
+          "citationText": "Elgallab, J., et al. (2014). Intracerebral Hemorrhage Associated With Dietary Supplement Containing DMAA. Neurology, 82(10).",
+          "url": "https://www.neurology.org/doi/10.1212/WNL.82.10_supplement.P5.134",
+          "relevanceToIndia": "Brain hemorrhage in 37-year-old - demonstrates DMAA risks during exercise, especially in hot climates."
+        },
+        {
+          "id": "pharmacokinetic",
+          "sourceType": "pubmed",
+          "title": "Physiological and Pharmacokinetic Effects of Oral DMAA",
+          "date": "2013-10-01",
+          "authority": "Drug Testing and Analysis",
+          "keyQuote": "First study to characterize oral pharmacokinetic profile of DMAA. Found that peak plasma concentrations at recommended dose (25mg) were 15-30 times lower than levels reported in adverse event cases, suggesting toxicity is dose-dependent.",
+          "citationText": "Schilling, B.K., et al. (2013). Physiological and Pharmacokinetic Effects of Oral 1,3-Dimethylamylamine. Drug Test Anal, 5(10).",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3852303/",
+          "relevanceToIndia": "Shows that overdosing DMAA (common with imported products) causes exponentially higher toxicity."
+        },
+        {
+          "id": "abuse-liability",
+          "sourceType": "pubmed",
+          "title": "Abuse Liability of Dietary Supplement Dimethylamylamine",
+          "date": "2014-12-01",
+          "authority": "Drug and Alcohol Dependence",
+          "keyQuote": "Preclinical study showing DMAA fully substituted for cocaine and partially for methamphetamine in drug discrimination assays, and produced conditioned place preference, indicating significant abuse potential.",
+          "citationText": "Dolan, S.B., et al. (2014). Abuse Liability of the Dietary Supplement Dimethylamylamine. Drug Alcohol Depend, 146.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25481853/",
+          "relevanceToIndia": "DMAA has abuse potential similar to cocaine - important for understanding addiction risks in India."
+        },
+        {
+          "id": "nutraceutical-review",
+          "sourceType": "pubmed",
+          "title": "Adverse Effects of Nutraceuticals and Dietary Supplements",
+          "date": "2017-01-01",
+          "authority": "Annual Review of Pharmacology and Toxicology",
+          "keyQuote": "Comprehensive review documenting DMAA's cardiovascular effects, including three cases of cardiac arrest during physical exercise (two resulting in death), cerebral hemorrhages, and FDA receiving 42 adverse event reports.",
+          "citationText": "Ronis, M.J.J., et al. (2017). Adverse Effects of Nutraceuticals and Dietary Supplements. Annu Rev Pharmacol Toxicol, 58.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6380172/",
+          "relevanceToIndia": "Comprehensive review of all documented DMAA deaths and adverse events worldwide."
+        },
+        {
+          "id": "bfr-risk",
+          "sourceType": "regulatory",
+          "title": "Risk Assessment of DMAA as Food Ingredient",
+          "date": "2012-08-01",
+          "authority": "German Federal Institute for Risk Assessment (BfR)",
+          "keyQuote": "Scientific risk assessment concluding that DMAA can cause acute temporary increases in blood pressure and, combined with caffeine, may lead to chronic hypertension. Notes risks include myocardial infarction and cerebral hemorrhage.",
+          "citationText": "BfR. (2012). Risk Assessment of DMAA as Active Ingredient in Food Products. German Federal Institute for Risk Assessment.",
+          "url": "https://www.bfr.bund.de/cm/349/risk-assessment-of-1-3-Dimethylamylamine-dmaa-as-an-active-ingredient-of-products-marketed-as-food.pdf",
+          "relevanceToIndia": "German authority confirms DMAA causes heart attacks and strokes - EU-level validation of risks."
+        },
+        {
+          "id": "wada-2025",
           "sourceType": "wada",
-          "title": "WADA Prohibited List - S6. Stimulants",
-          "date": "2023-01-01",
-          "authority": "World Anti-Doping Agency (WADA)",
-          "keyQuote": "Methylhexaneamine (DMAA; 1,3-dimethylamylamine) is included in Section S6. Stimulants of the 2023 WADA Prohibited List. DMAA is prohibited at all times as specified stimulant.",
-          "citationText": "World Anti-Doping Agency. (2023). WADA Prohibited List. S6. Stimulants.",
-          "url": "https://www.wada-ama.org/en/resources/science-medicine/prohibited-list",
-          "relevanceToIndia": "WADA's classification directly impacts Indian athletes. NADA follows WADA's list, meaning Indian athletes testing positive face sanctions including disqualification and suspension."
+          "title": "WADA 2025 Prohibited List - S6 Stimulants",
+          "date": "2024-09-25",
+          "authority": "World Anti-Doping Agency",
+          "keyQuote": "Official announcement of the 2025 Prohibited List where DMAA (methylhexaneamine) continues to be banned under Section S6 Stimulants. DMAA has been on WADA's prohibited list since 2010 and has been responsible for 137 doping violations worldwide.",
+          "citationText": "WADA. (2024). WADA Publishes 2025 Prohibited List. World Anti-Doping Agency.",
+          "url": "https://www.wada-ama.org/en/news/wada-publishes-2025-prohibited-list",
+          "relevanceToIndia": "NADA follows WADA - Indian athletes testing positive for DMAA face disqualification and suspension."
+        },
+        {
+          "id": "mhra-warning",
+          "sourceType": "regulatory",
+          "title": "MHRA Warning: Athletes to Avoid Dangerous DMAA",
+          "date": "2012-08-01",
+          "authority": "UK Medicines & Healthcare products Regulatory Agency",
+          "keyQuote": "MHRA classified DMAA-containing products as unlicensed medicines requiring removal from UK market due to links with high blood pressure, strokes, heart attacks, and death.",
+          "citationText": "MHRA. (2012). MHRA Warns Athletes to Avoid Potentially Dangerous DMAA. UK Government.",
+          "url": "https://www.gov.uk/government/news/mhra-warns-athletes-to-avoid-potentially-dangerous-dmaa",
+          "relevanceToIndia": "UK authority banned DMAA citing deaths and strokes - important precedent for Indian regulation."
+        },
+        {
+          "id": "dod-ban",
+          "sourceType": "regulatory",
+          "title": "Department of Defense Ban on DMAA Products",
+          "date": "2012-12-01",
+          "authority": "U.S. Department of Defense",
+          "keyQuote": "Official DOD announcement banning all DMAA products from military facilities following soldier deaths and adverse events. Products removed from all Army & Air Force Exchange Service stores.",
+          "citationText": "U.S. DOD. (2012). DOD Ban on DMAA. Department of Defense.",
+          "url": "https://www.29palms.marines.mil/Articles/Article/499196/dod-ban-on-dmaa/",
+          "relevanceToIndia": "U.S. military banned DMAA after soldier deaths - critical warning for Indian defense personnel."
         }
       ],
       "supplierWarnings": [
@@ -606,32 +705,109 @@
         {
           "title": "DMAA in Products Marketed as Dietary Supplements",
           "source": "U.S. FDA",
-          "url": "https://www.fda.gov/food/dietary-supplement-ingredients-and-labeling/dmaa-products-marketed-dietary-supplements",
-          "year": "2023"
+          "url": "https://www.fda.gov/food/information-select-dietary-supplement-ingredients-and-other-substances/dmaa-products-marketed-dietary-supplements",
+          "year": "2023",
+          "type": "regulatory"
         },
         {
-          "title": "Acute DMAA Intoxication Multicenter Study",
-          "source": "Int J Environ Res Public Health",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/36982923/",
-          "year": "2023"
+          "title": "DMAA Associated with Cerebral Hemorrhage",
+          "source": "Annals of Emergency Medicine",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0196064412003745",
+          "year": "2012",
+          "type": "case-report",
+          "authors": "Paul Gee et al."
         },
         {
-          "title": "FSSAI Health Supplements Regulations",
-          "source": "FSSAI",
-          "url": "https://fssai.gov.in/upload/uploadfiles/files/Nutraceuticals_Regulations.pdf",
-          "year": "2016"
+          "title": "Death of Active Duty Soldiers Following DMAA Ingestion",
+          "source": "Military Medicine",
+          "url": "https://academic.oup.com/milmed/article-pdf/177/12/1455/20551781/milmed-d-12-00265.pdf",
+          "year": "2012",
+          "type": "case-report",
+          "authors": "MJ Eliason et al."
         },
         {
-          "title": "WADA Prohibited List - Stimulants",
-          "source": "WADA",
-          "url": "https://www.wada-ama.org/en/resources/world-anti-doping-code-and-international-standards/prohibited-list",
-          "year": "2025"
+          "title": "Toxicity from DMAA Party Pills - Cerebral Hemorrhage Case",
+          "source": "New Zealand Medical Journal",
+          "url": "https://nzmj.org.nz/media/pages/journal/vol-123-no-1327/another-bitter-pill-a-case-of-toxicity-from-dmaa-party-pills/dc2639ea93-1696474179/another-bitter-pill-a-case-of-toxicity-from-dmaa-party-pills.pdf",
+          "year": "2010",
+          "type": "case-report",
+          "authors": "Paul Gee et al."
         },
         {
-          "title": "DMAA Associated With Cerebral Hemorrhage",
-          "source": "PubMed",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/22575212/",
-          "year": "2012"
+          "title": "DMAA Exposures Reported to Texas Poison Control",
+          "source": "Human & Experimental Toxicology",
+          "url": "https://journals.sagepub.com/doi/10.1177/0960327112454895",
+          "year": "2012",
+          "type": "study",
+          "authors": "MB Forrester"
+        },
+        {
+          "title": "Acute Myocardial Infarction Associated with DMAA Supplement",
+          "source": "Clinical Journal of Sport Medicine",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3967491/",
+          "year": "2014",
+          "type": "case-report",
+          "authors": "TB Smith et al."
+        },
+        {
+          "title": "Intracerebral Hemorrhage Associated With DMAA Supplement",
+          "source": "Neurology",
+          "url": "https://www.neurology.org/doi/10.1212/WNL.82.10_supplement.P5.134",
+          "year": "2014",
+          "type": "case-report",
+          "authors": "J Elgallab et al."
+        },
+        {
+          "title": "Physiological and Pharmacokinetic Effects of Oral DMAA",
+          "source": "Drug Testing and Analysis",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3852303/",
+          "year": "2013",
+          "type": "study",
+          "authors": "BK Schilling et al."
+        },
+        {
+          "title": "Abuse Liability of Dietary Supplement Dimethylamylamine",
+          "source": "Drug and Alcohol Dependence",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25481853/",
+          "year": "2014",
+          "type": "study",
+          "authors": "SB Dolan et al."
+        },
+        {
+          "title": "Adverse Effects of Nutraceuticals and Dietary Supplements",
+          "source": "Annual Review of Pharmacology and Toxicology",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6380172/",
+          "year": "2017",
+          "type": "review",
+          "authors": "MJJ Ronis et al."
+        },
+        {
+          "title": "Risk Assessment of DMAA as Food Ingredient",
+          "source": "German Federal Institute for Risk Assessment (BfR)",
+          "url": "https://www.bfr.bund.de/cm/349/risk-assessment-of-1-3-Dimethylamylamine-dmaa-as-an-active-ingredient-of-products-marketed-as-food.pdf",
+          "year": "2012",
+          "type": "regulatory"
+        },
+        {
+          "title": "WADA 2025 Prohibited List - S6 Stimulants",
+          "source": "World Anti-Doping Agency",
+          "url": "https://www.wada-ama.org/en/news/wada-publishes-2025-prohibited-list",
+          "year": "2024",
+          "type": "regulatory"
+        },
+        {
+          "title": "MHRA Warning: Athletes to Avoid Dangerous DMAA",
+          "source": "UK Medicines & Healthcare products Regulatory Agency",
+          "url": "https://www.gov.uk/government/news/mhra-warns-athletes-to-avoid-potentially-dangerous-dmaa",
+          "year": "2012",
+          "type": "regulatory"
+        },
+        {
+          "title": "Department of Defense Ban on DMAA Products",
+          "source": "U.S. Department of Defense",
+          "url": "https://www.29palms.marines.mil/Articles/Article/499196/dod-ban-on-dmaa/",
+          "year": "2012",
+          "type": "regulatory"
         }
       ],
       "relatedPillarPage": "/banned/dmaa",

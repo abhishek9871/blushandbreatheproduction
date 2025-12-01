@@ -160,11 +160,11 @@ export default function FeaturedProductShowcase({ product }: FeaturedProductShow
                   <span className="material-symbols-outlined text-primary text-lg sm:text-xl flex-shrink-0">
                     {highlight.icon}
                   </span>
-                  <div className="min-w-0">
-                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark truncate">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark leading-tight">
                       {highlight.title}
                     </p>
-                    <p className="text-xs sm:text-sm font-semibold text-text-light dark:text-text-dark truncate">
+                    <p className="text-xs sm:text-sm font-semibold text-text-light dark:text-text-dark leading-tight">
                       {highlight.description}
                     </p>
                   </div>

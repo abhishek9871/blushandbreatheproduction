@@ -315,3 +315,25 @@ export type {
   ArticleSection, 
   ArticlesData 
 } from './article';
+
+// ═══════════════════════════════════════════════════════════════════
+// BUY PAGE TYPES (Re-exported)
+// ═══════════════════════════════════════════════════════════════════
+export type {
+  BuyPage,
+  BuyPagesData,
+  BuyPageSection,
+  MedicalSource,
+  SupplierWarning,
+  UserTestimonial,
+  AlternativeProduct,
+  CalculatorConfig,
+  PortRiskData,
+  ValueRiskTier,
+  DeclarationRiskData,
+  CourierRiskData,
+  PenaltyData,
+  EffectComparison,
+  SideEffectComparison,
+  LegalStatusByCountry
+} from './buy-page';

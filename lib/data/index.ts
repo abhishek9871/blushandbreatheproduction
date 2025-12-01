@@ -285,3 +285,14 @@ export function getContentHubArticleBySlug(slug: string): ContentHubArticle | un
 export function getContentHubArticleSlugs(): string[] {
   return getContentHubArticles().map(a => a.slug);
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// BUY PAGE DATA ACCESS FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════
+
+export { 
+  getBuyPages, 
+  getBuyPageBySlug, 
+  getBuyPageSlugs,
+  getBuyPagesForSubstance 
+} from './buy-pages';

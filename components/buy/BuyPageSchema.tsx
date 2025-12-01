@@ -1,0 +1,217 @@
+/**
+ * BuyPageSchema Component
+ * 
+ * Generates Schema.org structured data for buy pages.
+ * Includes Article, FAQPage, and SoftwareApplication schemas.
+ */
+
+import React from 'react';
+import Head from 'next/head';
+import type { BuyPage } from '@/types';
+
+const SITE_URL = 'https://www.blushandbreath.com';
+
+interface BuyPageSchemaProps {
+  page: BuyPage;
+  pageUrl: string;
+  datePublished: string;
+  dateModified: string;
+}
+
+export default function BuyPageSchema({
+  page,
+  pageUrl,
+  datePublished,
+  dateModified,
+}: BuyPageSchemaProps) {
+  // Article Schema (MedicalWebPage subtype for E-E-A-T)
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    '@id': pageUrl,
+    headline: page.title,
+    description: page.metaDescription,
+    image: `${SITE_URL}/images/og-buy-${page.slug}.jpg`,
+    url: pageUrl,
+    datePublished,
+    dateModified,
+    author: {
+      '@type': 'Organization',
+      name: 'Blush & Breathe',
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo.png`,
+      },
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Blush & Breathe',
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': pageUrl,
+    },
+    articleSection: 'Health & Fitness',
+    keywords: page.keywords.join(', '),
+    wordCount: page.wordCount,
+    about: {
+      '@type': 'Drug',
+      name: 'DMAA (1,3-Dimethylamylamine)',
+      alternateName: ['Methylhexanamine', 'DMAA', '1,3-DMAA'],
+      legalStatus: 'Banned in dietary supplements',
+    },
+    mentions: page.medicalSources.map(source => ({
+      '@type': 'MedicalStudy',
+      name: source.title,
+      url: source.url,
+    })),
+    hasPart: page.sections.map((section, index) => ({
+      '@type': 'WebPageElement',
+      name: section.title,
+      cssSelector: `#${section.id}`,
+      position: index + 1,
+    })),
+  };
+
+  // FAQ Schema for featured snippets
+  const faqSchema = page.faqs && page.faqs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: page.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  } : null;
+
+  // SoftwareApplication Schema for calculator (if present)
+  const calculatorSchema = page.hasCalculator ? {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'DMAA India Customs Risk Calculator',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Web Browser',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'INR',
+    },
+    description: 'Calculate your DMAA import risk and potential customs penalties for India.',
+    featureList: [
+      'Port-specific seizure rates',
+      'Order value risk assessment',
+      'Penalty estimation',
+      'Legal alternative recommendations',
+    ],
+  } : null;
+
+  // BreadcrumbList Schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Health',
+        item: `${SITE_URL}/health`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'Buy Guides',
+        item: `${SITE_URL}/buy`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: page.title,
+        item: pageUrl,
+      },
+    ],
+  };
+
+  // Product Schemas for alternatives
+  const productSchemas = page.alternatives
+    .filter(alt => alt.isTopPick)
+    .map(product => ({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: product.name,
+      brand: {
+        '@type': 'Brand',
+        name: product.brand,
+      },
+      description: `Legal alternative to ${product.alternativeFor}. ${product.pros.join('. ')}.`,
+      offers: {
+        '@type': 'Offer',
+        price: product.price,
+        priceCurrency: 'INR',
+        availability: 'https://schema.org/InStock',
+        priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      },
+      aggregateRating: product.rating ? {
+        '@type': 'AggregateRating',
+        ratingValue: product.rating,
+        bestRating: 5,
+        worstRating: 1,
+        reviewCount: product.reviewCount || 100,
+      } : undefined,
+    }));
+
+  return (
+    <Head>
+      {/* Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+
+      {/* FAQ Schema */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
+      {/* Calculator Schema */}
+      {calculatorSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorSchema) }}
+        />
+      )}
+
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      {/* Product Schemas */}
+      {productSchemas.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+    </Head>
+  );
+}

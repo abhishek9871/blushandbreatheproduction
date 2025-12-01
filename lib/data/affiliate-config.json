@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "lastUpdated": "2025-12-01",
+    "version": "1.0.0",
+    "instructions": "Update affiliate IDs below. Changes apply after deploy. PLACEHOLDER values will show direct product URLs without tracking."
+  },
+  "programs": {
+    "crazybulk_india": {
+      "name": "CrazyBulk India",
+      "status": "pending",
+      "affiliateId": "PLACEHOLDER",
+      "baseUrl": "https://crazybulk.in",
+      "network": "INRDeals",
+      "commission": "35%",
+      "commissionTiers": {
+        "tier1": { "sales": 50, "rate": "35%" },
+        "tier2": { "sales": 150, "rate": "38%" },
+        "tier3": { "sales": 999, "rate": "40%" }
+      },
+      "cookie": "30 days",
+      "aov": 5800,
+      "epc": 12.37,
+      "conversionRate": "62%",
+      "hasCOD": true,
+      "payoutSchedule": "Weekly (Tuesday)",
+      "paymentMethod": "NEFT/IMPS",
+      "minPayout": 1000,
+      "products": {
+        "testol-140": {
+          "name": "TESTOL 140",
+          "slug": "testol-140",
+          "alternativeFor": "RAD-140 / SARMs",
+          "directUrl": "https://crazybulk.in/product/testol-140",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 4999,
+          "currency": "INR",
+          "rating": 4.7,
+          "reviewCount": 1250,
+          "inStock": true,
+          "effects": ["energy", "focus", "strength", "muscle"],
+          "isTopPick": true
+        },
+        "osta-2866": {
+          "name": "OSTA 2866",
+          "slug": "osta-2866",
+          "alternativeFor": "Ostarine",
+          "directUrl": "https://crazybulk.in/product/osta-2866",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 4999,
+          "currency": "INR",
+          "rating": 4.6,
+          "reviewCount": 980,
+          "inStock": true,
+          "effects": ["lean muscle", "recovery"],
+          "isTopPick": false
+        },
+        "ibuta-677": {
+          "name": "IBUTA 677",
+          "slug": "ibuta-677",
+          "alternativeFor": "MK-677",
+          "directUrl": "https://crazybulk.in/product/ibuta-677",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 4999,
+          "currency": "INR",
+          "rating": 4.5,
+          "reviewCount": 870,
+          "inStock": true,
+          "effects": ["growth hormone", "recovery", "sleep"],
+          "isTopPick": false
+        },
+        "d-bal": {
+          "name": "D-BAL",
+          "slug": "d-bal",
+          "alternativeFor": "Dianabol",
+          "directUrl": "https://crazybulk.in/product/d-bal",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 3999,
+          "currency": "INR",
+          "rating": 4.8,
+          "reviewCount": 2340,
+          "inStock": true,
+          "effects": ["muscle", "strength", "recovery"],
+          "isTopPick": true
+        }
+      }
+    },
+    "healthkart": {
+      "name": "HealthKart",
+      "status": "pending",
+      "affiliateId": "PLACEHOLDER",
+      "baseUrl": "https://www.healthkart.com",
+      "network": "vCommission",
+      "commission": "2.25%",
+      "cookie": "1 day",
+      "aov": 2800,
+      "conversionRate": "80.83%",
+      "hasCOD": true,
+      "payoutSchedule": "Net-30",
+      "paymentMethod": "NEFT",
+      "minPayout": 2000,
+      "products": {
+        "muscleblaze-preworkout": {
+          "name": "MuscleBlaze Pre-Workout 300",
+          "slug": "muscleblaze-preworkout",
+          "directUrl": "https://www.healthkart.com/muscleblaze-pre-workout-300",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 1299,
+          "currency": "INR",
+          "rating": 4.5,
+          "reviewCount": 3420,
+          "inStock": true,
+          "caffeine": 300,
+          "effects": ["energy", "pump", "focus"],
+          "isTopPick": true
+        },
+        "gat-nitraflex": {
+          "name": "GAT Nitraflex",
+          "slug": "gat-nitraflex",
+          "directUrl": "https://www.healthkart.com/gat-nitraflex",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 2499,
+          "currency": "INR",
+          "rating": 4.6,
+          "reviewCount": 1890,
+          "inStock": true,
+          "caffeine": 325,
+          "effects": ["energy", "pump", "testosterone"],
+          "isTopPick": false
+        },
+        "nutrex-outlift": {
+          "name": "NUTREX Outlift",
+          "slug": "nutrex-outlift",
+          "directUrl": "https://www.healthkart.com/nutrex-outlift",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 3199,
+          "currency": "INR",
+          "rating": 4.4,
+          "reviewCount": 890,
+          "inStock": true,
+          "caffeine": 350,
+          "effects": ["energy", "endurance", "pump"],
+          "isTopPick": false
+        }
+      }
+    },
+    "kapiva": {
+      "name": "Kapiva Ayurveda",
+      "status": "pending",
+      "affiliateId": "PLACEHOLDER",
+      "baseUrl": "https://www.kapiva.in",
+      "network": "Direct / INRDeals",
+      "commission": "15%",
+      "cookie": "30 days",
+      "aov": 1200,
+      "hasCOD": true,
+      "payoutSchedule": "Net-15",
+      "paymentMethod": "NEFT/IMPS",
+      "minPayout": 500,
+      "products": {
+        "shilajit-gold": {
+          "name": "Kapiva Shilajit Gold Resin + Kesar",
+          "slug": "shilajit-gold",
+          "directUrl": "https://www.kapiva.in/shilajit-gold-resin",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 599,
+          "currency": "INR",
+          "rating": 4.6,
+          "reviewCount": 4560,
+          "inStock": true,
+          "effects": ["energy", "stamina", "vitality"],
+          "isTopPick": true
+        },
+        "ashwagandha-capsules": {
+          "name": "Kapiva Ashwagandha Capsules",
+          "slug": "ashwagandha-capsules",
+          "directUrl": "https://www.kapiva.in/ashwagandha-capsules",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 449,
+          "currency": "INR",
+          "rating": 4.5,
+          "reviewCount": 2890,
+          "inStock": true,
+          "effects": ["stress relief", "energy", "recovery"],
+          "isTopPick": false
+        }
+      }
+    },
+    "upakarma": {
+      "name": "Upakarma Ayurveda",
+      "status": "pending",
+      "affiliateId": "PLACEHOLDER",
+      "baseUrl": "https://www.upakarma.in",
+      "network": "vCommission",
+      "commission": "21.38%",
+      "cookie": "1 day",
+      "aov": 1500,
+      "hasCOD": true,
+      "payoutSchedule": "Net-15",
+      "paymentMethod": "NEFT",
+      "minPayout": 500,
+      "products": {
+        "shilajit-resin": {
+          "name": "Upakarma Shilajit Resin",
+          "slug": "shilajit-resin",
+          "directUrl": "https://www.upakarma.in/shilajit-resin",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 899,
+          "currency": "INR",
+          "rating": 4.7,
+          "reviewCount": 3210,
+          "inStock": true,
+          "effects": ["energy", "stamina", "testosterone"],
+          "isTopPick": true
+        },
+        "ashwagandha-ksm66": {
+          "name": "Upakarma Ashwagandha KSM-66",
+          "slug": "ashwagandha-ksm66",
+          "directUrl": "https://www.upakarma.in/ashwagandha-ksm-66",
+          "affiliateUrl": "PLACEHOLDER",
+          "price": 699,
+          "currency": "INR",
+          "rating": 4.6,
+          "reviewCount": 1780,
+          "inStock": true,
+          "effects": ["stress relief", "strength", "recovery"],
+          "isTopPick": false
+        }
+      }
+    },
+    "amazon_india": {
+      "name": "Amazon India",
+      "status": "pending",
+      "affiliateId": "PLACEHOLDER",
+      "baseUrl": "https://www.amazon.in",
+      "network": "Amazon Associates",
+      "commission": "1-10%",
+      "cookie": "24 hours",
+      "hasCOD": true,
+      "payoutSchedule": "Net-60",
+      "paymentMethod": "Bank Transfer / Gift Card",
+      "minPayout": 1000,
+      "products": {}
+    }
+  },
+  "settings": {
+    "showPricesWhenNoAffiliate": true,
+    "fallbackCTAText": "Check Price",
+    "affiliateCTAText": "Buy Now with COD",
+    "trackingParams": {
+      "utm_source": "blushandbreath",
+      "utm_medium": "affiliate",
+      "utm_campaign": "dmaa-alternatives"
+    },
+    "disclosureText": "We earn commissions from purchases made through affiliate links at no extra cost to you. This does not influence our editorial reviews."
+  }
+}

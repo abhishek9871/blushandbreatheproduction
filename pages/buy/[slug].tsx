@@ -128,7 +128,7 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
           <span>/</span>
           <span className="text-text-light dark:text-text-dark">Buy Guides</span>
           <span>/</span>
-          <span className="text-text-light dark:text-text-dark truncate max-w-[150px] sm:max-w-[250px]">
+          <span className="text-text-light dark:text-text-dark">
             {page.title}
           </span>
         </nav>

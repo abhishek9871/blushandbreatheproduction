@@ -50,7 +50,7 @@
   --text-light: #1e293b;
   --text-dark: #f8fafc;
   --text-subtle-light: #64748b;
-  --text-subtle-dark: #94a3b8;
+  --text-subtle-dark: #cbd5e1;  /* Improved contrast for dark mode readability */
   
   /* Brand colors */
   --primary: #2dd4bf;
@@ -888,4 +888,145 @@ html {
   color: var(--primary);
   font-weight: 700;
   margin-right: 0.5rem;
+}
+
+/* =================================== */
+/* Dark Mode Optimization - Buy Pages  */
+/* =================================== */
+
+/* Enhanced prose text readability in dark mode */
+.dark .buy-page-content {
+  --tw-prose-body: #e2e8f0;
+  --tw-prose-headings: #f8fafc;
+  --tw-prose-bold: #f1f5f9;
+  --tw-prose-links: #2dd4bf;
+  --tw-prose-counters: #94a3b8;
+  --tw-prose-bullets: #64748b;
+}
+
+/* Improve paragraph text in dark mode */
+.dark .buy-page-content p,
+.dark .buy-page-content li {
+  color: #e2e8f0;
+  line-height: 1.75;
+}
+
+/* Strong/bold text more visible in dark mode */
+.dark .buy-page-content strong,
+.dark .buy-page-content b {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+/* Links stand out better in dark mode */
+.dark .buy-page-content a {
+  color: #5eead4;
+}
+
+.dark .buy-page-content a:hover {
+  color: #2dd4bf;
+}
+
+/* List markers more visible */
+.dark .buy-page-content ul > li::marker,
+.dark .buy-page-content ol > li::marker {
+  color: #94a3b8;
+}
+
+/* Blockquotes improved for dark mode */
+.dark .buy-page-content blockquote {
+  border-left-color: var(--primary);
+  color: #cbd5e1;
+  background: rgba(45, 212, 191, 0.05);
+  padding: 0.75rem 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Code blocks in dark mode */
+.dark .buy-page-content code {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+}
+
+/* =================================== */
+/* Dark Mode - Medical Citations       */
+/* =================================== */
+
+/* Quote text in citations more readable */
+.dark blockquote {
+  color: #d1d5db;
+}
+
+/* Separator dots more visible */
+.dark .text-gray-300 {
+  color: #4b5563 !important;
+}
+
+/* =================================== */
+/* Dark Mode - Cards & Containers      */
+/* =================================== */
+
+/* Improve card backgrounds for better text contrast */
+.dark .bg-gray-50 {
+  background-color: rgba(30, 41, 59, 0.8);
+}
+
+.dark .bg-gray-800\/50 {
+  background-color: rgba(30, 41, 59, 0.6);
+}
+
+.dark .bg-gray-800\/30 {
+  background-color: rgba(30, 41, 59, 0.4);
+}
+
+/* Border visibility in dark mode */
+.dark .border-gray-100 {
+  border-color: #374151;
+}
+
+.dark .border-gray-700 {
+  border-color: #4b5563;
+}
+
+/* =================================== */
+/* Dark Mode - Status Indicators       */
+/* =================================== */
+
+/* Legal status badges - ensure visibility */
+.dark .bg-alert-red\/10 {
+  background-color: rgba(220, 38, 38, 0.2);
+}
+
+.dark .bg-success-green\/10 {
+  background-color: rgba(22, 163, 74, 0.2);
+}
+
+.dark .bg-warning-amber\/10 {
+  background-color: rgba(217, 119, 6, 0.2);
+}
+
+/* =================================== */
+/* Dark Mode - FAQ Section             */
+/* =================================== */
+
+.dark .faq-accordion button {
+  color: #f1f5f9;
+}
+
+.dark .faq-accordion .text-text-subtle-light {
+  color: #cbd5e1;
+}
+
+/* =================================== */
+/* Dark Mode - Table of Contents       */
+/* =================================== */
+
+.dark nav[aria-label="Table of contents"] a {
+  color: #cbd5e1;
+}
+
+.dark nav[aria-label="Table of contents"] a:hover {
+  color: #2dd4bf;
 }

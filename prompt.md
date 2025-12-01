@@ -34,7 +34,7 @@ A dynamic buy page template (`/buy/[slug].tsx`) with multiple custom components 
 
 **DO**: Find and fix all UI/UX issues affecting functionality and user experience on BOTH desktop and mobile.
 
-**DO NOT**: Change any content, text, copy, data, or SEO elements. Only fix visual/interactive issues.
+**DO NOT**: Change any content, text, copy, data, or SEO elements. Only fix visual/interactive issues (eg. such as headings color, dropdown content, etc).
 
 ## Interactive Elements to Test
 

@@ -105,8 +105,8 @@ export default function MedicalCitationBadge({
                     <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-0.5">
                       {source.authority} • {source.date}
                     </p>
-                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-1 italic line-clamp-2">
-                      &ldquo;{source.keyQuote.substring(0, 150)}...&rdquo;
+                    <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mt-1 italic">
+                      &ldquo;{source.keyQuote}&rdquo;
                     </p>
                   </div>
                 </div>

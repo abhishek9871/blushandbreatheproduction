@@ -192,6 +192,7 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
                 <div 
                   className="prose prose-lg dark:prose-invert max-w-none text-text-subtle-light dark:text-text-subtle-dark
                     prose-headings:text-text-light dark:prose-headings:text-text-dark
+                    prose-h3:text-lg prose-h3:md:text-xl prose-h3:font-bold prose-h3:mt-6 prose-h3:mb-3
                     prose-strong:text-text-light dark:prose-strong:text-text-dark
                     prose-ul:list-disc prose-ol:list-decimal
                     prose-a:text-primary"
@@ -268,16 +269,10 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
 
           {/* FAQ Accordion */}
           {page.faqs && page.faqs.length > 0 && (
-            <section id="faq" className="mb-8 scroll-mt-20">
-              <h2 className="text-xl sm:text-2xl font-bold text-text-light dark:text-text-dark mb-4 flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary">help</span>
-                Frequently Asked Questions
-              </h2>
-              <FAQAccordion 
-                faqs={page.faqs} 
-                className="mb-8"
-              />
-            </section>
+            <FAQAccordion 
+              faqs={page.faqs} 
+              className="mb-8"
+            />
           )}
 
           {/* Final CTA */}

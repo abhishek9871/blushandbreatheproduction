@@ -54,19 +54,19 @@ export function TableOfContents({ items, className = '' }: TableOfContentsProps)
     >
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="w-full min-h-[48px] px-4 py-3 flex items-center justify-between text-left md:cursor-default"
+        className="w-full min-h-[48px] px-4 py-3 flex items-center justify-between text-left cursor-pointer"
         aria-expanded={!isCollapsed}
       >
         <span className="font-semibold text-sm md:text-base text-text-light dark:text-text-dark flex items-center gap-2">
           <span className="material-symbols-outlined text-primary text-lg md:text-xl">toc</span>
           Table of Contents
         </span>
-        <span className={`material-symbols-outlined md:hidden transition-transform ${isCollapsed ? '' : 'rotate-180'}`}>
+        <span className={`material-symbols-outlined transition-transform ${isCollapsed ? '' : 'rotate-180'}`}>
           expand_more
         </span>
       </button>
       
-      <div className={`${isCollapsed ? 'hidden' : 'block'} md:block max-h-[60vh] overflow-y-auto`}>
+      <div className={`${isCollapsed ? 'hidden' : 'block'} max-h-[60vh] overflow-y-auto`}>
         <ul className="px-3 md:px-4 pb-4 space-y-0.5 md:space-y-1">
           {items.map((item, index) => (
             <li key={item.id}>

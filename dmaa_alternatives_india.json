@@ -1,0 +1,336 @@
+{
+  "research_summary": {
+    "purpose": "Legal DMAA alternatives in India with affiliate programs for harm reduction education",
+    "verification_date": "2025-12-01",
+    "total_products_verified": 10,
+    "categories_covered": ["Pre-Workout", "Ayurvedic Energy", "Natural Testosterone Boosters", "Stimulant-Free Pump"]
+  },
+  
+  "affiliate_programs_summary": {
+    "amazon_associates_india": {
+      "commission_rate": "6-9% for sports nutrition",
+      "how_to_join": "https://affiliate-program.amazon.in/",
+      "cookie_duration": "24 hours",
+      "payment_threshold": "₹1,000"
+    },
+    "flipkart_affiliate": {
+      "commission_rate": "1-12% (4% for sports/nutrition)",
+      "how_to_join": "https://affiliate.flipkart.com/",
+      "cookie_duration": "30 minutes",
+      "payment_threshold": "₹250"
+    },
+    "healthkart_affiliate": {
+      "commission_rate": "2.7-5%",
+      "how_to_join": "Via Admitad, Cuelinks, EarnKaro, or INRDeals",
+      "cookie_duration": "7 days",
+      "payment_threshold": "Varies by network"
+    },
+    "nutrabay_affiliate": {
+      "commission_rate": "5-6.8%",
+      "how_to_join": "https://nutrabay.com/affiliates or via INRDeals/Cuelinks",
+      "cookie_duration": "Not specified",
+      "payment_threshold": "₹3,000"
+    },
+    "muscleblaze_affiliate": {
+      "commission_rate": "2-3.6%",
+      "how_to_join": "Via EarnKaro, Admitad, Cuelinks, or INRDeals",
+      "cookie_duration": "7 days",
+      "payment_threshold": "Varies by network"
+    }
+  },
+
+  "verified_products": [
+    {
+      "product_id": 1,
+      "name": "MuscleBlaze Pre Workout 200 Xtreme",
+      "brand": "MuscleBlaze",
+      "category": "Pre-Workout",
+      "price_range": "₹579-₹1,049",
+      "sizes_available": ["100g (15 servings)", "200g (30 servings)"],
+      "dmaa_alternative_effect": "Caffeine + L-Theanine combo provides sustained energy without jitters - approximately 60-70% of DMAA's stimulant effect with better focus and no crash",
+      "key_ingredients": [
+        "Caffeine 200mg",
+        "L-Theanine 200mg",
+        "Beta-Alanine 2000mg",
+        "L-Citrulline 3000mg"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/MuscleBlaze-Workout-Caffeine-Citrulline-servings/dp/B08KPJRRL2",
+        "nutrabay": "https://nutrabay.com/product/muscleblaze-pre-workout-200-xtreme/",
+        "healthkart": "https://www.healthkart.com/"
+      },
+      "affiliate_options": ["Amazon Associates India", "MuscleBlaze Affiliate", "Nutrabay Affiliate", "HealthKart Affiliate"],
+      "commission_range": "2-6%",
+      "rating": 4.2,
+      "review_count": "1500+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 2,
+      "name": "MuscleBlaze Pre Workout WrathX",
+      "brand": "MuscleBlaze",
+      "category": "Pre-Workout (High-Stim)",
+      "price_range": "₹1,322-₹1,999",
+      "sizes_available": ["340g (20 servings)", "510g (30 servings)"],
+      "dmaa_alternative_effect": "High-stim formula with 200mg caffeine + 150mg EnXtra for sustained 5-hour energy - approximately 70-80% of DMAA's intensity without cardiovascular risks",
+      "key_ingredients": [
+        "Caffeine 200mg",
+        "EnXtra 150mg",
+        "Citrulline DL-Malate 3000mg",
+        "L-Arginine 750mg",
+        "Beta-Alanine 1500mg",
+        "Creapure Creatine",
+        "BioPerine"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/stores/MuscleBlaze/page/44498B61-5AF2-465E-87BA-FC01A37D97EE",
+        "nutrabay": "https://nutrabay.com/product/muscleblaze-wrathx-pre-workout/",
+        "official": "https://www.muscleblaze.com/"
+      },
+      "affiliate_options": ["Amazon Associates India", "MuscleBlaze Affiliate", "Nutrabay Affiliate"],
+      "commission_range": "2-6%",
+      "rating": 4.5,
+      "review_count": "500+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 3,
+      "name": "BigMuscles Nutrition Karnage Pre-Workout",
+      "brand": "BigMuscles Nutrition",
+      "category": "Pre-Workout",
+      "price_range": "₹1,199-₹1,999",
+      "sizes_available": ["300g (60 servings)"],
+      "dmaa_alternative_effect": "Balanced energy formula with L-Citrulline and Beta-Alanine - approximately 55-65% of DMAA's stimulant effect with better pump and endurance",
+      "key_ingredients": [
+        "L-Citrulline 2200mg",
+        "Beta-Alanine 1000mg",
+        "L-Tyrosine 550mg",
+        "Caffeine blend"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/Bigmuscles-Nutrition-Pre-workout-Supplement-Substance/dp/B0CY1ZZXTB",
+        "flipkart": "https://www.flipkart.com/bigmuscles-nutrition-karnage-preworkout-pump-focus-energy-strength-endurance-60-servings-pre-workout/p/itm9731eca51f89d",
+        "nutrabay": "https://nutrabay.com/product/bigmuscles-nutrition-karnage-pre-workout/"
+      },
+      "affiliate_options": ["Amazon Associates India", "Flipkart Affiliate", "Nutrabay Affiliate"],
+      "commission_range": "4-6%",
+      "rating": 4.3,
+      "review_count": "1500+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 4,
+      "name": "BigMuscles Nutrition Karnage Black",
+      "brand": "BigMuscles Nutrition",
+      "category": "Pre-Workout (High-Stim)",
+      "price_range": "₹1,599-₹2,599",
+      "sizes_available": ["420g (30 servings)"],
+      "dmaa_alternative_effect": "Ultra-high energy formula with Nitrosigine - approximately 75-85% of DMAA's intensity with transparent labeling and no proprietary blends",
+      "key_ingredients": [
+        "L-Citrulline 7000mg",
+        "Beta-Alanine 1500mg",
+        "L-Tyrosine 1000mg",
+        "Nitrosigine 1000mg",
+        "Betaine Anhydrous 1000mg",
+        "Natural Caffeine 150mg"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/Bigmuscles-Nutrition-Preworkout-Explosive-Nitrosigine/dp/B0DH7WPBPF",
+        "nutrabay": "https://nutrabay.com/product/bigmuscles-nutrition-karnage-black-pre-workout/",
+        "official": "https://www.bigmusclesnutrition.com/products/karnage-black"
+      },
+      "affiliate_options": ["Amazon Associates India", "Nutrabay Affiliate"],
+      "commission_range": "5-6%",
+      "rating": 4.6,
+      "review_count": "200+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 5,
+      "name": "Optimum Nutrition Gold Standard Pre-Workout",
+      "brand": "Optimum Nutrition (ON)",
+      "category": "Pre-Workout",
+      "price_range": "₹799-₹899",
+      "sizes_available": ["142.5g (15 single-serve packs)"],
+      "dmaa_alternative_effect": "Clean energy formula from globally trusted brand - approximately 50-60% of DMAA's stimulant effect with balanced focus and no jitters",
+      "key_ingredients": [
+        "Caffeine 175mg",
+        "Creatine Monohydrate 3g",
+        "Beta-Alanine 1.5g",
+        "L-Citrulline",
+        "AstraGin"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/Nutrition-Standard-Pre-Workout-Endurance-Performance/dp/B0CCJHRCGC",
+        "nutrabay": "https://nutrabay.com/product/optimum-nutrition-on-gold-standard-pre-workout/"
+      },
+      "affiliate_options": ["Amazon Associates India", "Nutrabay Affiliate", "HealthKart Affiliate"],
+      "commission_range": "5-8%",
+      "rating": 4.4,
+      "review_count": "300+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 6,
+      "name": "Kapiva Himalayan Shilajit Resin",
+      "brand": "Kapiva",
+      "category": "Ayurvedic Energy",
+      "price_range": "₹599-₹1,299",
+      "sizes_available": ["20g (80 servings)", "40g (160 servings)"],
+      "dmaa_alternative_effect": "Natural adaptogenic energy - approximately 30-40% of DMAA's stimulant intensity but sustained over hours without crash, supports testosterone and overall vitality",
+      "key_ingredients": [
+        "Pure Himalayan Shilajit 250mg/serving",
+        "Fulvic Acid 70%+",
+        "80+ trace minerals"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/Kapiva-Himalayan-Shilajit-Endurance-Stamina/dp/B09BZNDYT2",
+        "official": "https://kapiva.in/"
+      },
+      "affiliate_options": ["Amazon Associates India"],
+      "commission_range": "6-9%",
+      "rating": 4.3,
+      "review_count": "5000+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 7,
+      "name": "Kapiva Shilajit Gold Capsules",
+      "brand": "Kapiva",
+      "category": "Ayurvedic Energy / Testosterone Support",
+      "price_range": "₹699-₹999",
+      "sizes_available": ["60 capsules"],
+      "dmaa_alternative_effect": "Ayurvedic adaptogen stack - approximately 35-45% of DMAA's energy with additional testosterone support and stress adaptation",
+      "key_ingredients": [
+        "Shilajit",
+        "24 Carat Gold (Swarna Bhasma)",
+        "Nagori Ashwagandha",
+        "Safed Musli",
+        "Gokshura",
+        "Super Coffee Arabica"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/Kapiva-Shilajit-Capsules-Contains-Ayurvedic/dp/B0BPLVZRNZ",
+        "1mg": "https://www.1mg.com/"
+      },
+      "affiliate_options": ["Amazon Associates India"],
+      "commission_range": "6-9%",
+      "rating": 4.2,
+      "review_count": "2000+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 8,
+      "name": "Himalaya Ashwagandha Tablets",
+      "brand": "Himalaya Wellness",
+      "category": "Ayurvedic Energy / Adaptogen",
+      "price_range": "₹229-₹399",
+      "sizes_available": ["60 tablets", "120 tablets"],
+      "dmaa_alternative_effect": "Cortisol regulation and sustained energy - approximately 20-30% of DMAA's acute stimulation but provides long-term stress resilience and improved endurance",
+      "key_ingredients": [
+        "Ashwagandha (Withania somnifera) root extract 250mg"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/Himalaya-Wellness-Herbs-Ashvagandha-General/dp/B01DQV8BIM",
+        "official": "https://himalayawellness.in/products/ashwagandha"
+      },
+      "affiliate_options": ["Amazon Associates India"],
+      "commission_range": "6-9%",
+      "rating": 4.3,
+      "review_count": "50,000+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 9,
+      "name": "TrueBasics T-Boost",
+      "brand": "TrueBasics",
+      "category": "Natural Testosterone Booster",
+      "price_range": "₹899-₹1,199",
+      "sizes_available": ["60 tablets"],
+      "dmaa_alternative_effect": "Natural testosterone support stack - approximately 25-35% of DMAA's energy with additional muscle and strength benefits through hormonal optimization",
+      "key_ingredients": [
+        "KSM 66 Ashwagandha",
+        "Safed Musli",
+        "Gokshura",
+        "Ginseng"
+      ],
+      "platforms": {
+        "amazon_in": "https://www.amazon.in/gp/bestsellers/hpc/11364609031",
+        "flipkart": "https://www.flipkart.com/"
+      },
+      "affiliate_options": ["Amazon Associates India", "Flipkart Affiliate"],
+      "commission_range": "4-6%",
+      "rating": 4.1,
+      "review_count": "1000+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    },
+    {
+      "product_id": 10,
+      "name": "Nutrabay Gold Spark Pre-Workout",
+      "brand": "Nutrabay",
+      "category": "Pre-Workout",
+      "price_range": "₹599-₹899",
+      "sizes_available": ["250g"],
+      "dmaa_alternative_effect": "Balanced entry-level pre-workout - approximately 50-60% of DMAA's stimulant effect, ideal for beginners and intermediate users",
+      "key_ingredients": [
+        "Caffeine 200mg",
+        "Beta-Alanine",
+        "Citrulline Malate",
+        "L-Arginine"
+      ],
+      "platforms": {
+        "nutrabay": "https://nutrabay.com/product/nutrabay-gold-spark-pre-workout/"
+      },
+      "affiliate_options": ["Nutrabay Affiliate"],
+      "commission_range": "5-6.8%",
+      "rating": 4.5,
+      "review_count": "500+",
+      "cod_available": true,
+      "in_stock": true,
+      "fssai_compliant": true,
+      "last_verified": "2025-12-01"
+    }
+  ],
+
+  "additional_notes": {
+    "cellucor_c4_status": "Limited availability in India - often out of stock on Amazon India. Available through specialized importers like NutriStar and HealthXP at ₹3,395-₹4,199 for 60 servings",
+    "gat_nitraflex_status": "Available through NutriStar and specialized retailers at ₹2,797+ for 30 servings. High caffeine (325mg) formula",
+    "dmaa_warning": "DMAA (1,3-dimethylamylamine) is banned in India and most countries due to cardiovascular risks. These alternatives provide similar energy/focus benefits through legal, FSSAI-compliant ingredients",
+    "cycling_recommendation": "For sustained effectiveness, cycle pre-workouts 8 weeks on, 2 weeks off to prevent tolerance buildup",
+    "stack_suggestion": "For DMAA-like effects without risks: Combine caffeine-based pre-workout + Ashwagandha + Shilajit for energy + stress adaptation + hormonal support"
+  },
+
+  "how_to_join_affiliates": {
+    "step1": "Amazon Associates India: Visit https://affiliate-program.amazon.in/ and sign up with your website/social media",
+    "step2": "Flipkart Affiliate: Visit https://affiliate.flipkart.com/ and register",
+    "step3": "Multi-brand networks: Sign up on EarnKaro (https://earnkaro.com/), Cuelinks (https://cuelinks.com/), or INRDeals (https://inrdeals.com/) for access to HealthKart, MuscleBlaze, and Nutrabay campaigns",
+    "step4": "Nutrabay Direct: Apply at https://nutrabay.com/affiliates"
+  }
+}

@@ -350,7 +350,7 @@
           "Lab Tested",
           "GMP Certified"
         ],
-        "buyLink": "https://www.amazon.in/dp/B0CG7YWBXL?tag=blushandbreat-21",
+        "buyLink": "https://www.amazon.in/Bigmuscles-Nutrition-Preworkout-Explosive-Nitrosigine/dp/B0DH7WPBPF?tag=blushandbreat-21",
         "officialLink": "https://www.bigmusclesnutrition.com/collections/pre-workout/products/karnage-black"
       },
       "alternatives": [
@@ -606,7 +606,7 @@
         {
           "title": "DMAA in Products Marketed as Dietary Supplements",
           "source": "U.S. FDA",
-          "url": "https://www.fda.gov/food/information-select-dietary-supplement-ingredients-and-other-substances/dmaa-products-marketed-dietary-supplements",
+          "url": "https://www.fda.gov/food/dietary-supplement-ingredients-and-labeling/dmaa-products-marketed-dietary-supplements",
           "year": "2023"
         },
         {
@@ -616,21 +616,21 @@
           "year": "2023"
         },
         {
-          "title": "FSSAI Food Supplements Regulations",
+          "title": "FSSAI Health Supplements Regulations",
           "source": "FSSAI",
-          "url": "https://www.fssai.gov.in/upload/uploadfiles/files/Regulations/Gazette_Notification_Supplements_Nutraceuticals_24_12_2016.pdf",
+          "url": "https://fssai.gov.in/upload/uploadfiles/files/Nutraceuticals_Regulations.pdf",
           "year": "2016"
         },
         {
           "title": "WADA Prohibited List - Stimulants",
           "source": "WADA",
-          "url": "https://www.wada-ama.org/en/resources/science-medicine/prohibited-list",
-          "year": "2023"
+          "url": "https://www.wada-ama.org/en/resources/world-anti-doping-code-and-international-standards/prohibited-list",
+          "year": "2025"
         },
         {
-          "title": "Hemorrhagic Stroke After DMAA Ingestion",
-          "source": "NCBI",
-          "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4104153/",
+          "title": "DMAA Associated With Cerebral Hemorrhage",
+          "source": "PubMed",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22575212/",
           "year": "2012"
         }
       ],

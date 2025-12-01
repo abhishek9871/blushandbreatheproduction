@@ -24,10 +24,11 @@ export default function BuyPageSchema({
   datePublished,
   dateModified,
 }: BuyPageSchemaProps) {
-  // Article Schema (MedicalWebPage subtype for E-E-A-T)
+  // Article Schema - Using 'Article' for Google rich results support
+  // Note: MedicalWebPage is not supported by Google for Article rich results
   const articleSchema = {
     '@context': 'https://schema.org',
-    '@type': 'MedicalWebPage',
+    '@type': 'Article',
     '@id': pageUrl,
     headline: page.title,
     description: page.metaDescription,
@@ -153,6 +154,7 @@ export default function BuyPageSchema({
       '@context': 'https://schema.org',
       '@type': 'Product',
       name: product.name,
+      image: product.image || `${SITE_URL}/images/products/${product.id}.jpg`,
       brand: {
         '@type': 'Brand',
         name: product.brand,

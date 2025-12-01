@@ -118,6 +118,7 @@ export interface AlternativeProduct {
   id: string;
   name: string;
   brand: string;
+  image?: string; // Product image URL for Google Merchant Listings
   tier: 'preworkout' | 'ayurvedic' | 'nootropic' | 'sarms_alternative';
   alternativeFor: string;
   keyIngredients: string[];

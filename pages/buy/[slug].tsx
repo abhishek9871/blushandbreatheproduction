@@ -304,6 +304,7 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
         pageUrl={canonicalUrl}
         datePublished={page.publishedDate}
         dateModified={page.modifiedDate}
+        affiliateProducts={page.slug.includes('berberine') ? BERBERINE_PRODUCTS : undefined}
       />
 
       <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8">

@@ -2853,9 +2853,9 @@
       "modifiedDate": "2025-12-02T00:00:00Z",
       "readingTime": 14,
       "wordCount": 4200,
-      "hasCalculator": true,
+      "hasCalculator": false,
       "hasTestimonials": false,
-      "hasVideo": false
+      "hasVideo": true
     }
   ]
 }

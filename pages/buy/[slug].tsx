@@ -106,6 +106,15 @@ const AffiliateProductShowcase = dynamic(
   }
 );
 
+// Product Video Section - YouTube videos to build trust and drive conversions
+const ProductVideoSection = dynamic(
+  () => import('@/components/buy/ProductVideoSection'),
+  { 
+    loading: () => <LoadingPlaceholder height="h-[400px]" />,
+    ssr: false // Client-side only for YouTube API calls
+  }
+);
+
 // =============================================================================
 // BERBERINE AFFILIATE PRODUCTS DATA (with verified Amazon product images)
 // Images scraped from Amazon India product pages - December 2025
@@ -374,6 +383,40 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
             />
           )}
 
+          {/* Video Section 1: Berberine Reviews & Benefits - Top 3 most viewed berberine videos */}
+          {isLegalProduct && page.slug.includes('berberine') && (
+            <ProductVideoSection
+              searchQuery="berberine supplement review benefits weight loss blood sugar dosage"
+              title="Why Doctors Recommend Berberine"
+              subtitle="Watch expert reviews on berberine supplements for weight loss and blood sugar control"
+              maxVideos={3}
+              sectionId="top-pick-videos"
+              variant="featured"
+              productName="Wellbeing Nutrition Liposomal Berberine"
+              affiliateUrl="https://amzn.to/4iucHQm"
+              requiredKeywords={['berberine']}
+              excludeKeywords={['ashwagandha', 'creatine', 'protein', 'pre workout', 'testosterone']}
+              skipResults={0}
+            />
+          )}
+
+          {/* Video Section 2: Berberine Weight Loss - Skip first 3 to avoid duplicates */}
+          {isLegalProduct && page.slug.includes('berberine') && (
+            <ProductVideoSection
+              searchQuery="berberine supplement review benefits weight loss blood sugar dosage"
+              title="Berberine for Weight Loss & Blood Sugar"
+              subtitle="Learn how berberine helps with weight management and metabolic health"
+              maxVideos={4}
+              sectionId="berberine-education"
+              variant="grid"
+              productName="Wellbeing Nutrition Berberine"
+              affiliateUrl="https://amzn.to/4iucHQm"
+              requiredKeywords={['berberine']}
+              excludeKeywords={['ashwagandha', 'creatine', 'protein', 'pre workout', 'liver', 'fatty liver']}
+              skipResults={3}
+            />
+          )}
+
           {/* Content Sections */}
           <div className="buy-sections">
             {page.sections.map((section, index) => (
@@ -476,6 +519,23 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
             <FAQAccordion 
               faqs={page.faqs} 
               className="mb-8"
+            />
+          )}
+
+          {/* Video Section 3: Berberine Science - Skip first 7 videos (3+4 from above sections) */}
+          {isLegalProduct && page.slug.includes('berberine') && (
+            <ProductVideoSection
+              searchQuery="berberine supplement review benefits weight loss blood sugar dosage"
+              title="More Berberine Insights"
+              subtitle="Additional expert videos on berberine supplementation"
+              maxVideos={3}
+              sectionId="berberine-science"
+              variant="grid"
+              productName="Wellbeing Nutrition Berberine"
+              affiliateUrl="https://amzn.to/4iucHQm"
+              requiredKeywords={['berberine']}
+              excludeKeywords={['ashwagandha', 'creatine', 'protein', 'pre workout', 'testosterone', 'fatty liver']}
+              skipResults={7}
             />
           )}
 

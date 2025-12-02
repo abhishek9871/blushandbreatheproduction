@@ -17,3 +17,5 @@ export { default as BuyPageSchema } from './BuyPageSchema';
 export { default as FeaturedProductShowcase } from './FeaturedProductShowcase';
 export { default as AffiliateProductShowcase } from './AffiliateProductShowcase';
 export type { AffiliateProductData } from './AffiliateProductShowcase';
+
+export { default as ProductVideoSection, InlineVideoEmbed } from './ProductVideoSection';

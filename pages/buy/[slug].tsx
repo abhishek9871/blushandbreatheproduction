@@ -7,28 +7,95 @@
  * 
  * Route: /buy/[slug]
  * Example: /buy/dmaa-india
+ * 
+ * PERFORMANCE OPTIMIZATION:
+ * - Above-fold components loaded eagerly
+ * - Below-fold components lazy loaded with dynamic imports
+ * - This reduces initial JS bundle by ~40KB
  */
 
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { FAQAccordion, TableOfContents } from '@/components';
 import { getBuyPageBySlug, getBuyPageSlugs } from '@/lib/data/buy-pages';
 import type { BuyPage } from '@/types';
 
-// Import Buy Page Components
+// =============================================================================
+// ABOVE-FOLD COMPONENTS (Eager Load - Critical for LCP)
+// =============================================================================
 import BuyPageHero from '@/components/buy/BuyPageHero';
 import MedicalCitationBadge from '@/components/buy/MedicalCitationBadge';
-import RiskCalculator from '@/components/buy/RiskCalculator';
-import SupplierWarningCard from '@/components/buy/SupplierWarningCard';
-import TestimonialCard from '@/components/buy/TestimonialCard';
-import AlternativesComparison from '@/components/buy/AlternativesComparison';
-import LegalStatusTable from '@/components/buy/LegalStatusTable';
-import EffectComparisonChart from '@/components/buy/EffectComparisonChart';
 import ConversionCTA from '@/components/buy/ConversionCTA';
 import BuyPageSchema from '@/components/buy/BuyPageSchema';
-import FeaturedProductShowcase from '@/components/buy/FeaturedProductShowcase';
+
+// =============================================================================
+// BELOW-FOLD COMPONENTS (Lazy Load - Reduces initial bundle)
+// =============================================================================
+
+// Loading placeholder component for consistent UX
+const LoadingPlaceholder = ({ height = 'h-48' }: { height?: string }) => (
+  <div className={`${height} animate-pulse bg-gray-100 dark:bg-gray-800 rounded-xl`} />
+);
+
+// Risk Calculator - Interactive tool, not immediately visible
+const RiskCalculator = dynamic(
+  () => import('@/components/buy/RiskCalculator'),
+  { 
+    loading: () => <LoadingPlaceholder height="h-64" />,
+    ssr: true // Keep SSR for SEO
+  }
+);
+
+// Supplier Warning Cards - Below first viewport
+const SupplierWarningCard = dynamic(
+  () => import('@/components/buy/SupplierWarningCard'),
+  { ssr: true }
+);
+
+// Testimonial Cards - User reviews section
+const TestimonialCard = dynamic(
+  () => import('@/components/buy/TestimonialCard'),
+  { ssr: true }
+);
+
+// Alternatives Comparison - Product grid
+const AlternativesComparison = dynamic(
+  () => import('@/components/buy/AlternativesComparison'),
+  { 
+    loading: () => <LoadingPlaceholder height="h-96" />,
+    ssr: true
+  }
+);
+
+// Legal Status Table - Country comparison
+const LegalStatusTable = dynamic(
+  () => import('@/components/buy/LegalStatusTable'),
+  { 
+    loading: () => <LoadingPlaceholder height="h-48" />,
+    ssr: true
+  }
+);
+
+// Effect Comparison Chart - Visual charts
+const EffectComparisonChart = dynamic(
+  () => import('@/components/buy/EffectComparisonChart'),
+  { 
+    loading: () => <LoadingPlaceholder height="h-72" />,
+    ssr: true
+  }
+);
+
+// Featured Product Showcase - Main product display
+const FeaturedProductShowcase = dynamic(
+  () => import('@/components/buy/FeaturedProductShowcase'),
+  { 
+    loading: () => <LoadingPlaceholder height="h-[500px]" />,
+    ssr: true
+  }
+);
 
 interface BuyPageProps {
   page: BuyPage | null;

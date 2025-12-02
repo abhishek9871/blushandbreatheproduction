@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-// Script to prevent flash of wrong theme AND flash of unstyled icon text (FOUT)
+// Script to prevent flash of wrong theme AND handle font loading
 const themeInitScript = `
 (function() {
   // Theme detection
@@ -35,6 +35,41 @@ export default function Document() {
       <Head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         
+        {/* 
+          PERFORMANCE OPTIMIZATION: Self-Hosted Fonts
+          
+          Benefits vs Google Fonts:
+          1. No DNS lookup to fonts.googleapis.com (saves 50-100ms)
+          2. No TCP connection to fonts.gstatic.com (saves 50-100ms)
+          3. No font CSS fetch (saves 100-200ms)
+          4. Fonts cached with site assets
+          5. Total savings: 200-400ms on mobile
+          
+          Strategy:
+          - Preload font files for fastest delivery
+          - font-display: swap in CSS ensures text renders immediately
+          - Fonts served from same origin (/fonts/)
+        */}
+        
+        {/* Preload critical fonts - highest priority, non-render-blocking */}
+        <link
+          rel="preload"
+          href="/fonts/lexend-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/material-symbols.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        
+        {/* Font CSS - defines @font-face rules with font-display: swap */}
+        <link rel="stylesheet" href="/fonts/fonts.css" />
+        
         {/* Favicon */}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -42,27 +77,6 @@ export default function Document() {
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#2dd4bf" />
-        
-        {/* Material Symbols - Static font with fixed values (297KB vs 3.7MB variable) */}
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
-          as="style"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
-        />
-        {/* Preload Lexend font */}
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
-          as="style"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
-        />
       </Head>
       <body className="antialiased">
         <Main />

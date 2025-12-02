@@ -77,6 +77,9 @@ export default function Document() {
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#2dd4bf" />
+        
+        {/* Yandex Webmaster Verification */}
+        <meta name="yandex-verification" content="da1a87af10547660" />
       </Head>
       <body className="antialiased">
         <Main />

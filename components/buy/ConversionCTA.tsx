@@ -13,7 +13,7 @@ interface ConversionCTAProps {
   description: string;
   ctaText: string;
   ctaLink: string;
-  variant?: 'default' | 'prominent' | 'final';
+  variant?: 'default' | 'prominent' | 'final' | 'success';
 }
 
 export default function ConversionCTA({
@@ -26,6 +26,9 @@ export default function ConversionCTA({
 }: ConversionCTAProps) {
   // Different styles based on position and variant
   const getContainerStyles = () => {
+    if (variant === 'success') {
+      return 'p-6 bg-gradient-to-r from-success-green to-primary rounded-xl shadow-lg';
+    }
     if (variant === 'final') {
       return 'p-6 bg-gradient-to-r from-success-green to-primary rounded-xl shadow-lg';
     }
@@ -39,17 +42,17 @@ export default function ConversionCTA({
   };
 
   const getTextColor = () => {
-    if (variant === 'final') return 'text-white';
+    if (variant === 'final' || variant === 'success') return 'text-white';
     return 'text-text-light dark:text-text-dark';
   };
 
   const getDescColor = () => {
-    if (variant === 'final') return 'text-white/90';
+    if (variant === 'final' || variant === 'success') return 'text-white/90';
     return 'text-text-subtle-light dark:text-text-subtle-dark';
   };
 
   const getButtonStyles = () => {
-    if (variant === 'final') {
+    if (variant === 'final' || variant === 'success') {
       return 'bg-white text-success-green hover:bg-gray-100 font-bold';
     }
     return 'bg-success-green hover:bg-success-green-dark text-white font-bold';

@@ -1095,6 +1095,16 @@ html {
   color: #4ade80;
 }
 
+/* Fix for cells with inline background styles (e.g., "You Save" column) */
+.dark .buy-page-content table td[style*="background"] {
+  background: rgba(34, 197, 94, 0.25) !important;
+  color: #4ade80 !important;
+}
+
+.dark .buy-page-content table td[style*="background"] strong {
+  color: #4ade80 !important;
+}
+
 /* =================================== */
 /* Dark Mode - Medical Citations       */
 /* =================================== */

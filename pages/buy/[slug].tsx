@@ -121,6 +121,10 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
   };
   const substanceName = getSubstanceName();
 
+  // Check if this is a legal product (berberine, supplements) vs banned substance (DMAA, clenbuterol)
+  const isLegalProduct = page?.quickStats?.legalStatus?.toLowerCase().includes('legal') || 
+                         page?.quickStats?.legalStatus?.toLowerCase().includes('otc');
+
   if (error || !page) {
     return (
       <>
@@ -225,14 +229,25 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
             modifiedDate={formattedDate || ''}
           />
 
-          {/* Primary CTA - Above Fold */}
-          <ConversionCTA 
-            position="top"
-            title="Skip the Risk"
-            description="Legal alternatives with COD available across India"
-            ctaText="View Legal Alternatives"
-            ctaLink="#legal-alternatives"
-          />
+          {/* Primary CTA - Above Fold (different for legal vs banned products) */}
+          {isLegalProduct ? (
+            <ConversionCTA 
+              position="top"
+              title="Start Saving Today"
+              description="Order now on Amazon India — Prime delivery, Cash on Delivery available"
+              ctaText="Shop Best Products"
+              ctaLink="#best-products"
+              variant="success"
+            />
+          ) : (
+            <ConversionCTA 
+              position="top"
+              title="Skip the Risk"
+              description="Legal alternatives with COD available across India"
+              ctaText="View Legal Alternatives"
+              ctaLink="#legal-alternatives"
+            />
+          )}
 
           {/* Table of Contents */}
           <TableOfContents
@@ -356,15 +371,26 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
             />
           )}
 
-          {/* Final CTA */}
-          <ConversionCTA 
-            position="bottom"
-            title="Don't Risk It"
-            description={`${substanceName}: Illegal, 45% seizure rate, ₹10L penalty. Legal alternatives: COD available, 1-3 day delivery, same effects.`}
-            ctaText="View Legal Alternatives with COD"
-            ctaLink="#legal-alternatives"
-            variant="final"
-          />
+          {/* Final CTA (different for legal vs banned products) */}
+          {isLegalProduct ? (
+            <ConversionCTA 
+              position="bottom"
+              title="Ready to Save ₹2,88,000/Year?"
+              description="Order berberine now on Amazon India. Prime delivery tomorrow. Cash on Delivery available. 100% legal, no prescription needed."
+              ctaText="Order Now with COD"
+              ctaLink={page.featuredProduct?.buyLink || "#best-products"}
+              variant="success"
+            />
+          ) : (
+            <ConversionCTA 
+              position="bottom"
+              title="Don't Risk It"
+              description={`${substanceName}: Illegal, 45% seizure rate, ₹10L penalty. Legal alternatives: COD available, 1-3 day delivery, same effects.`}
+              ctaText="View Legal Alternatives with COD"
+              ctaLink="#legal-alternatives"
+              variant="final"
+            />
+          )}
 
           {/* Related Pages */}
           {page.relatedPages && page.relatedPages.length > 0 && (

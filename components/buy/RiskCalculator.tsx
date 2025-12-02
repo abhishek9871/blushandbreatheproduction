@@ -14,6 +14,7 @@ import type { CalculatorConfig } from '@/types';
 interface RiskCalculatorProps {
   config: CalculatorConfig;
   onCalculate?: (result: CalculatorResult) => void;
+  substanceName?: string;
 }
 
 interface CalculatorResult {
@@ -34,6 +35,7 @@ interface CalculatorResult {
 export default function RiskCalculator({
   config,
   onCalculate,
+  substanceName = 'DMAA',
 }: RiskCalculatorProps) {
   const [port, setPort] = useState('');
   const [orderValue, setOrderValue] = useState('');
@@ -158,7 +160,7 @@ export default function RiskCalculator({
     <div className="my-6 p-6 bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark">
       <h3 className="text-lg font-bold text-text-light dark:text-text-dark mb-4 flex items-center gap-2">
         <span className="material-symbols-outlined text-primary">calculate</span>
-        DMAA Import Risk Calculator - India
+        {substanceName} Import Risk Calculator - India
       </h3>
 
       <p className="text-sm text-text-subtle-light dark:text-text-subtle-dark mb-4">

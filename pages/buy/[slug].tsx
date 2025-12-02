@@ -112,6 +112,15 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
     penaltyMax: number;
   } | null>(null);
 
+  // Determine substance name based on page slug
+  const getSubstanceName = () => {
+    if (!page) return 'DMAA';
+    if (page.slug.includes('clenbuterol')) return 'Clenbuterol';
+    if (page.slug.includes('dmaa')) return 'DMAA';
+    return page.title.split(':')[0].trim();
+  };
+  const substanceName = getSubstanceName();
+
   if (error || !page) {
     return (
       <>
@@ -275,6 +284,7 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
                   <RiskCalculator 
                     config={page.calculatorConfig}
                     onCalculate={setCalculatorResult}
+                    substanceName={substanceName}
                   />
                 )}
 
@@ -306,7 +316,7 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
                 )}
 
                 {section.id === 'legal-alternatives' && (
-                  <AlternativesComparison alternatives={page.alternatives} />
+                  <AlternativesComparison alternatives={page.alternatives} substanceName={substanceName} />
                 )}
 
                 {/* Mid-content CTA after alternatives section */}
@@ -314,7 +324,7 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
                   <ConversionCTA 
                     position="middle"
                     title="Ready to Switch?"
-                    description="These legal alternatives deliver 70-85% of DMAA's effects with zero legal or health risks"
+                    description={`These legal alternatives deliver 70-85% of ${substanceName}'s effects with zero legal or health risks`}
                     ctaText="Shop Now with COD"
                     ctaLink="#top-pick"
                     variant="prominent"
@@ -350,7 +360,7 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
           <ConversionCTA 
             position="bottom"
             title="Don't Risk It"
-            description="DMAA: Illegal, 45% seizure rate, ₹10L penalty. Legal alternatives: COD available, 1-3 day delivery, same effects."
+            description={`${substanceName}: Illegal, 45% seizure rate, ₹10L penalty. Legal alternatives: COD available, 1-3 day delivery, same effects.`}
             ctaText="View Legal Alternatives with COD"
             ctaLink="#legal-alternatives"
             variant="final"

@@ -63,8 +63,10 @@ export default function BuyPageSchema({
     wordCount: page.wordCount,
     about: {
       '@type': 'ChemicalSubstance',
-      name: 'DMAA (1,3-Dimethylamylamine)',
-      alternateName: ['Methylhexanamine', 'DMAA', '1,3-DMAA'],
+      name: page.slug.includes('clenbuterol') ? 'Clenbuterol' : 'DMAA (1,3-Dimethylamylamine)',
+      alternateName: page.slug.includes('clenbuterol') 
+        ? ['Clenbuterol Hydrochloride', 'Clen'] 
+        : ['Methylhexanamine', 'DMAA', '1,3-DMAA'],
       description: 'Banned dietary supplement ingredient',
     },
     mentions: page.medicalSources.map(source => ({
@@ -95,10 +97,11 @@ export default function BuyPageSchema({
   } : null;
 
   // SoftwareApplication Schema for calculator (if present)
+  const substanceName = page.slug.includes('clenbuterol') ? 'Clenbuterol' : 'DMAA';
   const calculatorSchema = page.hasCalculator ? {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'DMAA India Customs Risk Calculator',
+    name: `${substanceName} India Customs Risk Calculator`,
     applicationCategory: 'HealthApplication',
     operatingSystem: 'Web Browser',
     offers: {
@@ -106,7 +109,7 @@ export default function BuyPageSchema({
       price: '0',
       priceCurrency: 'INR',
     },
-    description: 'Calculate your DMAA import risk and potential customs penalties for India.',
+    description: `Calculate your ${substanceName} import risk and potential customs penalties for India.`,
     featureList: [
       'Port-specific seizure rates',
       'Order value risk assessment',

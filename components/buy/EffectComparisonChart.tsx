@@ -2,18 +2,46 @@
  * EffectComparisonChart Component
  * 
  * Visual comparison of effects and side effects between
- * DMAA and legal alternatives. Uses bar charts for clarity.
+ * banned substances and legal alternatives. Uses bar charts for clarity.
+ * Supports both DMAA and Clenbuterol pages dynamically.
  */
 
 import React, { useState } from 'react';
 import type { EffectComparison, SideEffectComparison } from '@/types';
 
+interface SubstanceConfig {
+  key: string;
+  label: string;
+  color: string;
+  textColor: string;
+}
+
 interface EffectComparisonChartProps {
   effects: EffectComparison[];
   sideEffects: SideEffectComparison[];
+  substanceType?: 'dmaa' | 'clenbuterol';
 }
 
-export default function EffectComparisonChart({ effects, sideEffects }: EffectComparisonChartProps) {
+export default function EffectComparisonChart({ effects, sideEffects, substanceType }: EffectComparisonChartProps) {
+  // Auto-detect substance type from effect data if not provided
+  const detectedType = substanceType || (effects[0] && 'clenbuterol' in effects[0] ? 'clenbuterol' : 'dmaa');
+  
+  // Configure substances based on type
+  const getSubstanceConfigs = (): SubstanceConfig[] => {
+    if (detectedType === 'clenbuterol') {
+      return [
+        { key: 'clenbuterol', label: 'Clenbuterol', color: 'bg-alert-red', textColor: 'text-alert-red' },
+        { key: 'natural', label: 'Natural Stack', color: 'bg-success-green', textColor: 'text-success-green' }
+      ];
+    }
+    return [
+      { key: 'dmaa', label: 'DMAA', color: 'bg-alert-red', textColor: 'text-alert-red' },
+      { key: 'dmha', label: 'DMHA', color: 'bg-warning-amber', textColor: 'text-warning-amber' },
+      { key: 'natural', label: 'Natural Stack', color: 'bg-success-green', textColor: 'text-success-green' }
+    ];
+  };
+
+  const substances = getSubstanceConfigs();
   const [activeTab, setActiveTab] = useState<'effects' | 'sideEffects'>('effects');
 
   const getSeverityColor = (level: string) => {
@@ -77,58 +105,35 @@ export default function EffectComparisonChart({ effects, sideEffects }: EffectCo
                 <span>{effect.effect}</span>
               </div>
               
-              {/* DMAA Bar */}
-              <div className="flex items-center gap-2">
-                <span className="w-24 text-xs text-text-subtle-light dark:text-text-subtle-dark">DMAA</span>
-                <div className="flex-1 h-4 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
-                  <div 
-                    className="h-full bg-alert-red transition-all duration-500"
-                    style={{ width: `${effect.dmaa * 10}%` }}
-                  />
-                </div>
-                <span className="w-8 text-xs text-right font-medium text-alert-red">{effect.dmaa}</span>
-              </div>
-
-              {/* DMHA Bar */}
-              <div className="flex items-center gap-2">
-                <span className="w-24 text-xs text-text-subtle-light dark:text-text-subtle-dark">DMHA</span>
-                <div className="flex-1 h-4 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
-                  <div 
-                    className="h-full bg-warning-amber transition-all duration-500"
-                    style={{ width: `${effect.dmha * 10}%` }}
-                  />
-                </div>
-                <span className="w-8 text-xs text-right font-medium text-warning-amber">{effect.dmha}</span>
-              </div>
-
-              {/* Natural Stack Bar */}
-              <div className="flex items-center gap-2">
-                <span className="w-24 text-xs text-text-subtle-light dark:text-text-subtle-dark">Natural</span>
-                <div className="flex-1 h-4 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
-                  <div 
-                    className="h-full bg-success-green transition-all duration-500"
-                    style={{ width: `${effect.natural * 10}%` }}
-                  />
-                </div>
-                <span className="w-8 text-xs text-right font-medium text-success-green">{effect.natural}</span>
-              </div>
+              {/* Dynamic Substance Bars */}
+              {substances.map((substance) => {
+                const value = (effect as unknown as Record<string, number>)[substance.key] || 0;
+                return (
+                  <div key={substance.key} className="flex items-center gap-2">
+                    <span className="w-24 text-xs text-text-subtle-light dark:text-text-subtle-dark">{substance.label}</span>
+                    <div className="flex-1 h-4 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                      <div 
+                        className={`h-full ${substance.color} transition-all duration-500`}
+                        style={{ width: `${value * 10}%` }}
+                      />
+                    </div>
+                    <span className={`w-8 text-xs text-right font-medium ${substance.textColor}`}>{value}</span>
+                  </div>
+                );
+              })}
             </div>
           ))}
 
-          {/* Legend */}
+          {/* Dynamic Legend */}
           <div className="flex flex-wrap gap-4 pt-4 border-t border-border-light dark:border-border-dark">
-            <div className="flex items-center gap-2 text-xs">
-              <span className="w-3 h-3 bg-alert-red rounded"></span>
-              <span className="text-text-subtle-light dark:text-text-subtle-dark">DMAA (Banned)</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs">
-              <span className="w-3 h-3 bg-warning-amber rounded"></span>
-              <span className="text-text-subtle-light dark:text-text-subtle-dark">DMHA (Legal Alternative)</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs">
-              <span className="w-3 h-3 bg-success-green rounded"></span>
-              <span className="text-text-subtle-light dark:text-text-subtle-dark">Natural Stack (Safest)</span>
-            </div>
+            {substances.map((substance) => (
+              <div key={substance.key} className="flex items-center gap-2 text-xs">
+                <span className={`w-3 h-3 ${substance.color} rounded`}></span>
+                <span className="text-text-subtle-light dark:text-text-subtle-dark">
+                  {substance.label} {substance.key === 'natural' ? '(Safest)' : substance.key === 'clenbuterol' || substance.key === 'dmaa' ? '(Banned)' : '(Legal Alternative)'}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -147,45 +152,24 @@ export default function EffectComparisonChart({ effects, sideEffects }: EffectCo
                 {effect.effect}
               </div>
               
-              <div className="grid grid-cols-3 gap-3">
-                {/* DMAA */}
-                <div>
-                  <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mb-1">DMAA</p>
-                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
-                    <div className={`h-full ${getSeverityColor(effect.dmaa)} ${getSeverityWidth(effect.dmaa)}`} />
-                  </div>
-                  <p className={`text-xs mt-1 capitalize ${
-                    effect.dmaa === 'high' ? 'text-alert-red' :
-                    effect.dmaa === 'moderate' ? 'text-warning-amber' :
-                    'text-success-green'
-                  }`}>{effect.dmaa}</p>
-                </div>
-
-                {/* DMHA */}
-                <div>
-                  <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mb-1">DMHA</p>
-                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
-                    <div className={`h-full ${getSeverityColor(effect.dmha)} ${getSeverityWidth(effect.dmha)}`} />
-                  </div>
-                  <p className={`text-xs mt-1 capitalize ${
-                    effect.dmha === 'high' ? 'text-alert-red' :
-                    effect.dmha === 'moderate' ? 'text-warning-amber' :
-                    'text-success-green'
-                  }`}>{effect.dmha}</p>
-                </div>
-
-                {/* Natural */}
-                <div>
-                  <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mb-1">Natural</p>
-                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
-                    <div className={`h-full ${getSeverityColor(effect.natural)} ${getSeverityWidth(effect.natural)}`} />
-                  </div>
-                  <p className={`text-xs mt-1 capitalize ${
-                    effect.natural === 'high' ? 'text-alert-red' :
-                    effect.natural === 'moderate' ? 'text-warning-amber' :
-                    'text-success-green'
-                  }`}>{effect.natural}</p>
-                </div>
+              <div className={`grid gap-3 ${substances.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+                {/* Dynamic Side Effect Bars */}
+                {substances.map((substance) => {
+                  const level = (effect as unknown as Record<string, string>)[substance.key] || 'none';
+                  return (
+                    <div key={substance.key}>
+                      <p className="text-xs text-text-subtle-light dark:text-text-subtle-dark mb-1">{substance.label}</p>
+                      <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+                        <div className={`h-full ${getSeverityColor(level)} ${getSeverityWidth(level)}`} />
+                      </div>
+                      <p className={`text-xs mt-1 capitalize ${
+                        level === 'high' ? 'text-alert-red' :
+                        level === 'moderate' ? 'text-warning-amber' :
+                        'text-success-green'
+                      }`}>{level}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ))}

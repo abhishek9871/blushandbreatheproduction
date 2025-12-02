@@ -10,9 +10,10 @@ import type { AlternativeProduct } from '@/types';
 
 interface AlternativesComparisonProps {
   alternatives: AlternativeProduct[];
+  substanceName?: string;
 }
 
-export default function AlternativesComparison({ alternatives }: AlternativesComparisonProps) {
+export default function AlternativesComparison({ alternatives, substanceName = 'DMAA' }: AlternativesComparisonProps) {
   // Sort by tier priority and whether it's a top pick
   const sortedAlternatives = [...alternatives].sort((a, b) => {
     if (a.isTopPick && !b.isTopPick) return -1;
@@ -141,7 +142,7 @@ export default function AlternativesComparison({ alternatives }: AlternativesCom
             <tr className="bg-gray-100 dark:bg-gray-800">
               <th className="p-3 text-left font-medium text-text-light dark:text-text-dark">Product</th>
               <th className="p-3 text-center font-medium text-text-light dark:text-text-dark">Type</th>
-              <th className="p-3 text-center font-medium text-text-light dark:text-text-dark">Effect vs DMAA</th>
+              <th className="p-3 text-center font-medium text-text-light dark:text-text-dark">Effect vs {substanceName}</th>
               <th className="p-3 text-center font-medium text-text-light dark:text-text-dark">Price</th>
               <th className="p-3 text-center font-medium text-text-light dark:text-text-dark">COD</th>
               <th className="p-3 text-center font-medium text-text-light dark:text-text-dark">Rating</th>

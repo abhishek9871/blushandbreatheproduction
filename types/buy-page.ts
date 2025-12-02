@@ -13,7 +13,7 @@ import type { FAQItem, Citation } from './substance';
 
 export interface MedicalSource {
   id: string;
-  sourceType: 'fda' | 'pubmed' | 'fssai' | 'wada' | 'who' | 'case_report' | 'regulatory';
+  sourceType: 'fda' | 'pubmed' | 'fssai' | 'wada' | 'who' | 'case_report' | 'regulatory' | 'systematic_review' | 'clinical' | 'review' | 'government' | 'news' | 'nih';
   title: string;
   date: string;
   authority: string;

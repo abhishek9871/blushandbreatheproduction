@@ -21,7 +21,14 @@ export default function MedicalCitationBadge({
 
   // Group sources by type
   const fdaSources = sources.filter(s => s.sourceType === 'fda').length;
-  const pubmedSources = sources.filter(s => s.sourceType === 'pubmed').length;
+  // Count pubmed, systematic_review, clinical, review, and government as studies
+  const studySources = sources.filter(s => 
+    s.sourceType === 'pubmed' || 
+    s.sourceType === 'systematic_review' || 
+    s.sourceType === 'clinical' || 
+    s.sourceType === 'review' ||
+    s.sourceType === 'government'
+  ).length;
   const caseReports = sources.filter(s => s.sourceType === 'case_report').length;
   const regulatorySources = sources.filter(s => s.sourceType === 'wada' || s.sourceType === 'regulatory').length;
 
@@ -56,9 +63,9 @@ export default function MedicalCitationBadge({
               {caseReports} Case Reports
             </span>
           )}
-          {pubmedSources > 0 && (
+          {studySources > 0 && (
             <span className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-success-green border border-success-green/30">
-              {pubmedSources} Studies
+              {studySources} Studies
             </span>
           )}
           {regulatorySources > 0 && (

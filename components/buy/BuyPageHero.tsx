@@ -29,6 +29,10 @@ export default function BuyPageHero({
   modifiedDate,
   readingTime,
 }: BuyPageHeroProps) {
+  // Hide risk stats grid for legal supplements (100% Legal, OTC, etc.)
+  const isLegalProduct = quickStats.legalStatus?.toLowerCase().includes('legal') || 
+                         quickStats.legalStatus?.toLowerCase().includes('otc');
+
   return (
     <header className="mb-8">
       {/* H1 Title */}
@@ -59,7 +63,8 @@ export default function BuyPageHero({
         </span>
       </div>
 
-      {/* Quick Stats Grid - Risk Summary */}
+      {/* Quick Stats Grid - Risk Summary (only for banned/risky substances) */}
+      {!isLegalProduct && (
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 p-4 bg-gradient-to-br from-alert-red-light to-warning-amber-light dark:from-alert-red-dark/30 dark:to-warning-amber-dark/30 rounded-xl border border-alert-red/30 dark:border-alert-red/50">
         <div className="text-center p-3 bg-white/80 dark:bg-gray-800/80 rounded-lg">
           <div className="flex items-center justify-center gap-1 mb-1">
@@ -109,6 +114,7 @@ export default function BuyPageHero({
           </span>
         </div>
       </div>
+      )}
     </header>
   );
 }

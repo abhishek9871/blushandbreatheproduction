@@ -1592,83 +1592,83 @@
           ]
         },
         {
-          "id": "healthvit-keto-fat-burner",
-          "name": "HealthVit Keto Fat Burner",
-          "brand": "HealthVit",
-          "image": "https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/otc514732-2.jpg",
+          "id": "gnc-thermo-burst",
+          "name": "GNC Pro Performance Thermo Burst Hardcore Fat Burner",
+          "brand": "GNC",
+          "image": "https://m.media-amazon.com/images/I/71RtGh8VXHL._SL1500_.jpg",
           "tier": "premium",
           "alternativeFor": "Clenbuterol",
           "keyIngredients": [
-            "Garcinia Cambogia",
+            "Caffeine Anhydrous",
             "Green Tea Extract",
-            "Green Coffee Bean",
-            "Forskolin"
+            "L-Carnitine",
+            "Chromium"
           ],
-          "caffeine": 0,
-          "price": 1227,
-          "pricePerServing": 41,
-          "servings": 30,
-          "rating": 3.5,
-          "reviewCount": 50,
+          "caffeine": 200,
+          "price": 800,
+          "pricePerServing": 13,
+          "servings": 60,
+          "rating": 4.2,
+          "reviewCount": 500,
+          "effectScore": 8,
+          "hasCOD": true,
+          "deliveryDays": "1-2 days",
+          "whereToBuy": [
+            "https://amzn.to/48yPZSV"
+          ],
+          "affiliateProgram": "amazon_associates_india",
+          "commission": "6-9%",
+          "isTopPick": false,
+          "pros": [
+            "Trusted GNC brand—international quality",
+            "200mg caffeine for intense thermogenic effect",
+            "Multi-ingredient fat burning formula",
+            "Only ₹13/serving—excellent value",
+            "Amazon Prime delivery with COD"
+          ],
+          "cons": [
+            "High caffeine—not for stimulant-sensitive users",
+            "Contains artificial colors"
+          ]
+        },
+        {
+          "id": "carbamide-forte-fat-burner",
+          "name": "Carbamide Forte Day & Night Fat Burner",
+          "brand": "Carbamide Forte",
+          "image": "https://m.media-amazon.com/images/I/71kLJKfCZxL._SL1500_.jpg",
+          "tier": "value",
+          "alternativeFor": "Clenbuterol",
+          "keyIngredients": [
+            "Garcinia Cambogia",
+            "Green Coffee Bean",
+            "Green Tea Extract",
+            "L-Carnitine"
+          ],
+          "caffeine": 100,
+          "price": 799,
+          "pricePerServing": 13,
+          "servings": 60,
+          "rating": 4.1,
+          "reviewCount": 1500,
           "effectScore": 7,
           "hasCOD": true,
           "deliveryDays": "1-2 days",
           "whereToBuy": [
-            "https://www.1mg.com/otc/healthvit-keto-fat-burner-with-garcinia-green-tea-for-appetite-metabolism-energy-capsule-otc514732"
+            "https://amzn.to/3KCaNAP"
           ],
-          "affiliateProgram": "1mg_affiliate",
-          "commission": "5-8%",
+          "affiliateProgram": "amazon_associates_india",
+          "commission": "6-9%",
           "isTopPick": false,
           "pros": [
-            "Advanced 4-ingredient formula",
-            "Multi-pathway fat burning mechanism",
-            "Zero caffeine—cardiac safe",
-            "Premium keto-optimized formula",
-            "Amazon Pharmacy verified"
+            "Day & Night formula for 24-hour fat burning",
+            "Best value at only ₹13/serving",
+            "1500+ verified Amazon reviews",
+            "Suitable for both men and women",
+            "Amazon Prime delivery with COD"
           ],
           "cons": [
-            "Higher price per serving (₹41)",
-            "Fewer reviews than budget options"
-          ]
-        },
-        {
-          "id": "crazybulk-clenbutrol",
-          "name": "CrazyBulk Clenbutrol",
-          "brand": "CrazyBulk",
-          "image": "https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/cropped/otc920796-1.jpg",
-          "tier": "premium",
-          "alternativeFor": "Clenbuterol",
-          "keyIngredients": [
-            "Garcinia Cambogia",
-            "Citrus Aurantium",
-            "Guarana Extract",
-            "Vitamin B3"
-          ],
-          "caffeine": 50,
-          "price": 4452,
-          "pricePerServing": 99,
-          "servings": 45,
-          "rating": 4.0,
-          "reviewCount": 100,
-          "effectScore": 8,
-          "hasCOD": false,
-          "deliveryDays": "3-5 days",
-          "whereToBuy": [
-            "https://www.1mg.com/otc/crazybulk-clenbutrol-capsule-otc920796"
-          ],
-          "affiliateProgram": "1mg_affiliate",
-          "commission": "5-8%",
-          "isTopPick": false,
-          "pros": [
-            "Only brand explicitly marketed as clenbuterol substitute",
-            "Highest brand authority for clen alternatives",
-            "Amazon Pharmacy (1mg) verified",
-            "Thermogenic formula designed for bodybuilders",
-            "International brand recognition"
-          ],
-          "cons": [
-            "Premium pricing (₹99/serving)",
-            "Regularly sold out—high demand"
+            "Lower brand recognition than premium options",
+            "Moderate caffeine—take day formula early"
           ]
         }
       ],

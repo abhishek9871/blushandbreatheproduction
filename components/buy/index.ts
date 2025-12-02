@@ -15,3 +15,5 @@ export { default as EffectComparisonChart } from './EffectComparisonChart';
 export { default as ConversionCTA } from './ConversionCTA';
 export { default as BuyPageSchema } from './BuyPageSchema';
 export { default as FeaturedProductShowcase } from './FeaturedProductShowcase';
+export { default as AffiliateProductShowcase } from './AffiliateProductShowcase';
+export type { AffiliateProductData } from './AffiliateProductShowcase';

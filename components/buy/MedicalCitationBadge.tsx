@@ -17,20 +17,59 @@ export default function MedicalCitationBadge({
   sources,
   modifiedDate,
 }: MedicalCitationBadgeProps) {
-  const [showSources, setShowSources] = useState(false);
+  // Open by default so users see sources immediately
+  const [showSources, setShowSources] = useState(true);
 
-  // Group sources by type
-  const fdaSources = sources.filter(s => s.sourceType === 'fda').length;
-  // Count pubmed, systematic_review, clinical, review, and government as studies
-  const studySources = sources.filter(s => 
-    s.sourceType === 'pubmed' || 
-    s.sourceType === 'systematic_review' || 
-    s.sourceType === 'clinical' || 
-    s.sourceType === 'review' ||
-    s.sourceType === 'government'
-  ).length;
+  // Group sources by type for accurate counting
+  const nihSources = sources.filter(s => s.sourceType === 'nih' || s.sourceType === 'government').length;
+  const pubmedSources = sources.filter(s => s.sourceType === 'pubmed').length;
+  const systematicReviews = sources.filter(s => s.sourceType === 'systematic_review').length;
+  const clinicalStudies = sources.filter(s => s.sourceType === 'clinical').length;
+  const reviews = sources.filter(s => s.sourceType === 'review').length;
+  const newsSources = sources.filter(s => s.sourceType === 'news').length;
+  const fdaSources = sources.filter(s => s.sourceType === 'fda' || s.sourceType === 'fssai').length;
   const caseReports = sources.filter(s => s.sourceType === 'case_report').length;
-  const regulatorySources = sources.filter(s => s.sourceType === 'wada' || s.sourceType === 'regulatory').length;
+  const regulatorySources = sources.filter(s => s.sourceType === 'wada' || s.sourceType === 'regulatory' || s.sourceType === 'who').length;
+
+  // Helper function to format source type for display (removes underscores)
+  const formatSourceType = (sourceType: string): string => {
+    const formatMap: Record<string, string> = {
+      'case_report': 'Case Report',
+      'systematic_review': 'Systematic Review',
+      'nih': 'NIH',
+      'fda': 'FDA',
+      'fssai': 'FSSAI',
+      'wada': 'WADA',
+      'who': 'WHO',
+      'pubmed': 'PubMed',
+      'clinical': 'Clinical Study',
+      'review': 'Review',
+      'news': 'News',
+      'regulatory': 'Regulatory',
+      'government': 'Government',
+    };
+    return formatMap[sourceType] || sourceType.replace(/_/g, ' ').toUpperCase();
+  };
+
+  // Helper function to get badge color for each source type
+  const getSourceBadgeColor = (sourceType: string): string => {
+    const colorMap: Record<string, string> = {
+      'fda': 'bg-medical-blue text-white',
+      'fssai': 'bg-medical-blue text-white',
+      'nih': 'bg-teal-600 text-white',
+      'government': 'bg-teal-600 text-white',
+      'pubmed': 'bg-success-green text-white',
+      'systematic_review': 'bg-indigo-600 text-white',
+      'clinical': 'bg-blue-600 text-white',
+      'review': 'bg-cyan-600 text-white',
+      'case_report': 'bg-purple-600 text-white',
+      'wada': 'bg-alert-red text-white',
+      'who': 'bg-sky-600 text-white',
+      'regulatory': 'bg-warning-amber text-white',
+      'news': 'bg-gray-600 text-white',
+    };
+    return colorMap[sourceType] || 'bg-gray-500 text-white';
+  };
 
   return (
     <div className="mb-6">
@@ -51,25 +90,50 @@ export default function MedicalCitationBadge({
           </div>
         </div>
 
-        {/* Source Breakdown */}
+        {/* Source Breakdown - Shows accurate count per category */}
         <div className="flex flex-wrap gap-2 ml-auto">
+          {nihSources > 0 && (
+            <span className="px-2 py-1 bg-teal-600/10 dark:bg-teal-500/20 rounded text-xs font-medium text-teal-700 dark:text-teal-300 border border-teal-600/30 dark:border-teal-400/40">
+              {nihSources} NIH
+            </span>
+          )}
+          {pubmedSources > 0 && (
+            <span className="px-2 py-1 bg-success-green/10 dark:bg-success-green/20 rounded text-xs font-medium text-success-green dark:text-green-300 border border-success-green/30 dark:border-green-400/40">
+              {pubmedSources} PubMed
+            </span>
+          )}
+          {systematicReviews > 0 && (
+            <span className="px-2 py-1 bg-indigo-600/10 dark:bg-indigo-500/20 rounded text-xs font-medium text-indigo-700 dark:text-indigo-300 border border-indigo-600/30 dark:border-indigo-400/40">
+              {systematicReviews} Systematic Review{systematicReviews > 1 ? 's' : ''}
+            </span>
+          )}
+          {clinicalStudies > 0 && (
+            <span className="px-2 py-1 bg-blue-600/10 dark:bg-blue-500/20 rounded text-xs font-medium text-blue-700 dark:text-blue-300 border border-blue-600/30 dark:border-blue-400/40">
+              {clinicalStudies} Clinical{clinicalStudies > 1 ? ' Studies' : ' Study'}
+            </span>
+          )}
+          {reviews > 0 && (
+            <span className="px-2 py-1 bg-cyan-600/10 dark:bg-cyan-500/20 rounded text-xs font-medium text-cyan-700 dark:text-cyan-300 border border-cyan-600/30 dark:border-cyan-400/40">
+              {reviews} Review{reviews > 1 ? 's' : ''}
+            </span>
+          )}
+          {newsSources > 0 && (
+            <span className="px-2 py-1 bg-gray-500/10 dark:bg-gray-500/20 rounded text-xs font-medium text-gray-700 dark:text-gray-300 border border-gray-400/30 dark:border-gray-500/40">
+              {newsSources} News
+            </span>
+          )}
           {fdaSources > 0 && (
-            <span className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-medical-blue border border-medical-blue/30">
-              {fdaSources} FDA
+            <span className="px-2 py-1 bg-medical-blue/10 dark:bg-sky-500/20 rounded text-xs font-medium text-medical-blue dark:text-sky-300 border border-medical-blue/30 dark:border-sky-400/40">
+              {fdaSources} FDA/FSSAI
             </span>
           )}
           {caseReports > 0 && (
-            <span className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-purple-600 border border-purple-600/30">
-              {caseReports} Case Reports
-            </span>
-          )}
-          {studySources > 0 && (
-            <span className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-success-green border border-success-green/30">
-              {studySources} Studies
+            <span className="px-2 py-1 bg-purple-600/10 dark:bg-purple-500/20 rounded text-xs font-medium text-purple-700 dark:text-purple-300 border border-purple-600/30 dark:border-purple-400/40">
+              {caseReports} Case Report{caseReports > 1 ? 's' : ''}
             </span>
           )}
           {regulatorySources > 0 && (
-            <span className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-warning-amber border border-warning-amber/30">
+            <span className="px-2 py-1 bg-warning-amber/10 dark:bg-amber-500/20 rounded text-xs font-medium text-warning-amber dark:text-amber-300 border border-warning-amber/30 dark:border-amber-400/40">
               {regulatorySources} Regulatory
             </span>
           )}
@@ -101,8 +165,8 @@ export default function MedicalCitationBadge({
             </p>
           </div>
 
-          {/* Sources Grid - Cards on desktop, stacked on mobile */}
-          <div className="p-3 md:p-4 space-y-3 max-h-[500px] overflow-y-auto">
+          {/* Sources Grid - Cards on desktop, stacked on mobile - Full display for trust */}
+          <div className="p-3 md:p-4 space-y-3">
             {sources.map((source) => (
               <div 
                 key={source.id} 
@@ -110,16 +174,8 @@ export default function MedicalCitationBadge({
               >
                 {/* Source Type Badge & Title Row */}
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <span className={`shrink-0 px-2 py-1 rounded text-xs font-bold uppercase tracking-wide
-                    ${source.sourceType === 'fda' ? 'bg-medical-blue text-white' : ''}
-                    ${source.sourceType === 'pubmed' ? 'bg-success-green text-white' : ''}
-                    ${source.sourceType === 'case_report' ? 'bg-purple-600 text-white' : ''}
-                    ${source.sourceType === 'wada' ? 'bg-alert-red text-white' : ''}
-                    ${source.sourceType === 'regulatory' ? 'bg-warning-amber text-white' : ''}
-                  `}>
-                    {source.sourceType === 'case_report' ? 'CASE REPORT' : 
-                     source.sourceType === 'regulatory' ? 'REGULATORY' : 
-                     source.sourceType.toUpperCase()}
+                  <span className={`shrink-0 px-2 py-1 rounded text-xs font-bold uppercase tracking-wide ${getSourceBadgeColor(source.sourceType)}`}>
+                    {formatSourceType(source.sourceType)}
                   </span>
                   
                   {/* View Source Button */}

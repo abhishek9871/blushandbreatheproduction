@@ -97,6 +97,104 @@ const FeaturedProductShowcase = dynamic(
   }
 );
 
+// Affiliate Product Showcase - High-conversion product grid for legal products
+const AffiliateProductShowcase = dynamic(
+  () => import('@/components/buy/AffiliateProductShowcase'),
+  { 
+    loading: () => <LoadingPlaceholder height="h-[600px]" />,
+    ssr: true
+  }
+);
+
+// =============================================================================
+// BERBERINE AFFILIATE PRODUCTS DATA (with verified Amazon product images)
+// Images scraped from Amazon India product pages - December 2025
+// =============================================================================
+const BERBERINE_PRODUCTS = [
+  {
+    id: 'wellbeing-nutrition-berberine',
+    name: "Wellbeing Nutrition's Slow Liposomal Berberine HCL+ 1100mg with Karela, Cinnamon, Gymnema, Chromium",
+    shortName: 'Wellbeing Nutrition Liposomal Berberine 1100mg',
+    brand: 'Wellbeing Nutrition',
+    description: 'Premium liposomal formula with 6x higher absorption. Contains Karela, Cinnamon, Gymnema & Chromium. Activates AMPK & GLP-1 for metabolism support. 60 Veg Capsules.',
+    price: 1528,
+    originalPrice: 1999,
+    currency: '₹',
+    affiliateUrl: 'https://amzn.to/4iucHQm',
+    // Verified Amazon image from B0FBWB64TM product page
+    imageUrl: 'https://m.media-amazon.com/images/I/71nE2-6h3PL._SL500_.jpg',
+    rating: 4.2,
+    reviewCount: 71,
+    badges: ['Liposomal', '1100mg', 'AMPK Activator'],
+    isTopPick: true,
+  },
+  {
+    id: 'miduty-berberine',
+    name: 'Miduty High Strength Berberine HCL 98% Triple Benefits of Blood Sugar Control',
+    shortName: 'Miduty Berberine HCL 98% - High Strength',
+    brand: 'Miduty',
+    description: 'High strength 98% Berberine HCL with Bitter Melon & Chromium for diabetic care. Stops sugar cravings and lowers blood sugar. 60 Capsules.',
+    price: 1681,
+    originalPrice: 1770,
+    currency: '₹',
+    affiliateUrl: 'https://amzn.to/3McWp2v',
+    // Verified Amazon image from B09CLCBVSW product page
+    imageUrl: 'https://m.media-amazon.com/images/I/614NJIINYRL._SL500_.jpg',
+    rating: 4.4,
+    reviewCount: 890,
+    badges: ['98% HCL', 'High Strength', 'Diabetic Care'],
+  },
+  {
+    id: 'healthyhey-berberine',
+    name: 'HealthyHey Berberis - Berberine 95% - Support Weight Management & Healthy Glucose Levels',
+    shortName: 'HealthyHey Berberine 95% - 750mg',
+    brand: 'HealthyHey',
+    description: 'Support weight management and healthy glucose levels. 750mg vegetarian capsules, 60 count. Most affordable berberine option.',
+    price: 717,
+    originalPrice: 999,
+    currency: '₹',
+    affiliateUrl: 'https://amzn.to/48IgSF3',
+    // Verified Amazon image from B07CJ5KT54 product page
+    imageUrl: 'https://m.media-amazon.com/images/I/512GtcW%2BAJL._SL500_.jpg',
+    rating: 4.3,
+    reviewCount: 587,
+    badges: ['95% Extract', '750mg', 'Best Value'],
+    isBestValue: true,
+  },
+  {
+    id: 'organic-india-isabgol',
+    name: 'ORGANIC INDIA Isabgol Psyllium Husk Powder',
+    shortName: 'Organic India Isabgol - 100g',
+    brand: 'Organic India',
+    description: 'Pure organic psyllium husk powder for digestive health. Pairs perfectly with berberine for enhanced metabolic support.',
+    price: 209,
+    originalPrice: 250,
+    currency: '₹',
+    affiliateUrl: 'https://amzn.to/48eIOAj',
+    // Verified Amazon image from B013BWSGS6 product page
+    imageUrl: 'https://m.media-amazon.com/images/I/41YM1YxAucL._SL500_.jpg',
+    rating: 4.1,
+    reviewCount: 258,
+    badges: ['Organic', '100g', 'Top Brand'],
+  },
+  {
+    id: 'vlados-himalayan-berberine',
+    name: "Vlado's Himalayan Organics Berberis Berberine 98% with Milk Thistle",
+    shortName: 'Himalayan Organics Berberine + Milk Thistle',
+    brand: 'Himalayan Organics',
+    description: '2X liver support with 98% Berberine HCL and Milk Thistle. Supports blood sugar, cholesterol & liver detox. 60 Veg Capsules.',
+    price: 894,
+    originalPrice: 1299,
+    currency: '₹',
+    affiliateUrl: 'https://amzn.to/48MsNla',
+    // Verified Amazon image from B0C89D7WSL product page
+    imageUrl: 'https://m.media-amazon.com/images/I/417nAb4PHjL._SL500_.jpg',
+    rating: 4.6,
+    reviewCount: 429,
+    badges: ['98% HCL', 'Milk Thistle', 'Liver Support'],
+  },
+];
+
 interface BuyPageProps {
   page: BuyPage | null;
   error?: string;
@@ -265,6 +363,16 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
               dangerouslySetInnerHTML={{ __html: page.introduction }}
             />
           </section>
+
+          {/* Affiliate Products Showcase - For Legal Products (Berberine) */}
+          {isLegalProduct && page.slug.includes('berberine') && (
+            <AffiliateProductShowcase 
+              products={BERBERINE_PRODUCTS}
+              sectionId="best-products"
+              title="Best Berberine Supplements in India (December 2025)"
+              subtitle="Amazon Prime • Cash on Delivery • Free Returns"
+            />
+          )}
 
           {/* Content Sections */}
           <div className="buy-sections">
@@ -453,11 +561,6 @@ export default function BuyPageComponent({ page, error, formattedDate }: BuyPage
               <p>This content is for informational purposes only and does not constitute medical advice. 
               It is based on publicly available research from the U.S. FDA, NIH, FSSAI, and peer-reviewed medical literature. 
               Consult a licensed physician or pharmacist before using any supplements.</p>
-            </div>
-            <div>
-              <strong className="text-text-light dark:text-text-dark">Affiliate Disclosure:</strong>
-              <p>We earn commissions from legal alternative recommendations at no extra cost to you. 
-              This does not influence our editorial stance on safety or legality. Our mission is harm reduction through education.</p>
             </div>
             <div>
               <strong className="text-text-light dark:text-text-dark">Legal Notice:</strong>

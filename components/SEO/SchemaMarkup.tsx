@@ -336,6 +336,7 @@ function generateFAQSchema(faqItems: FAQItem[]) {
 /**
  * Generate Article schema for content hub articles (cluster pages)
  * This provides comprehensive Article markup for Google Rich Results
+ * Enhanced with articleBody, hasPart (TOC), speakable, and full content
  */
 function generateArticleSchema(
   article: ContentHubArticleData,
@@ -343,11 +344,50 @@ function generateArticleSchema(
   datePublished: string,
   dateModified: string
 ) {
-  // Calculate word count from sections
-  const wordCount = article.sections.reduce((total, section) => {
-    const plainText = section.content.replace(/<[^>]*>/g, '');
-    return total + plainText.split(/\s+/).length;
-  }, 0);
+  // Extract plain text from HTML
+  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  
+  // Get introduction as plain text
+  const introText = stripHtml(article.introduction);
+  
+  // Build full article body from all sections
+  const sectionTexts = article.sections.map(section => {
+    const sectionTitle = section.title;
+    const sectionContent = stripHtml(section.content);
+    return `${sectionTitle}\n\n${sectionContent}`;
+  });
+  
+  // Add conclusion if exists
+  const conclusionText = article.conclusion ? stripHtml(article.conclusion) : '';
+  
+  // Combine all content for articleBody
+  const articleBody = [
+    introText,
+    ...sectionTexts,
+    conclusionText
+  ].filter(Boolean).join('\n\n');
+  
+  // Calculate word count from full article body
+  const wordCount = articleBody.split(/\s+/).filter(Boolean).length;
+
+  // Generate hasPart for Table of Contents (helps Google understand structure)
+  const hasPart = article.sections.map((section, index) => ({
+    '@type': 'WebPageElement',
+    isAccessibleForFree: true,
+    cssSelector: `#${section.id}`,
+    name: section.title,
+    position: index + 1,
+    url: `${pageUrl}#${section.id}`,
+  }));
+
+  // Generate speakable for voice search (introduction and first section)
+  const speakableSections = [
+    { cssSelector: '.guide-intro', name: 'Introduction' },
+    ...(article.sections.slice(0, 2).map(s => ({ 
+      cssSelector: `#${s.id}`, 
+      name: s.title 
+    }))),
+  ];
 
   return {
     '@context': 'https://schema.org',
@@ -355,13 +395,22 @@ function generateArticleSchema(
     '@id': pageUrl,
     headline: article.title,
     name: article.title,
-    description: article.introduction.replace(/<[^>]*>/g, '').slice(0, 160),
-    image: `${SITE_URL}/images/guides/${article.slug}.jpg`, // Add image to avoid non-critical issues
+    // Full description (up to 300 chars for better context)
+    description: introText.slice(0, 300),
+    // Full article body for Google to understand content
+    articleBody: articleBody,
+    image: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/images/guides/${article.slug}.jpg`,
+      width: 1200,
+      height: 630,
+    },
     url: pageUrl,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': pageUrl,
     },
+    isAccessibleForFree: true,
     datePublished,
     dateModified,
     author: generateOrganizationSchema(),
@@ -370,16 +419,33 @@ function generateArticleSchema(
     keywords: article.keywords.join(', '),
     wordCount,
     ...(article.readingTime && { timeRequired: `PT${article.readingTime}M` }),
+    // Table of Contents structure
+    hasPart: hasPart,
+    // Speakable for voice search
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: speakableSections.map(s => s.cssSelector),
+    },
+    // About - main topics
+    about: article.keywords.slice(0, 3).map(keyword => ({
+      '@type': 'Thing',
+      name: keyword,
+    })),
     // Add citations if available
     ...(article.citations && article.citations.length > 0 && {
       citation: article.citations.map(c => ({
-        '@type': 'CreativeWork',
+        '@type': 'ScholarlyArticle',
         name: c.title,
         url: c.url,
         publisher: { '@type': 'Organization', name: c.source },
         ...(c.year && { datePublished: c.year }),
       })),
     }),
+    // In language
+    inLanguage: 'en-US',
+    // Copyright
+    copyrightYear: new Date().getFullYear(),
+    copyrightHolder: generateOrganizationSchema(),
   };
 }
 

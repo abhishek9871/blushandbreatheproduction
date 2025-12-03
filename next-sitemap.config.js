@@ -5,6 +5,24 @@ const bannedSubstancesData = require('./lib/data/banned-substances.json');
 const legalSupplementsData = require('./lib/data/legal-supplements.json');
 const articlesData = require('./lib/data/articles.json');
 
+// ═══════════════════════════════════════════════════════════════════
+// PRIORITY URLs - Excluded from main sitemap (in sitemap-priority.xml)
+// These get their own dedicated sitemap for faster indexing
+// ═══════════════════════════════════════════════════════════════════
+const PRIORITY_GUIDE_SLUGS = [
+  'natural-steroids-guide',
+  'dbal-max-review-2025',
+  'pregnancy-safe-pre-workout',
+  'best-legal-steroids-cutting',
+  'breastfeeding-safe-pre-workout',
+];
+
+const PRIORITY_BUY_SLUGS = [
+  'berberine-india',
+  'clenbuterol-india',
+  'dmaa-india',
+];
+
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://www.blushandbreath.com',
   generateRobotsTxt: true,
@@ -32,6 +50,15 @@ module.exports = {
     '/medicines/interactions', // Interactive tool - no static SEO content
     '/article/*',      // Dynamic article pages
     '/product/*',      // Dynamic product pages
+    // Priority URLs - excluded from main sitemap (in sitemap-priority.xml for faster indexing)
+    '/guide/natural-steroids-guide',
+    '/guide/dbal-max-review-2025',
+    '/guide/pregnancy-safe-pre-workout',
+    '/guide/best-legal-steroids-cutting',
+    '/guide/breastfeeding-safe-pre-workout',
+    '/buy/berberine-india',
+    '/buy/clenbuterol-india',
+    '/buy/dmaa-india',
   ],
   
   // Configure robots.txt
@@ -61,7 +88,9 @@ module.exports = {
         allow: ['/banned/', '/supplement/', '/compare/', '/guide/', '/info/', '/medicines'],
       },
     ],
-    additionalSitemaps: [],
+    additionalSitemaps: [
+      'https://www.blushandbreath.com/sitemap-priority.xml',
+    ],
   },
   
   // Transform function to customize sitemap entries
@@ -165,8 +194,13 @@ module.exports = {
     // GUIDE PAGES (CLUSTER ARTICLES)
     // ═══════════════════════════════════════════════════════════════════
     // Content Hub cluster articles (Kratom, SARMs, DMAA, Phenibut guides)
+    // NOTE: Priority guides are excluded (they're in sitemap-priority.xml)
     const articles = articlesData.articles || [];
     articles.forEach(article => {
+      // Skip priority articles - they have their own sitemap for faster indexing
+      if (PRIORITY_GUIDE_SLUGS.includes(article.slug)) {
+        return;
+      }
       result.push({
         loc: `/guide/${article.slug}`,
         changefreq: 'weekly',

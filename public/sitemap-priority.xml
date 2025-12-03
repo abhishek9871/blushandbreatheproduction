@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- PRIORITY SITEMAP - High-Value URLs for Fast Indexing                -->
+  <!-- Created: 2025-12-03 | Last Updated: 2025-12-03T17:30:00Z           -->
+  <!-- Purpose: Separate crawl priority for SEO articles + affiliate pages -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- NEW SEO ARTICLES - PRIORITY 1.0 (Maximum) -->
+  
+  <url>
+    <loc>https://www.blushandbreath.com/guide/natural-steroids-guide</loc>
+    <lastmod>2025-12-03T17:30:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.blushandbreath.com/guide/dbal-max-review-2025</loc>
+    <lastmod>2025-12-03T17:30:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.blushandbreath.com/guide/pregnancy-safe-pre-workout</loc>
+    <lastmod>2025-12-03T17:30:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.blushandbreath.com/guide/best-legal-steroids-cutting</loc>
+    <lastmod>2025-12-03T17:30:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.blushandbreath.com/guide/breastfeeding-safe-pre-workout</loc>
+    <lastmod>2025-12-03T17:30:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- AMAZON AFFILIATE URLs - PRIORITY 0.9 (Monetization) -->
+
+  <url>
+    <loc>https://www.blushandbreath.com/buy/berberine-india</loc>
+    <lastmod>2025-12-03T17:30:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.blushandbreath.com/buy/clenbuterol-india</loc>
+    <lastmod>2025-12-03T17:30:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.blushandbreath.com/buy/dmaa-india</loc>
+    <lastmod>2025-12-03T17:30:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>

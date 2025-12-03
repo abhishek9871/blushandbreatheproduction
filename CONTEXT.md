@@ -73,16 +73,21 @@ Before deploying ANY changes, verify:
 ### Google Search Console Sitemap
 
 ```
-Current Sitemap: https://www.blushandbreath.com/sitemap.xml
-Discovered URLs: 157+
-Status: Success (as of Nov 29, 2025)
+Main Sitemap: https://www.blushandbreath.com/sitemap.xml
+Priority Sitemap: https://www.blushandbreath.com/sitemap-priority.xml
+Total Discovered URLs: 166 (158 main + 8 priority)
+Status: Success (as of Dec 3, 2025)
 ```
+
+**Priority Sitemap** (8 high-value URLs with priority 1.0/0.9):
+- 5 SEO Articles: natural-steroids-guide, dbal-max-review-2025, pregnancy-safe-pre-workout, best-legal-steroids-cutting, breastfeeding-safe-pre-workout
+- 3 Buy Pages: berberine-india, clenbuterol-india, dmaa-india
 
 When adding new pages:
 1. Rebuild: `npm run build` (regenerates sitemap)
 2. Deploy: `npx vercel --prod`
 3. Wait 24-48 hours for Google to crawl new URLs from sitemap
-4. For priority pages, manually request indexing in Search Console
+4. For priority pages, add to `sitemap-priority.xml` and exclude from main sitemap in `next-sitemap.config.js`
 
 ---
 
@@ -179,14 +184,31 @@ blushandbreatheproduction/
 │   └── useUserProfile.tsx     # Diet plan state & AI calls
 ├── lib/                       # Data libraries
 │   └── data/                  # Research data files
-│       ├── banned-substances.json    # 8 banned substances
-│       ├── legal-supplements.json    # Legal alternatives
+│       ├── banned-substances.json    # 31 banned substances (pillar pages)
+│       ├── legal-supplements.json    # 10 legal alternatives
 │       ├── affiliate-products.json   # 19 affiliate products
+│       ├── articles.json             # 29 guide/cluster articles
+│       ├── buy-pages.json            # 3 Amazon affiliate buy pages
+│       ├── substance-articles.json   # Wikipedia/PubMed content (2-4MB)
 │       └── index.ts                  # Data access functions
 ├── types/                     # TypeScript types
 │   └── substance.ts           # MedicineInfo, DrugInteraction, BannedSubstance types
 ├── styles/globals.css         # Tailwind CSS styles
 ├── public/                    # Static assets
+│   ├── sitemap.xml            # Sitemap index (auto-generated)
+│   ├── sitemap-0.xml          # Main sitemap (auto-generated, 158 URLs)
+│   ├── sitemap-priority.xml   # Priority sitemap (manually created, 8 URLs)
+│   └── robots.txt             # Robots file (auto-generated with both sitemaps)
+├── Research/                  # SEO research files for new articles
+│   ├── article1_dbal_max.md
+│   ├── article2_pregnancy_safe_pre_workout.md
+│   ├── article3_best_legal_steroids_cutting.md
+│   ├── article4_breastfeeding_safe_pre_workout.md
+│   ├── article5_natural_steroids.md
+│   └── phase*.md              # Keyword research phases
+├── components/SEO/            # SEO-related components
+│   ├── MetaHead.tsx           # Page meta tags (SITE_URL constant)
+│   └── SchemaMarkup.tsx       # Structured data (Article, FAQ, etc.)
 ├── vercel.json                # Vercel config (Edge Function timeouts)
 ├── next.config.ts             # Next.js configuration
 ├── package.json               # Dependencies
@@ -723,7 +745,7 @@ User clicks affiliate link → Commission earned
 > **Important**: This section lists ALL substance pages that have been implemented for SEO ranking. Use this as a reference to know what has already been built.
 
 ### Banned Substance Pages (`/banned/[slug]`)
-**Route**: `pages/banned/[slug].tsx` | **Total**: 31 pages
+**Route**: `pages/banned/[slug].tsx` | **Total**: 33 pages
 
 | # | Slug | Name | Category |
 |---|------|------|----------|
@@ -801,7 +823,7 @@ User clicks affiliate link → Commission earned
 - ✅ PubMed research citations
 
 ### Comparison Pages (`/compare/[slug]`)
-**Route**: `pages/compare/[slug].tsx` | **Total**: 63 auto-generated pages
+**Route**: `pages/compare/[slug].tsx` | **Total**: 73+ auto-generated pages
 
 Format: `/compare/[banned-slug]-vs-[supplement-slug]`
 
@@ -1839,4 +1861,230 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 
 ---
 
-*Last updated: November 30, 2025 (Added performance optimization: font 3.7MB→297KB, bundle leak fix, mobile score 55→69)*
+---
+
+### 23. Enhanced Article Schema for Rich Results (Dec 3, 2025)
+
+**Overview**: Comprehensive enhancement of the Article schema in `SchemaMarkup.tsx` to maximize Google Rich Results eligibility and voice search optimization.
+
+#### Problem Statement
+- Original Article schema was basic with only title, description, author
+- Missing critical fields for Google's enhanced understanding
+- No speakable markup for voice search
+- No structured content breakdown
+
+#### Schema Enhancements Implemented
+
+**File**: `components/SEO/SchemaMarkup.tsx` - `generateArticleSchema()` function
+
+| Field | Purpose | Implementation |
+|-------|---------|----------------|
+| `articleBody` | Full article text | Extracted from all sections |
+| `hasPart` | TOC structure | 7 WebPageElements (intro, sections, FAQ, sources, alternatives, medical disclaimer, conclusion) |
+| `speakable` | Voice search | CSS selectors for key sections |
+| `about` | Topic entities | Keywords converted to Thing entities |
+| `citation` | Authority signals | ScholarlyArticle with author, journal, DOI |
+| `isAccessibleForFree` | Content access | `true` |
+| `inLanguage` | Language code | `en-US` |
+| `copyrightYear` | Copyright | Current year |
+| `wordCount` | Content length | Calculated from articleBody |
+
+#### Schema Structure
+```typescript
+{
+  "@type": "Article",
+  "headline": "...",
+  "articleBody": "Full concatenated text from all sections...",
+  "wordCount": 5000,
+  "hasPart": [
+    { "@type": "WebPageElement", "name": "Introduction", "cssSelector": "#introduction" },
+    { "@type": "WebPageElement", "name": "Section 1", "cssSelector": "#section-1" },
+    // ... 7 total parts
+  ],
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["#introduction", ".key-points", ".faq-section"]
+  },
+  "about": [
+    { "@type": "Thing", "name": "keyword1" },
+    { "@type": "Thing", "name": "keyword2" }
+  ],
+  "citation": {
+    "@type": "ScholarlyArticle",
+    "name": "Primary Source Title",
+    "author": { "@type": "Person", "name": "Author Name" },
+    "publisher": { "@type": "Organization", "name": "Journal Name" },
+    "sameAs": "https://doi.org/..."
+  },
+  "isAccessibleForFree": true,
+  "inLanguage": "en-US",
+  "copyrightYear": 2025
+}
+```
+
+#### Google Rich Results Test Verification
+- **All 5 priority articles pass** with 7 valid items detected
+- **Detected schemas**: Article, FAQ, BreadcrumbList
+- **Non-critical issues**: Only in optional ScholarlyArticle fields (expected)
+- **Report**: `STRUCTURED_DATA_VERIFICATION_REPORT.md`
+
+#### Articles Tested
+1. `/guide/natural-steroids-guide` ✅
+2. `/guide/dbal-max-review-2025` ✅
+3. `/guide/pregnancy-safe-pre-workout` ✅
+4. `/guide/best-legal-steroids-cutting` ✅
+5. `/guide/breastfeeding-safe-pre-workout` ✅
+
+---
+
+### 24. Priority Sitemap Architecture (Dec 3, 2025)
+
+**Overview**: Created a separate high-priority sitemap (`sitemap-priority.xml`) for 8 key URLs to enable independent crawling and faster indexing.
+
+#### Architecture
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    SITEMAP STRUCTURE                                  │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  robots.txt                                                          │
+│  └── Sitemap: sitemap.xml (index)                                   │
+│  └── Sitemap: sitemap-priority.xml (priority URLs)                  │
+│                                                                      │
+│  sitemap.xml (Index)                                                 │
+│  └── sitemap-0.xml (158 URLs - main content)                        │
+│                                                                      │
+│  sitemap-priority.xml (8 URLs - high priority)                      │
+│  ├── 5 SEO Articles (priority: 1.0)                                 │
+│  │   ├── /guide/natural-steroids-guide                              │
+│  │   ├── /guide/dbal-max-review-2025                                │
+│  │   ├── /guide/pregnancy-safe-pre-workout                          │
+│  │   ├── /guide/best-legal-steroids-cutting                         │
+│  │   └── /guide/breastfeeding-safe-pre-workout                      │
+│  └── 3 Buy Pages (priority: 0.9)                                    │
+│      ├── /buy/berberine-india                                       │
+│      ├── /buy/clenbuterol-india                                     │
+│      └── /buy/dmaa-india                                            │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+#### Files Created/Modified
+
+| File | Action | Purpose |
+|------|--------|----------|
+| `public/sitemap-priority.xml` | Created | 8 high-priority URLs with XML namespaces |
+| `next-sitemap.config.js` | Modified | Added exclusions + additionalSitemaps |
+| `public/robots.txt` | Auto-generated | Now includes both sitemaps |
+
+#### next-sitemap.config.js Changes
+```javascript
+// Added at top of file:
+const PRIORITY_GUIDE_SLUGS = [
+  'natural-steroids-guide',
+  'dbal-max-review-2025',
+  'pregnancy-safe-pre-workout',
+  'best-legal-steroids-cutting',
+  'breastfeeding-safe-pre-workout',
+];
+
+const PRIORITY_BUY_SLUGS = [
+  'berberine-india',
+  'clenbuterol-india',
+  'dmaa-india',
+];
+
+// Added to exclude array:
+exclude: [
+  // ... existing excludes
+  '/guide/natural-steroids-guide',
+  '/guide/dbal-max-review-2025',
+  // ... all 8 priority URLs
+],
+
+// Added to robotsTxtOptions:
+additionalSitemaps: [
+  'https://www.blushandbreath.com/sitemap-priority.xml',
+],
+```
+
+#### Google Search Console Status
+| Sitemap | Discovered Pages | Status | Last Read |
+|---------|------------------|--------|------------|
+| `sitemap-priority.xml` | **8** | ✅ Success | Dec 3, 2025 |
+| `sitemap.xml` (index) | 158 | ✅ Success | Dec 3, 2025 |
+
+#### When to Add URLs to Priority Sitemap
+Add a URL to `sitemap-priority.xml` when:
+- It's a new monetization page (affiliate/buy pages)
+- It's a high-value SEO article targeting competitive keywords
+- It needs faster indexing than the standard sitemap
+- It's a pillar page for a content hub
+
+#### Procedure: Adding New Priority URLs
+1. Add URL entry to `public/sitemap-priority.xml`
+2. Add slug to `PRIORITY_GUIDE_SLUGS` or `PRIORITY_BUY_SLUGS` in `next-sitemap.config.js`
+3. Add full path to `exclude` array in `next-sitemap.config.js`
+4. Run `npm run build && npx vercel --prod`
+5. Verify at https://www.blushandbreath.com/sitemap-priority.xml
+
+---
+
+### 25. New SEO Articles & Buy Pages (Dec 3, 2025)
+
+**Overview**: Added 5 new comprehensive SEO articles targeting high-value fitness/supplement keywords, plus 3 Amazon affiliate buy pages.
+
+#### New Articles Added (`lib/data/articles.json`)
+
+| # | Slug | Title | Target Keywords |
+|---|------|-------|------------------|
+| 1 | `natural-steroids-guide` | Natural Steroids Guide 2025 | natural steroids, legal steroids, steroid alternatives |
+| 2 | `dbal-max-review-2025` | D-Bal Max Review 2025 | dbal max review, d-bal max, legal dianabol |
+| 3 | `pregnancy-safe-pre-workout` | Pregnancy Safe Pre-Workout Guide | pre workout while pregnant, safe pre workout pregnancy |
+| 4 | `best-legal-steroids-cutting` | Best Legal Steroids for Cutting | legal steroids for cutting, cutting supplements |
+| 5 | `breastfeeding-safe-pre-workout` | Breastfeeding Safe Pre-Workout | pre workout while breastfeeding, nursing mom supplements |
+
+**Article Features**:
+- ✅ Comprehensive sections with rich HTML content
+- ✅ FAQ sections with Schema.org markup
+- ✅ Medical citations (15+ per article)
+- ✅ Internal links to pillar pages and supplements
+- ✅ Affiliate product recommendations
+- ✅ Enhanced Article schema (see Section 23)
+
+#### New Buy Pages Added (`lib/data/buy-pages.json`)
+
+| # | Slug | Product Focus | Affiliate |
+|---|------|---------------|------------|
+| 1 | `berberine-india` | Berberine supplements | Amazon India |
+| 2 | `clenbuterol-india` | Legal Clenbuterol alternatives | Amazon India |
+| 3 | `dmaa-india` | DMAA pre-workout alternatives | Amazon India |
+
+**Buy Page Features**:
+- ✅ Product comparison tables
+- ✅ Price/value analysis
+- ✅ Safety warnings and disclaimers
+- ✅ Amazon affiliate links with disclosure
+- ✅ Related article links
+
+#### Production URLs
+**Articles**:
+- https://www.blushandbreath.com/guide/natural-steroids-guide
+- https://www.blushandbreath.com/guide/dbal-max-review-2025
+- https://www.blushandbreath.com/guide/pregnancy-safe-pre-workout
+- https://www.blushandbreath.com/guide/best-legal-steroids-cutting
+- https://www.blushandbreath.com/guide/breastfeeding-safe-pre-workout
+
+**Buy Pages**:
+- https://www.blushandbreath.com/buy/berberine-india
+- https://www.blushandbreath.com/buy/clenbuterol-india
+- https://www.blushandbreath.com/buy/dmaa-india
+
+#### Build Stats (Dec 3, 2025)
+- Total static pages: 175
+- New pages added: 8 (5 articles + 3 buy pages)
+- Build time: ~95 seconds
+
+---
+
+*Last updated: December 3, 2025 (Enhanced Article Schema, Priority Sitemap Architecture, 5 New SEO Articles, 3 Buy Pages, Google Rich Results Verification)*

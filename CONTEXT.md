@@ -75,19 +75,23 @@ Before deploying ANY changes, verify:
 ```
 Main Sitemap: https://www.blushandbreath.com/sitemap.xml
 Priority Sitemap: https://www.blushandbreath.com/sitemap-priority.xml
-Total Discovered URLs: 166 (158 main + 8 priority)
-Status: Success (as of Dec 3, 2025)
+Berberine Sitemap: https://www.blushandbreath.com/sitemap-berberine.xml
+Sellers Sitemap: https://www.blushandbreath.com/sitemap-sellers.xml
+Total Discovered URLs: 179 (167 main + 8 priority + 3 berberine + 1 seller)
+Status: Success (as of Dec 4, 2025)
 ```
 
-**Priority Sitemap** (8 high-value URLs with priority 1.0/0.9):
-- 5 SEO Articles: natural-steroids-guide, dbal-max-review-2025, pregnancy-safe-pre-workout, best-legal-steroids-cutting, breastfeeding-safe-pre-workout
-- 3 Buy Pages: berberine-india, clenbuterol-india, dmaa-india
+**4 Sitemaps Architecture**:
+- **Main**: Auto-generated, 167 URLs (banned, supplements, comparisons, guides)
+- **Priority**: 8 high-value URLs (SEO articles + buy pages)
+- **Berberine**: 3 EU market articles (Belgium, France, Netherlands)
+- **Sellers**: High-ticket affiliate pages (GLP Lab France)
 
 When adding new pages:
-1. Rebuild: `npm run build` (regenerates sitemap)
+1. Rebuild: `npm run build` (regenerates main sitemap)
 2. Deploy: `npx vercel --prod`
 3. Wait 24-48 hours for Google to crawl new URLs from sitemap
-4. For priority pages, add to `sitemap-priority.xml` and exclude from main sitemap in `next-sitemap.config.js`
+4. For priority pages, add to appropriate sitemap (`sitemap-priority.xml`, `sitemap-berberine.xml`, or `sitemap-sellers.xml`) and exclude from main sitemap in `next-sitemap.config.js`
 
 ---
 
@@ -2087,4 +2091,300 @@ Add a URL to `sitemap-priority.xml` when:
 
 ---
 
-*Last updated: December 3, 2025 (Enhanced Article Schema, Priority Sitemap Architecture, 5 New SEO Articles, 3 Buy Pages, Google Rich Results Verification)*
+### 26. Berberine EU Launch Campaign (Dec 4, 2025)
+
+**Overview**: Launched 3 new SEO articles targeting European markets (Belgium, France, Netherlands) for Berberine as an Ozempic alternative. Created dedicated sitemap for faster indexing.
+
+#### New Articles Added (`lib/data/articles.json`)
+
+| # | Slug | Title | Target Market | Target Keywords |
+|---|------|-------|---------------|------------------|
+| 1 | `berberine-kopen-belgie-gids` | Berberine Kopen België 2025: Vermijd de 10mg Limiet (Legale Gids) | Belgium 🇧🇪 | berberine kopen belgie, berberine alternative ozempic belgique |
+| 2 | `berberine-vs-ozempic-prix` | Berbérine vs Ozempic Prix France 2025: Comparaison Complète | France 🇫🇷 | berberine vs ozempic prix, berbérine alternative ozempic france |
+| 3 | `berberine-ervaringen-2025` | Berberine Ervaringen 2025: Echte Reviews van Nederlandse Gebruikers | Netherlands 🇳🇱 | berberine ervaringen, berberine ozempic alternative nederland |
+
+**Article Features**:
+- ✅ Localized content in Dutch/French
+- ✅ Price comparison tables (Ozempic vs Berberine)
+- ✅ Legal/regulatory information per country
+- ✅ FAQ sections with Schema.org markup
+- ✅ Medical citations
+- ✅ CTA buttons for affiliate conversion
+
+#### Dedicated Sitemap Created (`public/sitemap-berberine.xml`)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.blushandbreath.com/guide/berberine-kopen-belgie-gids</loc>
+    <lastmod>2025-12-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.blushandbreath.com/guide/berberine-vs-ozempic-prix</loc>
+    <lastmod>2025-12-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.blushandbreath.com/guide/berberine-ervaringen-2025</loc>
+    <lastmod>2025-12-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+```
+
+#### next-sitemap.config.js Changes
+
+```javascript
+// Added Berberine slugs array:
+const BERBERINE_GUIDE_SLUGS = [
+  'berberine-kopen-belgie-gids',
+  'berberine-vs-ozempic-prix',
+  'berberine-ervaringen-2025',
+];
+
+// Added to exclude array:
+'/guide/berberine-kopen-belgie-gids',
+'/guide/berberine-vs-ozempic-prix',
+'/guide/berberine-ervaringen-2025',
+
+// Added to additionalSitemaps:
+'https://www.blushandbreath.com/sitemap-berberine.xml',
+```
+
+#### Google Rich Results Test (Dec 4, 2025)
+
+All 3 URLs tested and passed with **5 valid items** each:
+
+| URL | Status | Valid Items | Critical Issues |
+|-----|--------|-------------|-----------------|
+| `/guide/berberine-kopen-belgie-gids` | ✅ PASS | 5 | 0 |
+| `/guide/berberine-vs-ozempic-prix` | ✅ PASS | 5 | 0 |
+| `/guide/berberine-ervaringen-2025` | ✅ PASS | 5 | 0 |
+
+**Detected Structured Data**:
+- ✅ Articles (2 valid items)
+- ✅ Breadcrumbs (1 valid item)
+- ✅ FAQ (1 valid item)
+- ✅ Paywalled Content (1 valid item)
+
+**Non-Critical Issues**: 5 warnings related to ScholarlyArticle citation (optional fields: image, author, headline, datePublished format). These do NOT block rich results.
+
+#### Production URLs
+- https://www.blushandbreath.com/guide/berberine-kopen-belgie-gids
+- https://www.blushandbreath.com/guide/berberine-vs-ozempic-prix
+- https://www.blushandbreath.com/guide/berberine-ervaringen-2025
+
+#### Sitemap URLs
+- https://www.blushandbreath.com/sitemap-berberine.xml
+
+#### Audit Report
+Full structured data audit documented in: `research/berberine_structured_data_audit.md`
+
+---
+
+### 27. GLP Lab High-Ticket Seller Page - France Market (Dec 4, 2025)
+
+**Overview**: Created a high-converting French-language seller page for GLP Lab (Berberine Complex) targeting "Ozempic alternative" traffic in France. Includes dedicated sitemap for priority crawling.
+
+#### Page Details
+
+| Field | Value |
+|-------|-------|
+| **Slug** | `glp-lab-avis-france` |
+| **Route** | `/guide/glp-lab-avis-france` |
+| **Target Keyword** | `GLP Lab Avis` (Investigative Intent) |
+| **Language** | French 🇫🇷 |
+| **Category** | `review` |
+| **Tracking Link** | `https://tl-track.com/tracker/vDdk/?sub_id=glp_review_fr` |
+
+#### Article Structure (`lib/data/articles.json`)
+
+```typescript
+{
+  id: "glp-lab-avis-france-2025",
+  slug: "glp-lab-avis-france",
+  title: "Avis GLP Lab 2025 : Arnaque ou Vraie Alternative Ozempic ? (Enquête)",
+  category: "review",
+  sections: [
+    { id: "analyse-scientifique", title: "Analyse de la Formule : Pourquoi Ça Marche ?", keywordTarget: "ingredients glp lab" },
+    { id: "verdict-ozempic", title: "GLP Lab vs Ozempic : Le Duel", keywordTarget: "glp lab vs wegovy" },
+    { id: "avis-clients", title: "Résultats : Ce que disent les Français", keywordTarget: "glp lab témoignage" },
+    { id: "achat-securise", title: "Où Commander la Version Officielle ?", keywordTarget: "glp lab en pharmacie" }
+  ],
+  faqs: [
+    { question: "GLP Lab est-il une arnaque ?", answer: "..." },
+    { question: "Peut-on l'acheter en pharmacie ?", answer: "..." }
+  ]
+}
+```
+
+#### Page Features
+- ✅ **Hero with Product Image**: Actual GLP Lab product image from glp-lab.fr
+- ✅ **YouTube Video Embed**: French berberine video (`L4EsYkS4bTs`)
+- ✅ **Comparison Table**: GLP Lab vs Ozempic (price, availability, side effects)
+- ✅ **Testimonial Section**: French customer review with star rating
+- ✅ **CTA Button**: Animated gradient button with tracking link
+- ✅ **Contrefaçon Warning**: Yellow alert box about fake "Keto" versions
+- ✅ **FAQ Accordion**: With Schema.org markup
+- ✅ **Related Pages**: Links to `berberine-vs-ozempic-prix`
+- ✅ **Tailwind Dark Mode**: Full dark mode support
+- ✅ **Mobile Responsive**: Stacked layout on mobile, side-by-side on desktop
+
+#### Assets Acquired (Automated)
+| Asset | Source | Value |
+|-------|--------|-------|
+| **Product Image** | `https://glp-lab.fr/wp-content/uploads/2025/08/glp-lab-300x286.webp` | Hero image |
+| **YouTube Video** | `L4EsYkS4bTs` ("BERBERINE : cette plante serait mieux que L'OZEMPIC ?") | Educational embed |
+
+#### Dedicated Sitemap Created (`public/sitemap-sellers.xml`)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.blushandbreath.com/guide/glp-lab-avis-france</loc>
+    <lastmod>2025-12-04T20:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+```
+
+#### next-sitemap.config.js Changes
+
+```javascript
+// Added Seller Page slugs array:
+const SELLER_PAGE_SLUGS = [
+  'glp-lab-avis-france',
+];
+
+// Added to exclude array:
+'/guide/glp-lab-avis-france',
+
+// Added to additionalSitemaps:
+'https://www.blushandbreath.com/sitemap-sellers.xml',
+
+// Added to additionalPaths exclusion logic:
+if (SELLER_PAGE_SLUGS.includes(article.slug)) {
+  return; // Skip seller pages - they have their own sitemap
+}
+```
+
+#### robots.txt Updated
+
+```
+Sitemap: https://www.blushandbreath.com/sitemap-sellers.xml
+```
+
+#### Files Created/Modified
+
+| File | Action | Purpose |
+|------|--------|---------|
+| `lib/data/articles.json` | Modified | Added GLP Lab article entry |
+| `public/sitemap-sellers.xml` | **Created** | Dedicated sitemap for high-ticket seller pages |
+| `next-sitemap.config.js` | Modified | Added SELLER_PAGE_SLUGS, exclusions, additionalSitemaps |
+| `public/robots.txt` | Modified | Added sitemap-sellers.xml reference |
+
+#### Playwright Verification (Dec 4, 2025)
+
+| Check | Status | Details |
+|-------|--------|---------|
+| **Image Loads** | ✅ PASS | GLP Lab product image rendering |
+| **Video Embed** | ✅ PASS | YouTube iframe with play button |
+| **CTA Button** | ✅ PASS | Links to `tl-track.com/tracker/vDdk/?sub_id=glp_review_fr` |
+| **Mobile Layout** | ✅ PASS | Proper stacking, hamburger menu, full-width CTA |
+| **Dark Mode** | ✅ PASS | All elements styled for dark mode |
+
+#### Production URL
+- https://www.blushandbreath.com/guide/glp-lab-avis-france
+
+---
+
+## 📋 COMPLETE SITEMAP ARCHITECTURE (Updated Dec 4, 2025)
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    SITEMAP STRUCTURE (4 SITEMAPS)                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  robots.txt                                                              │
+│  ├── Sitemap: sitemap.xml (index - auto-generated)                      │
+│  ├── Sitemap: sitemap-priority.xml (8 URLs - SEO articles + buy pages)  │
+│  ├── Sitemap: sitemap-berberine.xml (3 URLs - EU market articles)       │
+│  └── Sitemap: sitemap-sellers.xml (1+ URLs - high-ticket seller pages)  │
+│                                                                          │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │ sitemap.xml (Index) - Auto-generated by next-sitemap             │    │
+│  │ └── sitemap-0.xml (150+ URLs - main content)                     │    │
+│  │     ├── /banned/[31 substances]                                  │    │
+│  │     ├── /supplement/[10 supplements]                             │    │
+│  │     ├── /compare/[70+ comparisons]                               │    │
+│  │     ├── /guide/[30+ guides] (excluding priority/berberine/seller)│    │
+│  │     └── /info/[10 info pages]                                    │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                          │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │ sitemap-priority.xml (Manual) - Priority: 1.0/0.9                │    │
+│  │ └── 8 URLs                                                        │    │
+│  │     ├── /guide/natural-steroids-guide                            │    │
+│  │     ├── /guide/dbal-max-review-2025                              │    │
+│  │     ├── /guide/pregnancy-safe-pre-workout                        │    │
+│  │     ├── /guide/best-legal-steroids-cutting                       │    │
+│  │     ├── /guide/breastfeeding-safe-pre-workout                    │    │
+│  │     ├── /buy/berberine-india                                     │    │
+│  │     ├── /buy/clenbuterol-india                                   │    │
+│  │     └── /buy/dmaa-india                                          │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                          │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │ sitemap-berberine.xml (Manual) - EU Market Campaign              │    │
+│  │ └── 3 URLs - Priority: 1.0                                       │    │
+│  │     ├── /guide/berberine-kopen-belgie-gids (Belgium 🇧🇪)         │    │
+│  │     ├── /guide/berberine-vs-ozempic-prix (France 🇫🇷)            │    │
+│  │     └── /guide/berberine-ervaringen-2025 (Netherlands 🇳🇱)       │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                          │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │ sitemap-sellers.xml (Manual) - High-Ticket Seller Pages          │    │
+│  │ └── 1+ URLs - Priority: 1.0, changefreq: daily                   │    │
+│  │     └── /guide/glp-lab-avis-france (France 🇫🇷)                  │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Sitemap URLs
+| Sitemap | URL | Purpose |
+|---------|-----|---------|
+| Main Index | https://www.blushandbreath.com/sitemap.xml | Auto-generated index |
+| Main Content | https://www.blushandbreath.com/sitemap-0.xml | 150+ main URLs |
+| Priority | https://www.blushandbreath.com/sitemap-priority.xml | 8 high-value URLs |
+| Berberine EU | https://www.blushandbreath.com/sitemap-berberine.xml | 3 EU market URLs |
+| Sellers | https://www.blushandbreath.com/sitemap-sellers.xml | High-ticket seller pages |
+
+#### When to Use Each Sitemap
+
+| Sitemap | Use Case |
+|---------|----------|
+| **Main (auto)** | Default for all regular pages |
+| **Priority** | High-value SEO articles, monetization pages needing fast indexing |
+| **Berberine** | EU market Ozempic alternative articles |
+| **Sellers** | High-ticket affiliate seller pages (French/EU markets) |
+
+#### Exclusion Constants in next-sitemap.config.js
+
+```javascript
+const PRIORITY_GUIDE_SLUGS = ['natural-steroids-guide', 'dbal-max-review-2025', ...];
+const PRIORITY_BUY_SLUGS = ['berberine-india', 'clenbuterol-india', 'dmaa-india'];
+const BERBERINE_GUIDE_SLUGS = ['berberine-kopen-belgie-gids', 'berberine-vs-ozempic-prix', 'berberine-ervaringen-2025'];
+const SELLER_PAGE_SLUGS = ['glp-lab-avis-france'];
+```
+
+---
+
+*Last updated: December 4, 2025 (GLP Lab High-Ticket Seller Page - France Market, Complete Sitemap Architecture with 4 Sitemaps)*

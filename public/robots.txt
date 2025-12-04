@@ -28,3 +28,5 @@ Host: https://www.blushandbreath.com
 # Sitemaps
 Sitemap: https://www.blushandbreath.com/sitemap.xml
 Sitemap: https://www.blushandbreath.com/sitemap-priority.xml
+Sitemap: https://www.blushandbreath.com/sitemap-berberine.xml
+Sitemap: https://www.blushandbreath.com/sitemap-sellers.xml

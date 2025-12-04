@@ -17,6 +17,18 @@ const PRIORITY_GUIDE_SLUGS = [
   'breastfeeding-safe-pre-workout',
 ];
 
+// Berberine Launch Campaign - Isolated sitemap for EU markets
+const BERBERINE_GUIDE_SLUGS = [
+  'berberine-kopen-belgie-gids',
+  'berberine-vs-ozempic-prix',
+  'berberine-ervaringen-2025',
+];
+
+// High-Ticket Seller Pages - Isolated sitemap for priority crawling
+const SELLER_PAGE_SLUGS = [
+  'glp-lab-avis-france',
+];
+
 const PRIORITY_BUY_SLUGS = [
   'berberine-india',
   'clenbuterol-india',
@@ -59,6 +71,12 @@ module.exports = {
     '/buy/berberine-india',
     '/buy/clenbuterol-india',
     '/buy/dmaa-india',
+    // Berberine EU Launch - excluded (in sitemap-berberine.xml)
+    '/guide/berberine-kopen-belgie-gids',
+    '/guide/berberine-vs-ozempic-prix',
+    '/guide/berberine-ervaringen-2025',
+    // High-Ticket Seller Pages - excluded (in sitemap-sellers.xml)
+    '/guide/glp-lab-avis-france',
   ],
   
   // Configure robots.txt
@@ -90,6 +108,8 @@ module.exports = {
     ],
     additionalSitemaps: [
       'https://www.blushandbreath.com/sitemap-priority.xml',
+      'https://www.blushandbreath.com/sitemap-berberine.xml',
+      'https://www.blushandbreath.com/sitemap-sellers.xml',
     ],
   },
   
@@ -199,6 +219,14 @@ module.exports = {
     articles.forEach(article => {
       // Skip priority articles - they have their own sitemap for faster indexing
       if (PRIORITY_GUIDE_SLUGS.includes(article.slug)) {
+        return;
+      }
+      // Skip berberine articles - they have their own sitemap for EU market indexing
+      if (BERBERINE_GUIDE_SLUGS.includes(article.slug)) {
+        return;
+      }
+      // Skip seller pages - they have their own sitemap for priority crawling
+      if (SELLER_PAGE_SLUGS.includes(article.slug)) {
         return;
       }
       result.push({

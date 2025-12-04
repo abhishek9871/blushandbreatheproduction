@@ -2,18 +2,56 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+// French locale pages
+const FRENCH_PAGES = ['/guide/glp-lab-avis-france'];
+
+// French translations
+const frenchFooter = {
+  explore: 'Explorer',
+  healthArticles: 'Articles Santé',
+  beautyTips: 'Conseils Beauté',
+  dietPlans: 'Plans Nutritionnels IA',
+  videos: 'Vidéos Bien-être',
+  mediVault: 'Base Médicaments',
+  medicineDb: 'Base de Données',
+  searchMeds: 'Rechercher',
+  interactions: 'Interactions',
+  emergency: 'Urgences',
+  aboutUs: 'À Propos',
+  ourStory: 'Notre Histoire',
+  contact: 'Nous Contacter',
+  faq: 'FAQ',
+  careers: 'Carrières',
+  newsletter: 'Rejoignez Notre Newsletter',
+  newsletterDesc: 'Recevez les dernières actualités santé et bien-être.',
+  yourEmail: 'Votre email',
+  subscribe: "S'abonner",
+  subscribing: 'Inscription...',
+  rights: 'Tous droits réservés.',
+  terms: "Conditions d'Utilisation",
+  privacy: 'Politique de Confidentialité',
+  successMsg: 'Merci pour votre inscription !',
+  errorMsg: 'Échec de l\'inscription. Veuillez réessayer.',
+  invalidEmail: 'Veuillez entrer une adresse email valide',
+};
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const pathname = usePathname();
+  
+  // Check if current page should use French UI
+  const isFrench = FRENCH_PAGES.some(page => pathname?.startsWith(page));
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !email.includes('@')) {
       setStatus('error');
-      setMessage('Please enter a valid email address');
+      setMessage(isFrench ? frenchFooter.invalidEmail : 'Please enter a valid email address');
       return;
     }
 
@@ -34,7 +72,7 @@ const Footer: React.FC = () => {
 
       if (response.ok) {
         setStatus('success');
-        setMessage('Thanks for subscribing!');
+        setMessage(isFrench ? frenchFooter.successMsg : 'Thanks for subscribing!');
         setEmail('');
         setTimeout(() => {
           setStatus('idle');
@@ -42,11 +80,11 @@ const Footer: React.FC = () => {
         }, 5000);
       } else {
         setStatus('error');
-        setMessage(data.error || 'Failed to subscribe. Please try again.');
+        setMessage(data.error || (isFrench ? frenchFooter.errorMsg : 'Failed to subscribe. Please try again.'));
       }
     } catch (error) {
       setStatus('error');
-      setMessage('Failed to subscribe. Please try again.');
+      setMessage(isFrench ? frenchFooter.errorMsg : 'Failed to subscribe. Please try again.');
     }
   };
 
@@ -55,44 +93,44 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">Explore</h3>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">{isFrench ? frenchFooter.explore : 'Explore'}</h3>
             <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/health">Health Articles</Link></li>
-              <li><Link className="hover:text-secondary dark:hover:text-secondary transition-colors" href="/beauty">Beauty Tips</Link></li>
-              <li><Link className="hover:text-accent dark:hover:text-accent transition-colors" href="/nutrition">AI Diet Plans</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/videos">Wellness Videos</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/health">{isFrench ? frenchFooter.healthArticles : 'Health Articles'}</Link></li>
+              <li><Link className="hover:text-secondary dark:hover:text-secondary transition-colors" href="/beauty">{isFrench ? frenchFooter.beautyTips : 'Beauty Tips'}</Link></li>
+              <li><Link className="hover:text-accent dark:hover:text-accent transition-colors" href="/nutrition">{isFrench ? frenchFooter.dietPlans : 'AI Diet Plans'}</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/videos">{isFrench ? frenchFooter.videos : 'Wellness Videos'}</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">MediVault</h3>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">{isFrench ? frenchFooter.mediVault : 'MediVault'}</h3>
             <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines">Medicine Database</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines/search">Search Medicines</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines/interactions">Drug Interactions</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/emergency">Emergency Info</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines">{isFrench ? frenchFooter.medicineDb : 'Medicine Database'}</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines/search">{isFrench ? frenchFooter.searchMeds : 'Search Medicines'}</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/medicines/interactions">{isFrench ? frenchFooter.interactions : 'Drug Interactions'}</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/emergency">{isFrench ? frenchFooter.emergency : 'Emergency Info'}</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">About Us</h3>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">{isFrench ? frenchFooter.aboutUs : 'About Us'}</h3>
             <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/about">Our Story</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/contact">Contact Us</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/faq">FAQ</Link></li>
-              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/careers">Careers</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/about">{isFrench ? frenchFooter.ourStory : 'Our Story'}</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/contact">{isFrench ? frenchFooter.contact : 'Contact Us'}</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/faq">{isFrench ? frenchFooter.faq : 'FAQ'}</Link></li>
+              <li><Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/careers">{isFrench ? frenchFooter.careers : 'Careers'}</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">Join Our Newsletter</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Get the latest on new arrivals, promotions, and more.</p>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-gray-100">{isFrench ? frenchFooter.newsletter : 'Join Our Newsletter'}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{isFrench ? frenchFooter.newsletterDesc : 'Get the latest on new arrivals, promotions, and more.'}</p>
             <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
               <div className="flex">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  aria-label="Your email"
+                  aria-label={isFrench ? frenchFooter.yourEmail : 'Your email'}
                   className="flex-grow rounded-l-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-primary focus:border-primary text-sm h-11 px-3"
-                  placeholder="Your email"
+                  placeholder={isFrench ? frenchFooter.yourEmail : 'Your email'}
                   disabled={status === 'loading'}
                 />
                 <button
@@ -100,7 +138,7 @@ const Footer: React.FC = () => {
                   disabled={status === 'loading'}
                   className="bg-primary text-white px-4 rounded-r-md font-semibold text-sm h-11 hover:bg-opacity-80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+                  {status === 'loading' ? (isFrench ? frenchFooter.subscribing : 'Subscribing...') : (isFrench ? frenchFooter.subscribe : 'Subscribe')}
                 </button>
               </div>
               {message && (
@@ -112,10 +150,10 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600 dark:text-gray-400">
-          <p>© 2025 Blush & Breathe. All rights reserved.</p>
+          <p>© 2025 Blush & Breathe. {isFrench ? frenchFooter.rights : 'All rights reserved.'}</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
-            <Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/terms">Terms of Service</Link>
-            <Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/privacy">Privacy Policy</Link>
+            <Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/terms">{isFrench ? frenchFooter.terms : 'Terms of Service'}</Link>
+            <Link className="hover:text-primary dark:hover:text-primary transition-colors" href="/info/privacy">{isFrench ? frenchFooter.privacy : 'Privacy Policy'}</Link>
           </div>
         </div>
       </div>

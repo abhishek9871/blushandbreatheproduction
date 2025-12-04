@@ -27,6 +27,61 @@ interface GuidePageProps {
   formattedDate?: string;
 }
 
+// French translations for localized pages
+const frenchUI = {
+  breadcrumb: {
+    home: 'Accueil',
+    health: 'Santé',
+    guides: 'Guides',
+  },
+  article: {
+    minRead: 'min de lecture',
+    updated: 'Mis à jour le',
+    summary: 'Résumé',
+    references: 'Références & Sources',
+    tableOfContents: 'Table des Matières',
+  },
+  cta: {
+    title: 'Vous Cherchez des Alternatives Sûres ?',
+    description: 'Découvrez notre guide complet des compléments alimentaires légaux et conformes aux normes européennes.',
+    button: 'Voir les Suppléments Sûrs',
+  },
+  footer: {
+    explore: 'Explorer',
+    healthArticles: 'Articles Santé',
+    beautyTips: 'Conseils Beauté',
+    dietPlans: 'Plans Nutritionnels IA',
+    videos: 'Vidéos Bien-être',
+    mediVault: 'Base Médicaments',
+    medicineDb: 'Base de Données',
+    searchMeds: 'Rechercher',
+    interactions: 'Interactions',
+    emergency: 'Urgences',
+    aboutUs: 'À Propos',
+    ourStory: 'Notre Histoire',
+    contact: 'Contact',
+    faq: 'FAQ',
+    careers: 'Carrières',
+    newsletter: 'Rejoignez Notre Newsletter',
+    newsletterDesc: 'Recevez les dernières actualités santé et bien-être.',
+    yourEmail: 'Votre email',
+    subscribe: "S'abonner",
+    rights: 'Tous droits réservés.',
+    terms: 'Conditions d\'Utilisation',
+    privacy: 'Politique de Confidentialité',
+  },
+  nav: {
+    home: 'Accueil',
+    health: 'Santé',
+    healthStore: 'Boutique',
+    mediVault: 'Médicaments',
+    beauty: 'Beauté',
+    nutrition: 'Nutrition',
+    videos: 'Vidéos',
+    bookmarks: 'Favoris',
+  },
+};
+
 export default function GuidePage({ article, error, formattedDate }: GuidePageProps) {
   if (error || !article) {
     return (
@@ -71,6 +126,8 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
         <meta name="keywords" content={article.keywords.join(', ')} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={`https://www.blushandbreath.com/guide/${article.slug}`} />
+        {/* Language attribute for French pages */}
+        {article.locale === 'fr' && <meta httpEquiv="content-language" content="fr" />}
         
         {/* Open Graph */}
         <meta property="og:title" content={article.metaTitle} />
@@ -79,6 +136,7 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
         <meta property="og:url" content={`https://www.blushandbreath.com/guide/${article.slug}`} />
         <meta property="og:image" content="https://www.blushandbreath.com/images/og-guide.jpg" />
         <meta property="og:site_name" content="Blush & Breathe" />
+        {article.locale === 'fr' && <meta property="og:locale" content="fr_FR" />}
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -117,11 +175,17 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
       <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
         {/* Breadcrumb */}
         <nav className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-text-subtle-light dark:text-text-subtle-dark mb-4 sm:mb-6">
-          <Link href="/" className="hover:text-primary">Home</Link>
+          <Link href="/" className="hover:text-primary">
+            {article.locale === 'fr' ? frenchUI.breadcrumb.home : 'Home'}
+          </Link>
           <span>/</span>
-          <Link href="/health" className="hover:text-primary">Health</Link>
+          <Link href="/health" className="hover:text-primary">
+            {article.locale === 'fr' ? frenchUI.breadcrumb.health : 'Health'}
+          </Link>
           <span>/</span>
-          <span className="text-text-light dark:text-text-dark">Guides</span>
+          <span className="text-text-light dark:text-text-dark">
+            {article.locale === 'fr' ? frenchUI.breadcrumb.guides : 'Guides'}
+          </span>
           <span>/</span>
           <span className="text-text-light dark:text-text-dark truncate max-w-[120px] sm:max-w-[200px]">{article.title}</span>
         </nav>
@@ -137,11 +201,11 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-text-subtle-light dark:text-text-subtle-dark">
                   <span className="flex items-center gap-1">
                     <span className="material-symbols-outlined text-sm">schedule</span>
-                    {article.readingTime} min read
+                    {article.readingTime} {article.locale === 'fr' ? frenchUI.article.minRead : 'min read'}
                   </span>
                   <span className="flex items-center gap-1">
                     <span className="material-symbols-outlined text-sm">calendar_today</span>
-                    Updated {formattedDate}
+                    {article.locale === 'fr' ? frenchUI.article.updated : 'Updated'} {formattedDate}
                   </span>
                 </div>
               </div>
@@ -155,6 +219,7 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
           <TableOfContents
             items={tocItems}
             className="mb-8"
+            locale={article.locale}
           />
 
           {/* Introduction */}
@@ -227,7 +292,7 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
             <section className="mb-8">
               <h2 className="text-lg font-semibold text-text-light dark:text-text-dark mb-3 flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">menu_book</span>
-                References & Sources
+                {article.locale === 'fr' ? frenchUI.article.references : 'References & Sources'}
               </h2>
               <ul className="space-y-2">
                 {article.citations.map((citation, index) => (
@@ -253,17 +318,17 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
           {/* CTA Section */}
           <section className="mb-8 p-6 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20">
             <h3 className="text-lg font-semibold text-text-light dark:text-text-dark mb-2">
-              Looking for Safe Alternatives?
+              {article.locale === 'fr' ? frenchUI.cta.title : 'Looking for Safe Alternatives?'}
             </h3>
             <p className="text-text-subtle-light dark:text-text-subtle-dark mb-4">
-              Explore our complete guide to legal, FDA-compliant pre-workout ingredients and supplements.
+              {article.locale === 'fr' ? frenchUI.cta.description : 'Explore our complete guide to legal, FDA-compliant pre-workout ingredients and supplements.'}
             </p>
             <Link
               href="/health"
               className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
             >
               <span className="material-symbols-outlined">verified_user</span>
-              View Safe Supplements
+              {article.locale === 'fr' ? frenchUI.cta.button : 'View Safe Supplements'}
             </Link>
           </section>
         </article>
@@ -308,12 +373,16 @@ export const getStaticProps: GetStaticProps<GuidePageProps> = async ({ params })
     }
 
     // Format date at build time to prevent hydration mismatch
-    const formattedDate = new Date(article.modifiedDate).toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric',
-      timeZone: 'UTC' // Use UTC to ensure consistent output
-    });
+    // Use French format for French locale articles
+    const formattedDate = new Date(article.modifiedDate).toLocaleDateString(
+      article.locale === 'fr' ? 'fr-FR' : 'en-US', 
+      { 
+        month: 'long', 
+        day: 'numeric', 
+        year: 'numeric',
+        timeZone: 'UTC' // Use UTC to ensure consistent output
+      }
+    );
 
     return {
       props: {

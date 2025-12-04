@@ -21,7 +21,10 @@ export interface Article {
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
-  category: 'guide' | 'list' | 'comparison' | 'news' | 'research';
+  category: 'guide' | 'list' | 'comparison' | 'news' | 'research' | 'review' | 'avis';
+  
+  // Localization
+  locale?: 'en' | 'fr' | 'nl' | 'de'; // Language/region code
   
   // Content
   introduction: string;
@@ -38,6 +41,7 @@ export interface Article {
   publishedDate: string;
   modifiedDate: string;
   readingTime?: number; // minutes
+  wordCount?: number;
   
   // Feature flags
   isFeatured?: boolean;

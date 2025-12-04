@@ -15,9 +15,11 @@ interface TOCItem {
 interface TableOfContentsProps {
   items: TOCItem[];
   className?: string;
+  locale?: 'en' | 'fr' | 'nl' | 'de';
 }
 
-export function TableOfContents({ items, className = '' }: TableOfContentsProps) {
+export function TableOfContents({ items, className = '', locale }: TableOfContentsProps) {
+  const isFrench = locale === 'fr';
   const [activeId, setActiveId] = useState<string>(items[0]?.id || '');
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -59,7 +61,7 @@ export function TableOfContents({ items, className = '' }: TableOfContentsProps)
       >
         <span className="font-semibold text-sm md:text-base text-text-light dark:text-text-dark flex items-center gap-2">
           <span className="material-symbols-outlined text-primary text-lg md:text-xl">toc</span>
-          Table of Contents
+          {isFrench ? 'Table des Matières' : 'Table of Contents'}
         </span>
         <span className={`material-symbols-outlined transition-transform ${isCollapsed ? '' : 'rotate-180'}`}>
           expand_more
@@ -113,7 +115,7 @@ export function TableOfContents({ items, className = '' }: TableOfContentsProps)
               }`}
             >
               <span className="text-xs text-gray-400 mr-2">{items.length + 1}.</span>
-              FAQs
+              {isFrench ? 'Questions Fréquentes' : 'FAQs'}
             </a>
           </li>
         </ul>

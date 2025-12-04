@@ -6,6 +6,21 @@ import { usePathname } from 'next/navigation';
 import { NAV_LINKS } from '@/constants';
 import ThemeToggle from './ThemeToggle';
 
+// French navigation for localized pages
+const FRENCH_NAV_LINKS = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Santé', path: '/health' },
+  { name: 'Boutique', path: '/health-store' },
+  { name: 'Médicaments', path: '/medicines' },
+  { name: 'Beauté', path: '/beauty' },
+  { name: 'Nutrition', path: '/nutrition' },
+  { name: 'Vidéos', path: '/videos' },
+  { name: 'Favoris', path: '/bookmarks' },
+];
+
+// French locale pages
+const FRENCH_PAGES = ['/guide/glp-lab-avis-france'];
+
 interface HeaderProps {
   onSearchClick: () => void;
 }
@@ -13,6 +28,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  
+  // Check if current page should use French UI
+  const isFrenchPage = FRENCH_PAGES.some(page => pathname?.startsWith(page));
+  const navLinks = isFrenchPage ? FRENCH_NAV_LINKS : NAV_LINKS;
 
   const baseLinkClasses = "text-sm font-medium transition-colors px-3 py-2 rounded-md";
   const inactiveLinkClasses = "text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary";
@@ -33,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
             <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">Blush & Breathe</span>
           </Link>
           <nav className="hidden md:flex flex-1 justify-center items-center gap-1 lg:gap-6">
-            {NAV_LINKS.map(link => (
+            {navLinks.map(link => (
               <Link
                 key={link.name}
                 href={link.path}
@@ -65,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
       {isMenuOpen && (
         <div className="md:hidden">
           <nav className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {NAV_LINKS.map(link => (
+            {navLinks.map(link => (
               <Link
                 key={link.name}
                 href={link.path}

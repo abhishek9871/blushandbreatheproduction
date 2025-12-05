@@ -164,6 +164,7 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
           faqs: article.faqs,
           citations: article.citations,
           readingTime: article.readingTime,
+          locale: article.locale, // Pass locale for proper language in schema
         }}
         pageUrl={`https://www.blushandbreath.com/guide/${article.slug}`}
         pageTitle={article.metaTitle}

@@ -43,6 +43,7 @@ interface ContentHubArticleData {
   faqs?: FAQItem[];
   citations?: ArticleCitation[];
   readingTime?: number;
+  locale?: string; // 'fr' for French, 'en' for English
 }
 
 interface SchemaMarkupProps {
@@ -441,8 +442,8 @@ function generateArticleSchema(
         ...(c.year && { datePublished: c.year }),
       })),
     }),
-    // In language
-    inLanguage: 'en-US',
+    // In language - use French for fr locale articles
+    inLanguage: article.locale === 'fr' ? 'fr-FR' : 'en-US',
     // Copyright
     copyrightYear: new Date().getFullYear(),
     copyrightHolder: generateOrganizationSchema(),

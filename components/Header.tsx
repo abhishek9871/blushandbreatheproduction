@@ -18,8 +18,13 @@ const FRENCH_NAV_LINKS = [
   { name: 'Favoris', path: '/bookmarks' },
 ];
 
-// French locale pages
-const FRENCH_PAGES = ['/guide/glp-lab-avis-france'];
+// French locale pages - GLP Lab France Content Cluster
+const FRENCH_PAGES = [
+  '/guide/glp-lab-avis-france',
+  '/guide/glp-lab-forum-france',
+  '/guide/complement-alimentaire-glp-1-guide',
+  '/guide/glp-lab-arnaque-enquete',
+];
 
 interface HeaderProps {
   onSearchClick: () => void;

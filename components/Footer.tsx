@@ -4,8 +4,13 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-// French locale pages
-const FRENCH_PAGES = ['/guide/glp-lab-avis-france'];
+// French locale pages - GLP Lab France Content Cluster
+const FRENCH_PAGES = [
+  '/guide/glp-lab-avis-france',
+  '/guide/glp-lab-forum-france',
+  '/guide/complement-alimentaire-glp-1-guide',
+  '/guide/glp-lab-arnaque-enquete',
+];
 
 // French translations
 const frenchFooter = {

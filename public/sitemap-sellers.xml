@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- GLP Lab France Content Cluster - High-Ticket Seller Pages -->
+  
+  <!-- PILLAR: Main GLP Lab Review (Primary Target) -->
   <url>
     <loc>https://www.blushandbreath.com/guide/glp-lab-avis-france</loc>
-    <lastmod>2025-12-05T17:30:00Z</lastmod>
+    <lastmod>2025-12-05T14:00:00Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  
+  <!-- CLUSTER: Forum Page (Keyword: "GLP Lab forum" - Difficulty 1/10) -->
+  <url>
+    <loc>https://www.blushandbreath.com/guide/glp-lab-forum-france</loc>
+    <lastmod>2025-12-05T14:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- CLUSTER: GLP-1 Supplement Guide (Keyword: "Complément alimentaire GLP-1" - Difficulty 2/10) -->
+  <url>
+    <loc>https://www.blushandbreath.com/guide/complement-alimentaire-glp-1-guide</loc>
+    <lastmod>2025-12-05T14:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- CLUSTER: Arnaque Investigation (Keyword: "GLP Lab arnaque" - Difficulty 3/10) -->
+  <url>
+    <loc>https://www.blushandbreath.com/guide/glp-lab-arnaque-enquete</loc>
+    <lastmod>2025-12-05T14:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>

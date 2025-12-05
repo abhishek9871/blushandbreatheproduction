@@ -25,8 +25,12 @@ const BERBERINE_GUIDE_SLUGS = [
 ];
 
 // High-Ticket Seller Pages - Isolated sitemap for priority crawling
+// GLP Lab France Content Cluster (Tier 1 Keywords - Difficulty 1-3/10)
 const SELLER_PAGE_SLUGS = [
-  'glp-lab-avis-france',
+  'glp-lab-avis-france',           // Main pillar - "GLP Lab avis" (2/10)
+  'glp-lab-forum-france',          // Cluster - "GLP Lab forum" (1/10)
+  'complement-alimentaire-glp-1-guide', // Cluster - "Complément alimentaire GLP-1" (2/10)
+  'glp-lab-arnaque-enquete',       // Cluster - "GLP Lab arnaque" (3/10)
 ];
 
 const PRIORITY_BUY_SLUGS = [
@@ -77,6 +81,9 @@ module.exports = {
     '/guide/berberine-ervaringen-2025',
     // High-Ticket Seller Pages - excluded (in sitemap-sellers.xml)
     '/guide/glp-lab-avis-france',
+    '/guide/glp-lab-forum-france',
+    '/guide/complement-alimentaire-glp-1-guide',
+    '/guide/glp-lab-arnaque-enquete',
   ],
   
   // Configure robots.txt

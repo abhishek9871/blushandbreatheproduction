@@ -57,3 +57,6 @@ export { default as FAQAccordion } from './FAQAccordion';
 export { default as TableOfContents } from './TableOfContents';
 export { default as IngredientsTable } from './IngredientsTable';
 export { default as RelatedPagesSection } from './RelatedPagesSection';
+
+// Performance Optimization Components
+export { default as YouTubeFacade, processYouTubeEmbedsAlt } from './common/YouTubeFacade';

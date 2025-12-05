@@ -2905,51 +2905,75 @@
       ],
       "citations": [
         {
+          "title": "β-Hydroxybutyrate Reduces Body Weight by Modulating Fatty Acid Metabolism",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40507875/",
+          "source": "PubMed - Peer-reviewed Study",
+          "year": "2024"
+        },
+        {
+          "title": "Daily Intake of D-β-Hydroxybutyric Acid Reduces Body Fat: Randomized Controlled Study",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37121721/",
+          "source": "PubMed - Clinical Trial (UMIN000045322)",
+          "year": "2023"
+        },
+        {
+          "title": "Effect of Exogenous Ketones as Adjunct to Low-Calorie Diet on Body Composition",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41305632/",
+          "source": "PubMed - Randomized Controlled Trial",
+          "year": "2024"
+        },
+        {
+          "title": "β-Hydroxybutyrate: A Signaling Metabolite",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6640868/",
+          "source": "Annual Review of Nutrition (NIH/PMC)",
+          "year": "2019"
+        },
+        {
           "title": "Efficacy of Berberine in Patients with Type 2 Diabetes",
-          "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2410097/",
-          "source": "NIH / PubMed",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2410097/",
+          "source": "Metabolism Journal (NIH/PMC)",
           "year": "2008"
         },
         {
-          "title": "Ketone Bodies as Metabolic Fuel: Utilization and Effects",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/28641031/",
-          "source": "Journal of Physiology (Stubbs et al.)",
-          "year": "2017"
+          "title": "Berberine and Health Outcomes: An Umbrella Review of Meta-Analyses",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36999891/",
+          "source": "Phytotherapy Research - Systematic Review",
+          "year": "2023"
         },
         {
-          "title": "Exogenous Ketone Supplements and Satiety",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/32302500/",
-          "source": "Obesity Journal (Clarke et al.)",
-          "year": "2012"
+          "title": "The Effect of Berberine on Weight Loss to Prevent Obesity: Systematic Review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32353823/",
+          "source": "Biomedicine & Pharmacotherapy",
+          "year": "2020"
         },
         {
-          "title": "Magnesium and Energy Metabolism",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/29460225/",
-          "source": "Nutrients (Rosanoff)",
-          "year": "2017"
+          "title": "Effects of GLP-1 on Appetite and Weight",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4119845/",
+          "source": "Reviews in Endocrine & Metabolic Disorders (NIH/PMC)",
+          "year": "2014"
         },
         {
-          "title": "Calcium and Body Weight Meta-Analysis",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/18324344/",
-          "source": "Nutrition Reviews (Zemel)",
-          "year": "2008"
+          "title": "Glucagon-Like Peptide 1 and Appetite Regulation",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3594872/",
+          "source": "International Journal of Obesity (NIH/PMC)",
+          "year": "2013"
         },
         {
-          "title": "Analogues du GLP-1 et obésité : mesures de sécurisation",
+          "title": "Analogues du GLP-1 et obésité : mesures de sécurisation en France",
           "url": "https://ansm.sante.fr/actualites/analogues-du-glp-1-et-obesite-nous-prenons-des-mesures-pour-securiser-leur-utilisation-en-france",
           "source": "ANSM (Agence Nationale de Sécurité du Médicament)",
           "year": "2024"
         },
         {
-          "title": "Morosil, berbérine, psyllium : alternatives à l'Ozempic",
+          "title": "Morosil, berbérine, psyllium : que valent les alternatives à l'Ozempic ?",
           "url": "https://www.quechoisir.org/actualite-morosil-berberine-psyllium-que-valent-les-alternatives-a-l-ozempic-promues-sur-les-reseaux-sociaux-n165264/",
-          "source": "UFC-Que Choisir",
+          "source": "UFC-Que Choisir (Association de consommateurs)",
           "year": "2025"
         },
         {
-          "title": "EFSA Health Claims on Magnesium (ID 2711)",
+          "title": "Scientific Opinion on Health Claims: Magnesium and Energy Metabolism (ID 2711)",
           "url": "https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2010.1807",
-          "source": "European Food Safety Authority",
+          "source": "EFSA (European Food Safety Authority)",
           "year": "2010"
         }
       ],
@@ -3034,16 +3058,76 @@
       ],
       "citations": [
         {
-          "title": "Ketone Bodies as Metabolic Fuel: Utilization and Effects",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/28641031/",
-          "source": "Journal of Physiology",
-          "year": "2017"
+          "title": "β-Hydroxybutyrate Reduces Body Weight by Modulating Fatty Acid Metabolism",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40507875/",
+          "source": "PubMed - Peer-reviewed Study",
+          "year": "2024"
         },
         {
-          "title": "Morosil, berbérine, psyllium : alternatives à l'Ozempic",
+          "title": "Daily Intake of D-β-Hydroxybutyric Acid Reduces Body Fat: Randomized Controlled Study",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37121721/",
+          "source": "PubMed - Clinical Trial (UMIN000045322)",
+          "year": "2023"
+        },
+        {
+          "title": "Effect of Exogenous Ketones as Adjunct to Low-Calorie Diet on Body Composition",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41305632/",
+          "source": "PubMed - Randomized Controlled Trial",
+          "year": "2024"
+        },
+        {
+          "title": "β-Hydroxybutyrate: A Signaling Metabolite",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6640868/",
+          "source": "Annual Review of Nutrition (NIH/PMC)",
+          "year": "2019"
+        },
+        {
+          "title": "Efficacy of Berberine in Patients with Type 2 Diabetes",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2410097/",
+          "source": "Metabolism Journal (NIH/PMC)",
+          "year": "2008"
+        },
+        {
+          "title": "Berberine and Health Outcomes: An Umbrella Review of Meta-Analyses",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36999891/",
+          "source": "Phytotherapy Research - Systematic Review",
+          "year": "2023"
+        },
+        {
+          "title": "The Effect of Berberine on Weight Loss to Prevent Obesity: Systematic Review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32353823/",
+          "source": "Biomedicine & Pharmacotherapy",
+          "year": "2020"
+        },
+        {
+          "title": "Effects of GLP-1 on Appetite and Weight",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4119845/",
+          "source": "Reviews in Endocrine & Metabolic Disorders (NIH/PMC)",
+          "year": "2014"
+        },
+        {
+          "title": "Glucagon-Like Peptide 1 and Appetite Regulation",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3594872/",
+          "source": "International Journal of Obesity (NIH/PMC)",
+          "year": "2013"
+        },
+        {
+          "title": "Analogues du GLP-1 et obésité : mesures de sécurisation en France",
+          "url": "https://ansm.sante.fr/actualites/analogues-du-glp-1-et-obesite-nous-prenons-des-mesures-pour-securiser-leur-utilisation-en-france",
+          "source": "ANSM (Agence Nationale de Sécurité du Médicament)",
+          "year": "2024"
+        },
+        {
+          "title": "Morosil, berbérine, psyllium : que valent les alternatives à l'Ozempic ?",
           "url": "https://www.quechoisir.org/actualite-morosil-berberine-psyllium-que-valent-les-alternatives-a-l-ozempic-promues-sur-les-reseaux-sociaux-n165264/",
-          "source": "UFC-Que Choisir",
+          "source": "UFC-Que Choisir (Association de consommateurs)",
           "year": "2025"
+        },
+        {
+          "title": "Scientific Opinion on Health Claims: Magnesium and Energy Metabolism (ID 2711)",
+          "url": "https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2010.1807",
+          "source": "EFSA (European Food Safety Authority)",
+          "year": "2010"
         }
       ],
       "relatedPages": [
@@ -3131,27 +3215,75 @@
       ],
       "citations": [
         {
-          "title": "GLP-1 receptor agonists and their clinical applications",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/32702490/",
-          "source": "Nature Reviews Drug Discovery",
-          "year": "2020"
-        },
-        {
-          "title": "Berberine and GLP-1 secretion in vitro",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/24923788/",
-          "source": "Journal of Ethnopharmacology",
-          "year": "2014"
-        },
-        {
-          "title": "Analogues du GLP-1 et obésité : mesures de sécurisation",
-          "url": "https://ansm.sante.fr/actualites/analogues-du-glp-1-et-obesite-nous-prenons-des-mesures-pour-securiser-leur-utilisation-en-france",
-          "source": "ANSM",
+          "title": "β-Hydroxybutyrate Reduces Body Weight by Modulating Fatty Acid Metabolism",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40507875/",
+          "source": "PubMed - Peer-reviewed Study",
           "year": "2024"
         },
         {
-          "title": "EFSA Health Claims on Chromium",
-          "url": "https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2010.1732",
-          "source": "EFSA Journal",
+          "title": "Daily Intake of D-β-Hydroxybutyric Acid Reduces Body Fat: Randomized Controlled Study",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37121721/",
+          "source": "PubMed - Clinical Trial (UMIN000045322)",
+          "year": "2023"
+        },
+        {
+          "title": "Effect of Exogenous Ketones as Adjunct to Low-Calorie Diet on Body Composition",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41305632/",
+          "source": "PubMed - Randomized Controlled Trial",
+          "year": "2024"
+        },
+        {
+          "title": "β-Hydroxybutyrate: A Signaling Metabolite",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6640868/",
+          "source": "Annual Review of Nutrition (NIH/PMC)",
+          "year": "2019"
+        },
+        {
+          "title": "Efficacy of Berberine in Patients with Type 2 Diabetes",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2410097/",
+          "source": "Metabolism Journal (NIH/PMC)",
+          "year": "2008"
+        },
+        {
+          "title": "Berberine and Health Outcomes: An Umbrella Review of Meta-Analyses",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36999891/",
+          "source": "Phytotherapy Research - Systematic Review",
+          "year": "2023"
+        },
+        {
+          "title": "The Effect of Berberine on Weight Loss to Prevent Obesity: Systematic Review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32353823/",
+          "source": "Biomedicine & Pharmacotherapy",
+          "year": "2020"
+        },
+        {
+          "title": "Effects of GLP-1 on Appetite and Weight",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4119845/",
+          "source": "Reviews in Endocrine & Metabolic Disorders (NIH/PMC)",
+          "year": "2014"
+        },
+        {
+          "title": "Glucagon-Like Peptide 1 and Appetite Regulation",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3594872/",
+          "source": "International Journal of Obesity (NIH/PMC)",
+          "year": "2013"
+        },
+        {
+          "title": "Analogues du GLP-1 et obésité : mesures de sécurisation en France",
+          "url": "https://ansm.sante.fr/actualites/analogues-du-glp-1-et-obesite-nous-prenons-des-mesures-pour-securiser-leur-utilisation-en-france",
+          "source": "ANSM (Agence Nationale de Sécurité du Médicament)",
+          "year": "2024"
+        },
+        {
+          "title": "Morosil, berbérine, psyllium : que valent les alternatives à l'Ozempic ?",
+          "url": "https://www.quechoisir.org/actualite-morosil-berberine-psyllium-que-valent-les-alternatives-a-l-ozempic-promues-sur-les-reseaux-sociaux-n165264/",
+          "source": "UFC-Que Choisir (Association de consommateurs)",
+          "year": "2025"
+        },
+        {
+          "title": "Scientific Opinion on Health Claims: Magnesium and Energy Metabolism (ID 2711)",
+          "url": "https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2010.1807",
+          "source": "EFSA (European Food Safety Authority)",
           "year": "2010"
         }
       ],
@@ -3246,22 +3378,76 @@
       ],
       "citations": [
         {
-          "title": "Analogues du GLP-1 et obésité : mesures de sécurisation",
-          "url": "https://ansm.sante.fr/actualites/analogues-du-glp-1-et-obesite-nous-prenons-des-mesures-pour-securiser-leur-utilisation-en-france",
-          "source": "ANSM",
+          "title": "β-Hydroxybutyrate Reduces Body Weight by Modulating Fatty Acid Metabolism",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40507875/",
+          "source": "PubMed - Peer-reviewed Study",
           "year": "2024"
         },
         {
-          "title": "Morosil, berbérine, psyllium : alternatives à l'Ozempic",
+          "title": "Daily Intake of D-β-Hydroxybutyric Acid Reduces Body Fat: Randomized Controlled Study",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37121721/",
+          "source": "PubMed - Clinical Trial (UMIN000045322)",
+          "year": "2023"
+        },
+        {
+          "title": "Effect of Exogenous Ketones as Adjunct to Low-Calorie Diet on Body Composition",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41305632/",
+          "source": "PubMed - Randomized Controlled Trial",
+          "year": "2024"
+        },
+        {
+          "title": "β-Hydroxybutyrate: A Signaling Metabolite",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6640868/",
+          "source": "Annual Review of Nutrition (NIH/PMC)",
+          "year": "2019"
+        },
+        {
+          "title": "Efficacy of Berberine in Patients with Type 2 Diabetes",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2410097/",
+          "source": "Metabolism Journal (NIH/PMC)",
+          "year": "2008"
+        },
+        {
+          "title": "Berberine and Health Outcomes: An Umbrella Review of Meta-Analyses",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36999891/",
+          "source": "Phytotherapy Research - Systematic Review",
+          "year": "2023"
+        },
+        {
+          "title": "The Effect of Berberine on Weight Loss to Prevent Obesity: Systematic Review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32353823/",
+          "source": "Biomedicine & Pharmacotherapy",
+          "year": "2020"
+        },
+        {
+          "title": "Effects of GLP-1 on Appetite and Weight",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4119845/",
+          "source": "Reviews in Endocrine & Metabolic Disorders (NIH/PMC)",
+          "year": "2014"
+        },
+        {
+          "title": "Glucagon-Like Peptide 1 and Appetite Regulation",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3594872/",
+          "source": "International Journal of Obesity (NIH/PMC)",
+          "year": "2013"
+        },
+        {
+          "title": "Analogues du GLP-1 et obésité : mesures de sécurisation en France",
+          "url": "https://ansm.sante.fr/actualites/analogues-du-glp-1-et-obesite-nous-prenons-des-mesures-pour-securiser-leur-utilisation-en-france",
+          "source": "ANSM (Agence Nationale de Sécurité du Médicament)",
+          "year": "2024"
+        },
+        {
+          "title": "Morosil, berbérine, psyllium : que valent les alternatives à l'Ozempic ?",
           "url": "https://www.quechoisir.org/actualite-morosil-berberine-psyllium-que-valent-les-alternatives-a-l-ozempic-promues-sur-les-reseaux-sociaux-n165264/",
-          "source": "UFC-Que Choisir",
+          "source": "UFC-Que Choisir (Association de consommateurs)",
           "year": "2025"
         },
         {
-          "title": "Ketone Bodies as Metabolic Fuel",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/28641031/",
-          "source": "Journal of Physiology",
-          "year": "2017"
+          "title": "Scientific Opinion on Health Claims: Magnesium and Energy Metabolism (ID 2711)",
+          "url": "https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2010.1807",
+          "source": "EFSA (European Food Safety Authority)",
+          "year": "2010"
         }
       ],
       "relatedPages": [

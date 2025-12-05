@@ -8,7 +8,7 @@
  * Example: /guide/banned-pre-workouts-2025, /guide/dmaa-drug-testing-guide
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -17,6 +17,7 @@ import {
   FAQAccordion,
   TableOfContents,
   RelatedPagesSection,
+  processYouTubeEmbedsAlt,
 } from '@/components';
 import { getContentHubArticleBySlug, getContentHubArticleSlugs } from '@/lib/data';
 import type { ContentHubArticle } from '@/types';
@@ -42,9 +43,10 @@ const frenchUI = {
     tableOfContents: 'Table des Matières',
   },
   cta: {
-    title: 'Vous Cherchez des Alternatives Sûres ?',
-    description: 'Découvrez notre guide complet des compléments alimentaires légaux et conformes aux normes européennes.',
-    button: 'Voir les Suppléments Sûrs',
+    title: '🎯 Prêt à Transformer Votre Silhouette ?',
+    description: 'Rejoignez les 50 000+ Français qui ont découvert cette alternative naturelle à l\'Ozempic. Offre spéciale -50% disponible uniquement via le site officiel.',
+    button: '👉 Découvrir GLP Lab (-50%)',
+    badge: '🔥 OFFRE LIMITÉE',
   },
   footer: {
     explore: 'Explorer',
@@ -116,6 +118,21 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
 
   // Build TOC items from sections
   const tocItems = article.sections.map(s => ({ id: s.id, title: s.title }));
+
+  // Process article content to lazy-load YouTube embeds
+  // This replaces <iframe> embeds with clickable thumbnail facades
+  const processedIntroduction = useMemo(() => 
+    processYouTubeEmbedsAlt(article.introduction), 
+    [article.introduction]
+  );
+  
+  const processedSections = useMemo(() => 
+    article.sections.map(section => ({
+      ...section,
+      content: processYouTubeEmbedsAlt(section.content),
+    })),
+    [article.sections]
+  );
 
   return (
     <>
@@ -230,13 +247,13 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
                 prose-headings:text-text-light dark:prose-headings:text-text-dark
                 prose-strong:text-text-light dark:prose-strong:text-text-dark
                 prose-a:text-primary"
-              dangerouslySetInnerHTML={{ __html: article.introduction }}
+              dangerouslySetInnerHTML={{ __html: processedIntroduction }}
             />
           </section>
 
           {/* Article Sections */}
           <div className="guide-sections">
-            {article.sections.map((section) => (
+            {processedSections.map((section) => (
               <section 
                 key={section.id} 
                 id={section.id}
@@ -316,22 +333,60 @@ export default function GuidePage({ article, error, formattedDate }: GuidePagePr
             </section>
           )}
 
-          {/* CTA Section */}
-          <section className="mb-8 p-6 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20">
-            <h3 className="text-lg font-semibold text-text-light dark:text-text-dark mb-2">
-              {article.locale === 'fr' ? frenchUI.cta.title : 'Looking for Safe Alternatives?'}
-            </h3>
-            <p className="text-text-subtle-light dark:text-text-subtle-dark mb-4">
-              {article.locale === 'fr' ? frenchUI.cta.description : 'Explore our complete guide to legal, FDA-compliant pre-workout ingredients and supplements.'}
-            </p>
-            <Link
-              href="/health"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              <span className="material-symbols-outlined">verified_user</span>
-              {article.locale === 'fr' ? frenchUI.cta.button : 'View Safe Supplements'}
-            </Link>
-          </section>
+          {/* Affiliate CTA Section - Compelling conversion-focused design */}
+          {article.locale === 'fr' && (
+            <section className="mb-8 p-6 sm:p-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-900/30 dark:via-emerald-900/20 dark:to-teal-900/20 rounded-2xl border-2 border-green-200 dark:border-green-700 shadow-lg relative overflow-hidden">
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/30 dark:bg-green-700/20 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-200/30 dark:bg-emerald-700/20 rounded-full translate-y-1/2 -translate-x-1/2" />
+              
+              <div className="relative z-10">
+                {/* Limited offer badge */}
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full mb-4 animate-pulse">
+                  <span>🔥</span>
+                  <span>OFFRE LIMITÉE -50%</span>
+                </div>
+                
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  🎯 Prêt à Transformer Votre Silhouette ?
+                </h3>
+                
+                <p className="text-gray-700 dark:text-gray-300 mb-4 text-base sm:text-lg">
+                  Rejoignez les <strong className="text-green-600 dark:text-green-400">50 000+ Français</strong> qui ont découvert cette alternative naturelle à l&apos;Ozempic.
+                </p>
+                
+                {/* Benefits list */}
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                    <span className="text-green-500">✓</span>
+                    <span><strong>49€/mois</strong> au lieu de 300€ (Ozempic)</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                    <span className="text-green-500">✓</span>
+                    <span>Livraison <strong>gratuite 48-72h</strong> depuis les Pays-Bas</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                    <span className="text-green-500">✓</span>
+                    <span>Garantie <strong>satisfait ou remboursé 30 jours</strong></span>
+                  </li>
+                </ul>
+                
+                <a
+                  href="https://tl-track.com/tracker/vDdk/?sub_id=glp_cluster_fr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+                >
+                  <span>👉 Découvrir GLP Lab (-50%)</span>
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </a>
+                
+                <p className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center sm:text-left">
+                  ⚠️ Attention aux contrefaçons : commandez uniquement sur le site officiel
+                </p>
+              </div>
+            </section>
+          )}
         </article>
       </main>
     </>

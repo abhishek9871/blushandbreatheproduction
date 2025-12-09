@@ -2388,3 +2388,68 @@ const SELLER_PAGE_SLUGS = ['glp-lab-avis-france'];
 ---
 
 *Last updated: December 4, 2025 (GLP Lab High-Ticket Seller Page - France Market, Complete Sitemap Architecture with 4 Sitemaps)*
+
+---
+
+## Affiliate Traffic Engine (Added Dec 9, 2025)
+
+### What We Built
+A **Programmatic SEO + High-Commission Affiliate** system designed to generate $20k/month through:
+1. **Next.js ISR Comparison Pages** - Auto-generating 500+ product comparison pages
+2. **BlushScore™ Engine** - AI sentiment analysis widget for unique content value
+3. **API Proxy** - Cloudflare Worker to normalize Rakuten/PartnerStack product data
+
+### Why We Built It
+- **Problem**: Traditional affiliate SEO takes 6+ months to rank
+- **Solution**: Programmatic SEO (ISR) + GEO (AI search optimization) + Parasite SEO (LinkedIn/Medium)
+- **Goal**: $20,000/month commission revenue within 30 days
+
+### How It Works
+
+#### Frontend (Next.js)
+| File | Purpose |
+|------|---------|
+| `pages/compare/[slug].tsx` | Dynamic comparison page template (ISR, 1hr revalidation) |
+| `components/Affiliate/BlushScoreWidget.tsx` | AI sentiment score visualizer |
+| `utils/affiliate-data.ts` | Mock product data (SaaS + Beauty) |
+
+#### Backend (Cloudflare Workers)
+| File | Purpose |
+|------|---------|
+| `cloudflare-worker/src/proxy/product-data.ts` | API aggregator for Rakuten/PartnerStack |
+| `wrangler.backend.toml` | Added `PARTNERSTACK_API_KEY`, `RAKUTEN_TOKEN` vars |
+
+### Live Comparison Pages
+```
+https://www.blushandbreath.com/compare/socialbee-vs-hootsuite
+https://www.blushandbreath.com/compare/socialbee-vs-synthflow
+https://www.blushandbreath.com/compare/dyson-airwrap-vs-shark-flexstyle
+```
+See full list: `docs/affiliate-urls.md`
+
+### Deployment Commands
+```bash
+# Frontend (Vercel)
+npx vercel --prod
+
+# Backend (Cloudflare)
+npx wrangler deploy --config wrangler.backend.toml --env ""
+
+# Add API Keys (secrets)
+npx wrangler secret put RAKUTEN_TOKEN
+npx wrangler secret put PARTNERSTACK_API_KEY
+```
+
+### Security Updates
+- **Next.js upgraded**: `16.0.4` → `16.0.7` (patched CVE-2025-66478 RCE vulnerability)
+
+### Next Steps
+1. Add real API keys via `wrangler secret put`
+2. Expand comparison pages (add more slugs to `getStaticPaths`)
+3. Execute Parasite SEO strategy (LinkedIn/Medium articles linking to hub pages)
+4. Monitor Google Search Console for `/compare/` page indexing
+
+---
+
+*Last updated: December 9, 2025 (Affiliate Traffic Engine - Programmatic SEO + ISR + BlushScore)*
+

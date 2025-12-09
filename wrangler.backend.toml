@@ -57,6 +57,9 @@ tag = "v1"
 new_sqlite_classes = ["AffiliateCounter"]
 
 [vars]
+ALLOWED_HOSTS = "pubmed.ncbi.nlm.nih.gov, druginfo.nlm.nih.gov, api.fda.gov, www.1mg.com, pharmeasy.in, netmeds.com"
+PARTNERSTACK_API_KEY = ""
+RAKUTEN_TOKEN = ""
 OBF_BASE_URL = "https://world.openbeautyfacts.org"
 MERGED_TTL_SECONDS = "14400"
 # EBAY_CLIENT_ID and EBAY_CLIENT_SECRET set via: wrangler secret put

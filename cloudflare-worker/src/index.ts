@@ -1,6 +1,8 @@
+/// <reference types="@cloudflare/workers-types" />
 import { XMLParser } from 'fast-xml-parser';
 import { Readability } from '@mozilla/readability';
 import { parseHTML } from 'linkedom';
+import { handleProductRequest } from './proxy/product-data';
 
 export interface Env {
   ALLOWED_HOSTS?: string;
@@ -15,33 +17,33 @@ function extractOpenGraphMetadata(html: string) {
 
   // Extract OG title
   const titleMatch = html.match(/<meta[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["'][^>]*>/i) ||
-                     html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:title["'][^>]*>/i);
+    html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:title["'][^>]*>/i);
   if (titleMatch) og.ogTitle = titleMatch[1];
 
   // Extract OG description
   const descMatch = html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["'][^>]*>/i) ||
-                    html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:description["'][^>]*>/i);
+    html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:description["'][^>]*>/i);
   if (descMatch) og.ogDescription = descMatch[1];
 
   // Extract OG image
   const imageMatch = html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["'][^>]*>/i) ||
-                     html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["'][^>]*>/i);
+    html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["'][^>]*>/i);
   if (imageMatch) og.ogImage = [{ url: imageMatch[1] }];
 
   // Extract OG site name
   const siteMatch = html.match(/<meta[^>]*property=["']og:site_name["'][^>]*content=["']([^"']+)["'][^>]*>/i) ||
-                    html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:site_name["'][^>]*>/i);
+    html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:site_name["'][^>]*>/i);
   if (siteMatch) og.ogSiteName = siteMatch[1];
 
   // Extract article author
   const authorMatch = html.match(/<meta[^>]*property=["']article:author["'][^>]*content=["']([^"']+)["'][^>]*>/i) ||
-                      html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']article:author["'][^>]*>/i) ||
-                      html.match(/<meta[^>]*name=["']author["'][^>]*content=["']([^"']+)["'][^>]*>/i);
+    html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']article:author["'][^>]*>/i) ||
+    html.match(/<meta[^>]*name=["']author["'][^>]*content=["']([^"']+)["'][^>]*>/i);
   if (authorMatch) og.ogArticleAuthor = authorMatch[1];
 
   // Extract article published time
   const publishMatch = html.match(/<meta[^>]*property=["']article:published_time["'][^>]*content=["']([^"']+)["'][^>]*>/i) ||
-                       html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']article:published_time["'][^>]*>/i);
+    html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']article:published_time["'][^>]*>/i);
   if (publishMatch) og.ogArticlePublishedTime = publishMatch[1];
 
   return og;
@@ -92,59 +94,59 @@ function getTitleFromMarkdown(md: string | undefined) {
 
 function cleanMarkdown(md: string) {
   let cleaned = md;
-  
+
   // Remove image URL patterns that appear as text like ![Image 19: description](url)
   cleaned = cleaned.replace(/!\[Image \d+:[^\]]*\]\([^)]+\)/g, '');
-  
+
   // Remove standalone image URLs in parentheses
   cleaned = cleaned.replace(/\(https?:\/\/[^\s)]+\.(jpg|jpeg|png|gif|webp|svg)[^)]*\)/gi, '');
-  
+
   // Remove common unwanted patterns
   cleaned = cleaned.replace(/^(Sign in|Sign up|Log in|Log out|Subscribe|Newsletter|Trending|Related|Share this|Tweet|Follow us|Read more|Continue reading|Click here).*$/gim, '');
-  
+
   // Remove standalone bracketed text
   cleaned = cleaned.replace(/^\[.*?\]\s*$/gm, '');
-  
+
   // Remove excessive whitespace
   cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
   cleaned = cleaned.trim();
-  
+
   return cleaned;
 }
 
 function toHtml(md: string) {
   let html = md.replace(/\r\n/g, "\n");
-  
+
   // Headers
   html = html.replace(/^######\s+(.*)$/gm, '<h6>$1</h6>')
-             .replace(/^#####\s+(.*)$/gm, '<h5>$1</h5>')
-             .replace(/^####\s+(.*)$/gm, '<h4>$1</h4>')
-             .replace(/^###\s+(.*)$/gm, '<h3>$1</h3>')
-             .replace(/^##\s+(.*)$/gm, '<h2>$1</h2>')
-             .replace(/^#\s+(.*)$/gm, '<h1>$1</h1>');
-  
+    .replace(/^#####\s+(.*)$/gm, '<h5>$1</h5>')
+    .replace(/^####\s+(.*)$/gm, '<h4>$1</h4>')
+    .replace(/^###\s+(.*)$/gm, '<h3>$1</h3>')
+    .replace(/^##\s+(.*)$/gm, '<h2>$1</h2>')
+    .replace(/^#\s+(.*)$/gm, '<h1>$1</h1>');
+
   // Bold, italic, links
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-             .replace(/\*(.*?)\*/g, '<em>$1</em>')
-             .replace(/\[(.*?)\]\((https?:[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>');
-  
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/\[(.*?)\]\((https?:[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>');
+
   // Images
   html = html.replace(/!\[(.*?)\]\((https?:[^\s)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;height:auto;" />');
-  
+
   // Blockquotes
   html = html.replace(/^>\s+(.*)$/gm, '<blockquote>$1</blockquote>');
-  
+
   // Unordered lists
   html = html.replace(/^[*-]\s+(.*)$/gm, '<li>$1</li>');
   html = html.replace(/(<li>.*<\/li>\n?)+/g, (match) => `<ul>${match}</ul>`);
-  
+
   // Ordered lists
   html = html.replace(/^\d+\.\s+(.*)$/gm, '<li>$1</li>');
-  
+
   // Code blocks
   html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-  
+
   // Paragraphs
   html = html.split(/\n\s*\n/).map(p => {
     const trimmed = p.trim();
@@ -152,7 +154,7 @@ function toHtml(md: string) {
     if (/^<(h\d|ul|ol|blockquote|pre|img)/.test(trimmed)) return trimmed;
     return `<p>${trimmed}</p>`;
   }).filter(Boolean).join('\n');
-  
+
   return html;
 }
 
@@ -177,7 +179,7 @@ async function extractArticleWithReadability(targetUrl: string) {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       },
       cf: { cacheEverything: true, cacheTtl: 3600 },
-    });
+    } as RequestInit);
 
     if (!response.ok) {
       console.error(`Failed to fetch ${targetUrl}: ${response.status}`);
@@ -211,18 +213,18 @@ async function extractArticleWithReadability(targetUrl: string) {
     }
 
     // Step 4: Calculate reading time (average 200 words per minute)
-    const wordCount = article.textContent.split(/\s+/).length;
+    const wordCount = (article.textContent || '').split(/\s+/).length;
     const readingTime = Math.ceil(wordCount / 200);
 
     // Step 5: Extract first image from article if OG image not available
     let featuredImage = ogData.ogImage?.[0]?.url || '';
     if (!featuredImage) {
-      const imgMatch = article.content.match(/<img[^>]+src="([^">]+)"/);
+      const imgMatch = (article.content || '').match(/<img[^>]+src="([^">]+)"/);
       featuredImage = imgMatch ? imgMatch[1] : '';
     }
 
     // Step 6: Convert HTML content to Markdown for backward compatibility
-    const markdown = htmlToMarkdown(article.content);
+    const markdown = htmlToMarkdown(article.content || '');
 
     // Step 7: Return normalized article object
     return {
@@ -333,16 +335,16 @@ export default {
         const res = await fetch(feedUrl, {
           headers: { 'User-Agent': 'Mozilla/5.0 (compatible; HealthBeautyHub/1.0)' },
           cf: { cacheEverything: true, cacheTtl: 3600 },
-        });
+        } as RequestInit);
         if (!res.ok) return errorJSON(502, "Failed to fetch RSS feed");
-        
+
         const xmlText = await res.text();
         const parser = new XMLParser({
           ignoreAttributes: false,
           attributeNamePrefix: '@_',
         });
         const data = parser.parse(xmlText);
-        
+
         const items = data.rss?.channel?.item || data.feed?.entry || [];
         const articles = (Array.isArray(items) ? items : [items]).slice(0, 20).map((item: any) => ({
           title: item.title || '',
@@ -412,6 +414,11 @@ export default {
       }
 
       return okJSON(response, { 'X-Cache': 'MISS' });
+    }
+
+    // New API Proxy Route for Affiliate Data
+    if (url.pathname.startsWith("/api/proxy")) {
+      return handleProductRequest(request, env);
     }
 
     return errorJSON(404, "Not found");
